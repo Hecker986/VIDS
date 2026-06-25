@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\caption{Main Experiment Results (F1 / AUC)}
+\label{tab:main}
+\small
+\begin{tabular}{l|cc|cc|cc}
+\toprule
+\multirow{2}{*}{Model} & \multicolumn{2}{c|}{ROAD} & \multicolumn{2}{c|}{HCRL-CH} & \multicolumn{2}{c}{CrySyS} \\
+ & F1 & AUC & F1 & AUC & F1 & AUC \\
+\midrule
+CNN & 0.0897 & 0.7110 & 0.9930 & 0.9990 & 0.3533 & 0.7377 \\
+LSTM & 0.2697 & 0.9113 & 0.9966 & 0.9994 & 0.4643 & 0.7713 \\
+Transformer & 0.8562 & 0.9943 & 0.9986 & 1.0000 & \textbf{0.9110} & 0.9939 \\
+SCS-CAN w/o SSL & \textbf{0.9591} & 0.9902 & 0.9998 & 1.0000 & 0.7984 & 0.9869 \\
+SCS-CAN (Full) & 0.9361 & 0.9875 & \textbf{1.0000} & 1.0000 & 0.8319 & 0.9912 \\
+\bottomrule
+\end{tabular}
+\end{table}

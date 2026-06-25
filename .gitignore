@@ -1,0 +1,25 @@
+# Data (too large for git)
+data/processed/
+data/raw/
+data/cache/
+data/splits/
+
+# Model checkpoints
+checkpoints/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.eggs/
+*.egg-info/
+
+# Logs (keep structure but not content)
+logs/*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Notebook
+.ipynb_checkpoints/
