@@ -16,7 +16,19 @@ from cmf_can.utils.seed import set_seed
 
 
 def _to_device(batch: dict, device: torch.device) -> dict:
-    return {k: v.to(device, non_blocking=True) for k, v in batch.items()}
+    return {k: v.to(device, non_blocking=True) if torch.is_tensor(v) else v for k, v in batch.items()}
+
+
+def _model_logits(model: torch.nn.Module, batch: dict, return_aux: bool = False):
+    if return_aux:
+        try:
+            out = model(batch, return_aux=True)
+        except TypeError:
+            out = model(batch)
+        if isinstance(out, tuple):
+            return out
+        return out, {}
+    return model(batch)
 
 
 def _class_weights(dataset, device: torch.device) -> torch.Tensor | None:
@@ -113,11 +125,122 @@ def evaluate(model: torch.nn.Module, loader: DataLoader, device: torch.device) -
     scores: list[np.ndarray] = []
     for batch in loader:
         batch = _to_device(batch, device)
-        logits = model(batch)
+        logits = _model_logits(model, batch)
         prob = torch.softmax(logits, dim=1)[:, 1]
         labels.append(batch["label"].detach().cpu().numpy())
         scores.append(prob.detach().cpu().numpy())
     return np.concatenate(labels), np.concatenate(scores)
+
+
+@torch.no_grad()
+def prediction_dump(
+    model: torch.nn.Module,
+    loader: DataLoader,
+    device: torch.device,
+    dataset: str,
+    model_name: str,
+    threshold: float,
+    save_gate_weights: bool,
+) -> tuple[list[dict], list[dict]]:
+    model.eval()
+    pred_rows: list[dict] = []
+    gate_rows: list[dict] = []
+    setting = dataset
+    for batch in loader:
+        batch = _to_device(batch, device)
+        if save_gate_weights:
+            logits, aux = _model_logits(model, batch, return_aux=True)
+        else:
+            logits = _model_logits(model, batch)
+            aux = {}
+        prob = torch.softmax(logits, dim=1)[:, 1]
+        labels = batch["label"].detach().cpu().numpy().astype(int)
+        scores = prob.detach().cpu().numpy()
+        preds = (scores >= threshold).astype(int)
+        n = len(labels)
+        meta = {
+            "sample_id": batch.get("sample_id", ["NA"] * n),
+            "attack_type": batch.get("attack_type", ["NA"] * n),
+            "vehicle": batch.get("vehicle", ["NA"] * n),
+            "window_start": batch.get("window_start", ["NA"] * n),
+            "window_end": batch.get("window_end", ["NA"] * n),
+            "split": batch.get("split", ["test"] * n),
+        }
+        gates = {k: v.detach().cpu().numpy() for k, v in aux.items() if k.startswith("gate_")}
+        for i in range(n):
+            row = {
+                "sample_id": meta["sample_id"][i],
+                "dataset": dataset,
+                "setting": setting,
+                "model": model_name,
+                "label": int(labels[i]),
+                "prediction": int(preds[i]),
+                "score": float(scores[i]),
+                "attack_type": meta["attack_type"][i],
+                "vehicle": meta["vehicle"][i],
+                "window_start": meta["window_start"][i],
+                "window_end": meta["window_end"][i],
+                "split": meta["split"][i],
+            }
+            pred_rows.append(row)
+            if {"gate_frame", "gate_window", "gate_context"}.issubset(gates):
+                gate_rows.append(
+                    {
+                        **{k: row[k] for k in ["sample_id", "dataset", "setting", "model", "label", "prediction", "score", "attack_type", "vehicle"]},
+                        "gate_frame": float(gates["gate_frame"][i]),
+                        "gate_window": float(gates["gate_window"][i]),
+                        "gate_context": float(gates["gate_context"][i]),
+                    }
+                )
+    return pred_rows, gate_rows
+
+
+def write_prediction_outputs(root: Path, dataset: str, model_name: str, pred_rows: list[dict], gate_rows: list[dict]) -> None:
+    out_dir = root / "results/cmf_predictions"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    pred_path = out_dir / f"{dataset}_{model_name}_predictions.csv"
+    with pred_path.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=[
+                "sample_id",
+                "dataset",
+                "setting",
+                "model",
+                "label",
+                "prediction",
+                "score",
+                "attack_type",
+                "vehicle",
+                "window_start",
+                "window_end",
+                "split",
+            ],
+        )
+        writer.writeheader()
+        writer.writerows(pred_rows)
+    if gate_rows:
+        gate_path = out_dir / f"{dataset}_{model_name}_gate_weights.csv"
+        with gate_path.open("w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(
+                f,
+                fieldnames=[
+                    "sample_id",
+                    "dataset",
+                    "setting",
+                    "model",
+                    "label",
+                    "prediction",
+                    "score",
+                    "attack_type",
+                    "vehicle",
+                    "gate_frame",
+                    "gate_window",
+                    "gate_context",
+                ],
+            )
+            writer.writeheader()
+            writer.writerows(gate_rows)
 
 
 def run_training(
@@ -140,6 +263,10 @@ def run_training(
     class_weights_name: str = "balanced",
     supcon_weight: float = 0.0,
     supcon_temperature: float = 0.1,
+    eval_only: bool = False,
+    checkpoint: str | None = None,
+    save_predictions: bool = False,
+    save_gate_weights: bool = False,
 ) -> dict:
     set_seed(seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -177,49 +304,59 @@ def run_training(
     best_state = None
     best_f1 = -1.0
     best_t = 0.5
-    for epoch in range(1, epochs + 1):
-        model.train()
-        total_loss = 0.0
-        for batch in train_loader:
-            batch = _to_device(batch, device)
-            opt.zero_grad(set_to_none=True)
-            with torch.amp.autocast("cuda", enabled=device.type == "cuda"):
-                logits = model(batch)
-                loss = loss_fn(logits, batch["label"])
-                aux_logits = getattr(model, "last_aux_logits", None)
-                if aux_logits is not None and aux_loss_weight > 0:
-                    aux_indices = getattr(model, "active_aux_indices", range(len(aux_logits)))
-                    active_aux = [aux_logits[i] for i in aux_indices]
-                    loss = loss + aux_loss_weight * sum(loss_fn(aux, batch["label"]) for aux in active_aux) / len(active_aux)
-                embedding = getattr(model, "last_embedding", None)
-                if embedding is not None and supcon_weight > 0:
-                    loss = loss + supcon_weight * supervised_contrastive_loss(embedding, batch["label"], supcon_temperature)
-            scaler.scale(loss).backward()
-            torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
-            scaler.step(opt)
-            scaler.update()
-            total_loss += float(loss.item())
-        scheduler.step()
+    if eval_only:
+        ckpt = Path(checkpoint) if checkpoint else ckpt_dir / "best.pt"
+        if not ckpt.is_absolute():
+            ckpt = root / ckpt
+        model.load_state_dict(torch.load(ckpt, map_location=device))
         y_val, s_val = evaluate(model, val_loader, device)
-        threshold = best_threshold(y_val, s_val, metric="f1")
-        val_metrics = compute_metrics(y_val, s_val, threshold)
-        select_value, select_threshold = _selection_score(selection_metric, y_val, s_val, threshold)
-        print(
-            f"[CMF {dataset}/{model_name}] ep {epoch}/{epochs} "
-            f"loss={total_loss / max(len(train_loader), 1):.4f} "
-            f"val_f1={val_metrics['f1']:.4f} val_aupr={val_metrics['aupr']:.4f} "
-            f"select_{selection_metric}={select_value:.4f} thr={select_threshold:.4f}",
-            flush=True,
-        )
-        if select_value > best_f1:
-            best_f1 = select_value
-            best_t = select_threshold
-            best_state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
+        best_t = best_threshold(y_val, s_val, metric="f1")
+        best_f1, best_t = _selection_score(selection_metric, y_val, s_val, best_t)
+    else:
+        for epoch in range(1, epochs + 1):
+            model.train()
+            total_loss = 0.0
+            for batch in train_loader:
+                batch = _to_device(batch, device)
+                opt.zero_grad(set_to_none=True)
+                with torch.amp.autocast("cuda", enabled=device.type == "cuda"):
+                    logits = _model_logits(model, batch)
+                    loss = loss_fn(logits, batch["label"])
+                    aux_logits = getattr(model, "last_aux_logits", None)
+                    if aux_logits is not None and aux_loss_weight > 0:
+                        aux_indices = getattr(model, "active_aux_indices", range(len(aux_logits)))
+                        active_aux = [aux_logits[i] for i in aux_indices]
+                        loss = loss + aux_loss_weight * sum(loss_fn(aux, batch["label"]) for aux in active_aux) / len(active_aux)
+                    embedding = getattr(model, "last_embedding", None)
+                    if embedding is not None and supcon_weight > 0:
+                        loss = loss + supcon_weight * supervised_contrastive_loss(embedding, batch["label"], supcon_temperature)
+                scaler.scale(loss).backward()
+                torch.nn.utils.clip_grad_norm_(model.parameters(), 5.0)
+                scaler.step(opt)
+                scaler.update()
+                total_loss += float(loss.item())
+            scheduler.step()
+            y_val, s_val = evaluate(model, val_loader, device)
+            threshold = best_threshold(y_val, s_val, metric="f1")
+            val_metrics = compute_metrics(y_val, s_val, threshold)
+            select_value, select_threshold = _selection_score(selection_metric, y_val, s_val, threshold)
+            print(
+                f"[CMF {dataset}/{model_name}] ep {epoch}/{epochs} "
+                f"loss={total_loss / max(len(train_loader), 1):.4f} "
+                f"val_f1={val_metrics['f1']:.4f} val_aupr={val_metrics['aupr']:.4f} "
+                f"select_{selection_metric}={select_value:.4f} thr={select_threshold:.4f}",
+                flush=True,
+            )
+            if select_value > best_f1:
+                best_f1 = select_value
+                best_t = select_threshold
+                best_state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
 
-    if best_state is not None:
+    if best_state is not None and not eval_only:
         model.load_state_dict(best_state)
         torch.save(best_state, ckpt_dir / "best.pt")
-    torch.save(model.state_dict(), ckpt_dir / "last.pt")
+    if not eval_only:
+        torch.save(model.state_dict(), ckpt_dir / "last.pt")
 
     y_test, s_test = evaluate(model, test_loader, device)
     result = {
@@ -241,6 +378,9 @@ def run_training(
         **constrained_fpr_metrics(y_test, s_test),
     }
     print(f"[CMF {dataset}/{model_name}] test {result}", flush=True)
+    if save_predictions:
+        pred_rows, gate_rows = prediction_dump(model, test_loader, device, dataset, model_name, best_t, save_gate_weights)
+        write_prediction_outputs(root, dataset, model_name, pred_rows, gate_rows)
     if table:
         out = root / "results/cmf_tables" / table
         out.parent.mkdir(parents=True, exist_ok=True)

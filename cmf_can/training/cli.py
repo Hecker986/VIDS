@@ -26,6 +26,10 @@ def main() -> None:
     parser.add_argument("--class-weights", choices=["none", "balanced"], default="balanced")
     parser.add_argument("--supcon-weight", type=float, default=0.0)
     parser.add_argument("--supcon-temperature", type=float, default=0.1)
+    parser.add_argument("--eval-only", action="store_true")
+    parser.add_argument("--checkpoint", default="")
+    parser.add_argument("--save-predictions", "--save_predictions", action="store_true")
+    parser.add_argument("--save-gate-weights", "--save_gate_weights", action="store_true")
     parser.add_argument(
         "--selection-metric",
         choices=[
@@ -62,6 +66,10 @@ def main() -> None:
         class_weights_name=args.class_weights,
         supcon_weight=args.supcon_weight,
         supcon_temperature=args.supcon_temperature,
+        eval_only=args.eval_only,
+        checkpoint=args.checkpoint or None,
+        save_predictions=args.save_predictions,
+        save_gate_weights=args.save_gate_weights,
     )
 
 

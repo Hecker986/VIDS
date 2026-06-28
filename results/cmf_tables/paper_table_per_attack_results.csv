@@ -1,0 +1,13 @@
+Dataset,Model,attack_type,Precision,Recall,F1,count
+road,CMF-CAN,fuzzing,1.0,0.07352941176470588,0.13698630136986303,68
+road,CMF-CAN,malfunction,0.0,0.0,0.0,56
+road,CMF-CAN,masquerade,1.0,0.9008264462809917,0.9478260869565218,484
+road,CMF-CAN,spoof,1.0,0.631109022556391,0.77384039181792,2128
+road,Concat-Fusion,fuzzing,1.0,0.5882352941176471,0.7407407407407407,68
+road,Concat-Fusion,malfunction,0.0,0.0,0.0,56
+road,Concat-Fusion,masquerade,1.0,0.8801652892561983,0.9362637362637362,484
+road,Concat-Fusion,spoof,1.0,0.6179511278195489,0.7638687191402846,2128
+road,Transformer,fuzzing,1.0,1.0,1.0,68
+road,Transformer,malfunction,0.0,0.0,0.0,56
+road,Transformer,masquerade,1.0,0.9256198347107438,0.9613733905579399,484
+road,Transformer,spoof,1.0,0.6663533834586466,0.799774393683023,2128

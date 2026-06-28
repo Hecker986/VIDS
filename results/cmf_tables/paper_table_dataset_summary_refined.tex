@@ -1,0 +1,14 @@
+\begin{tabular}{llllllllll}
+\toprule
+Dataset & Usage & Split protocol & Vehicles & Attack types & Train / validation / test setting & Frames & Windows & Attack ratio & Notes \\
+\midrule
+road & main, few-label, ablation, efficiency & time/group split & 1.0000 & fuzzing, malfunction, masquerade, spoof & NA/NA/NA & 28244539.0000 & 282192.0000 & 0.0331 & NA \\
+ctt_test01 & main, few-label, generalization, ablation, low-FPR & set_01/test_01_known_vehicle_known_attack & 1.0000 & DoS-1, DoS-2, DoS-3, DoS-4, force-neutral-1, force-neutral-2, force-neutral-3, force-neutral-4 ... & 57620/48905/57022 & 16355810.0000 & 163547.0000 & 0.0069 & NA \\
+ctt_test02 & unknown vehicle, known attack & set_01/test_02_unknown_vehicle_known_attack & 1.0000 & DoS-1, DoS-2, DoS-3, DoS-4, force-neutral-1, force-neutral-2, force-neutral-3, force-neutral-4 ... & 57620/48905/64475 & 17101057.0000 & 171000.0000 & 0.0125 & NA \\
+ctt_test03 & known vehicle, unknown attack & set_01/test_03_known_vehicle_unknown_attack & 1.0000 & DoS-1, DoS-2, double-3, double-4, force-neutral-1, force-neutral-2, fuzzing-3, fuzzing-4 ... & 57620/48905/86347 & 19288415.0000 & 192872.0000 & 0.0036 & NA \\
+ctt_test04 & unknown vehicle, unknown attack & set_01/test_04_unknown_vehicle_unknown_attack & 1.0000 & DoS-1, DoS-2, double-3, double-4, force-neutral-1, force-neutral-2, fuzzing-3, fuzzing-4 ... & 57620/48905/132200 & 23873695.0000 & 238725.0000 & 0.0027 & NA \\
+crysys_family_mod_subset & optional external sanity/generalization & stratified non-overlapping windows after per-capture windowing & 26.0000 & add_decr_msg_mod, add_incr_msg_mod, const_msg_mod, double_msg_mod & 230970/76989/76992 & 38503318.0000 & 384951.0000 & 0.1712 & malicious frames are labeled from JSON attack start/end markers; benign captures are labeled normal \\
+hcrl_can_intrusion & sanity check & time/group split & 1.0000 & dos, fuzzy, impersonation & 27678/9224/9224 & 4613439.0000 & 46126.0000 & 0.4864 & attack files do not include per-frame labels; all frames in attack captures are marked anomalous \\
+car_hacking & sanity check & time/group split & 1.0000 & dos, fuzzy, gear, rpm & 105348/35114/35114 & 17558346.0000 & 175576.0000 & 0.1328 & CSV T flag is anomalous; R flag and normal_run_data are benign \\
+\bottomrule
+\end{tabular}

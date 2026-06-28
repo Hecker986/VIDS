@@ -1,0 +1,22 @@
+\begin{tabular}{lllll}
+\toprule
+Dataset & Variant & Description & F1 & Macro-F1 \\
+\midrule
+ROAD & Full & full CMF-CAN & 0.7894 & 0.8903 \\
+ROAD & -Win & without window statistics & 0.8089 & 0.9004 \\
+ROAD & -Ctx & without ID context & 0.8009 & 0.8962 \\
+ROAD & -XAttn & without cross-modal attention & 0.7859 & 0.8885 \\
+ROAD & -Gate & without gated fusion & 0.7987 & 0.8951 \\
+ROAD & Concat & concatenation fusion & 0.7886 & 0.8899 \\
+ROAD & Frame & frame-only & 0.8000 & 0.8958 \\
+ROAD & Stats & window statistics only & 0.2581 & 0.6092 \\
+CT&T KV-KA & Full & full CMF-CAN & 0.9688 & 0.9839 \\
+CT&T KV-KA & -Win & without window statistics & 0.9241 & 0.9608 \\
+CT&T KV-KA & -Ctx & without ID context & 0.7485 & 0.8707 \\
+CT&T KV-KA & -XAttn & without cross-modal attention & 0.9234 & 0.9605 \\
+CT&T KV-KA & -Gate & without gated fusion & 0.7285 & 0.8605 \\
+CT&T KV-KA & Concat & concatenation fusion & 0.8152 & 0.9049 \\
+CT&T KV-KA & Frame & frame-only & 0.9776 & 0.9884 \\
+CT&T KV-KA & Stats & window statistics only & 0.9420 & 0.9700 \\
+\bottomrule
+\end{tabular}

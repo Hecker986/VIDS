@@ -1,0 +1,18 @@
+\begin{tabular}{llllllll}
+\toprule
+Setting & Model & F1 & Macro-F1 & AUROC & AUPR & relative_improvement_vs_transformer & relative_improvement_vs_concat \\
+\midrule
+KV-KA & Transformer & 0.9641 & 0.9814 & 0.9969 & 0.9844 & 0.0000 & 0.0846 \\
+KV-KA & Concat-Fusion & 0.8152 & 0.9049 & 0.9876 & 0.9755 & -0.0780 & 0.0000 \\
+KV-KA & CMF-CAN & 0.9688 & 0.9839 & 0.9907 & 0.9781 & 0.0025 & 0.0873 \\
+UV-KA & Transformer & 0.1600 & 0.0800 & 0.1152 & 0.0489 & 0.0000 & 0.0000 \\
+UV-KA & Concat-Fusion & 0.1600 & 0.0800 & 0.9387 & 0.8292 & 0.0000 & 0.0000 \\
+UV-KA & CMF-CAN & 0.1600 & 0.0800 & 0.9684 & 0.9325 & 0.0000 & 0.0000 \\
+KV-UA & Transformer & 0.0263 & 0.4907 & 0.6188 & 0.2708 & 0.0000 & -0.0295 \\
+KV-UA & Concat-Fusion & 0.0554 & 0.5056 & 0.7924 & 0.3281 & 0.0304 & 0.0000 \\
+KV-UA & CMF-CAN & 0.0847 & 0.5206 & 0.7792 & 0.3044 & 0.0609 & 0.0296 \\
+UV-UA & Transformer & 0.0224 & 0.0263 & 0.6453 & 0.1733 & 0.0000 & -0.8026 \\
+UV-UA & Concat-Fusion & 0.0238 & 0.1331 & 0.7111 & 0.2231 & 4.0651 & 0.0000 \\
+UV-UA & CMF-CAN & 0.0282 & 0.3101 & 0.6846 & 0.1656 & 10.8025 & 1.3302 \\
+\bottomrule
+\end{tabular}

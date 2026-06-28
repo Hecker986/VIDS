@@ -1,0 +1,9 @@
+model,short_label,description
+cmf_can,Full,full CMF-CAN
+wo_stats,-Win,without window statistics
+wo_context,-Ctx,without ID context
+wo_xattn,-XAttn,without cross-modal attention
+wo_gate,-Gate,without gated fusion
+concat_fusion,Concat,concatenation fusion
+frame_only,Frame,frame-only
+stats_only,Stats,window statistics only

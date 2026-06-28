@@ -1,35 +1,22 @@
 # Missing Inputs Report
 
-This report is generated from the current VIDS workspace and only records unavailable evidence. No unsupported figures were generated.
+No fake figures were generated. The following missing or partial inputs remain:
 
-## Missing or Partial Inputs
-- paper_fig7_recall_at_fpr: FPR budget 5e-3 unavailable in current CSVs; prediction scores are required.
-- paper_fig7_recall_at_fpr: FPR budget 1e-2 unavailable in current CSVs; prediction scores are required.
-- PR/ROC curves: not generated because it requires per-sample score/probability and label.
-- Per-attack recall/F1: not generated because it requires per-sample prediction, label and attack_type.
-- Gate weights by attack/setting: not generated because it requires saved gate_frame, gate_window and gate_context.
-- UMAP/t-SNE representation: not generated because it requires embedding dump.
-- Failure case analysis: not generated because it requires per-sample prediction.
-- Calibration curve/reliability diagram: bin-level calibration data is missing; generated calibration summary table only.
-- OOD score distribution: per-sample OOD scores are missing; generated summary bar/table only.
-
-## Required Fields for Full Appendix Coverage
-- sample_id
-- dataset
-- setting
-- model
-- label
-- pred
-- score
-- attack_type
-- vehicle
-- gate_frame
-- gate_window
-- gate_context
-- embedding_path
-
-## Suggested Script Changes
-- Add an evaluation export option in `cmf_can/training/cli.py` or `cmf_can/training/train.py` to save per-window predictions with the fields above.
-- Add a CMF-CAN forward/evaluation hook in `cmf_can/models/cmf.py` / evaluation code to persist gate weights per sample.
-- Add an embedding dump option before the classifier head for UMAP/t-SNE and failure-case analysis.
-- Save calibration bin statistics if reliability diagrams are required.
+- Missing prediction dump: ctt_test02_transformer_predictions.csv
+- Missing prediction dump: ctt_test02_concat_fusion_predictions.csv
+- Missing prediction dump: ctt_test02_cmf_can_predictions.csv
+- Missing prediction dump: ctt_test03_transformer_predictions.csv
+- Missing prediction dump: ctt_test03_concat_fusion_predictions.csv
+- Missing prediction dump: ctt_test03_cmf_can_predictions.csv
+- Missing prediction dump: ctt_test04_transformer_predictions.csv
+- Missing prediction dump: ctt_test04_concat_fusion_predictions.csv
+- Missing prediction dump: ctt_test04_cmf_can_predictions.csv
+- Missing gate weight dump: ctt_test02_cmf_can_gate_weights.csv
+- Missing gate weight dump: ctt_test03_cmf_can_gate_weights.csv
+- Missing gate weight dump: ctt_test04_cmf_can_gate_weights.csv
+- Missing embedding dumps for UMAP/t-SNE.
+- Missing CT&T unknown-setting ablation CSV for test02/test03/test04 unless ctt_unknown_ablation.csv is later generated.
+- FPR budgets 5e-3 and 1e-2 are not in the original low-FPR CSV; they were recomputed only for completed ROAD and CT&T test01 score dumps.
+- Failure-case analysis for CT&T shifted settings is incomplete until all CT&T prediction dumps exist.
+- To补齐: run `python -m cmf_can.training.cli --dataset <dataset> --model <model> --eval-only --save-predictions [--save-gate-weights] --num-workers 0`.
+- Recommended saved fields: sample_id, dataset, setting, model, label, prediction, score, attack_type, vehicle, window_start, window_end, split, gate_frame, gate_window, gate_context, embedding_path.

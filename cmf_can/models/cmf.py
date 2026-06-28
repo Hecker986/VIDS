@@ -148,11 +148,13 @@ class CMFCAN(nn.Module):
         z_ctx = self.context(batch) if self.use_context else torch.zeros_like(z_frame)
         return torch.stack([z_frame, z_stats, z_ctx], dim=1)
 
-    def forward(self, batch: dict) -> torch.Tensor:
+    def forward(self, batch: dict, return_aux: bool = False):
+        aux: dict[str, torch.Tensor] = {}
         if self.stats_only:
             h = self.stats(batch)
             self.last_embedding = h
-            return self.head(h)
+            logits = self.head(h)
+            return (logits, aux) if return_aux else logits
         tokens = self._tokens(batch)
         self.last_aux_logits = (
             self.frame_head(tokens[:, 0]),
@@ -167,23 +169,30 @@ class CMFCAN(nn.Module):
             tokens = tokens * keep.unsqueeze(-1)
         if self.frame_only:
             self.last_embedding = tokens[:, 0]
-            return self.head(tokens[:, 0])
+            logits = self.head(tokens[:, 0])
+            return (logits, aux) if return_aux else logits
         if self.concat_only:
             h = tokens.flatten(1)
             self.last_embedding = h
-            return self.head(h)
+            logits = self.head(h)
+            return (logits, aux) if return_aux else logits
         if self.use_xattn:
             tokens = self.cross(tokens + self.modality_type.unsqueeze(0))
         if self.use_gate:
             weights = torch.softmax(self.gate(tokens.flatten(1)), dim=-1).unsqueeze(-1)
             fused = (tokens * weights).sum(dim=1)
+            aux = {
+                "gate_frame": weights[:, 0, 0],
+                "gate_window": weights[:, 1, 0],
+                "gate_context": weights[:, 2, 0],
+            }
         else:
             fused = tokens.mean(dim=1)
         self.last_embedding = fused
         logits = self.head(fused)
         if self.use_logit_residual:
             logits = logits + 0.5 * self.last_aux_logits[0]
-        return logits
+        return (logits, aux) if return_aux else logits
 
 
 class SequenceBaseline(nn.Module):
