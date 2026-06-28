@@ -3,11 +3,16 @@ data/processed/
 data/raw/
 data/cache/
 data/splits/
+data/downloads/
+*.zip
+*.parquet
+*.npy
 
 # Model checkpoints
 checkpoints/
 
 # Python
+.venv/
 __pycache__/
 *.pyc
 *.pyo
