@@ -1,0 +1,18 @@
+\begin{tabular}{lllllllll}
+\toprule
+Dataset/Setting & Setting description & Model & F1 & Macro-F1 & F1 improvement vs Transformer & Macro-F1 improvement vs Transformer & AUROC & AUPR \\
+\midrule
+T01 KV+KA & known vehicle + known attack & Transformer & 0.9641 & 0.9814 & 0.0000 & 0.0000 & 0.9969 & 0.9844 \\
+T01 KV+KA & known vehicle + known attack & Concat-Fusion & 0.8152 & 0.9049 & -0.1544 & -0.0780 & 0.9876 & 0.9755 \\
+T01 KV+KA & known vehicle + known attack & CMF-CAN & 0.9688 & 0.9839 & 0.0049 & 0.0025 & 0.9907 & 0.9781 \\
+T02 UV+KA & unknown vehicle + known attack & Transformer & 0.1600 & 0.0800 & 0.0000 & 0.0000 & 0.1152 & 0.0489 \\
+T02 UV+KA & unknown vehicle + known attack & Concat-Fusion & 0.1600 & 0.0800 & 0.0000 & 0.0000 & 0.9387 & 0.8292 \\
+T02 UV+KA & unknown vehicle + known attack & CMF-CAN & 0.1600 & 0.0800 & 0.0000 & 0.0000 & 0.9684 & 0.9325 \\
+T03 KV+UA & known vehicle + unknown attack & Transformer & 0.0263 & 0.4907 & 0.0000 & 0.0000 & 0.6188 & 0.2708 \\
+T03 KV+UA & known vehicle + unknown attack & Concat-Fusion & 0.0554 & 0.5056 & 1.1084 & 0.0304 & 0.7924 & 0.3281 \\
+T03 KV+UA & known vehicle + unknown attack & CMF-CAN & 0.0847 & 0.5206 & 2.2218 & 0.0609 & 0.7792 & 0.3044 \\
+T04 UV+UA & unknown vehicle + unknown attack & Transformer & 0.0224 & 0.0263 & 0.0000 & 0.0000 & 0.6453 & 0.1733 \\
+T04 UV+UA & unknown vehicle + unknown attack & Concat-Fusion & 0.0238 & 0.1331 & 0.0639 & 4.0651 & 0.7111 & 0.2231 \\
+T04 UV+UA & unknown vehicle + unknown attack & CMF-CAN & 0.0282 & 0.3101 & 0.2615 & 10.8025 & 0.6846 & 0.1656 \\
+\bottomrule
+\end{tabular}
