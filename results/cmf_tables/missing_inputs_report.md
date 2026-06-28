@@ -1,22 +1,21 @@
 # Missing Inputs Report
 
-No fake figures were generated. The following missing or partial inputs remain:
+No fake figures were generated.
 
-- Missing prediction dump: ctt_test02_transformer_predictions.csv
-- Missing prediction dump: ctt_test02_concat_fusion_predictions.csv
-- Missing prediction dump: ctt_test02_cmf_can_predictions.csv
-- Missing prediction dump: ctt_test03_transformer_predictions.csv
-- Missing prediction dump: ctt_test03_concat_fusion_predictions.csv
-- Missing prediction dump: ctt_test03_cmf_can_predictions.csv
-- Missing prediction dump: ctt_test04_transformer_predictions.csv
-- Missing prediction dump: ctt_test04_concat_fusion_predictions.csv
-- Missing prediction dump: ctt_test04_cmf_can_predictions.csv
-- Missing gate weight dump: ctt_test02_cmf_can_gate_weights.csv
-- Missing gate weight dump: ctt_test03_cmf_can_gate_weights.csv
-- Missing gate weight dump: ctt_test04_cmf_can_gate_weights.csv
-- Missing embedding dumps for UMAP/t-SNE.
-- Missing CT&T unknown-setting ablation CSV for test02/test03/test04 unless ctt_unknown_ablation.csv is later generated.
-- FPR budgets 5e-3 and 1e-2 are not in the original low-FPR CSV; they were recomputed only for completed ROAD and CT&T test01 score dumps.
-- Failure-case analysis for CT&T shifted settings is incomplete until all CT&T prediction dumps exist.
-- To补齐: run `python -m cmf_can.training.cli --dataset <dataset> --model <model> --eval-only --save-predictions [--save-gate-weights] --num-workers 0`.
-- Recommended saved fields: sample_id, dataset, setting, model, label, prediction, score, attack_type, vehicle, window_start, window_end, split, gate_frame, gate_window, gate_context, embedding_path.
+## Missing or Partial Inputs
+
+- Remaining methodological limitation: CT&T unknown-setting ablation is single-seed eval-only from CT&T test01 checkpoints; add multi-seed retraining for stronger top-tier claims.
+
+## Completed Evidence Files
+- CT&T test02-test04 prediction dumps for Transformer, Concat-Fusion and CMF-CAN exist.
+- CT&T test02-test04 CMF-CAN gate weight dumps exist.
+- CT&T unknown-setting ablation table exists.
+- Shifted PR/ROC, failure-case, per-attack, calibration-bin and gate-weight figures are generated from real dumps.
+
+## Reproduction Commands
+- Prediction/gate dump: `python -m cmf_can.training.cli --dataset <dataset> --model <model> --eval-only --save-predictions [--save-gate-weights] --num-workers 0`.
+- Embedding dump: `python -m cmf_can.analysis.export_embeddings --datasets road ctt_test02 ctt_test04 --model cmf_can`.
+- Figure/table refresh: `python -m cmf_can.analysis.export_paper_refined_assets --root .`.
+
+## Recommended Saved Fields
+sample_id, dataset, setting, model, label, prediction, score, attack_type, vehicle, window_start, window_end, split, gate_frame, gate_window, gate_context, embedding_path.

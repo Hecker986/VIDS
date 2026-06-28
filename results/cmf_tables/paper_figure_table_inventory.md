@@ -11,7 +11,12 @@
 | Figure 7 | Recall@FPR | paper_table_low_fpr_summary.csv | paper_fig7*_recall_at_fpr*.{png,pdf,svg} | main/appendix | UV-KA low-FPR is strongest | Only measured budgets unless recomputed |
 | Figure 8 | Efficiency trade-off | efficiency_road.csv; road_main_20ep.csv | paper_fig8_efficiency_tradeoff_refined.* | main/appendix | CMF-CAN has acceptable overhead | Slightly slower than Transformer |
 | Figure 9 | Gate weights | results/cmf_predictions/*gate_weights.csv | paper_fig9_gate_weights.* | appendix | Gate interpretability from completed dumps | ROAD only until CT&T gates exist |
-| Figure 10 | Per-attack results | results/cmf_predictions/*predictions.csv | paper_fig10_per_attack_results.* | appendix | Attack-level ROAD evidence if labels exist | CT&T incomplete |
+| Figure 10 | Per-attack results | results/cmf_predictions/*predictions.csv | paper_fig10_per_attack_results.* | appendix | Attack-level evidence from completed dumps | Attack labels follow processed dataset labels |
+| Appendix | PR curves | results/cmf_predictions/*predictions.csv | paper_fig_pr_curves_road_ctt.* | appendix | Ranking behavior across shifted settings | Can be optimistic under threshold shift |
+| Appendix | ROC curves | results/cmf_predictions/*predictions.csv | paper_fig_roc_curves_road_ctt.* | appendix | Ranking behavior across shifted settings | Use with low-FPR curves for deployment |
+| Appendix | Failure cases | results/cmf_predictions/*predictions.csv | paper_fig_failure_cases.* | appendix | False positive/negative burden by setting | Counts depend on setting size |
+| Appendix | Calibration reliability | results/cmf_predictions/*predictions.csv | paper_fig_calibration_reliability.* | appendix | Score calibration bins | Post-hoc calibration not applied here |
+| Appendix | t-SNE embeddings | results/cmf_embeddings/*embedding_sample.* | paper_fig_tsne_embeddings.* | appendix | Representation separability sample | Sampled visualization only |
 
 | Table | Output files | Recommended placement | Caveats |
 |---|---|---|---|

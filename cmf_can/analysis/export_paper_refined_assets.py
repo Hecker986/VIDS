@@ -271,6 +271,48 @@ def ablation() -> pd.DataFrame:
         out = pd.DataFrame(rows)
     out.to_csv(TABLE_DIR / "paper_table_ablation_refined.csv", index=False)
     tex(out, TABLE_DIR / "paper_table_ablation_refined.tex")
+    unknown_path = TABLE_DIR / "ctt_unknown_ablation.csv"
+    if unknown_path.exists():
+        raw = pd.read_csv(unknown_path)
+        raw["Variant"] = raw["model"].map(lambda x: variant_map.get(x, (x, ""))[0])
+        unk = raw[
+            [
+                "dataset",
+                "model",
+                "Variant",
+                "f1",
+                "macro_f1",
+                "aupr",
+                "auroc",
+                "recall_at_fpr_1em03",
+                "f1_at_fpr_1em03",
+            ]
+        ].rename(
+            columns={
+                "dataset": "Dataset",
+                "model": "Model key",
+                "f1": "F1",
+                "macro_f1": "Macro-F1",
+                "aupr": "AUPR",
+                "auroc": "AUROC",
+                "recall_at_fpr_1em03": "Recall@FPR=1e-3",
+                "f1_at_fpr_1em03": "F1@FPR=1e-3",
+            }
+        )
+        unk.to_csv(TABLE_DIR / "ctt_unknown_ablation_summary.csv", index=False)
+        tex(unk, TABLE_DIR / "table_ctt_unknown_ablation.tex")
+        datasets_u = ["ctt_test02", "ctt_test03", "ctt_test04"]
+        fig, axes = plt.subplots(1, 3, figsize=(10.5, 2.9), sharey=True)
+        for ax, ds in zip(axes, datasets_u):
+            sub = unk[unk["Dataset"].eq(ds)]
+            ax.bar(np.arange(len(sub)), sub["Recall@FPR=1e-3"], color=["#E45756" if v == "Full" else "#D1D5DB" for v in sub["Variant"]], edgecolor="#222222", linewidth=0.8)
+            ax.set_title(ds.replace("ctt_", "CT&T "))
+            ax.set_xticks(np.arange(len(sub)))
+            ax.set_xticklabels(sub["Variant"], rotation=30, ha="right")
+            ax.set_ylim(0, 1.0)
+            ax.set_ylabel("Recall@FPR=1e-3" if ax is axes[0] else "")
+            ax.grid(axis="y")
+        savefig(fig, "fig_ctt_unknown_ablation")
     datasets = list(dict.fromkeys(out["Dataset"]))
     fig, axes = plt.subplots(1, len(datasets), figsize=(3.9 * len(datasets), 2.9), sharey=True)
     axes = np.atleast_1d(axes)
@@ -471,13 +513,50 @@ def overall_refined() -> pd.DataFrame:
 def prediction_tables_and_figs(missing: list[str]) -> None:
     pred_files = sorted(PRED_DIR.glob("*_predictions.csv"))
     gate_files = sorted(PRED_DIR.glob("*_gate_weights.csv"))
-    if precision_recall_curve and len(pred_files) >= 3:
-        preds = pd.concat([pd.read_csv(p) for p in pred_files if p.stat().st_size > 0], ignore_index=True)
+    if not pred_files:
+        missing.append("Prediction-derived analyses: no prediction CSV files found.")
+        return
+    preds = pd.concat([pd.read_csv(p) for p in pred_files if p.stat().st_size > 0], ignore_index=True)
+    preds["Model"] = preds["model"].map(lambda x: MODEL_LABEL.get(x, x))
+    settings_for_curves = ["road", "ctt_test01", "ctt_test02", "ctt_test03", "ctt_test04"]
+    if precision_recall_curve and roc_curve:
+        for kind, stem, xlab, ylab in [
+            ("pr", "paper_fig_pr_curves_road_ctt", "Recall", "Precision"),
+            ("roc", "paper_fig_roc_curves_road_ctt", "FPR", "TPR"),
+        ]:
+            fig, axes = plt.subplots(1, len(settings_for_curves), figsize=(3.0 * len(settings_for_curves), 2.75), sharey=kind == "roc")
+            axes = np.atleast_1d(axes)
+            for ax, setting in zip(axes, settings_for_curves):
+                sub_setting = preds[preds["dataset"].eq(setting)]
+                for model in MODEL_ORDER:
+                    sub = sub_setting[sub_setting["model"].eq(model)]
+                    if sub.empty or sub["label"].nunique() < 2:
+                        continue
+                    y = sub["label"].to_numpy()
+                    s = sub["score"].to_numpy()
+                    lab = MODEL_LABEL[model]
+                    if kind == "pr":
+                        yy, xx, _ = precision_recall_curve(y, s)
+                        area = auc(xx, yy)
+                    else:
+                        xx, yy, _ = roc_curve(y, s)
+                        area = auc(xx, yy)
+                    ax.plot(xx, yy, label=f"{lab} {area:.3f}", color=COLORS[lab], linestyle=LINE[lab])
+                ax.set_title(setting.replace("ctt_", "CT&T "))
+                ax.set_xlabel(xlab)
+                ax.set_ylabel(ylab if ax is axes[0] else "")
+                ax.grid(axis="both")
+            axes[-1].legend(frameon=False, fontsize=6.8, loc="upper center", bbox_to_anchor=(0.5, -0.22))
+            savefig(fig, stem)
+
+        # Backward-compatible ROAD combined curve.
         road = preds[preds["dataset"].eq("road")]
-        if set(["transformer", "concat_fusion", "cmf_can"]).issubset(set(road["model"])):
+        if not road.empty:
             fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.9))
             for model in MODEL_ORDER:
                 sub = road[road["model"].eq(model)]
+                if sub.empty or sub["label"].nunique() < 2:
+                    continue
                 y = sub["label"].to_numpy()
                 s = sub["score"].to_numpy()
                 pr, rc, _ = precision_recall_curve(y, s)
@@ -493,47 +572,88 @@ def prediction_tables_and_figs(missing: list[str]) -> None:
                 ax.grid(axis="both")
                 ax.legend(frameon=False)
             savefig(fig, "paper_fig_pr_roc_curves_road")
-            per = []
-            for (model, attack), g in road.groupby(["model", "attack_type"]):
-                if attack == "normal":
-                    continue
-                tp = ((g["label"] == 1) & (g["prediction"] == 1)).sum()
-                fn = ((g["label"] == 1) & (g["prediction"] == 0)).sum()
-                fp = ((g["label"] == 0) & (g["prediction"] == 1)).sum()
-                prec = tp / max(tp + fp, 1)
-                rec = tp / max(tp + fn, 1)
-                f1 = 2 * prec * rec / max(prec + rec, 1e-12)
-                per.append({"Dataset": "road", "Model": MODEL_LABEL[model], "attack_type": attack, "Precision": prec, "Recall": rec, "F1": f1, "count": int(len(g))})
-            per_df = pd.DataFrame(per)
-            if not per_df.empty:
-                per_df.to_csv(TABLE_DIR / "paper_table_per_attack_results.csv", index=False)
-                tex(per_df, TABLE_DIR / "paper_table_per_attack_results.tex")
-                fig, ax = plt.subplots(figsize=(5.8, 2.9))
-                attacks = sorted(per_df["attack_type"].unique())
-                model_bar(ax, per_df.rename(columns={"attack_type": "Attack"}), "Attack", "Recall", attacks)
-                ax.set_ylabel("Recall")
-                ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.28))
-                savefig(fig, "paper_fig10_per_attack_results")
-            else:
-                missing.append("Per-attack-type results: prediction files exist, but no non-normal attack_type labels were available in the completed dumps.")
-        else:
-            missing.append("PR/ROC and per-attack figures: need complete ROAD prediction dumps for Transformer, Concat-Fusion and CMF-CAN.")
     else:
-        missing.append("PR/ROC curves: sklearn unavailable or too few prediction files.")
+        missing.append("PR/ROC curves: sklearn metrics unavailable.")
+
+    per = []
+    fail = []
+    for (dataset, model, attack), g in preds.groupby(["dataset", "model", "attack_type"]):
+        tp = int(((g["label"] == 1) & (g["prediction"] == 1)).sum())
+        fp = int(((g["label"] == 0) & (g["prediction"] == 1)).sum())
+        tn = int(((g["label"] == 0) & (g["prediction"] == 0)).sum())
+        fn = int(((g["label"] == 1) & (g["prediction"] == 0)).sum())
+        precision = tp / max(tp + fp, 1)
+        recall = tp / max(tp + fn, 1)
+        f1 = 2 * precision * recall / max(precision + recall, 1e-12)
+        fpr = fp / max(fp + tn, 1)
+        if attack != "normal":
+            per.append({"Dataset": dataset, "Model": MODEL_LABEL[model], "attack_type": attack, "Precision": precision, "Recall": recall, "F1": f1, "FPR": fpr, "count": int(len(g))})
+        fail.append({"Dataset": dataset, "Model": MODEL_LABEL[model], "attack_type": attack, "false_negatives": fn, "false_positives": fp, "support": int(len(g))})
+    per_df = pd.DataFrame(per)
+    if not per_df.empty:
+        per_df.to_csv(TABLE_DIR / "paper_table_per_attack_results.csv", index=False)
+        tex(per_df, TABLE_DIR / "paper_table_per_attack_results.tex")
+        plot = per_df[per_df["Dataset"].isin(["ctt_test02", "ctt_test03", "ctt_test04"])].copy()
+        if plot.empty:
+            plot = per_df.copy()
+        plot["Attack"] = plot["Dataset"].str.replace("ctt_", "T", regex=False) + ":" + plot["attack_type"].astype(str).str.slice(0, 14)
+        plot = plot.groupby(["Attack", "Model"], as_index=False).agg(Recall=("Recall", "mean"))
+        attacks = list(dict.fromkeys(plot["Attack"]))[:10]
+        fig, ax = plt.subplots(figsize=(7.2, 3.0))
+        model_bar(ax, plot, "Attack", "Recall", attacks)
+        ax.set_ylabel("Recall")
+        ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.32))
+        savefig(fig, "paper_fig10_per_attack_results")
+    fail_df = pd.DataFrame(fail)
+    fail_df.to_csv(TABLE_DIR / "paper_table_failure_cases.csv", index=False)
+    tex(fail_df, TABLE_DIR / "paper_table_failure_cases.tex")
+    top_fail = fail_df.groupby(["Dataset", "Model"], as_index=False)[["false_negatives", "false_positives"]].sum()
+    fig, ax = plt.subplots(figsize=(7.0, 2.9))
+    top_fail["Setting"] = top_fail["Dataset"].str.replace("ctt_", "CT&T ", regex=False)
+    top_fail["total_failures"] = top_fail["false_negatives"] + top_fail["false_positives"]
+    model_bar(ax, top_fail, "Setting", "total_failures", list(dict.fromkeys(top_fail["Setting"])))
+    ax.set_ylabel("Failure count")
+    ax.set_ylim(0, max(1, top_fail["total_failures"].max()) * 1.15)
+    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.28))
+    savefig(fig, "paper_fig_failure_cases")
+
+    cal_rows = []
+    edges = np.linspace(0.0, 1.0, 11)
+    for (dataset, model), g in preds.groupby(["dataset", "model"]):
+        for lo, hi in zip(edges[:-1], edges[1:]):
+            mask = (g["score"] >= lo) & (g["score"] < hi if hi < 1.0 else g["score"] <= hi)
+            part = g[mask]
+            cal_rows.append({"Dataset": dataset, "Model": MODEL_LABEL[model], "bin_low": lo, "bin_high": hi, "count": len(part), "mean_score": np.nan if part.empty else part["score"].mean(), "empirical_attack_rate": np.nan if part.empty else part["label"].mean()})
+    cal = pd.DataFrame(cal_rows)
+    cal.to_csv(TABLE_DIR / "paper_table_calibration_bins.csv", index=False)
+    fig, axes = plt.subplots(1, 3, figsize=(8.2, 2.8), sharex=True, sharey=True)
+    for ax, setting in zip(axes, ["road", "ctt_test02", "ctt_test04"]):
+        sub = cal[cal["Dataset"].eq(setting)]
+        for model in ["Transformer", "Concat-Fusion", "CMF-CAN"]:
+            p = sub[(sub["Model"].eq(model)) & (sub["count"] > 0)]
+            if not p.empty:
+                ax.plot(p["mean_score"], p["empirical_attack_rate"], marker=MARKER[model], color=COLORS[model], linestyle=LINE[model], label=model)
+        ax.plot([0, 1], [0, 1], color="#9CA3AF", linestyle=":", linewidth=1.0)
+        ax.set_title(setting.replace("ctt_", "CT&T "))
+        ax.set_xlabel("Mean score")
+        ax.set_ylabel("Empirical attack rate" if ax is axes[0] else "")
+        ax.grid(axis="both")
+    axes[-1].legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.0, -0.28))
+    savefig(fig, "paper_fig_calibration_reliability")
+
     if gate_files:
         gates = pd.concat([pd.read_csv(p) for p in gate_files], ignore_index=True)
         table = gates.groupby(["dataset", "setting", "model", "attack_type"], as_index=False)[["gate_frame", "gate_window", "gate_context"]].mean()
         table.to_csv(TABLE_DIR / "paper_table_gate_weights.csv", index=False)
-        plot = table[table["dataset"].eq("road")].copy()
-        if not plot.empty:
-            norm = plot.groupby("attack_type")[["gate_frame", "gate_window", "gate_context"]].mean().reset_index()
-            fig, ax = plt.subplots(figsize=(5.8, 2.9))
+        norm = gates.groupby("dataset", as_index=False)[["gate_frame", "gate_window", "gate_context"]].mean()
+        if not norm.empty:
+            fig, ax = plt.subplots(figsize=(6.2, 2.9))
             x = np.arange(len(norm))
             width = 0.24
             for i, col in enumerate(["gate_frame", "gate_window", "gate_context"]):
                 ax.bar(x + (i - 1) * width, norm[col], width, label=col.replace("gate_", ""), edgecolor="#222222")
             ax.set_xticks(x)
-            ax.set_xticklabels(norm["attack_type"], rotation=25, ha="right")
+            ax.set_xticklabels(norm["dataset"].str.replace("ctt_", "CT&T ", regex=False), rotation=20, ha="right")
             ax.set_ylabel("Average gate weight")
             ax.set_ylim(0, 1)
             ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.28))
@@ -562,32 +682,32 @@ def write_review(main: pd.DataFrame, ctt: pd.DataFrame, abl: pd.DataFrame, low: 
         "## 4. Strongest results",
         "- CT&T KV-KA: CMF-CAN slightly improves F1/Macro-F1 over Transformer.",
         "- CT&T UV-KA low-FPR: CMF-CAN shows a large recall advantage at measured FPR budgets.",
+        "- CT&T unknown-setting ablation: window statistics and some simplified variants transfer better than the full model in selected shifted settings.",
         "- ROAD ranking metrics: CMF-CAN improves AUROC/AUPR over Transformer despite weaker thresholded F1.",
         "- CrySyS-subset: all three main models are close; CMF-CAN is competitive, not decisively dominant.",
         "",
         "## 5. Weakest results",
         "- CT&T KV-UA and UV-UA have low absolute F1, especially test04.",
         "- ROAD F1/Macro-F1 favor Transformer.",
-        "- Ablation does not show Full CMF-CAN is always the best thresholded-F1 variant.",
+        "- Ablation does not show Full CMF-CAN is always the best thresholded-F1 or low-FPR variant; test02/test04 often favor simplified variants.",
         "- HCRL and Car-Hacking are near-saturated sanity checks and should not be overemphasized.",
         "",
         "## 6. Main-paper figures",
         "Figures 1-8 refined are suitable for the main paper if the text states dataset-dependent behavior. Figure 7a is preferable for the main low-FPR story; Figure 7b belongs in the appendix/discussion.",
         "",
         "## 7. Appendix figures",
-        "Gate weights and ROAD PR/ROC/per-attack figures can go to appendix if the corresponding prediction/gate CSVs are retained. HCRL/Car-Hacking should be appendix sanity checks.",
+        "Shifted PR/ROC, gate weights, failure cases, calibration bins, per-attack summaries and t-SNE embeddings can go to appendix. HCRL/Car-Hacking should be appendix sanity checks.",
         "",
         "## 8. Conclusions that cannot be written",
         "- Do not claim consistent superiority over Transformer across all datasets and metrics.",
         "- Do not claim unknown vehicle + unknown attack generalization is solved.",
         "- Do not claim every modality is always beneficial.",
         "- Do not claim CT&T few-label superiority is stable at every label ratio.",
+        "- Do not claim gated fusion or ID context is always beneficial under unknown vehicle/attack shifts.",
         "",
         "## 9. Remaining key experiments",
-        "- Complete prediction/score dumps for CT&T test02-test04 for all three main models; CT&T test01 is already exported.",
-        "- Complete CMF-CAN gate dumps for CT&T test02-test04; CT&T test01 is already exported.",
-        "- CT&T unknown-setting ablations for test02/test03/test04.",
-        "- Embedding dumps if representation visualization is required.",
+        "- P0 evidence is now complete for a draft package: CT&T shifted prediction dumps, gate dumps, unknown-setting ablation, shifted PR/ROC, failure cases, calibration bins and sampled embeddings.",
+        "- Remaining high-value additions are multi-seed unknown-setting ablations and full reproduction of recent external baselines.",
         "",
         "## 10. CCF B/C or intelligent vehicle security readiness",
         "Basically enough for an initial submission draft if framed as a systematic cross-modality/deployment study and if limitations are explicit.",
@@ -607,15 +727,24 @@ def writing_guidance() -> None:
         "- On ROAD, CMF-CAN improves ranking-oriented AUROC/AUPR over Transformer, although thresholded F1 is lower.",
         "- On CT&T known vehicle + known attack, CMF-CAN is competitive and slightly stronger in F1/Macro-F1.",
         "- In CT&T unknown vehicle + known attack low-FPR analysis, CMF-CAN has a clear recall advantage over Transformer and Concat-Fusion.",
+        "- CT&T unknown-setting ablation shows window-level statistics are a robust shifted-setting signal; removing window statistics usually hurts low-FPR behavior.",
+        "- Unknown-setting ablation also shows Full CMF-CAN is not always the best deployable variant, so the contribution should be framed as a system study of cross-modality fusion rather than a universal model win.",
         "",
         "## Cannot Write",
         "- Do not claim CMF-CAN consistently outperforms Transformer.",
         "- Do not claim CMF-CAN solves unknown attack or unknown vehicle + unknown attack generalization.",
         "- Do not claim Full CMF-CAN is always the best ablation variant.",
+        "- Do not claim ID context is always beneficial; unknown vehicle settings can favor variants without ID context.",
         "- Do not present HCRL/Car-Hacking as hard evidence; they are sanity checks.",
         "",
         "## Recommended Positioning",
         "Best fit: Cross-modality feature fusion for CAN IDS, with deployment-oriented low-FPR operating analysis. Label-efficient CAN IDS can be a supporting angle, not the headline.",
+        "",
+        "## Strict Claim Guardrails",
+        "- Prefer: 'CMF-CAN and its ablations reveal which modalities transfer under each CT&T shift.'",
+        "- Prefer: 'Window statistics are the most stable shifted-setting signal in our CT&T unknown ablation.'",
+        "- Avoid: 'CMF-CAN consistently solves generalization.'",
+        "- Avoid: 'Cross-modal attention/gating is always beneficial.'",
         "",
         "## Risks",
         "- ROAD F1/Macro-F1 are worse than Transformer.",
@@ -625,9 +754,9 @@ def writing_guidance() -> None:
         "- HCRL/Car-Hacking are too easy and should be appendix sanity checks.",
         "",
         "## Recommended Additional Experiments",
-        "P0: complete CT&T prediction/gate dumps, CT&T unknown-setting ablations, and low-FPR recomputation from scores.",
-        "P1: PR/ROC for ROAD and shifted CT&T, per-attack analysis, failure cases, calibration bins.",
-        "P2: embeddings for UMAP/t-SNE, more external datasets, additional industrial baselines.",
+        "P0: complete for this package: CT&T prediction/gate dumps, unknown-setting ablation, shifted PR/ROC inputs, and low-FPR recomputation from scores.",
+        "P1: remaining optional work: more seeds for unknown ablation and external industrial baselines.",
+        "P2: longer-term work: more external datasets and full reproduction of recent sequence/state-space baselines.",
     ]
     (TABLE_DIR / "paper_writing_guidance.md").write_text("\n".join(lines) + "\n")
 
@@ -637,16 +766,35 @@ def missing_report(missing: list[str]) -> None:
     expected_gates = [f"{ds}_cmf_can_gate_weights.csv" for ds in ["road", "ctt_test01", "ctt_test02", "ctt_test03", "ctt_test04"]]
     missing += [f"Missing prediction dump: {x}" for x in expected_preds if not (PRED_DIR / x).exists()]
     missing += [f"Missing gate weight dump: {x}" for x in expected_gates if not (PRED_DIR / x).exists()]
-    missing += [
-        "Missing embedding dumps for UMAP/t-SNE.",
-        "Missing CT&T unknown-setting ablation CSV for test02/test03/test04 unless ctt_unknown_ablation.csv is later generated.",
-        "FPR budgets 5e-3 and 1e-2 are not in the original low-FPR CSV; they were recomputed only for completed ROAD and CT&T test01 score dumps.",
-        "Failure-case analysis for CT&T shifted settings is incomplete until all CT&T prediction dumps exist.",
-        "To补齐: run `python -m cmf_can.training.cli --dataset <dataset> --model <model> --eval-only --save-predictions [--save-gate-weights] --num-workers 0`.",
-        "Recommended saved fields: sample_id, dataset, setting, model, label, prediction, score, attack_type, vehicle, window_start, window_end, split, gate_frame, gate_window, gate_context, embedding_path.",
+    if not (Path("results/cmf_embeddings") / "road_cmf_can_embedding_sample.npy").exists():
+        missing.append("Missing embedding dumps for UMAP/t-SNE.")
+    if not (TABLE_DIR / "ctt_unknown_ablation.csv").exists():
+        missing.append("Missing CT&T unknown-setting ablation CSV for test02/test03/test04.")
+    if not (TABLE_DIR / "paper_table_calibration_bins.csv").exists():
+        missing.append("Missing bin-level calibration table.")
+    missing.append("Remaining methodological limitation: CT&T unknown-setting ablation is single-seed eval-only from CT&T test01 checkpoints; add multi-seed retraining for stronger top-tier claims.")
+    lines = ["# Missing Inputs Report", "", "No fake figures were generated.", ""]
+    unique = list(dict.fromkeys(missing))
+    if unique:
+        lines += ["## Missing or Partial Inputs", "", *[f"- {m}" for m in unique]]
+    else:
+        lines += ["## Missing or Partial Inputs", "", "- None for requested P0/P1 evidence files in the current package."]
+    lines += [
+        "",
+        "## Completed Evidence Files",
+        "- CT&T test02-test04 prediction dumps for Transformer, Concat-Fusion and CMF-CAN exist.",
+        "- CT&T test02-test04 CMF-CAN gate weight dumps exist.",
+        "- CT&T unknown-setting ablation table exists.",
+        "- Shifted PR/ROC, failure-case, per-attack, calibration-bin and gate-weight figures are generated from real dumps.",
+        "",
+        "## Reproduction Commands",
+        "- Prediction/gate dump: `python -m cmf_can.training.cli --dataset <dataset> --model <model> --eval-only --save-predictions [--save-gate-weights] --num-workers 0`.",
+        "- Embedding dump: `python -m cmf_can.analysis.export_embeddings --datasets road ctt_test02 ctt_test04 --model cmf_can`.",
+        "- Figure/table refresh: `python -m cmf_can.analysis.export_paper_refined_assets --root .`.",
+        "",
+        "## Recommended Saved Fields",
+        "sample_id, dataset, setting, model, label, prediction, score, attack_type, vehicle, window_start, window_end, split, gate_frame, gate_window, gate_context, embedding_path.",
     ]
-    lines = ["# Missing Inputs Report", "", "No fake figures were generated. The following missing or partial inputs remain:", ""]
-    lines += [f"- {m}" for m in dict.fromkeys(missing)]
     (TABLE_DIR / "missing_inputs_report.md").write_text("\n".join(lines) + "\n")
 
 
@@ -661,7 +809,12 @@ def inventory() -> None:
         ("Figure 7", "Recall@FPR", "paper_table_low_fpr_summary.csv", "paper_fig7*_recall_at_fpr*.{png,pdf,svg}", "main/appendix", "UV-KA low-FPR is strongest", "Only measured budgets unless recomputed"),
         ("Figure 8", "Efficiency trade-off", "efficiency_road.csv; road_main_20ep.csv", "paper_fig8_efficiency_tradeoff_refined.*", "main/appendix", "CMF-CAN has acceptable overhead", "Slightly slower than Transformer"),
         ("Figure 9", "Gate weights", "results/cmf_predictions/*gate_weights.csv", "paper_fig9_gate_weights.*", "appendix", "Gate interpretability from completed dumps", "ROAD only until CT&T gates exist"),
-        ("Figure 10", "Per-attack results", "results/cmf_predictions/*predictions.csv", "paper_fig10_per_attack_results.*", "appendix", "Attack-level ROAD evidence if labels exist", "CT&T incomplete"),
+        ("Figure 10", "Per-attack results", "results/cmf_predictions/*predictions.csv", "paper_fig10_per_attack_results.*", "appendix", "Attack-level evidence from completed dumps", "Attack labels follow processed dataset labels"),
+        ("Appendix", "PR curves", "results/cmf_predictions/*predictions.csv", "paper_fig_pr_curves_road_ctt.*", "appendix", "Ranking behavior across shifted settings", "Can be optimistic under threshold shift"),
+        ("Appendix", "ROC curves", "results/cmf_predictions/*predictions.csv", "paper_fig_roc_curves_road_ctt.*", "appendix", "Ranking behavior across shifted settings", "Use with low-FPR curves for deployment"),
+        ("Appendix", "Failure cases", "results/cmf_predictions/*predictions.csv", "paper_fig_failure_cases.*", "appendix", "False positive/negative burden by setting", "Counts depend on setting size"),
+        ("Appendix", "Calibration reliability", "results/cmf_predictions/*predictions.csv", "paper_fig_calibration_reliability.*", "appendix", "Score calibration bins", "Post-hoc calibration not applied here"),
+        ("Appendix", "t-SNE embeddings", "results/cmf_embeddings/*embedding_sample.*", "paper_fig_tsne_embeddings.*", "appendix", "Representation separability sample", "Sampled visualization only"),
     ]
     tables = [
         "paper_table_dataset_summary_refined",

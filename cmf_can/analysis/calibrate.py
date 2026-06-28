@@ -16,7 +16,7 @@ from cmf_can.utils.metrics import best_threshold, compute_metrics, constrained_f
 
 
 def _to_device(batch: dict, device: torch.device) -> dict:
-    return {k: v.to(device, non_blocking=True) for k, v in batch.items()}
+    return {k: v.to(device, non_blocking=True) if torch.is_tensor(v) else v for k, v in batch.items()}
 
 
 @torch.no_grad()
