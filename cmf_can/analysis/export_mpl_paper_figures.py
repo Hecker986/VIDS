@@ -15,6 +15,19 @@ import seaborn as sns
 
 TABLE_DIR = Path("results/cmf_tables")
 FIG_DIR = Path("results/cmf_figures")
+MODEL_ORDER = ["transformer", "concat_fusion", "cmf_can"]
+MODEL_LABELS = {
+    "transformer": "Transformer",
+    "concat_fusion": "Concat",
+    "cmf_can": "CMF-CAN",
+}
+DATASET_LABELS = {
+    "road": "ROAD",
+    "ctt_test01": "CT&T test01",
+    "hcrl_can_intrusion": "HCRL",
+    "car_hacking": "Car-Hacking",
+    "crysys_family_mod_subset": "CrySyS",
+}
 
 
 def set_style() -> None:
@@ -145,6 +158,144 @@ def test04_progression() -> None:
     savefig(fig, "mpl_test04_progression")
 
 
+def _append_single_seed_rows(rows: list[dict], path: Path, dataset: str) -> None:
+    df = pd.read_csv(path)
+    df = df[df["model"].isin(MODEL_ORDER)]
+    for rec in df.itertuples():
+        rows.append(
+            {
+                "dataset": DATASET_LABELS[dataset],
+                "model": MODEL_LABELS[rec.model],
+                "f1_mean": rec.f1,
+                "f1_std": 0.0,
+                "recall_lowfpr_mean": rec.recall_at_fpr_1em04,
+                "recall_lowfpr_std": 0.0,
+            }
+        )
+
+
+def model_comparison_summary() -> pd.DataFrame:
+    rows: list[dict] = []
+
+    road = pd.read_csv(TABLE_DIR / "road_few_label_3seed_mean_std.csv")
+    road = road[(road["label_ratio"] == 1.0) & road["model"].isin(MODEL_ORDER)]
+    for rec in road.itertuples():
+        rows.append(
+            {
+                "dataset": DATASET_LABELS["road"],
+                "model": MODEL_LABELS[rec.model],
+                "f1_mean": rec.f1_mean,
+                "f1_std": rec.f1_std,
+                "recall_lowfpr_mean": rec.recall_at_fpr_1em04_mean,
+                "recall_lowfpr_std": rec.recall_at_fpr_1em04_std,
+            }
+        )
+
+    ctt = pd.read_csv(TABLE_DIR / "ctt_few_label_3seed_mean_std.csv")
+    ctt = ctt[(ctt["dataset"] == "ctt_test01") & (ctt["label_ratio"] == 1.0) & ctt["model"].isin(MODEL_ORDER)]
+    for rec in ctt.itertuples():
+        rows.append(
+            {
+                "dataset": DATASET_LABELS["ctt_test01"],
+                "model": MODEL_LABELS[rec.model],
+                "f1_mean": rec.f1_mean,
+                "f1_std": rec.f1_std,
+                "recall_lowfpr_mean": rec.recall_at_fpr_1em04_mean,
+                "recall_lowfpr_std": rec.recall_at_fpr_1em04_std,
+            }
+        )
+
+    _append_single_seed_rows(rows, TABLE_DIR / "hcrl_main_15ep.csv", "hcrl_can_intrusion")
+    _append_single_seed_rows(rows, TABLE_DIR / "car_hacking_main_15ep.csv", "car_hacking")
+
+    cry = pd.read_csv(TABLE_DIR / "crysys_family_mod_3model_3seed_mean_std.csv")
+    piv = cry[cry["model"].isin(MODEL_ORDER)].pivot_table(index="model", columns="metric", values=["mean", "std"], aggfunc="first")
+    for model in MODEL_ORDER:
+        rows.append(
+            {
+                "dataset": DATASET_LABELS["crysys_family_mod_subset"],
+                "model": MODEL_LABELS[model],
+                "f1_mean": piv.loc[model, ("mean", "f1")],
+                "f1_std": piv.loc[model, ("std", "f1")],
+                "recall_lowfpr_mean": piv.loc[model, ("mean", "recall_at_fpr_1em04")],
+                "recall_lowfpr_std": piv.loc[model, ("std", "recall_at_fpr_1em04")],
+            }
+        )
+
+    out = pd.DataFrame(rows)
+    out["dataset"] = pd.Categorical(out["dataset"], categories=list(DATASET_LABELS.values()), ordered=True)
+    out["model"] = pd.Categorical(out["model"], categories=[MODEL_LABELS[m] for m in MODEL_ORDER], ordered=True)
+    return out.sort_values(["dataset", "model"])
+
+
+def _plot_model_metric(df: pd.DataFrame, metric: str, yerr: str, ylabel: str, title: str, subtitle: str, stem: str) -> None:
+    datasets = list(df["dataset"].cat.categories)
+    models = [MODEL_LABELS[m] for m in MODEL_ORDER]
+    x = np.arange(len(datasets))
+    width = 0.24
+    colors = {"Transformer": "#A3BEFA", "Concat": "#FFE15B", "CMF-CAN": "#F0986E"}
+    hatches = {"Transformer": "///", "Concat": "\\\\\\", "CMF-CAN": ""}
+    fig, ax = plt.subplots(figsize=(7.3, 3.05))
+    for j, model in enumerate(models):
+        sub = df[df["model"] == model].set_index("dataset").reindex(datasets)
+        pos = x + (j - 1) * width
+        bars = ax.bar(
+            pos,
+            sub[metric].to_numpy(),
+            width=width,
+            label=model,
+            color=colors[model],
+            edgecolor="#263238",
+            linewidth=0.45,
+            hatch=hatches[model],
+        )
+        ax.errorbar(
+            pos,
+            sub[metric].to_numpy(),
+            yerr=sub[yerr].fillna(0).to_numpy(),
+            fmt="none",
+            ecolor="#334155",
+            elinewidth=0.75,
+            capsize=2,
+            capthick=0.75,
+        )
+    ax.set_xticks(x)
+    ax.set_xticklabels(datasets, rotation=18, ha="right")
+    ax.set_ylabel(ylabel)
+    ax.set_xlabel("")
+    ax.set_ylim(0, 1.05)
+    ax.set_title(title, fontweight="bold", loc="left", pad=20)
+    ax.text(0.0, 1.025, subtitle, transform=ax.transAxes, ha="left", va="bottom", fontsize=8, color="#6F768A")
+    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.24), handlelength=2.8, columnspacing=1.8)
+    ax.grid(axis="y", linestyle="-", linewidth=0.8, color="#E6E8F0")
+    ax.grid(axis="x", visible=False)
+    fig.subplots_adjust(bottom=0.29, top=0.8)
+    savefig(fig, stem)
+
+
+def model_comparison() -> None:
+    df = model_comparison_summary()
+    _plot_model_metric(
+        df,
+        metric="f1_mean",
+        yerr="f1_std",
+        ylabel="F1",
+        title="Model comparison across evaluated datasets",
+        subtitle="Mean F1 at full-label setting; error bars show standard deviation when multi-seed results are available.",
+        stem="mpl_model_comparison_f1",
+    )
+    _plot_model_metric(
+        df,
+        metric="recall_lowfpr_mean",
+        yerr="recall_lowfpr_std",
+        ylabel="Recall@FPR<=1e-4",
+        title="Deployment-oriented low-false-positive comparison",
+        subtitle="Recall at FPR<=1e-4; ROAD, CT&T and CrySyS use multi-seed summaries, HCRL/Car-Hacking are single-seed.",
+        stem="mpl_model_comparison_low_fpr",
+    )
+    df.to_csv(TABLE_DIR / "model_comparison_summary.csv", index=False)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, default=Path.cwd())
@@ -154,6 +305,7 @@ def main() -> None:
     shifted_unknown()
     road_label_ratio()
     test04_progression()
+    model_comparison()
     print("[write] matplotlib paper figures")
 
 
