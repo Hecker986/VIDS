@@ -1,0 +1,11 @@
+rank,root_cause,evidence,related_experiments,impact,fixability,recommended_action,paper_sentence
+1,threshold/calibration mismatch,AUROC/AUPR often stronger than F1; D1 threshold sweeps,D1,high,high,Use calibrated thresholds and report low-FPR operating points,CMF-CAN is best interpreted as a ranking/deployment scorer in selected settings.
+2,modality over-fusion,Full is beaten by -Ctx/Stats/-Gate in shifted ablation,D2,high,medium,Use modality dropout/masking or present simplified variants,Fusion helps conditionally rather than universally.
+3,ID-context vehicle shift,-Ctx improves test02/test04; D3 shows ID/frequency shift,"D2,D3",high,medium,Mask/downweight context for low-overlap vehicles,ID context should be treated as domain-sensitive.
+4,window statistics robustness,Stats-only strong in shifted low-FPR; D4 feature AUC,"D2,D4",high,high,Strengthen stats branch or Stats+Frame,Window statistics are the most stable shifted signal.
+5,attack-type heterogeneity,Fuzzing/interval/systematic low recall,D5,high,medium,Attack-aware calibration or targeted augmentation,Average F1 hides severe attack-level failures.
+6,window label dilution,Low attack-frame-ratio buckets can have low recall,D6,medium,medium,Try window_size=50 or segment/top-k pooling,Window labels can dilute short attacks.
+7,training objective mismatch,Val F1 not aligned with low-FPR,D8,medium,high,Early stop on AUPR/Recall@FPR,Deployment metrics should guide model selection.
+8,seed variance,Few-label std is nontrivial,few-label tables,medium,medium,Multi-seed unknown ablations,Claims need variance reporting.
+9,model capacity/regularization mismatch,Robust variants not globally dominant,D9,medium,medium,Tune regularization after modality fixes,More regularization is not a universal fix.
+10,baseline too strong / task sequence-driven,Transformer wins ROAD F1,"D1,D10",medium,low,Keep Transformer as strong baseline,Some settings are already well handled by sequence baselines.

@@ -1,0 +1,3 @@
+dataset,window_size,model,status,f1,note
+road,100,CMF-CAN,existing default,,Full rerun requires rebuilding processed windows/features.
+ctt_test02,100,CMF-CAN,existing default,,Use D6 dilution evidence before expensive rerun.

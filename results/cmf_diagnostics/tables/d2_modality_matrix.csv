@@ -1,0 +1,57 @@
+Dataset,Variant,Description,f1,macro_f1,source
+ROAD,Full,full CMF-CAN,0.7893805309734513,0.8902957973466197,existing ablation/eval
+ROAD,-Win,without window statistics,0.8088811493252068,0.9003849226172245,existing ablation/eval
+ROAD,-Ctx,without ID context,0.8008762322015334,0.8962403936768937,existing ablation/eval
+ROAD,-XAttn,without cross-modal attention,0.785888617705791,0.8884903667679891,existing ablation/eval
+ROAD,-Gate,without gated fusion,0.7986827661909989,0.8951071080938833,existing ablation/eval
+ROAD,Concat,concatenation fusion,0.7885764888200133,0.8898800502463634,existing ablation/eval
+ROAD,Frame,frame-only,0.8,0.8957886181865199,existing ablation/eval
+ROAD,Stats,window statistics only,0.2581431806305522,0.609187746696874,existing ablation/eval
+CT&T KV-KA,Full,full CMF-CAN,0.9687916777807416,0.9838654431335369,existing ablation/eval
+CT&T KV-KA,-Win,without window statistics,0.9241034195162636,0.9608158228621544,existing ablation/eval
+CT&T KV-KA,-Ctx,without ID context,0.7484622855292975,0.8707297232702591,existing ablation/eval
+CT&T KV-KA,-XAttn,without cross-modal attention,0.9234196602617656,0.960464956745823,existing ablation/eval
+CT&T KV-KA,-Gate,without gated fusion,0.7284681130834977,0.8605134028598331,existing ablation/eval
+CT&T KV-KA,Concat,concatenation fusion,0.8152007355194606,0.9048787819282248,existing ablation/eval
+CT&T KV-KA,Frame,frame-only,0.9775547927119091,0.9883919333014546,existing ablation/eval
+CT&T KV-KA,Stats,window statistics only,0.9419666845781838,0.9700043897682892,existing ablation/eval
+ctt_test02,Full,full CMF-CAN,0.160038811123953,0.0800194055619765,existing ablation/eval
+ctt_test02,Concat,concatenation fusion,0.160038811123953,0.0800194055619765,existing ablation/eval
+ctt_test02,Frame,frame-only,0.160038811123953,0.0800194055619765,existing ablation/eval
+ctt_test02,Stats,window statistics only,0.1590141009206386,0.1008164597668099,existing ablation/eval
+ctt_test02,-Win,without window statistics,0.160038811123953,0.0800194055619765,existing ablation/eval
+ctt_test02,-Ctx,without ID context,0.8527638190954774,0.918869731101452,existing ablation/eval
+ctt_test02,-XAttn,without cross-modal attention,0.160038811123953,0.0800194055619765,existing ablation/eval
+ctt_test02,-Gate,without gated fusion,0.160038811123953,0.0800194055619765,existing ablation/eval
+ctt_test03,Full,full CMF-CAN,0.0210831466596389,0.4880437689023339,existing ablation/eval
+ctt_test03,Concat,concatenation fusion,0.0345504515115822,0.4949278585464705,existing ablation/eval
+ctt_test03,Frame,frame-only,0.0239379192424043,0.4894934764028559,existing ablation/eval
+ctt_test03,Stats,window statistics only,0.0945179584120983,0.5254544040386835,existing ablation/eval
+ctt_test03,-Win,without window statistics,0.0528702863807179,0.5042835705468995,existing ablation/eval
+ctt_test03,-Ctx,without ID context,0.0205614867536575,0.4877771547948789,existing ablation/eval
+ctt_test03,-XAttn,without cross-modal attention,0.0134920634920634,0.4841643707918975,existing ablation/eval
+ctt_test03,-Gate,without gated fusion,0.0296510102335345,0.4924231594736539,existing ablation/eval
+ctt_test04,Full,full CMF-CAN,0.0333350017518394,0.3749817190963312,existing ablation/eval
+ctt_test04,Concat,concatenation fusion,0.0224936021191577,0.0117438873690571,existing ablation/eval
+ctt_test04,Frame,frame-only,0.0359768544809908,0.3603725032868098,existing ablation/eval
+ctt_test04,Stats,window statistics only,0.0304826418289585,0.3037709691338478,existing ablation/eval
+ctt_test04,-Win,without window statistics,0.0225122471111775,0.0112561235555887,existing ablation/eval
+ctt_test04,-Ctx,without ID context,0.1821247892074199,0.5882922429402863,existing ablation/eval
+ctt_test04,-XAttn,without cross-modal attention,0.0237340220340645,0.0913916653494926,existing ablation/eval
+ctt_test04,-Gate,without gated fusion,0.1124481747396096,0.5389812177099473,existing ablation/eval
+ROAD,Frame+Stats,,,,missing variant
+ROAD,Frame+Context,,,,missing variant
+ROAD,Stats+Context,,,,missing variant
+ROAD,Context-only,,,,missing variant
+CT&T KV-KA,Frame+Stats,,,,missing variant
+CT&T KV-KA,Frame+Context,,,,missing variant
+CT&T KV-KA,Stats+Context,,,,missing variant
+CT&T KV-KA,Context-only,,,,missing variant
+ctt_test02,Frame+Stats,,,,missing variant
+ctt_test02,Frame+Context,,,,missing variant
+ctt_test02,Stats+Context,,,,missing variant
+ctt_test02,Context-only,,,,missing variant
+ctt_test04,Frame+Stats,,,,missing variant
+ctt_test04,Frame+Context,,,,missing variant
+ctt_test04,Stats+Context,,,,missing variant
+ctt_test04,Context-only,,,,missing variant

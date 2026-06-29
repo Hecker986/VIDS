@@ -1,0 +1,18 @@
+UPDATED:
+results/cmf_predictions/ctt_test01_cmf_can_predictions.csv: threshold=5.481837160914888e-07 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/ctt_test01_concat_fusion_predictions.csv: threshold=2.895897769121824e-06 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/ctt_test01_transformer_predictions.csv: threshold=0.6055496573451536 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/ctt_test02_cmf_can_predictions.csv: threshold=5.481834659804459e-07 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/ctt_test02_concat_fusion_predictions.csv: threshold=2.8958961138414665e-06 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/ctt_test02_transformer_predictions.csv: threshold=0.6055488467219846 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/ctt_test03_cmf_can_predictions.csv: threshold=5.481834659804459e-07 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/ctt_test03_concat_fusion_predictions.csv: threshold=2.8958964685444003e-06 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/ctt_test03_transformer_predictions.csv: threshold=0.6055492734912412 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/ctt_test04_cmf_can_predictions.csv: threshold=5.481837160914888e-07 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/ctt_test04_concat_fusion_predictions.csv: threshold=2.8958961138414665e-06 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/ctt_test04_transformer_predictions.csv: threshold=0.6055499100688475 from results/cmf_tables/ctt_generalization_15ep.csv
+results/cmf_predictions/road_cmf_can_predictions.csv: threshold=0.999998927116394 from results/cmf_tables/road_main_20ep.csv
+results/cmf_predictions/road_concat_fusion_predictions.csv: threshold=0.999992847442627 from results/cmf_tables/road_main_20ep.csv
+results/cmf_predictions/road_transformer_predictions.csv: threshold=1.0 from results/cmf_tables/road_main_20ep.csv
+
+MISSING:
