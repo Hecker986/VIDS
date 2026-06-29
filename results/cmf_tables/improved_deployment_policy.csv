@@ -1,0 +1,7 @@
+dataset,label_ratio,recommended_score,recommended_threshold_policy,policy_f1,policy_aupr,policy_recall_at_fpr_1e-4,claim
+ctt_test01,1.0,model_attack_prob,val_fpr_1em04,0.981904012588513,0.9825685832790748,0.9679255043973098,known vehicle + known attack; deploy calibrated neural score
+ctt_test02,1.0,per-seed extended anomaly policy,validation-selected low-FPR/F1 policy,0.3329474015986754,0.927535916160396,0.886055634807418,unknown vehicle + known attack; extended anomaly fusion fixes threshold transfer while preserving ranking
+ctt_test03,1.0,per-seed extended anomaly policy,validation-selected low-FPR/F1 policy,0.856672384219554,0.8456502535105411,0.2518311359701691,known vehicle + unknown attack; Ledoit-Wolf normality score is the primary repair
+ctt_test04,1.0,per-seed extended anomaly policy,validation-selected low-FPR/F1 policy,0.4457387097762151,0.2991628224271099,0.132890365448505,unknown vehicle + unknown attack; extended anomaly branch significantly improves but does not fully solve the hardest setting
+road,0.01,model_attack_prob,val_f1,0.5899399710204927,0.5974429548402761,0.0932017543859649,"few-label ROAD; keep CMF-CAN discriminative score, do not use anomaly branch"
+road,0.05,model_attack_prob,val_fpr_1em03,0.7970702283498492,0.7586424281757222,0.4652777777777778,ROAD label efficiency / ranking; use CMF-CAN score with validation low-FPR threshold

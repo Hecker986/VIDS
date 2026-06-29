@@ -50,6 +50,9 @@ results/cmf_diagnostics/figures/d9_minimal_improvements.pdf
 results/cmf_diagnostics/figures/d9_minimal_improvements.png
 results/cmf_diagnostics/figures/d9_minimal_improvements.svg
 results/cmf_diagnostics/final_experiment_recommendation.md
+results/cmf_diagnostics/improved_experiment_report.md
+results/cmf_diagnostics/improvement_execution_log.md
+results/cmf_diagnostics/logs/improvement_trials/ctt_test02_wo_context.log
 results/cmf_diagnostics/logs/threshold_backfill.log
 results/cmf_diagnostics/prediction_table_consistency_audit.md
 results/cmf_diagnostics/root_cause_ranking.csv

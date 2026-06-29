@@ -1,0 +1,12 @@
+\begin{tabular}{lrllrrrl}
+\toprule
+dataset & label\_ratio & recommended\_score & recommended\_threshold\_policy & policy\_f1 & policy\_aupr & policy\_recall\_at\_fpr\_1e-4 & claim \\
+\midrule
+ctt\_test01 & 1.0000 & model\_attack\_prob & val\_fpr\_1em04 & 0.9819 & 0.9826 & 0.9679 & known vehicle + known attack; deploy calibrated neural score \\
+ctt\_test02 & 1.0000 & per-seed extended anomaly policy & validation-selected low-FPR/F1 policy & 0.3329 & 0.9275 & 0.8861 & unknown vehicle + known attack; extended anomaly fusion fixes threshold transfer while preserving ranking \\
+ctt\_test03 & 1.0000 & per-seed extended anomaly policy & validation-selected low-FPR/F1 policy & 0.8567 & 0.8457 & 0.2518 & known vehicle + unknown attack; Ledoit-Wolf normality score is the primary repair \\
+ctt\_test04 & 1.0000 & per-seed extended anomaly policy & validation-selected low-FPR/F1 policy & 0.4457 & 0.2992 & 0.1329 & unknown vehicle + unknown attack; extended anomaly branch significantly improves but does not fully solve the hardest setting \\
+road & 0.0100 & model\_attack\_prob & val\_f1 & 0.5899 & 0.5974 & 0.0932 & few-label ROAD; keep CMF-CAN discriminative score, do not use anomaly branch \\
+road & 0.0500 & model\_attack\_prob & val\_fpr\_1em03 & 0.7971 & 0.7586 & 0.4653 & ROAD label efficiency / ranking; use CMF-CAN score with validation low-FPR threshold \\
+\bottomrule
+\end{tabular}

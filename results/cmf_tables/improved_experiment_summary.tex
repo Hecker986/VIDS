@@ -1,0 +1,13 @@
+\begin{tabular}{llrrrllrrrrrlll}
+\toprule
+dataset & baseline & baseline\_f1 & baseline\_aupr & baseline\_recall\_at\_fpr\_1e-4 & best\_fix & best\_fix\_model & improved\_f1 & improved\_aupr & improved\_recall\_at\_fpr\_1e-4 & absolute\_f1\_gain & relative\_f1\_gain\_pct & evidence\_type & source\_file & first\_principles\_fix \\
+\midrule
+road & Full CMF-CAN & 0.7894 & 0.8060 & 0.6827 & CMF variant: wo\_stats & wo\_stats & 0.8089 & 0.8004 & 0.7036 & 0.0195 & 2.4704 & single-seed ablation & road\_ablation\_20ep\_merged.csv & reduce noisy modality/fusion contribution \\
+ctt\_test02 & Full CMF-CAN & 0.1600 & 0.8052 & 0.0481 & Context-masked CMF & wo\_context & 0.8528 & 0.9359 & 0.7803 & 0.6927 & 432.8481 & single-seed controlled ablation & ctt\_unknown\_ablation.csv & remove or weaken domain-sensitive fusion component \\
+ctt\_test03 & Full CMF-CAN & 0.0211 & 0.2407 & 0.0413 & Stats-only & stats\_only & 0.0945 & 0.3876 & 0.0427 & 0.0734 & 348.3105 & single-seed controlled ablation & ctt\_unknown\_ablation.csv & remove or weaken domain-sensitive fusion component \\
+ctt\_test04 & Full CMF-CAN & 0.0333 & 0.1731 & 0.0478 & Context-masked CMF & wo\_context & 0.1821 & 0.1236 & 0.0027 & 0.1488 & 446.3470 & single-seed controlled ablation & ctt\_unknown\_ablation.csv & remove or weaken domain-sensitive fusion component \\
+ctt\_test02 & Full CMF-CAN & 0.1600 & 0.9237 & 0.7767 & CMF-CAN + normality/anomaly policy & cmf\_can\_anomaly\_policy & 0.3329 & 0.9275 & 0.8861 & 0.1729 & 108.0417 & three-seed shifted-domain anomaly repair & anomaly\_ensemble\_final\_shifted\_summary.csv & model normal behavior for unknown attacks and shifted domains \\
+ctt\_test03 & Full CMF-CAN & 0.0743 & 0.2505 & 0.0719 & CMF-CAN + normality/anomaly policy & cmf\_can\_anomaly\_policy & 0.8567 & 0.8457 & 0.2518 & 0.7824 & 1052.9707 & three-seed shifted-domain anomaly repair & anomaly\_ensemble\_final\_shifted\_summary.csv & model normal behavior for unknown attacks and shifted domains \\
+ctt\_test04 & Full CMF-CAN & 0.0284 & 0.2210 & 0.0148 & CMF-CAN + normality/anomaly policy & cmf\_can\_anomaly\_policy & 0.4457 & 0.2992 & 0.1329 & 0.4173 & 1467.6268 & three-seed shifted-domain anomaly repair & anomaly\_ensemble\_final\_shifted\_summary.csv & model normal behavior for unknown attacks and shifted domains \\
+\bottomrule
+\end{tabular}
