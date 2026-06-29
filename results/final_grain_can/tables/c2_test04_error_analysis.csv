@@ -1,0 +1,3 @@
+model,rows,false_positive,false_negative,true_positive,true_negative,prediction_source,note
+GradientBoosting,50000,8,34,15,49943,results/granularity_shift/predictions/GradientBoosting_ctt_test04_samplelevel_predictions.csv,"50k deterministic audit sample, not full dump"
+RandomForest,50000,54,33,16,49897,results/granularity_shift/predictions/RandomForest_ctt_test04_samplelevel_predictions.csv,"50k deterministic audit sample, not full dump"

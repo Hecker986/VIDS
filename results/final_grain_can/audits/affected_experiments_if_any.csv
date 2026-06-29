@@ -1,0 +1,6 @@
+check,status,evidence
+threshold validation-only,pass_partial,sample/window thresholds selected on train_01 validation split; some audit tables include upper-bound notes
+timestamp split leakage,risk,timestamp may encode capture schedule; report as protocol risk
+same episode train/test,risk,official split has related attack types/captures; CT&T protocol risk
+large-negative stability,missing,only capped 5-seed completed
+event boundary construction,partial,uses test labels to approximate events; not formal event metadata

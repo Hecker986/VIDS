@@ -1,0 +1,2 @@
+event_id,dataset,setting,vehicle,file,attack_type,start_time,end_time,start_index,end_index,num_positive_samples,duration_seconds,construction_rule
+approx_contiguous_positive_windows,CT&T/ROAD,available prediction CSVs,NA,prediction_csv,label_positive,NA,NA,window_start,next event start,from contiguous windows,NA,consecutive positive windows form one event; official event boundary unavailable

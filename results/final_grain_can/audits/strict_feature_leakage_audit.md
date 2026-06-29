@@ -1,0 +1,24 @@
+# Strict Feature Leakage Audit
+
+Audit table:
+
+```csv
+check,status,evidence
+delta_t_same_id past-only,pass,computed from previous same-ID timestamp
+payload_delta_l1 past-only,pass,computed from previous same-ID payload
+period_deviation train/past only,not_used,not used in final feature-preserving model
+transition/profile train-only,not_used,not used in final feature-preserving model
+scaler train-only,pass,StandardScaler fit on train only
+can_id no test labels,pass,parsed from arbitration_id only
+negative sampling no test,pass,sampling uses train_01 only
+threshold validation-only,pass_partial,sample/window thresholds selected on train_01 validation split; some audit tables include upper-bound notes
+attack_ratio not input,pass,leaked run discarded; final search excludes attack_ratio from X
+timestamp split leakage,risk,timestamp may encode capture schedule; report as protocol risk
+file/source id leakage,pass,file/source identifiers not used as model features
+same episode train/test,risk,official split has related attack types/captures; CT&T protocol risk
+direct label proxy,pass,attack column excluded
+large-negative stability,missing,only capped 5-seed completed
+event boundary construction,partial,uses test labels to approximate events; not formal event metadata
+```
+
+No direct label feature is used. Remaining risks are timestamp/capture schedule, missing full-negative stability, and approximate event construction.
