@@ -1,4 +1,5 @@
 results/cmf_diagnostics/00_observed_problems.md
+results/cmf_diagnostics/ccfa_security4_evidence_upgrade.md
 results/cmf_diagnostics/current_file_inventory.txt
 results/cmf_diagnostics/d10_complexity_performance.md
 results/cmf_diagnostics/d1_threshold_calibration.md
@@ -57,6 +58,7 @@ results/cmf_diagnostics/logs/threshold_backfill.log
 results/cmf_diagnostics/prediction_table_consistency_audit.md
 results/cmf_diagnostics/root_cause_ranking.csv
 results/cmf_diagnostics/root_cause_ranking.md
+results/cmf_diagnostics/security4_upgrade_experiment_matrix.md
 results/cmf_diagnostics/tables/d10_complexity_performance.csv
 results/cmf_diagnostics/tables/d1_threshold_calibration.csv
 results/cmf_diagnostics/tables/d2_modality_matrix.csv
