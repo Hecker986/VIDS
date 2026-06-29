@@ -166,7 +166,15 @@ def prediction_dump(
             "window_end": batch.get("window_end", ["NA"] * n),
             "split": batch.get("split", ["test"] * n),
         }
-        gates = {k: v.detach().cpu().numpy() for k, v in aux.items() if k.startswith("gate_")}
+        aux_arrays = {
+            k: v.detach().cpu().numpy()
+            for k, v in aux.items()
+            if torch.is_tensor(v) and v.ndim == 1 and (
+                k.startswith("gate_")
+                or k.startswith("reliability_")
+                or k in {"context_shift_score", "context_mask_value", "topk_score"}
+            )
+        }
         for i in range(n):
             row = {
                 "sample_id": meta["sample_id"][i],
@@ -184,13 +192,25 @@ def prediction_dump(
                 "split": meta["split"][i],
             }
             pred_rows.append(row)
-            if {"gate_frame", "gate_window", "gate_context"}.issubset(gates):
+            if {"gate_frame", "gate_window", "gate_context"}.issubset(aux_arrays):
+                aux_row = {}
+                for key in [
+                    "gate_frame",
+                    "gate_window",
+                    "gate_context",
+                    "reliability_frame",
+                    "reliability_window",
+                    "reliability_context",
+                    "context_shift_score",
+                    "context_mask_value",
+                    "topk_score",
+                ]:
+                    if key in aux_arrays:
+                        aux_row[key] = float(aux_arrays[key][i])
                 gate_rows.append(
                     {
                         **{k: row[k] for k in ["sample_id", "dataset", "setting", "model", "label", "prediction", "score", "attack_type", "vehicle"]},
-                        "gate_frame": float(gates["gate_frame"][i]),
-                        "gate_window": float(gates["gate_window"][i]),
-                        "gate_context": float(gates["gate_context"][i]),
+                        **aux_row,
                     }
                 )
     return pred_rows, gate_rows
@@ -239,10 +259,49 @@ def write_prediction_outputs(root: Path, dataset: str, model_name: str, pred_row
                     "gate_frame",
                     "gate_window",
                     "gate_context",
+                    "reliability_frame",
+                    "reliability_window",
+                    "reliability_context",
+                    "context_shift_score",
+                    "context_mask_value",
+                    "topk_score",
                 ],
             )
             writer.writeheader()
             writer.writerows(gate_rows)
+
+
+@torch.no_grad()
+def write_embedding_outputs(root: Path, dataset: str, model_name: str, model: torch.nn.Module, loader: DataLoader, device: torch.device) -> None:
+    model.eval()
+    out_dir = root / "results/cmf_predictions"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    embeddings: list[np.ndarray] = []
+    labels: list[np.ndarray] = []
+    sample_ids: list[str] = []
+    attack_types: list[str] = []
+    for batch in loader:
+        batch = _to_device(batch, device)
+        _ = _model_logits(model, batch)
+        emb = getattr(model, "last_embedding", None)
+        if emb is None:
+            continue
+        n = int(emb.shape[0])
+        embeddings.append(emb.detach().cpu().numpy())
+        labels.append(batch["label"].detach().cpu().numpy().astype(int))
+        sample_ids.extend([str(x) for x in batch.get("sample_id", ["NA"] * n)])
+        attack_types.extend([str(x) for x in batch.get("attack_type", ["NA"] * n)])
+    if not embeddings:
+        return
+    np.savez_compressed(
+        out_dir / f"{dataset}_{model_name}_embeddings.npz",
+        embedding=np.concatenate(embeddings, axis=0),
+        label=np.concatenate(labels, axis=0),
+        attack_type=np.asarray(attack_types, dtype=object),
+        sample_id=np.asarray(sample_ids, dtype=object),
+        setting=np.asarray([dataset] * len(sample_ids), dtype=object),
+        model=np.asarray([model_name] * len(sample_ids), dtype=object),
+    )
 
 
 def run_training(
@@ -269,6 +328,7 @@ def run_training(
     checkpoint: str | None = None,
     save_predictions: bool = False,
     save_gate_weights: bool = False,
+    save_embeddings: bool = False,
 ) -> dict:
     set_seed(seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -383,6 +443,8 @@ def run_training(
     if save_predictions:
         pred_rows, gate_rows = prediction_dump(model, test_loader, device, dataset, model_name, best_t, save_gate_weights)
         write_prediction_outputs(root, dataset, model_name, pred_rows, gate_rows)
+    if save_embeddings:
+        write_embedding_outputs(root, dataset, model_name, model, test_loader, device)
     if table:
         out = root / "results/cmf_tables" / table
         out.parent.mkdir(parents=True, exist_ok=True)

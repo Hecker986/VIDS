@@ -1,0 +1,7 @@
+dataset,model,f1,aupr,recall_at_fpr_1em04,source
+ctt_test02,CMF-CAN baseline,0.160038811123953,0.9237246260677274,0.7767475035663338,anomaly_ensemble_final_shifted_summary.csv
+ctt_test02,CMF-CAN + normality policy,0.3329474015986754,0.927535916160396,0.886055634807418,anomaly_ensemble_final_shifted_summary.csv
+ctt_test03,CMF-CAN baseline,0.0743013172708618,0.2505400721306844,0.071913703555733,anomaly_ensemble_final_shifted_summary.csv
+ctt_test03,CMF-CAN + normality policy,0.856672384219554,0.8456502535105411,0.2518311359701691,anomaly_ensemble_final_shifted_summary.csv
+ctt_test04,CMF-CAN baseline,0.0284339819220473,0.2210176474550383,0.0148394241417497,anomaly_ensemble_final_shifted_summary.csv
+ctt_test04,CMF-CAN + normality policy,0.4457387097762151,0.2991628224271099,0.132890365448505,anomaly_ensemble_final_shifted_summary.csv

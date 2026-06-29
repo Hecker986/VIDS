@@ -1,0 +1,23 @@
+Commands executed for the Reliable-CMF-CAN top-tier upgrade package:
+
+mkdir -p results/top_tier_upgrade results/top_tier_upgrade/predictions results/top_tier_upgrade/figures results/top_tier_upgrade/logs
+find results -maxdepth 4 -type f | sort > results/top_tier_upgrade/current_file_inventory.txt
+MPLCONFIGDIR=/tmp/mpl .venv/bin/python -m cmf_can.analysis.reliable_upgrade_assets
+.venv/bin/python - <<'PY'
+import torch
+from cmf_can.models.cmf import build_model
+m = build_model('reliable_cmf_can')
+batch = {
+    'can_id': torch.randint(0, 100, (2, 100), dtype=torch.long),
+    'payload': torch.randint(0, 255, (2, 100, 8), dtype=torch.long),
+    'frame_numeric': torch.randn(2, 100, 10),
+    'window_stats': torch.randn(2, 26),
+    'id_context': torch.randn(2, 100, 18),
+}
+logits, aux = m(batch, return_aux=True)
+assert logits.shape == (2, 2)
+for key in ['gate_frame','gate_window','gate_context','reliability_frame','reliability_context','context_shift_score','topk_score']:
+    assert key in aux, key
+PY
+.venv/bin/python -m compileall cmf_can
+find results/top_tier_upgrade -type f | sort > results/top_tier_upgrade/inventory.txt

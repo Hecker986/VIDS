@@ -1,0 +1,10 @@
+\begin{tabular}{llrrrrlrrlllrrrrrrrrrrrrrrrrrrrrrr}
+\toprule
+dataset & model & seed & label\_ratio & epochs & aux\_loss\_weight & loss & focal\_gamma & focal\_alpha & sampler & selection\_metric & class\_weights & accuracy & precision & recall & f1 & macro\_f1 & aupr & auroc & fpr & fnr & threshold & recall\_at\_fpr\_1em04 & f1\_at\_fpr\_1em04 & actual\_fpr\_at\_1em04 & threshold\_at\_fpr\_1em04 & recall\_at\_fpr\_5em04 & f1\_at\_fpr\_5em04 & actual\_fpr\_at\_5em04 & threshold\_at\_fpr\_5em04 & recall\_at\_fpr\_1em03 & f1\_at\_fpr\_1em03 & actual\_fpr\_at\_1em03 & threshold\_at\_fpr\_1em03 \\
+\midrule
+road & cmf\_can & 42 & 0.0100 & 20 & 0.2000 & ce & 2.0000 & NA & weighted & f1 & none & 0.9594 & 0.6080 & 0.4609 & 0.5243 & 0.7516 & 0.5110 & 0.8355 & 0.0151 & 0.5391 & 0.9158 & 0.0720 & 0.1342 & 0.0001 & 0.9910 & 0.1129 & 0.2012 & 0.0005 & 0.9884 & 0.1623 & 0.2747 & 0.0010 & 0.9851 \\
+road & cmf\_can & 42 & 0.0100 & 20 & 0.0000 & ce & 2.0000 & NA & none & f1 & balanced & 0.9549 & 0.5499 & 0.3849 & 0.4528 & 0.7146 & 0.4354 & 0.8055 & 0.0161 & 0.6151 & 0.8424 & 0.0621 & 0.1168 & 0.0001 & 0.9807 & 0.0906 & 0.1648 & 0.0005 & 0.9750 & 0.1239 & 0.2168 & 0.0010 & 0.9674 \\
+ctt\_test01 & cmf\_can & 42 & 0.0100 & 15 & 0.2000 & ce & 2.0000 & NA & weighted & f1 & none & 0.9063 & 0.1811 & 0.5008 & 0.2660 & 0.6080 & 0.3403 & 0.8973 & 0.0794 & 0.4992 & 0.1885 & 0.1681 & 0.2872 & 0.0001 & 0.5069 & 0.1749 & 0.2944 & 0.0005 & 0.4609 & 0.1821 & 0.3009 & 0.0010 & 0.4247 \\
+ctt\_test01 & cmf\_can & 42 & 0.0100 & 15 & 0.2000 & focal & 2.0000 & NA & weighted & f1 & none & 0.9703 & 0.7357 & 0.1930 & 0.3057 & 0.6453 & 0.2950 & 0.8284 & 0.0024 & 0.8070 & 0.4513 & 0.1686 & 0.2881 & 0.0001 & 0.5277 & 0.1733 & 0.2921 & 0.0005 & 0.5010 & 0.1800 & 0.2991 & 0.0008 & 0.4821 \\
+\bottomrule
+\end{tabular}

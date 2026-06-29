@@ -1,0 +1,11 @@
+criterion,status,evidence
+ROAD/test01 not weaker than Transformer,partial,Existing Full CMF-CAN is mixed; simplified variants sometimes help.
+CT&T test02 low-FPR advantage,partial,"Normality/context evidence helps, but Reliable-CMF-CAN not trained."
+CT&T test03/test04 unknown attack improves,partial,Normality improves test03 strongly; test04 remains weak.
+Reliable full model no longer loses to simple variants,not met,No trained Reliable-CMF-CAN checkpoint yet.
+Shift-aware context explains unknown vehicle,partial,-Ctx evidence supports cause; learned shift-control not yet validated.
+Normality branch improves unknown attack,met for existing policy,Anomaly ensemble evidence supports this.
+Segment pooling improves sparse attacks,not met,Code exists; no trained result.
+Multi-seed stability,partial,Existing anomaly/CMF multi-seed only; Reliable missing.
+Complexity acceptable,unknown,Reliable params/latency not profiled.
+Ablation supports mechanisms,partial,Existing CMF/anomaly ablations; Reliable ablations missing.

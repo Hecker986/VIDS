@@ -262,4 +262,11 @@ def build_model(name: str) -> nn.Module:
         return CMFCAN(use_xattn=False)
     if name == "wo_gate":
         return CMFCAN(use_gate=False)
+    if name in {"reliable_cmf_can", "reliable_cmf_can_no_shift", "reliable_cmf_can_no_segment"}:
+        from cmf_can.models.reliable_cmf_can import ReliableCMFCAN
+
+        return ReliableCMFCAN(
+            use_shift_control=name != "reliable_cmf_can_no_shift",
+            use_segment_pooling=name != "reliable_cmf_can_no_segment",
+        )
     raise ValueError(f"unknown model: {name}")

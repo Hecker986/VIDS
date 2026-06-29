@@ -1,0 +1,55 @@
+model:
+  name: reliable_cmf_can
+  d_model: 256
+  num_classes: 2
+
+reliable_gate:
+  enabled: true
+  modality_dropout: 0.1
+  gate_entropy_reg: 0.001
+  reliability_hidden_dim: 128
+  use_shift_features: true
+
+context_shift:
+  enabled: true
+  method: overlap_distance
+  mask_unknown_ids: true
+  downweight_context: true
+  threshold_source: train_val
+
+normality_branch:
+  enabled: true
+  use_train_normal_only: true
+  score_types:
+    - prototype_distance
+    - mahalanobis
+    - transition_deviation
+    - window_stat_deviation
+  alpha_beta_selection: val_aupr_or_recall_at_fpr
+
+sparse_evidence:
+  enabled: true
+  num_segments: 10
+  segment_len: 10
+  top_k: 2
+  combine: weighted_sum
+
+training:
+  loss:
+    - weighted_ce
+    - focal_loss
+  early_stopping:
+    - val_f1
+    - val_aupr
+    - val_recall_at_fpr_1e-3
+    - val_low_fpr_composite
+  low_fpr_composite:
+    metric: aupr_plus_recall_at_fpr
+    fpr_budget: 0.001
+    lambda: 1.0
+
+output:
+  save_predictions: true
+  save_gate_weights: true
+  save_embeddings: true
+  save_reliability_fields: true

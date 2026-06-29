@@ -30,6 +30,7 @@ def main() -> None:
     parser.add_argument("--checkpoint", default="")
     parser.add_argument("--save-predictions", "--save_predictions", action="store_true")
     parser.add_argument("--save-gate-weights", "--save_gate_weights", action="store_true")
+    parser.add_argument("--save-embeddings", "--save_embeddings", action="store_true")
     parser.add_argument(
         "--selection-metric",
         choices=[
@@ -70,6 +71,7 @@ def main() -> None:
         checkpoint=args.checkpoint or None,
         save_predictions=args.save_predictions,
         save_gate_weights=args.save_gate_weights,
+        save_embeddings=args.save_embeddings,
     )
 
 
