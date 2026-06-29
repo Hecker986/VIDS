@@ -1,0 +1,30 @@
+root: /home/lqa/VIDS
+output_dir: results/transformer_rescue
+seed: 42
+epochs: 50
+batch_size: 512
+optimizer: AdamW
+learning_rate: 5.0e-5
+num_workers: 2
+class_weights: balanced
+formal_selection_metric: val_f1
+completed_runs:
+  - dataset: road
+    model: can_transformer_plus_sameid
+    command: ".venv/bin/python -m cmf_can.training.cli --root . --dataset road --model can_transformer_plus_sameid --epochs 50 --batch-size 512 --lr 5e-5 --seed 42 --label-ratio 1.0 --table transformer_rescue_raw.csv --num-workers 2 --selection-metric f1 --save-predictions"
+  - dataset: road
+    model: tfscan_gate
+    command: ".venv/bin/python -m cmf_can.training.cli --root . --dataset road --model tfscan_gate --epochs 50 --batch-size 512 --lr 5e-5 --seed 42 --label-ratio 1.0 --table transformer_rescue_raw.csv --num-workers 2 --selection-metric f1 --save-predictions"
+not_run:
+  - can_transformer_plus_basic
+  - can_transformer_plus_timebias
+  - can_transformer_plus_sameid_timebias
+  - can_transformer_plus_attnpool
+  - can_transformer_plus_topk
+  - tfscan_concat
+  - tfscan_stats_attention
+  - focal_loss_val_aupr
+  - weighted_ce_val_recall_at_fpr_1e-3
+  - ctt_test01_candidates
+  - ctt_test02_candidates
+  - mamba_baseline

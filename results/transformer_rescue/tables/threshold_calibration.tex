@@ -1,0 +1,12 @@
+\begin{tabular}{lllrrrrr}
+\toprule
+dataset & model & threshold\_policy & threshold & precision & recall & f1 & formal\_result \\
+\midrule
+road & can\_transformer\_plus\_sameid & default\_0.5 & 0.5000 & 0.9852 & 0.7061 & 0.8227 & True \\
+road & can\_transformer\_plus\_sameid & formal\_validation\_selected & 1.0000 & 0.9990 & 0.6996 & 0.8229 & True \\
+road & can\_transformer\_plus\_sameid & best\_test\_upper\_bound & 1.0000 & 0.9938 & 0.7050 & 0.8249 & False \\
+road & tfscan\_gate & default\_0.5 & 0.5000 & 0.9927 & 0.6952 & 0.8177 & True \\
+road & tfscan\_gate & formal\_validation\_selected & 1.0000 & 0.9989 & 0.6813 & 0.8101 & True \\
+road & tfscan\_gate & best\_test\_upper\_bound & 0.0009 & 0.9903 & 0.7083 & 0.8259 & False \\
+\bottomrule
+\end{tabular}

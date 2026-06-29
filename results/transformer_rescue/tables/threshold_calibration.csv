@@ -1,0 +1,7 @@
+dataset,model,threshold_policy,threshold,precision,recall,f1,formal_result
+road,can_transformer_plus_sameid,default_0.5,0.5,0.9852116267210607,0.706140350877193,0.8226527570789866,True
+road,can_transformer_plus_sameid,formal_validation_selected,1.0,0.9989561586638831,0.6995614035087719,0.822871883061049,True
+road,can_transformer_plus_sameid,best_test_upper_bound,0.999986171722412,0.9938176197836167,0.7050438596491229,0.8248877485567672,False
+road,tfscan_gate,default_0.5,0.5,0.9926931106471816,0.6951754385964912,0.8177128116938951,True
+road,tfscan_gate,formal_validation_selected,1.0,0.9989281886387996,0.6812865497076024,0.8100825727944372,True
+road,tfscan_gate,best_test_upper_bound,0.0008862151298671,0.9902912621359223,0.7083333333333334,0.8259109311740891,False

@@ -1,0 +1,6 @@
+question,decision,evidence
+abandon_reliable_cmf_full,yes,Reliable-CMF-CAN Full failed on ROAD and CT&T test02.
+choose_can_transformer_plus,not as main by F1; candidate by AUPR,ROAD F1=0.8229 < Transformer 0.8279; AUPR=0.8078 > old CMF-CAN 0.8060.
+choose_tfscan,no,"ROAD TFS-CAN gate F1=0.8101 and AUPR=0.7840, worse than CAN-Transformer+ same-ID."
+need_mamba,maybe,Transformer remains the F1 ceiling among completed models; real SSM/Mamba is a valid next baseline if dependency is installed.
+paper_possibility,possible only with cautious framing,"Current rescue does not create a new dominant model; a paper must focus on threshold/low-FPR/AUPR or systematic evidence, not SOTA F1."

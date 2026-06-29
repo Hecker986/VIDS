@@ -242,6 +242,20 @@ class SequenceBaseline(nn.Module):
 def build_model(name: str) -> nn.Module:
     if name in {"cnn", "lstm", "gru", "transformer"}:
         return SequenceBaseline(name)
+    if name in {
+        "can_transformer_plus_basic",
+        "can_transformer_plus_sameid",
+        "can_transformer_plus_timebias",
+        "can_transformer_plus_sameid_timebias",
+        "can_transformer_plus_attnpool",
+        "can_transformer_plus_topk",
+        "tfscan_concat",
+        "tfscan_gate",
+        "tfscan_stats_attention",
+    }:
+        from cmf_can.models.can_transformer_plus import make_can_transformer_plus
+
+        return make_can_transformer_plus(name)
     if name == "frame_only":
         return CMFCAN(frame_only=True)
     if name == "stats_only":

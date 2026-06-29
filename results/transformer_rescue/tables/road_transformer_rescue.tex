@@ -1,0 +1,10 @@
+\begin{tabular}{lllrrrrrrrrrrrrrrll}
+\toprule
+dataset & Model & model & precision & recall & f1 & macro\_f1 & auroc & aupr & fpr & fnr & recall\_at\_fpr\_1em04 & recall\_at\_fpr\_5em04 & recall\_at\_fpr\_1em03 & exceeds\_transformer\_f1 & exceeds\_old\_cmf\_f1 & exceeds\_old\_cmf\_aupr & selection\_metric & source \\
+\midrule
+road & Transformer & transformer & 0.9990 & 0.7069 & 0.8279 & 0.9102 & 0.9335 & 0.7794 & 0.0000 & 0.2931 & 0.7069 & 0.7083 & 0.7091 & False & True & False & NA & road\_main\_20ep.csv \\
+road & CMF-CAN & cmf\_can & 1.0000 & 0.6520 & 0.7894 & 0.8903 & 0.9431 & 0.8060 & 0.0000 & 0.3480 & 0.6827 & 0.7076 & 0.7083 & False & False & False & NA & road\_main\_20ep.csv \\
+road & CAN-Transformer+ same-ID & can\_transformer\_plus\_sameid & 0.9990 & 0.6996 & 0.8229 & 0.9076 & 0.9391 & 0.8078 & 0.0000 & 0.3004 & 0.7014 & 0.7061 & 0.7083 & False & True & True & f1 & transformer\_rescue\_raw.csv \\
+road & TFS-CAN gate & tfscan\_gate & 0.9989 & 0.6813 & 0.8101 & 0.9010 & 0.9249 & 0.7840 & 0.0000 & 0.3187 & 0.6860 & 0.7091 & 0.7113 & False & True & False & f1 & transformer\_rescue\_raw.csv \\
+\bottomrule
+\end{tabular}
