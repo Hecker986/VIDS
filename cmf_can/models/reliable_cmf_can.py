@@ -23,10 +23,12 @@ class ReliableCMFCAN(nn.Module):
         num_classes: int = 2,
         reliability_hidden_dim: int = 128,
         modality_dropout: float = 0.1,
+        use_reliability_gate: bool = True,
         use_shift_control: bool = True,
         use_segment_pooling: bool = True,
     ):
         super().__init__()
+        self.use_reliability_gate = use_reliability_gate
         self.use_shift_control = use_shift_control
         self.use_segment_pooling = use_segment_pooling
         self.modality_dropout = modality_dropout
@@ -93,7 +95,11 @@ class ReliableCMFCAN(nn.Module):
             keep[:, 1] = 1.0
             tokens = tokens * keep.unsqueeze(-1)
         tokens = self.cross(tokens + self.modality_type.unsqueeze(0))
-        reliability, weights = self.reliability_gate(tokens, shift_features)
+        if self.use_reliability_gate:
+            reliability, weights = self.reliability_gate(tokens, shift_features)
+        else:
+            weights = tokens.new_full((tokens.shape[0], 3), 1.0 / 3.0)
+            reliability = weights
         fused = (tokens * weights.unsqueeze(-1)).sum(dim=1)
         self.last_embedding = fused
         logits = self.head(fused) + 0.5 * self.last_aux_logits[0]

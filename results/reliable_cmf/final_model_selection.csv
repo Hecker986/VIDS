@@ -1,0 +1,4 @@
+setting,recommended_model,reason,main_metric
+ROAD,Transformer or old CMF-CAN depending metric,"Reliable-CMF-CAN F1=0.7877, lower than Transformer 0.8279 and old CMF-CAN 0.7894; Recall@FPR thresholding improves but not enough.",F1 + Recall@FPR
+CT&T test02,CMF-CAN -Ctx / anomaly calibrated policy,Reliable-CMF-CAN F1=0.1600 and Recall@FPR<=1e-3=0.4540; -Ctx/anomaly evidence is stronger.,Recall@FPR + AUPR
+CT&T test03/test04,Anomaly/normality policy until Reliable is trained,No Reliable-CMF-CAN 50ep result in this run; existing anomaly policy is the only strong unknown-attack evidence.,AUPR + event recall under false alarm budget

@@ -1,0 +1,55 @@
+/home/lqa/VIDS/cmf_can/models/cmf.py:26: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.encoder = nn.TransformerEncoder(layer, num_layers=layers)
+/home/lqa/VIDS/cmf_can/models/reliable_cmf_can.py:47: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  self.cross = nn.TransformerEncoder(layer, num_layers=1)
+[CMF ctt_test02/reliable_cmf_can] ep 1/50 loss=0.1490 val_f1=0.9265 val_aupr=0.9721 select_f1=0.9265 thr=0.0009
+[CMF ctt_test02/reliable_cmf_can] ep 2/50 loss=0.0168 val_f1=0.9462 val_aupr=0.9812 select_f1=0.9462 thr=0.0008
+[CMF ctt_test02/reliable_cmf_can] ep 3/50 loss=0.0106 val_f1=0.9633 val_aupr=0.9960 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 4/50 loss=0.0014 val_f1=0.9633 val_aupr=0.9995 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 5/50 loss=0.0027 val_f1=0.9619 val_aupr=0.9945 select_f1=0.9619 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 6/50 loss=0.0004 val_f1=0.9633 val_aupr=0.9983 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 7/50 loss=0.0004 val_f1=0.9633 val_aupr=0.9983 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 8/50 loss=0.0004 val_f1=0.9633 val_aupr=0.9978 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 9/50 loss=0.0003 val_f1=0.9633 val_aupr=0.9980 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 10/50 loss=0.0002 val_f1=0.9633 val_aupr=0.9988 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 11/50 loss=0.0003 val_f1=0.9633 val_aupr=0.9989 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 12/50 loss=0.0002 val_f1=0.9633 val_aupr=0.9989 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 13/50 loss=0.0002 val_f1=0.9633 val_aupr=0.9986 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 14/50 loss=0.0002 val_f1=0.9633 val_aupr=0.9990 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 15/50 loss=0.0094 val_f1=0.9633 val_aupr=0.9978 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 16/50 loss=0.0006 val_f1=0.9633 val_aupr=0.9982 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 17/50 loss=0.0001 val_f1=0.9633 val_aupr=0.9980 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 18/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9981 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 19/50 loss=0.0002 val_f1=0.9633 val_aupr=0.9970 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 20/50 loss=0.0001 val_f1=0.9633 val_aupr=0.9996 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 21/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9997 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 22/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9996 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 23/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9996 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 24/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9996 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 25/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 26/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9997 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 27/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9997 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 28/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9997 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 29/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9997 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 30/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9997 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 31/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9997 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 32/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9997 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 33/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9997 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 34/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 35/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 36/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 37/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 38/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 39/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 40/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 41/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 42/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 43/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 44/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 45/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 46/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 47/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 48/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 49/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] ep 50/50 loss=0.0000 val_f1=0.9633 val_aupr=0.9998 select_f1=0.9633 thr=0.0000
+[CMF ctt_test02/reliable_cmf_can] test {'dataset': 'ctt_test02', 'model': 'reliable_cmf_can', 'seed': 42, 'label_ratio': 1.0, 'epochs': 50, 'aux_loss_weight': 0.2, 'loss': 'ce', 'focal_gamma': 2.0, 'focal_alpha': '', 'sampler': 'none', 'selection_metric': 'f1', 'class_weights': 'balanced', 'supcon_weight': 0.0, 'supcon_temperature': 0.1, 'accuracy': 0.08697944939899185, 'precision': 0.08697944939899185, 'recall': 1.0, 'f1': 0.16003881112395302, 'macro_f1': 0.08001940556197651, 'aupr': 0.8327280855103231, 'auroc': 0.9520923405470689, 'fpr': 1.0, 'fnr': 0.0, 'threshold': 1.8102510648533774e-06, 'recall_at_fpr_1em04': 0.13177603423680456, 'f1_at_fpr_1em04': 0.2326826196473552, 'actual_fpr_at_1em04': 8.493723138600574e-05, 'threshold_at_fpr_1em04': 0.04354606196284294, 'recall_at_fpr_5em04': 0.3257845934379458, 'f1_at_fpr_5em04': 0.48954983922829587, 'actual_fpr_at_5em04': 0.0004926359420388333, 'threshold_at_fpr_5em04': 0.023258525878190994, 'recall_at_fpr_1em03': 0.45399429386590584, 'f1_at_fpr_1em03': 0.6200681928884559, 'actual_fpr_at_1em03': 0.0009852718840776666, 'threshold_at_fpr_1em03': 0.017188409343361855}

@@ -1,0 +1,15 @@
+dataset,model,attack_type,support,precision,recall,f1
+road,reliable_cmf_can,fuzzing,68,1.0,0.8970588235294118,0.9457364341085271
+road,reliable_cmf_can,malfunction,56,0.0,0.0,0.0
+road,reliable_cmf_can,masquerade,484,1.0,0.8285123966942148,0.9062146892655367
+road,reliable_cmf_can,normal,53683,0.0,0.0,0.0
+road,reliable_cmf_can,spoof,2128,1.0,0.618890977443609,0.7645863570391872
+ctt_test02,reliable_cmf_can,DoS-3,4834,1.0,1.0,1.0
+ctt_test02,reliable_cmf_can,DoS-4,183,1.0,1.0,1.0
+ctt_test02,reliable_cmf_can,force-neutral-3,32,1.0,1.0,1.0
+ctt_test02,reliable_cmf_can,force-neutral-4,56,1.0,1.0,1.0
+ctt_test02,reliable_cmf_can,normal,58867,0.0,0.0,0.0
+ctt_test02,reliable_cmf_can,rpm-3,126,1.0,1.0,1.0
+ctt_test02,reliable_cmf_can,rpm-4,26,1.0,1.0,1.0
+ctt_test02,reliable_cmf_can,standstill-3,272,1.0,1.0,1.0
+ctt_test02,reliable_cmf_can,standstill-4,79,1.0,1.0,1.0

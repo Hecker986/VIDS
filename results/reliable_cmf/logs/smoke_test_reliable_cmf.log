@@ -1,0 +1,12 @@
+logits_shape=(4, 2)
+gate_frame_mean=0.304352
+gate_window_mean=0.344853
+gate_context_mean=0.350795
+reliability_frame_mean=0.470563
+reliability_window_mean=0.534030
+reliability_context_mean=0.542308
+context_shift_score_mean=0.000000
+topk_score_mean=0.540800
+loss=0.614130
+grad_norm_sum=29.656696
+status=ok
