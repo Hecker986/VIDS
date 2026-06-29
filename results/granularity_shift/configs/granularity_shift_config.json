@@ -1,0 +1,36 @@
+{
+  "seeds": [
+    42,
+    2024,
+    2026,
+    7,
+    99
+  ],
+  "features": [
+    "can_id",
+    "dlc",
+    "data0",
+    "data1",
+    "data2",
+    "data3",
+    "data4",
+    "data5",
+    "data6",
+    "data7",
+    "delta_t_global",
+    "delta_t_same_id",
+    "payload_sum",
+    "payload_mean",
+    "payload_std",
+    "payload_delta_l1"
+  ],
+  "samplelevel_negative_sampling": "all positives + capped negatives per seed",
+  "prediction_dump_policy": "50k deterministic audit samples only",
+  "window_sizes": [
+    5,
+    10,
+    20,
+    50,
+    100
+  ]
+}

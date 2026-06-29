@@ -1,0 +1,182 @@
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[granularity_shift] fit seed=42 model=GradientBoosting
+[granularity_shift] fit seed=42 model=RandomForest
+[granularity_shift] fit seed=42 model=MLP
+/home/lqa/VIDS/.venv/lib/python3.12/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (15) reached and the optimization hasn't converged yet.
+  warnings.warn(
+[granularity_shift] fit seed=42 model=LogisticRegression
+[granularity_shift] fit seed=42 model=GaussianNB
+[granularity_shift] fit seed=42 model=IsolationForest
+[granularity_shift] fit seed=42 model=BIRCH
+[granularity_shift] eval sample seed=42 dataset=ctt_test01
+[granularity_shift] eval sample seed=42 dataset=ctt_test02
+[granularity_shift] eval sample seed=42 dataset=ctt_test03
+[granularity_shift] eval sample seed=42 dataset=ctt_test04
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[granularity_shift] fit seed=2024 model=GradientBoosting
+[granularity_shift] fit seed=2024 model=RandomForest
+[granularity_shift] fit seed=2024 model=MLP
+/home/lqa/VIDS/.venv/lib/python3.12/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (15) reached and the optimization hasn't converged yet.
+  warnings.warn(
+[granularity_shift] fit seed=2024 model=LogisticRegression
+[granularity_shift] fit seed=2024 model=GaussianNB
+[granularity_shift] fit seed=2024 model=IsolationForest
+[granularity_shift] fit seed=2024 model=BIRCH
+[granularity_shift] eval sample seed=2024 dataset=ctt_test01
+[granularity_shift] eval sample seed=2024 dataset=ctt_test02
+[granularity_shift] eval sample seed=2024 dataset=ctt_test03
+[granularity_shift] eval sample seed=2024 dataset=ctt_test04
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[granularity_shift] fit seed=2026 model=GradientBoosting
+[granularity_shift] fit seed=2026 model=RandomForest
+[granularity_shift] fit seed=2026 model=MLP
+/home/lqa/VIDS/.venv/lib/python3.12/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (15) reached and the optimization hasn't converged yet.
+  warnings.warn(
+[granularity_shift] fit seed=2026 model=LogisticRegression
+[granularity_shift] fit seed=2026 model=GaussianNB
+[granularity_shift] fit seed=2026 model=IsolationForest
+[granularity_shift] fit seed=2026 model=BIRCH
+[granularity_shift] eval sample seed=2026 dataset=ctt_test01
+[granularity_shift] eval sample seed=2026 dataset=ctt_test02
+[granularity_shift] eval sample seed=2026 dataset=ctt_test03
+[granularity_shift] eval sample seed=2026 dataset=ctt_test04
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[granularity_shift] fit seed=7 model=GradientBoosting
+[granularity_shift] fit seed=7 model=RandomForest
+[granularity_shift] fit seed=7 model=MLP
+/home/lqa/VIDS/.venv/lib/python3.12/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (15) reached and the optimization hasn't converged yet.
+  warnings.warn(
+[granularity_shift] fit seed=7 model=LogisticRegression
+[granularity_shift] fit seed=7 model=GaussianNB
+[granularity_shift] fit seed=7 model=IsolationForest
+[granularity_shift] fit seed=7 model=BIRCH
+[granularity_shift] eval sample seed=7 dataset=ctt_test01
+[granularity_shift] eval sample seed=7 dataset=ctt_test02
+[granularity_shift] eval sample seed=7 dataset=ctt_test03
+[granularity_shift] eval sample seed=7 dataset=ctt_test04
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[granularity_shift] fit seed=99 model=GradientBoosting
+[granularity_shift] fit seed=99 model=RandomForest
+[granularity_shift] fit seed=99 model=MLP
+/home/lqa/VIDS/.venv/lib/python3.12/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (15) reached and the optimization hasn't converged yet.
+  warnings.warn(
+[granularity_shift] fit seed=99 model=LogisticRegression
+[granularity_shift] fit seed=99 model=GaussianNB
+[granularity_shift] fit seed=99 model=IsolationForest
+[granularity_shift] fit seed=99 model=BIRCH
+[granularity_shift] eval sample seed=99 dataset=ctt_test01
+[granularity_shift] eval sample seed=99 dataset=ctt_test02
+[granularity_shift] eval sample seed=99 dataset=ctt_test03
+[granularity_shift] eval sample seed=99 dataset=ctt_test04
+[granularity_shift] train short window w=5
+[granularity_shift] train short window w=10
+[granularity_shift] train short window w=20
+[granularity_shift] train short window w=50
+[granularity_shift] train short window w=100
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[granularity_shift] fit seed=42 model=GradientBoosting
+[granularity_shift] fit seed=42 model=RandomForest
+[granularity_shift] fit seed=42 model=MLP
+/home/lqa/VIDS/.venv/lib/python3.12/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (15) reached and the optimization hasn't converged yet.
+  warnings.warn(
+[granularity_shift] fit seed=42 model=LogisticRegression
+[granularity_shift] fit seed=42 model=GaussianNB
+[granularity_shift] fit seed=42 model=IsolationForest
+[granularity_shift] fit seed=42 model=BIRCH
+[granularity_shift] done
+[granularity_shift] rerun granularity_search without attack_ratio leakage
+[granularity_shift] train short window w=5
+[granularity_shift] train short window w=10
+[granularity_shift] train short window w=20
+[granularity_shift] train short window w=50
+[granularity_shift] train short window w=100
+[granularity_shift] rerun done
+[granularity_shift] rerun normality policy with Recall@FPR
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[granularity_shift] fit seed=42 model=GradientBoosting
+[granularity_shift] fit seed=42 model=RandomForest
+[granularity_shift] fit seed=42 model=MLP
+/home/lqa/VIDS/.venv/lib/python3.12/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (15) reached and the optimization hasn't converged yet.
+  warnings.warn(
+[granularity_shift] fit seed=42 model=LogisticRegression
+[granularity_shift] fit seed=42 model=GaussianNB
+[granularity_shift] fit seed=42 model=IsolationForest
+[granularity_shift] fit seed=42 model=BIRCH
+[granularity_shift] normality rerun done
