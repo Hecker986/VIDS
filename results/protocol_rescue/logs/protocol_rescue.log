@@ -1,0 +1,130 @@
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[protocol_rescue] fit LogisticRegression
+[protocol_rescue] fitted LogisticRegression threshold=0.425035
+[protocol_rescue] fit GaussianNB
+[protocol_rescue] fitted GaussianNB threshold=0.000000
+[protocol_rescue] fit MLP
+/home/lqa/VIDS/.venv/lib/python3.12/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (15) reached and the optimization hasn't converged yet.
+  warnings.warn(
+[protocol_rescue] fitted MLP threshold=0.054309
+[protocol_rescue] fit GradientBoosting
+[protocol_rescue] fitted GradientBoosting threshold=0.045053
+[protocol_rescue] fit RandomForest
+[protocol_rescue] fitted RandomForest threshold=0.033333
+[protocol_rescue] fit IsolationForest
+[protocol_rescue] fitted IsolationForest threshold=-0.113834
+[protocol_rescue] fit BIRCH
+[protocol_rescue] fitted BIRCH threshold=1.225997
+[protocol_rescue] eval ctt_test01
+[protocol_rescue] score chunk ctt_test01 rows=154255
+[protocol_rescue] score chunk ctt_test01 rows=920350
+[protocol_rescue] score chunk ctt_test01 rows=904145
+[protocol_rescue] score chunk ctt_test01 rows=839873
+[protocol_rescue] score chunk ctt_test01 rows=809398
+[protocol_rescue] score chunk ctt_test01 rows=824211
+[protocol_rescue] score chunk ctt_test01 rows=629156
+[protocol_rescue] score chunk ctt_test01 rows=621282
+[protocol_rescue] eval ctt_test02
+[protocol_rescue] score chunk ctt_test02 rows=1100971
+[protocol_rescue] score chunk ctt_test02 rows=689028
+[protocol_rescue] score chunk ctt_test02 rows=449461
+[protocol_rescue] score chunk ctt_test02 rows=1646238
+[protocol_rescue] score chunk ctt_test02 rows=635397
+[protocol_rescue] score chunk ctt_test02 rows=645613
+[protocol_rescue] score chunk ctt_test02 rows=635543
+[protocol_rescue] score chunk ctt_test02 rows=645666
+[protocol_rescue] eval ctt_test03
+[protocol_rescue] score chunk ctt_test03 rows=902805
+[protocol_rescue] score chunk ctt_test03 rows=840014
+[protocol_rescue] score chunk ctt_test03 rows=573786
+[protocol_rescue] score chunk ctt_test03 rows=409146
+[protocol_rescue] score chunk ctt_test03 rows=786935
+[protocol_rescue] score chunk ctt_test03 rows=884330
+[protocol_rescue] score chunk ctt_test03 rows=631438
+[protocol_rescue] score chunk ctt_test03 rows=622822
+[protocol_rescue] score chunk ctt_test03 rows=783562
+[protocol_rescue] score chunk ctt_test03 rows=567973
+[protocol_rescue] score chunk ctt_test03 rows=807996
+[protocol_rescue] score chunk ctt_test03 rows=824468
+[protocol_rescue] eval ctt_test04
+[protocol_rescue] score chunk ctt_test04 rows=1106909
+[protocol_rescue] score chunk ctt_test04 rows=1300435
+[protocol_rescue] score chunk ctt_test04 rows=495332
+[protocol_rescue] score chunk ctt_test04 rows=619269
+[protocol_rescue] score chunk ctt_test04 rows=891053
+[protocol_rescue] score chunk ctt_test04 rows=857658
+[protocol_rescue] score chunk ctt_test04 rows=2625443
+[protocol_rescue] score chunk ctt_test04 rows=1898360
+[protocol_rescue] score chunk ctt_test04 rows=507374
+[protocol_rescue] score chunk ctt_test04 rows=330614
+[protocol_rescue] score chunk ctt_test04 rows=1993660
+[protocol_rescue] score chunk ctt_test04 rows=594448
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[protocol_rescue] fit LogisticRegression
+[protocol_rescue] fitted LogisticRegression threshold=0.280184
+[protocol_rescue] fit GaussianNB
+[protocol_rescue] fitted GaussianNB threshold=0.000000
+[protocol_rescue] fit MLP
+/home/lqa/VIDS/.venv/lib/python3.12/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (15) reached and the optimization hasn't converged yet.
+  warnings.warn(
+[protocol_rescue] fitted MLP threshold=0.068314
+[protocol_rescue] fit GradientBoosting
+[protocol_rescue] fitted GradientBoosting threshold=0.067181
+[protocol_rescue] fit RandomForest
+[protocol_rescue] fitted RandomForest threshold=0.066667
+[protocol_rescue] fit IsolationForest
+[protocol_rescue] fitted IsolationForest threshold=-0.105099
+[protocol_rescue] fit BIRCH
+[protocol_rescue] fitted BIRCH threshold=1.353237
+Traceback (most recent call last):
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/compat/_optional.py", line 158, in import_optional_dependency
+    module = importlib.import_module(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'tabulate'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/lqa/VIDS/cmf_can/analysis/protocol_rescue.py", line 564, in <module>
+    main()
+  File "/home/lqa/VIDS/cmf_can/analysis/protocol_rescue.py", line 559, in main
+    write_analyses(official, gran, imp, events, norm)
+  File "/home/lqa/VIDS/cmf_can/analysis/protocol_rescue.py", line 497, in write_analyses
+    f"Best per setting:\n{best[['dataset','model','f1','aupr','auroc','fpr','fnr']].to_markdown(index=False)}\n\n"
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/core/frame.py", line 2983, in to_markdown
+    tabulate = import_optional_dependency("tabulate")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/compat/_optional.py", line 161, in import_optional_dependency
+    raise ImportError(msg) from err
+ImportError: `Import tabulate` failed.  Use pip or conda to install the tabulate package.

@@ -1,0 +1,7 @@
+dataset,model,events,event_recall,mean_detection_delay_windows,median_detection_delay_windows,false_alarm_windows,false_alarm_windows_per_100k_windows,note
+road,Transformer,67,0.16417910447761194,0.0,0.0,2,3.544905085166345,events are contiguous positive windows; no official event boundaries available
+road,CAN-Transformer+ same-ID,67,0.16417910447761194,0.0,0.0,2,3.544905085166345,events are contiguous positive windows; no official event boundaries available
+ctt_test02,Transformer,593,1.0,0.0,0.0,58867,91302.05506010081,events are contiguous positive windows; no official event boundaries available
+ctt_test02,CMF-CAN,593,1.0,0.0,0.0,58867,91302.05506010081,events are contiguous positive windows; no official event boundaries available
+ctt_test04,Transformer,463,1.0,0.2159827213822894,0.0,128693,97347.20121028744,events are contiguous positive windows; no official event boundaries available
+ctt_test04,CMF-CAN,463,0.8531317494600432,47.59493670886076,0.0,75567,57161.11951588502,events are contiguous positive windows; no official event boundaries available

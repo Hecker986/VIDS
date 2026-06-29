@@ -1,0 +1,12 @@
+\begin{tabular}{llrrrrrrl}
+\toprule
+dataset & model & events & event\_recall & mean\_detection\_delay\_windows & median\_detection\_delay\_windows & false\_alarm\_windows & false\_alarm\_windows\_per\_100k\_windows & note \\
+\midrule
+road & Transformer & 67 & 0.1642 & 0.0000 & 0.0000 & 2 & 3.5449 & events are contiguous positive windows; no official event boundaries available \\
+road & CAN-Transformer+ same-ID & 67 & 0.1642 & 0.0000 & 0.0000 & 2 & 3.5449 & events are contiguous positive windows; no official event boundaries available \\
+ctt\_test02 & Transformer & 593 & 1.0000 & 0.0000 & 0.0000 & 58867 & 91302.0551 & events are contiguous positive windows; no official event boundaries available \\
+ctt\_test02 & CMF-CAN & 593 & 1.0000 & 0.0000 & 0.0000 & 58867 & 91302.0551 & events are contiguous positive windows; no official event boundaries available \\
+ctt\_test04 & Transformer & 463 & 1.0000 & 0.2160 & 0.0000 & 128693 & 97347.2012 & events are contiguous positive windows; no official event boundaries available \\
+ctt\_test04 & CMF-CAN & 463 & 0.8531 & 47.5949 & 0.0000 & 75567 & 57161.1195 & events are contiguous positive windows; no official event boundaries available \\
+\bottomrule
+\end{tabular}

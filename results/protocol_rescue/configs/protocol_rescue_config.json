@@ -1,0 +1,25 @@
+{
+  "raw_root": "data/raw/can-train-and-test/set_01",
+  "train_negative_sampling": true,
+  "max_neg_train_total_approx": 500000,
+  "max_neg_val_total_approx": 200000,
+  "test_protocol": "full official test folders",
+  "features": [
+    "can_id",
+    "dlc",
+    "data0",
+    "data1",
+    "data2",
+    "data3",
+    "data4",
+    "data5",
+    "data6",
+    "data7",
+    "delta_t_global",
+    "delta_t_same_id",
+    "payload_sum",
+    "payload_mean",
+    "payload_std",
+    "payload_delta_l1"
+  ]
+}
