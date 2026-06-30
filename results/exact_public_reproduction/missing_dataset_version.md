@@ -2,12 +2,14 @@
 
 No local candidate matches the task-provided can-train-and-test-v1.5 set_01 anchors: total samples 55,582,992 and training samples 11,460,705 with train_02/test05/test06 support.
 
+The public original Bitbucket repository is handled separately as Target A when the full `set_01`-`set_04` tree is present.
+
 Current local data found:
 
 ```csv
-dataset_candidate,path,num_files,total_size_bytes,has_train_01,has_train_02,has_test01,has_test02,has_test03,has_test04,has_test05,has_test06,has_data_extended_xlsx,has_can_ml,file_list_hash,sample_count_train,sample_count_test01,sample_count_test02,sample_count_test03,sample_count_test04,sample_count_total_set01_visible,expected_v15_total_samples,expected_v15_train_samples,columns_train,columns_test04,label_values,attack_types_train,attack_types_test04,vehicle_or_source_fields,status
-can-train-and-test,data/raw/can-train-and-test,52,1715703969,True,False,True,True,True,True,False,False,False,False,bcb6ffcaf969d81a,10653140,5702670,6447917,8635275,13220555,44659557,55582992,11460705,timestamp;arbitration_id;data_field;attack,timestamp;arbitration_id;data_field;attack,"{""0"": 10603583, ""1"": 49557}",DoS;accessory;attack-free;force-neutral;rpm;standstill,double;fuzzing;interval;speed;systematic;triple,not_present_in_csv_columns,candidate_original_unverified
-set_01,data/raw/can-train-and-test/set_01,52,1715703969,True,False,True,True,True,True,False,False,False,False,bcb6ffcaf969d81a,10653140,5702670,6447917,8635275,13220555,44659557,55582992,11460705,timestamp;arbitration_id;data_field;attack,timestamp;arbitration_id;data_field;attack,"{""0"": 10603583, ""1"": 49557}",DoS;accessory;attack-free;force-neutral;rpm;standstill,double;fuzzing;interval;speed;systematic;triple,not_present_in_csv_columns,candidate_original_unverified
+dataset_candidate,path,num_files,total_size_bytes,has_train_01,has_train_02,has_test01,has_test02,has_test03,has_test04,has_test05,has_test06,has_set_01,has_set_02,has_set_03,has_set_04,has_data_extended_xlsx,has_can_ml,file_list_hash,sample_count_train,sample_count_test01,sample_count_test02,sample_count_test03,sample_count_test04,sample_count_total_set01_visible,expected_v15_total_samples,expected_v15_train_samples,columns_train,columns_test04,label_values,attack_types_train,attack_types_test04,vehicle_or_source_fields,status
+can-train-and-test,data/raw/can-train-and-test,236,7471443340,True,False,True,True,True,True,False,False,True,True,True,True,False,False,a6cd9c60683c9008,9492801,6896019,17408094,6854234,8183626,48834774,55582992,11460705,timestamp;arbitration_id;data_field;attack,timestamp;arbitration_id;data_field;attack,"{""0"": 9466722, ""1"": 26079}",accessory;attack-free;interval;rpm;rpm-accessory;speed;speed-accessory;standstill;systematic,DoS;double;force-neutral;fuzzing;triple,not_present_in_csv_columns,aligned_original_public_bitbucket
+set_01,data/raw/can-train-and-test/set_01,52,1715703969,True,False,True,True,True,True,False,False,False,False,False,False,False,False,bcb6ffcaf969d81a,10653140,5702670,6447917,8635275,13220555,44659557,55582992,11460705,timestamp;arbitration_id;data_field;attack,timestamp;arbitration_id;data_field;attack,"{""0"": 10603583, ""1"": 49557}",DoS;accessory;attack-free;force-neutral;rpm;standstill,double;fuzzing;interval;speed;systematic;triple,not_present_in_csv_columns,aligned_original_public_bitbucket_set01
 ```
 
 To continue exact reproduction, provide the original can-train-and-test release and/or can-train-and-test-v1.5 under one of:

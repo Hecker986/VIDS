@@ -1,13 +1,11 @@
 # Reproduction Blocker Report
 
-No exact public reproduction can be claimed from the current workspace.
+Exact reproduction did not reach test04 attack-positive F1 >= 0.95.
 
-1. Original data version: not fingerprint-aligned to a public manifest in this workspace.
-2. v1.5 data version: missing or not aligned; no candidate has v1.5 sample-count anchors and train_02/test05/test06 support.
-3. Official feature table: not present locally.
-4. File manifest: current local set_01 does not include v1.5-required subsets and sample counts do not match 55,582,992 total / 11,460,705 train.
-5. Field format: local CSV columns are timestamp, arbitration_id, data_field, attack; no extra metadata proving public protocol equivalence.
-6. Metric definition: exact public confusion matrices/positive-label convention are unavailable locally.
-7. Required next input: provide exact original release and/or v1.5 under `CTT_ORIGINAL_ROOT` or `CTT_V15_ROOT`.
+1. Target A original Bitbucket data tree present: yes.
+2. Target B v1.5 data version aligned: no.
+3. Official feature table / can-sleuth preprocessing code: not present locally.
+4. Current Target A sweep rows are marked `completed_sampling_approximation` unless a full-negative protocol is explicitly present.
+5. Required next input for Target B: the exact can-train-and-test-v1.5 release or can-sleuth feature table/code path under `CTT_V15_ROOT`.
 
-Until this is resolved, do not claim the method fails to match public 0.998 and do not claim the public result is wrong.
+This file is an execution blocker only for reproducing the public high score, not a reason to stop downloading or auditing data.
