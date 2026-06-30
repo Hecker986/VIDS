@@ -1,0 +1,10 @@
+protocol,feature_names,uses_raw_timestamp,uses_arbitration_id,uses_subdivided_data_bytes,uses_intact_data_field,uses_safe_deltas,uses_future_info,normalization,encoding,notes
+P1_public_default_subdivided,timestamp;arbitration_id;byte_1;byte_2;byte_3;byte_4;byte_5;byte_6;byte_7;byte_8,True,True,True,False,False,False,fit train only,numeric scaling,public default candidate
+P2_public_no_timestamp_subdivided,arbitration_id;byte_1;byte_2;byte_3;byte_4;byte_5;byte_6;byte_7;byte_8,False,True,True,False,False,False,fit train only,numeric scaling,raw timestamp ablation
+P3_public_intact_datafield,timestamp;arbitration_id;data_field_as_single_int_or_hex_numeric,True,True,False,True,False,False,fit train only,numeric scaling,intact data field candidate
+P4_public_intact_no_timestamp,arbitration_id;data_field_as_single_int_or_hex_numeric,False,True,False,True,False,False,fit train only,numeric scaling,intact no timestamp
+P5_timestamp_only,timestamp,True,False,False,False,False,False,fit train only,numeric scaling,shortcut sanity
+P6_arbitration_only,arbitration_id,False,True,False,False,False,False,fit train only,numeric scaling,ID-only sanity
+P7_payload_bytes_only,byte_1;byte_2;byte_3;byte_4;byte_5;byte_6;byte_7;byte_8,False,False,True,False,False,False,fit train only,numeric scaling,payload-only sanity
+P8_current_safe_can,can_id;payload bytes;safe causal deltas;payload stats,False,True,True,False,True,False,fit train only,numeric scaling,current safe feature set
+P9_public_plus_safe_can,public_default + safe causal deltas,True,True,True,False,True,False,fit train only,numeric scaling,public plus safe

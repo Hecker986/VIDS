@@ -1,0 +1,15 @@
+\begin{tabular}{llrrrrrrlll}
+\toprule
+protocol & feature\_names & uses\_raw\_timestamp & uses\_arbitration\_id & uses\_subdivided\_data\_bytes & uses\_intact\_data\_field & uses\_safe\_deltas & uses\_future\_info & normalization & encoding & notes \\
+\midrule
+P1\_public\_default\_subdivided & timestamp;arbitration\_id;byte\_1;byte\_2;byte\_3;byte\_4;byte\_5;byte\_6;byte\_7;byte\_8 & True & True & True & False & False & False & fit train only & numeric scaling & public default candidate \\
+P2\_public\_no\_timestamp\_subdivided & arbitration\_id;byte\_1;byte\_2;byte\_3;byte\_4;byte\_5;byte\_6;byte\_7;byte\_8 & False & True & True & False & False & False & fit train only & numeric scaling & raw timestamp ablation \\
+P3\_public\_intact\_datafield & timestamp;arbitration\_id;data\_field\_as\_single\_int\_or\_hex\_numeric & True & True & False & True & False & False & fit train only & numeric scaling & intact data field candidate \\
+P4\_public\_intact\_no\_timestamp & arbitration\_id;data\_field\_as\_single\_int\_or\_hex\_numeric & False & True & False & True & False & False & fit train only & numeric scaling & intact no timestamp \\
+P5\_timestamp\_only & timestamp & True & False & False & False & False & False & fit train only & numeric scaling & shortcut sanity \\
+P6\_arbitration\_only & arbitration\_id & False & True & False & False & False & False & fit train only & numeric scaling & ID-only sanity \\
+P7\_payload\_bytes\_only & byte\_1;byte\_2;byte\_3;byte\_4;byte\_5;byte\_6;byte\_7;byte\_8 & False & False & True & False & False & False & fit train only & numeric scaling & payload-only sanity \\
+P8\_current\_safe\_can & can\_id;payload bytes;safe causal deltas;payload stats & False & True & True & False & True & False & fit train only & numeric scaling & current safe feature set \\
+P9\_public\_plus\_safe\_can & public\_default + safe causal deltas & True & True & True & False & True & False & fit train only & numeric scaling & public plus safe \\
+\bottomrule
+\end{tabular}

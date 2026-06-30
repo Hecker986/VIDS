@@ -1,0 +1,17 @@
+\begin{tabular}{lllllrl}
+\toprule
+model & parameter\_set & parameters\_json & label\_mapping\_rule & threshold\_rule & uses\_validation & notes \\
+\midrule
+BIRCH & default\_sklearn & \{"n\_clusters": null, "threshold": 0.5\} & validation\_majority\_or\_distance\_threshold & validation\_f1 & True & cluster-to-label mapping must not use test labels \\
+GradientBoosting & default\_sklearn & \{\} & not\_applicable & validation\_f1 & True & sklearn default unless paper parameters available \\
+LogisticRegression & default\_sklearn & \{"max\_iter": 100\} & not\_applicable & validation\_f1 & True & sklearn default \\
+MLP & default\_sklearn & \{"activation": "relu", "hidden\_layer\_sizes": [100], "max\_iter": 200, "random\_state": 42, "solver": "adam"\} & not\_applicable & validation\_f1 & True & paper exact parameters unavailable locally \\
+IsolationForest & default\_sklearn & \{\} & distance\_or\_score\_threshold & validation\_f1 & True & unsupervised score threshold selected on validation \\
+GaussianNB & default\_sklearn & \{\} & not\_applicable & validation\_f1 & True & sklearn default \\
+RandomForest & default\_sklearn & \{\} & not\_applicable & validation\_f1 & True & sklearn default \\
+ExtraTrees & default\_sklearn & \{\} & not\_applicable & validation\_f1 & True & sklearn default \\
+KNN & default\_sklearn & \{\} & not\_applicable & validation\_f1 & True & full CT\&T scale feasibility uncertain \\
+LinearSVM & default\_sklearn & \{\} & not\_applicable & validation\_f1 & True & decision score threshold on validation \\
+MiniBatchKMeans & default\_sklearn & \{\} & validation\_majority\_label & validation\_f1 & True & cluster mapping must use validation/train only \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,12 @@
+model,parameter_set,parameters_json,label_mapping_rule,threshold_rule,uses_validation,notes
+BIRCH,default_sklearn,"{""n_clusters"": null, ""threshold"": 0.5}",validation_majority_or_distance_threshold,validation_f1,True,cluster-to-label mapping must not use test labels
+GradientBoosting,default_sklearn,{},not_applicable,validation_f1,True,sklearn default unless paper parameters available
+LogisticRegression,default_sklearn,"{""max_iter"": 100}",not_applicable,validation_f1,True,sklearn default
+MLP,default_sklearn,"{""activation"": ""relu"", ""hidden_layer_sizes"": [100], ""max_iter"": 200, ""random_state"": 42, ""solver"": ""adam""}",not_applicable,validation_f1,True,paper exact parameters unavailable locally
+IsolationForest,default_sklearn,{},distance_or_score_threshold,validation_f1,True,unsupervised score threshold selected on validation
+GaussianNB,default_sklearn,{},not_applicable,validation_f1,True,sklearn default
+RandomForest,default_sklearn,{},not_applicable,validation_f1,True,sklearn default
+ExtraTrees,default_sklearn,{},not_applicable,validation_f1,True,sklearn default
+KNN,default_sklearn,{},not_applicable,validation_f1,True,full CT&T scale feasibility uncertain
+LinearSVM,default_sklearn,{},not_applicable,validation_f1,True,decision score threshold on validation
+MiniBatchKMeans,default_sklearn,{},validation_majority_label,validation_f1,True,cluster mapping must use validation/train only
