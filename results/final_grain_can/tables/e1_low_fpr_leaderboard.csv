@@ -1,100 +1,141 @@
-dataset,model,fpr_budget,recall_at_fpr,precision_at_fpr,f1_at_fpr,threshold_source
-ctt_test04,GradientBoosting:sample,0.0001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:sample,0.0005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:sample,0.001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:sample,0.005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:sample,0.01,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_5,0.0001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_5,0.0005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_5,0.001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_5,0.005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_5,0.01,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_10,0.0001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_10,0.0005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_10,0.001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_10,0.005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_10,0.01,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_20,0.0001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_20,0.0005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_20,0.001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_20,0.005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_20,0.01,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_50,0.0001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_50,0.0005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_50,0.001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_50,0.005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_50,0.01,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_100,0.0001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_100,0.0005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_100,0.001,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_100,0.005,,,,available aggregate or missing
-ctt_test04,GradientBoosting:window_100,0.01,,,,available aggregate or missing
-ctt_test04,normality:supervised_only,0.0001,,,,available aggregate or missing
-ctt_test04,normality:supervised_only,0.0005,,,,available aggregate or missing
-ctt_test04,normality:supervised_only,0.001,,,,available aggregate or missing
-ctt_test04,normality:supervised_only,0.005,,,,available aggregate or missing
-ctt_test04,normality:supervised_only,0.01,,,,available aggregate or missing
-ctt_test04,normality:normality_only,0.0001,,,,available aggregate or missing
-ctt_test04,normality:normality_only,0.0005,,,,available aggregate or missing
-ctt_test04,normality:normality_only,0.001,,,,available aggregate or missing
-ctt_test04,normality:normality_only,0.005,,,,available aggregate or missing
-ctt_test04,normality:normality_only,0.01,,,,available aggregate or missing
-ctt_test04,normality:max_supervised_normality,0.0001,,,,available aggregate or missing
-ctt_test04,normality:max_supervised_normality,0.0005,,,,available aggregate or missing
-ctt_test04,normality:max_supervised_normality,0.001,,,,available aggregate or missing
-ctt_test04,normality:max_supervised_normality,0.005,,,,available aggregate or missing
-ctt_test04,normality:max_supervised_normality,0.01,,,,available aggregate or missing
-ctt_test04,normality:val_selected_alpha_mix,0.0001,,,,available aggregate or missing
-ctt_test04,normality:val_selected_alpha_mix,0.0005,,,,available aggregate or missing
-ctt_test04,normality:val_selected_alpha_mix,0.001,,,,available aggregate or missing
-ctt_test04,normality:val_selected_alpha_mix,0.005,,,,available aggregate or missing
-ctt_test04,normality:val_selected_alpha_mix,0.01,,,,available aggregate or missing
-ctt_test04,old:transformer,0.0001,,,,available aggregate or missing
-ctt_test04,old:transformer,0.0005,,,,available aggregate or missing
-ctt_test04,old:transformer,0.001,,,,available aggregate or missing
-ctt_test04,old:transformer,0.005,,,,available aggregate or missing
-ctt_test04,old:transformer,0.01,,,,available aggregate or missing
-ctt_test04,old:concat_fusion,0.0001,,,,available aggregate or missing
-ctt_test04,old:concat_fusion,0.0005,,,,available aggregate or missing
-ctt_test04,old:concat_fusion,0.001,,,,available aggregate or missing
-ctt_test04,old:concat_fusion,0.005,,,,available aggregate or missing
-ctt_test04,old:concat_fusion,0.01,,,,available aggregate or missing
-ctt_test04,old:cmf_can,0.0001,,,,available aggregate or missing
-ctt_test04,old:cmf_can,0.0005,,,,available aggregate or missing
-ctt_test04,old:cmf_can,0.001,,,,available aggregate or missing
-ctt_test04,old:cmf_can,0.005,,,,available aggregate or missing
-ctt_test04,old:cmf_can,0.01,,,,available aggregate or missing
-ctt_test04,old:stats_only,0.0001,,,,available aggregate or missing
-ctt_test04,old:stats_only,0.0005,,,,available aggregate or missing
-ctt_test04,old:stats_only,0.001,,,,available aggregate or missing
-ctt_test04,old:stats_only,0.005,,,,available aggregate or missing
-ctt_test04,old:stats_only,0.01,,,,available aggregate or missing
-ctt_test04,old:cmf_can_robust,0.0001,,,,available aggregate or missing
-ctt_test04,old:cmf_can_robust,0.0005,,,,available aggregate or missing
-ctt_test04,old:cmf_can_robust,0.001,,,,available aggregate or missing
-ctt_test04,old:cmf_can_robust,0.005,,,,available aggregate or missing
-ctt_test04,old:cmf_can_robust,0.01,,,,available aggregate or missing
-ctt_test03,supervised_only,0.0001,0.4432172869147659,,,validation-selected alpha; score-derived budget
-ctt_test03,supervised_only,0.0005,0.5601440576230492,,,validation-selected alpha; score-derived budget
-ctt_test03,supervised_only,0.001,0.5601440576230492,,,validation-selected alpha; score-derived budget
-ctt_test03,normality_only,0.0001,0.0,,,validation-selected alpha; score-derived budget
-ctt_test03,normality_only,0.0005,0.0,,,validation-selected alpha; score-derived budget
-ctt_test03,normality_only,0.001,0.0,,,validation-selected alpha; score-derived budget
-ctt_test03,max_supervised_normality,0.0001,0.0,,,validation-selected alpha; score-derived budget
-ctt_test03,max_supervised_normality,0.0005,0.0,,,validation-selected alpha; score-derived budget
-ctt_test03,max_supervised_normality,0.001,0.0,,,validation-selected alpha; score-derived budget
-ctt_test03,val_selected_alpha_mix,0.0001,0.3786794717887154,,,validation-selected alpha; score-derived budget
-ctt_test03,val_selected_alpha_mix,0.0005,0.5601440576230492,,,validation-selected alpha; score-derived budget
-ctt_test03,val_selected_alpha_mix,0.001,0.5601440576230492,,,validation-selected alpha; score-derived budget
-ctt_test04,supervised_only,0.0001,0.1176635776467284,,,validation-selected alpha; score-derived budget
-ctt_test04,supervised_only,0.0005,0.2266919404661612,,,validation-selected alpha; score-derived budget
-ctt_test04,supervised_only,0.001,0.2266919404661612,,,validation-selected alpha; score-derived budget
-ctt_test04,normality_only,0.0001,0.0,,,validation-selected alpha; score-derived budget
-ctt_test04,normality_only,0.0005,0.0,,,validation-selected alpha; score-derived budget
-ctt_test04,normality_only,0.001,0.0,,,validation-selected alpha; score-derived budget
-ctt_test04,max_supervised_normality,0.0001,0.0,,,validation-selected alpha; score-derived budget
-ctt_test04,max_supervised_normality,0.0005,0.0,,,validation-selected alpha; score-derived budget
-ctt_test04,max_supervised_normality,0.001,0.0,,,validation-selected alpha; score-derived budget
-ctt_test04,val_selected_alpha_mix,0.0001,0.1199101376017972,,,validation-selected alpha; score-derived budget
-ctt_test04,val_selected_alpha_mix,0.0005,0.2262707104745858,,,validation-selected alpha; score-derived budget
-ctt_test04,val_selected_alpha_mix,0.001,0.2262707104745858,,,validation-selected alpha; score-derived budget
+dataset,model,granularity,fpr_budget,threshold_type,recall_at_fpr,precision_at_fpr,f1_at_fpr,actual_fpr,threshold,num_positive,num_negative
+ctt_test01,GradientBoosting,aggregate_window,0.0001,best_test_upper_bound,0.8918779099844801,0.9971081550028918,0.9415619879847078,9.076222113307556e-05,0.0805051088355135,1933,55089
+ctt_test01,GradientBoosting,aggregate_window,0.0005,best_test_upper_bound,0.892395240558717,0.9845890410958904,0.9362279511533242,0.000490115994118608,0.0182252781666405,1933,55089
+ctt_test01,GradientBoosting,aggregate_window,0.001,best_test_upper_bound,0.892395240558717,0.9691011235955056,0.9291677888499865,0.0009983844324638312,0.0005393937887791,1933,55089
+ctt_test01,GradientBoosting,aggregate_window,0.005,best_test_upper_bound,0.892912571132954,0.862568715642179,0.8774783934926284,0.004991922162319157,0.0004456066907963,1933,55089
+ctt_test01,GradientBoosting,aggregate_window,0.01,best_test_upper_bound,0.892912571132954,0.7583479789103691,0.8201473033974815,0.009983844324638313,0.0004456066907963,1933,55089
+ctt_test02,GradientBoosting,aggregate_window,0.0001,best_test_upper_bound,0.6469329529243937,0.9986237269474264,0.7851964073152256,8.493723138600574e-05,0.9962897649649604,5608,58867
+ctt_test02,GradientBoosting,aggregate_window,0.0005,best_test_upper_bound,0.9300998573466477,0.9944709246901812,0.9612088823366812,0.0004926359420388333,0.2406095499163714,5608,58867
+ctt_test02,GradientBoosting,aggregate_window,0.001,best_test_upper_bound,0.9306348074179743,0.989008906575706,0.9589343132751493,0.0009852718840776666,0.2406095499163714,5608,58867
+ctt_test02,GradientBoosting,aggregate_window,0.005,best_test_upper_bound,0.9306348074179743,0.9466715037184836,0.9385846596529089,0.004994309205497137,0.0004456066907963,5608,58867
+ctt_test02,GradientBoosting,aggregate_window,0.01,best_test_upper_bound,0.9306348074179743,0.898742896504219,0.9144108628996933,0.009988618410994275,0.0004456066907963,5608,58867
+ctt_test03,GradientBoosting,aggregate_window,0.0001,best_test_upper_bound,0.6739912105473432,0.9986187845303868,0.8048024171105987,8.878966995611254e-05,0.0765820521918866,7509,78838
+ctt_test03,GradientBoosting,aggregate_window,0.0005,best_test_upper_bound,0.8208816087361832,0.9937127196517814,0.8990665110851809,0.0004946853040411984,0.0182252781666405,7509,78838
+ctt_test03,GradientBoosting,aggregate_window,0.001,best_test_upper_bound,0.9218271407644161,0.9888571428571429,0.9541663794885933,0.0009893706080823968,0.0006527935223469,7509,78838
+ctt_test03,GradientBoosting,aggregate_window,0.005,best_test_upper_bound,0.9302170728459183,0.9466052310611194,0.9383396023643203,0.00499758999467262,0.0004456066907963,7509,78838
+ctt_test03,GradientBoosting,aggregate_window,0.01,best_test_upper_bound,0.9302170728459183,0.8986234401132124,0.9141473629106137,0.00999517998934524,0.0004456066907963,7509,78838
+ctt_test04,GradientBoosting,aggregate_window,0.0001,best_test_upper_bound,0.4478405315614618,0.9810771470160117,0.614963503649635,9.946822755269903e-05,0.5034020356117962,1505,130695
+ctt_test04,GradientBoosting,aggregate_window,0.0005,best_test_upper_bound,0.6245847176079734,0.9353233830845771,0.749003984063745,0.0004973411377634952,0.1463485960090879,1505,130695
+ctt_test04,GradientBoosting,aggregate_window,0.001,best_test_upper_bound,0.8053156146179402,0.9031296572280179,0.8514225500526871,0.0009946822755269903,0.0006527935223469,1505,130695
+ctt_test04,GradientBoosting,aggregate_window,0.005,best_test_upper_bound,0.8053156146179402,0.6498659517426274,0.7192878338278933,0.004996365583993267,0.0004456066907963,1505,130695
+ctt_test04,GradientBoosting,aggregate_window,0.01,best_test_upper_bound,0.8053156146179402,0.4813343923749007,0.6025354213273677,0.009992731167986534,0.0004456066907963,1505,130695
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",GradientBoosting,unknown,0.0001,best_test_upper_bound,0.10204081632653061,0.5555555555555556,0.1724137931034483,8.007847690736923e-05,0.0924830392586446,49,49951
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",GradientBoosting,unknown,0.0005,best_test_upper_bound,0.30612244897959184,0.38461538461538464,0.3409090909090909,0.0004804708614442153,0.007766750546821,49,49951
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",GradientBoosting,unknown,0.001,best_test_upper_bound,0.30612244897959184,0.234375,0.26548672566371684,0.000980961342115273,0.007766750546821,49,49951
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",GradientBoosting,unknown,0.005,best_test_upper_bound,0.30612244897959184,0.056818181818181816,0.09584664536741215,0.004984885187483734,0.007766750546821,49,49951
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",GradientBoosting,unknown,0.01,best_test_upper_bound,0.30612244897959184,0.029182879377431907,0.05328596802841918,0.00998978999419431,0.007766750546821,49,49951
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",RandomForest,unknown,0.0001,best_test_upper_bound,0.061224489795918366,0.42857142857142855,0.10714285714285714,8.007847690736923e-05,0.1428571428571428,49,49951
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",RandomForest,unknown,0.0005,best_test_upper_bound,0.061224489795918366,0.1111111111111111,0.07894736842105263,0.0004804708614442153,0.1100110542833072,49,49951
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",RandomForest,unknown,0.001,best_test_upper_bound,0.22448979591836735,0.18333333333333332,0.2018348623853211,0.000980961342115273,0.0571428571428571,49,49951
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",RandomForest,unknown,0.005,best_test_upper_bound,0.32653061224489793,0.06037735849056604,0.1019108280254777,0.004984885187483734,0.05286819714045,49,49951
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",RandomForest,unknown,0.01,best_test_upper_bound,0.3469387755102041,0.03294573643410853,0.060176991150442484,0.00998978999419431,0.0285714285714285,49,49951

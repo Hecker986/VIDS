@@ -1,10 +1,10 @@
-\begin{tabular}{llrrrrrrl}
+\begin{tabular}{lllrrrrrrrrrl}
 \toprule
-dataset & model & event\_recall & events & mean\_detection\_delay\_windows & median\_detection\_delay\_windows & false\_alarm\_windows & false\_alarm\_windows\_per\_100k & note \\
+dataset & model & granularity & event\_recall & event\_precision\_if\_definable & mean\_detection\_delay\_seconds & median\_detection\_delay\_seconds & false\_alarm\_events\_per\_hour & false\_alarm\_samples\_per\_hour & recall\_at\_0.1\_FA\_per\_hour & recall\_at\_1\_FA\_per\_hour & recall\_at\_10\_FA\_per\_hour & event\_boundary\_quality \\
 \midrule
-ctt\_test02 & window100\_transformer & 1.0000 & 593 & 0.0000 & 0.0000 & 58867 & 91302.0551 & contiguous positive windows; no official event boundary files \\
-ctt\_test04 & window100\_transformer & 1.0000 & 463 & 0.0022 & 0.0000 & 128693 & 97347.2012 & contiguous positive windows; no official event boundary files \\
-road & window100\_transformer & 0.1642 & 67 & 0.0000 & 0.0000 & 2 & 3.5449 & contiguous positive windows; no official event boundary files \\
-road & can\_transformer\_plus\_sameid & 0.1642 & 67 & 0.0000 & 0.0000 & 2 & 3.5449 & contiguous positive windows; no official event boundary files \\
+ctt\_test01 & GradientBoosting & aggregate\_window100 & 0.6667 & NA & 58.3333 & 0.0000 & NA & 0.1263 & NA & NA & NA & approximate\_from\_labels \\
+ctt\_test02 & GradientBoosting & aggregate\_window100 & 0.3575 & NA & 1048.5849 & 0.0000 & NA & 0.4467 & NA & NA & NA & approximate\_from\_labels \\
+ctt\_test03 & GradientBoosting & aggregate\_window100 & 0.8907 & NA & 20.0099 & 0.0000 & NA & 0.1251 & NA & NA & NA & approximate\_from\_labels \\
+ctt\_test04 & GradientBoosting & aggregate\_window100 & 0.3650 & NA & 42.6036 & 0.0000 & NA & 0.6263 & NA & NA & NA & approximate\_from\_labels \\
 \bottomrule
 \end{tabular}

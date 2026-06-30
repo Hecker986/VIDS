@@ -1,7 +1,9 @@
-# Recommended Paper Outline
+# Recommended Paper Outline Revision
 
-1. Motivation: shifted CAN IDS fails under feature-losing long-window representations.
-2. Protocol audit: official CT&T sample-level and old deep window discrepancy.
-3. Method: GRAIN-CAN feature-preserving granularity-aware representation.
-4. Experiments: negative-sampling stability, granularity matrix, test04 leaderboard, low-FPR, event-level, leakage audit.
-5. Discussion: test04 remains hard; normality negative result; deployment requirements.
+1. Motivation: fixed long-window deep CAN IDS can destroy shifted-setting signal.
+2. Measurement: compare official sample-level, short-window, feature-preserving aggregate-window, and old window=100 deep protocols.
+3. Method: GRAIN-CAN as a feature-preserving granularity-aware evaluation and detector pipeline.
+4. Stability: capped, 2x negative-cap, and 5x negative-cap evidence, with full-negative listed as a limitation.
+5. Deployment: low-FPR upper-bound curves and approximate event-level analysis, clearly caveated.
+6. Audit: past-only feature construction and leakage/protocol risk review.
+7. Limits: test04 unknown vehicle + unknown attack is not solved; formal validation-threshold low-FPR and official event boundaries remain future work.

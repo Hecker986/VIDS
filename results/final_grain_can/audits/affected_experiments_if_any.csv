@@ -1,6 +1,7 @@
 check,status,evidence
-threshold validation-only,pass_partial,sample/window thresholds selected on train_01 validation split; some audit tables include upper-bound notes
-timestamp split leakage,risk,timestamp may encode capture schedule; report as protocol risk
-same episode train/test,risk,official split has related attack types/captures; CT&T protocol risk
-large-negative stability,missing,only capped 5-seed completed
-event boundary construction,partial,uses test labels to approximate events; not formal event metadata
+threshold_validation_only,partial,model decision threshold from validation; low-FPR budget thresholds are upper bounds
+timestamp_schedule_leakage,risk,timestamp-derived deltas can reflect capture schedule
+episode_cross_split,risk,official CT&T split may contain related attack families across files
+large_negative_changes,partial,B 2x and C 5x partially completed; full-negative not completed
+event_boundary_label_use,partial,event construction uses test labels for analysis only
+duplicate_window_cross_split,not_checked,not fully audited at raw sample level

@@ -1,15 +1,10 @@
-# A1 Official Sample-Level Negative Stability
+# A1 Official Sample Negative Stability Revision
 
-Completed: Protocol A, 5 seeds, capped negative sampling. Protocols B/C/D were not rerun in this final packaging step and are listed in `missing_final_figures.md`.
+Protocol A existing capped 5-seed rows are retained. This revision adds real Protocol B 2x negative-cap runs for seeds 42/2024/2026 and Protocol C 5x negative-cap seed 42 for the key sample-level models GradientBoosting, HistGradientBoosting, and LogisticRegression. Heavy ExtraTrees/RandomForest/MLP large-negative variants are marked resource-limited instead of fabricated. Protocol D full-negative remains not completed.
 
-Best completed rows:
+- CT&T test02 GradientBoosting, Protocol B: F1=0.9655, AUROC=0.9981, AUPR=0.9362, FPR=0.0018.
+- CT&T test02 GradientBoosting, Protocol C: F1=0.9655, AUROC=0.9981, AUPR=0.9362, FPR=0.0018.
+- CT&T test04 GradientBoosting, Protocol B: F1=0.4803, AUROC=0.6100, AUPR=0.2619, FPR=0.0001.
+- CT&T test04 GradientBoosting, Protocol C: F1=0.4796, AUROC=0.6094, AUPR=0.2649, FPR=0.0001.
 
-```csv
-dataset,model,f1_mean,f1_std,aupr_mean
-ctt_test02,GradientBoosting,0.9649126180068643,0.0009301082661476407,0.9459407282859518
-ctt_test01,GradientBoosting,0.8521190543418946,0.16898394192127877,0.8088365679437188
-ctt_test03,GradientBoosting,0.657375165926924,0.04261757507113845,0.5443757866734771
-ctt_test04,GradientBoosting,0.3883776726495897,0.16977148329329034,0.2422355206604559
-```
-
-test02 remains stable under 5 seeds. test04 has high variance and is not solved by sample-level ML alone.
+Interpretation: test02 remains stable under larger negative caps. test04 improves over the earliest official sample-level pilot but remains much weaker than test02 and cannot support an unknown-attack breakthrough claim.

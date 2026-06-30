@@ -1,0 +1,117 @@
+[revision] sample protocol=B_2x_negative_cap seed=42
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[revision] fit sample model GradientBoosting neg_cap=120000 seed=42
+[revision] fit sample model HistGradientBoosting neg_cap=120000 seed=42
+[revision] fit sample model LogisticRegression neg_cap=120000 seed=42
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test04
+[revision] eval sample model dataset=ctt_test04
+[revision] eval sample model dataset=ctt_test04
+[revision] sample protocol=B_2x_negative_cap seed=2024
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[revision] fit sample model GradientBoosting neg_cap=120000 seed=2024
+[revision] fit sample model HistGradientBoosting neg_cap=120000 seed=2024
+[revision] fit sample model LogisticRegression neg_cap=120000 seed=2024
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test04
+[revision] eval sample model dataset=ctt_test04
+[revision] eval sample model dataset=ctt_test04
+[revision] sample protocol=B_2x_negative_cap seed=2026
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[revision] fit sample model GradientBoosting neg_cap=120000 seed=2026
+[revision] fit sample model HistGradientBoosting neg_cap=120000 seed=2026
+[revision] fit sample model LogisticRegression neg_cap=120000 seed=2026
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test04
+[revision] eval sample model dataset=ctt_test04
+[revision] eval sample model dataset=ctt_test04
+[revision] sample protocol=C_5x_negative_cap seed=42
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[revision] fit sample model GradientBoosting neg_cap=300000 seed=42
+[revision] fit sample model HistGradientBoosting neg_cap=300000 seed=42
+[revision] fit sample model LogisticRegression neg_cap=300000 seed=42
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test01
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test02
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test03
+[revision] eval sample model dataset=ctt_test04
+[revision] eval sample model dataset=ctt_test04
+[revision] eval sample model dataset=ctt_test04
+[revision] dump aggregate scores ctt_test01
+[revision] dump aggregate scores ctt_test02
+[revision] dump aggregate scores ctt_test03
+[revision] dump aggregate scores ctt_test04
+[final_grain_can_revision] done

@@ -1,5 +1,5 @@
-dataset,model,event_recall,events,mean_detection_delay_windows,median_detection_delay_windows,false_alarm_windows,false_alarm_windows_per_100k,note
-ctt_test02,window100_transformer,1.0,593,0.0,0.0,58867,91302.0550601008,contiguous positive windows; no official event boundary files
-ctt_test04,window100_transformer,1.0,463,0.0021598272138228,0.0,128693,97347.20121028744,contiguous positive windows; no official event boundary files
-road,window100_transformer,0.1641791044776119,67,0.0,0.0,2,3.544905085166345,contiguous positive windows; no official event boundary files
-road,can_transformer_plus_sameid,0.1641791044776119,67,0.0,0.0,2,3.544905085166345,contiguous positive windows; no official event boundary files
+dataset,model,granularity,event_recall,event_precision_if_definable,mean_detection_delay_seconds,median_detection_delay_seconds,false_alarm_events_per_hour,false_alarm_samples_per_hour,recall_at_0.1_FA_per_hour,recall_at_1_FA_per_hour,recall_at_10_FA_per_hour,event_boundary_quality
+ctt_test01,GradientBoosting,aggregate_window100,0.6666666666666666,,58.333333333333336,0.0,,0.1262670548209463,,,,approximate_from_labels
+ctt_test02,GradientBoosting,aggregate_window100,0.357504215851602,,1048.5849056603774,0.0,,0.4466847615354788,,,,approximate_from_labels
+ctt_test03,GradientBoosting,aggregate_window100,0.8906935908691835,,20.00985707244948,0.0,,0.1250767253060326,,,,approximate_from_labels
+ctt_test04,GradientBoosting,aggregate_window100,0.3650107991360691,,42.60355029585799,0.0,,0.6263237518910741,,,,approximate_from_labels

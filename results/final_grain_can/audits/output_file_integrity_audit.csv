@@ -1,0 +1,74 @@
+file_type,file_path,exists,file_size_bytes,num_rows,num_columns,readable_by_pandas,has_required_columns,is_empty,source_generation_script,contains_svg_tag,has_axes_text,has_legend_text_if_expected
+csv,results/final_grain_can/tables/a1_official_sample_negative_stability.csv,True,81155,237,34,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/b1_granularity_full_matrix.csv,True,6845,28,31,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/b2_feature_preservation_by_granularity.csv,True,5577,56,11,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/c1_test04_candidate_leaderboard.csv,True,5446,15,34,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/c2_test04_error_analysis.csv,True,443,2,8,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/current_state_summary.csv,True,1140,4,20,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/d1_normality_policy_final.csv,True,1860,8,14,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/e1_low_fpr_leaderboard.csv,True,7984,30,12,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/f2_event_level_metrics.csv,True,835,4,13,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/g1_cross_dataset_validation.csv,True,8462,49,40,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/i1_strong_baseline_leaderboard.csv,True,14829,47,46,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/paper_table_ctt_leaderboard.csv,True,5446,15,34,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/paper_table_event_level.csv,True,832,4,13,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/paper_table_feature_preservation.csv,True,5577,56,11,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/paper_table_granularity_comparison.csv,True,6845,28,31,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/paper_table_low_fpr.csv,True,7901,30,12,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+csv,results/final_grain_can/tables/paper_table_strong_baselines.csv,True,14829,47,46,True,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/a1_official_sample_negative_stability.tex,True,88078,238,7854,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/b1_granularity_full_matrix.tex,True,6951,29,870,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/b2_feature_preservation_by_granularity.tex,True,5622,57,570,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/c1_test04_candidate_leaderboard.tex,True,5028,16,528,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/c2_test04_error_analysis.tex,True,575,3,21,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/current_state_summary.tex,True,1148,5,95,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/d1_normality_policy_final.tex,True,1404,9,117,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/e1_low_fpr_leaderboard.tex,True,7205,31,341,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/f2_event_level_metrics.tex,True,1010,5,60,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/g1_cross_dataset_validation.tex,True,13960,50,1950,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/i1_strong_baseline_leaderboard.tex,True,16497,48,2160,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/paper_table_ctt_leaderboard.tex,True,5028,16,528,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/paper_table_event_level.tex,True,1010,5,60,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/paper_table_feature_preservation.tex,True,5622,57,570,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/paper_table_granularity_comparison.tex,True,6951,29,870,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/paper_table_low_fpr.tex,True,7205,31,341,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+tex,results/final_grain_can/tables/paper_table_strong_baselines.tex,True,16497,48,2160,NA,True,False,scripts/plot_final_grain_can.py or revision scripts,,,
+svg,results/final_grain_can/figures/a1_official_sample_negative_stability.svg,True,15920,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/b1_granularity_full_matrix.svg,True,16013,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/b2_feature_preservation_by_granularity.svg,True,80214,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/c1_test04_candidate_leaderboard.svg,True,13121,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/c2_test04_score_distribution.svg,True,33254,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/d1_normality_policy_final.svg,True,12882,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/e1_low_fpr_curves.svg,True,16077,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/f2_event_level_metrics.svg,True,9331,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/g1_cross_dataset_validation.svg,True,9007,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/i1_strong_baseline_leaderboard.svg,True,10599,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/paper_fig1_granularity_motivation.svg,True,77806,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/paper_fig2_granularity_comparison.svg,True,16013,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/paper_fig3_ctt_leaderboard.svg,True,13121,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/paper_fig4_test04_score_error.svg,True,33254,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/paper_fig5_low_fpr_curves.svg,True,16077,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/paper_fig6_event_level.svg,True,9331,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/paper_fig7_feature_preservation.svg,True,80214,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/paper_fig8_strong_baselines.svg,True,10599,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+svg,results/final_grain_can/figures/paper_fig9_leakage_audit.svg,True,11854,NA,NA,NA,NA,False,scripts/plot_final_grain_can.py or revision scripts,True,True,True
+md,results/final_grain_can/a1_official_sample_negative_stability.md,True,1073,10,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/b1_granularity_mechanism_analysis.md,True,455,5,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/b2_feature_preservation_analysis.md,True,293,3,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/c1_test04_candidate_leaderboard.md,True,3645,19,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/c2_test04_error_analysis.md,True,181,3,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/current_state_summary.md,True,1704,16,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/d1_normality_policy_final.md,True,205,3,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/e1_low_fpr_analysis.md,True,961,14,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/event_boundary_construction.md,True,204,3,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/f2_event_level_analysis.md,True,1396,13,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/final_figure_table_inventory.md,True,2793,14,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/final_research_direction.md,True,818,7,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/final_security4_readiness_report.md,True,2010,26,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/g1_cross_dataset_validation.md,True,202,3,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/i1_strong_baseline_leaderboard.md,True,187,3,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/missing_final_figures.md,True,907,12,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/recommended_paper_outline.md,True,787,9,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/unsafe_claims_do_not_write.md,True,378,7,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/audits/output_file_integrity_audit.md,True,109,7,NA,NA,True,False,manual/generated report,,,
+md,results/final_grain_can/audits/strict_feature_leakage_audit.md,True,1620,24,NA,NA,True,False,manual/generated report,,,

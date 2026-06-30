@@ -1,105 +1,146 @@
-\begin{tabular}{llrrrrl}
+\begin{tabular}{lllrlrrrrrrr}
 \toprule
-dataset & model & fpr\_budget & recall\_at\_fpr & precision\_at\_fpr & f1\_at\_fpr & threshold\_source \\
+dataset & model & granularity & fpr\_budget & threshold\_type & recall\_at\_fpr & precision\_at\_fpr & f1\_at\_fpr & actual\_fpr & threshold & num\_positive & num\_negative \\
 \midrule
-ctt\_test04 & GradientBoosting:sample & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:sample & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:sample & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:sample & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:sample & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_5 & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_5 & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_5 & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_5 & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_5 & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_10 & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_10 & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_10 & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_10 & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_10 & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_20 & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_20 & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_20 & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_20 & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_20 & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_50 & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_50 & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_50 & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_50 & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_50 & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_100 & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_100 & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_100 & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_100 & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & GradientBoosting:window\_100 & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:supervised\_only & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:supervised\_only & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:supervised\_only & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:supervised\_only & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:supervised\_only & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:normality\_only & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:normality\_only & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:normality\_only & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:normality\_only & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:normality\_only & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:max\_supervised\_normality & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:max\_supervised\_normality & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:max\_supervised\_normality & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:max\_supervised\_normality & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:max\_supervised\_normality & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:val\_selected\_alpha\_mix & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:val\_selected\_alpha\_mix & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:val\_selected\_alpha\_mix & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:val\_selected\_alpha\_mix & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & normality:val\_selected\_alpha\_mix & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:transformer & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:transformer & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:transformer & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:transformer & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:transformer & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:concat\_fusion & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:concat\_fusion & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:concat\_fusion & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:concat\_fusion & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:concat\_fusion & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:cmf\_can & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:cmf\_can & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:cmf\_can & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:cmf\_can & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:cmf\_can & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:stats\_only & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:stats\_only & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:stats\_only & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:stats\_only & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:stats\_only & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:cmf\_can\_robust & 0.0001 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:cmf\_can\_robust & 0.0005 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:cmf\_can\_robust & 0.0010 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:cmf\_can\_robust & 0.0050 & NA & NA & NA & available aggregate or missing \\
-ctt\_test04 & old:cmf\_can\_robust & 0.0100 & NA & NA & NA & available aggregate or missing \\
-ctt\_test03 & supervised\_only & 0.0001 & 0.4432 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test03 & supervised\_only & 0.0005 & 0.5601 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test03 & supervised\_only & 0.0010 & 0.5601 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test03 & normality\_only & 0.0001 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test03 & normality\_only & 0.0005 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test03 & normality\_only & 0.0010 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test03 & max\_supervised\_normality & 0.0001 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test03 & max\_supervised\_normality & 0.0005 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test03 & max\_supervised\_normality & 0.0010 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test03 & val\_selected\_alpha\_mix & 0.0001 & 0.3787 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test03 & val\_selected\_alpha\_mix & 0.0005 & 0.5601 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test03 & val\_selected\_alpha\_mix & 0.0010 & 0.5601 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & supervised\_only & 0.0001 & 0.1177 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & supervised\_only & 0.0005 & 0.2267 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & supervised\_only & 0.0010 & 0.2267 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & normality\_only & 0.0001 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & normality\_only & 0.0005 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & normality\_only & 0.0010 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & max\_supervised\_normality & 0.0001 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & max\_supervised\_normality & 0.0005 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & max\_supervised\_normality & 0.0010 & 0.0000 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & val\_selected\_alpha\_mix & 0.0001 & 0.1199 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & val\_selected\_alpha\_mix & 0.0005 & 0.2263 & NA & NA & validation-selected alpha; score-derived budget \\
-ctt\_test04 & val\_selected\_alpha\_mix & 0.0010 & 0.2263 & NA & NA & validation-selected alpha; score-derived budget \\
+ctt\_test01 & GradientBoosting & aggregate\_window & 0.0001 & best\_test\_upper\_bound & 0.8919 & 0.9971 & 0.9416 & 0.0001 & 0.0805 & 1933 & 55089 \\
+ctt\_test01 & GradientBoosting & aggregate\_window & 0.0005 & best\_test\_upper\_bound & 0.8924 & 0.9846 & 0.9362 & 0.0005 & 0.0182 & 1933 & 55089 \\
+ctt\_test01 & GradientBoosting & aggregate\_window & 0.0010 & best\_test\_upper\_bound & 0.8924 & 0.9691 & 0.9292 & 0.0010 & 0.0005 & 1933 & 55089 \\
+ctt\_test01 & GradientBoosting & aggregate\_window & 0.0050 & best\_test\_upper\_bound & 0.8929 & 0.8626 & 0.8775 & 0.0050 & 0.0004 & 1933 & 55089 \\
+ctt\_test01 & GradientBoosting & aggregate\_window & 0.0100 & best\_test\_upper\_bound & 0.8929 & 0.7583 & 0.8201 & 0.0100 & 0.0004 & 1933 & 55089 \\
+ctt\_test02 & GradientBoosting & aggregate\_window & 0.0001 & best\_test\_upper\_bound & 0.6469 & 0.9986 & 0.7852 & 0.0001 & 0.9963 & 5608 & 58867 \\
+ctt\_test02 & GradientBoosting & aggregate\_window & 0.0005 & best\_test\_upper\_bound & 0.9301 & 0.9945 & 0.9612 & 0.0005 & 0.2406 & 5608 & 58867 \\
+ctt\_test02 & GradientBoosting & aggregate\_window & 0.0010 & best\_test\_upper\_bound & 0.9306 & 0.9890 & 0.9589 & 0.0010 & 0.2406 & 5608 & 58867 \\
+ctt\_test02 & GradientBoosting & aggregate\_window & 0.0050 & best\_test\_upper\_bound & 0.9306 & 0.9467 & 0.9386 & 0.0050 & 0.0004 & 5608 & 58867 \\
+ctt\_test02 & GradientBoosting & aggregate\_window & 0.0100 & best\_test\_upper\_bound & 0.9306 & 0.8987 & 0.9144 & 0.0100 & 0.0004 & 5608 & 58867 \\
+ctt\_test03 & GradientBoosting & aggregate\_window & 0.0001 & best\_test\_upper\_bound & 0.6740 & 0.9986 & 0.8048 & 0.0001 & 0.0766 & 7509 & 78838 \\
+ctt\_test03 & GradientBoosting & aggregate\_window & 0.0005 & best\_test\_upper\_bound & 0.8209 & 0.9937 & 0.8991 & 0.0005 & 0.0182 & 7509 & 78838 \\
+ctt\_test03 & GradientBoosting & aggregate\_window & 0.0010 & best\_test\_upper\_bound & 0.9218 & 0.9889 & 0.9542 & 0.0010 & 0.0007 & 7509 & 78838 \\
+ctt\_test03 & GradientBoosting & aggregate\_window & 0.0050 & best\_test\_upper\_bound & 0.9302 & 0.9466 & 0.9383 & 0.0050 & 0.0004 & 7509 & 78838 \\
+ctt\_test03 & GradientBoosting & aggregate\_window & 0.0100 & best\_test\_upper\_bound & 0.9302 & 0.8986 & 0.9141 & 0.0100 & 0.0004 & 7509 & 78838 \\
+ctt\_test04 & GradientBoosting & aggregate\_window & 0.0001 & best\_test\_upper\_bound & 0.4478 & 0.9811 & 0.6150 & 0.0001 & 0.5034 & 1505 & 130695 \\
+ctt\_test04 & GradientBoosting & aggregate\_window & 0.0005 & best\_test\_upper\_bound & 0.6246 & 0.9353 & 0.7490 & 0.0005 & 0.1463 & 1505 & 130695 \\
+ctt\_test04 & GradientBoosting & aggregate\_window & 0.0010 & best\_test\_upper\_bound & 0.8053 & 0.9031 & 0.8514 & 0.0010 & 0.0007 & 1505 & 130695 \\
+ctt\_test04 & GradientBoosting & aggregate\_window & 0.0050 & best\_test\_upper\_bound & 0.8053 & 0.6499 & 0.7193 & 0.0050 & 0.0004 & 1505 & 130695 \\
+ctt\_test04 & GradientBoosting & aggregate\_window & 0.0100 & best\_test\_upper\_bound & 0.8053 & 0.4813 & 0.6025 & 0.0100 & 0.0004 & 1505 & 130695 \\
+0        ctt\_test04
+1        ctt\_test04
+2        ctt\_test04
+3        ctt\_test04
+4        ctt\_test04
+            ...    
+49995    ctt\_test04
+49996    ctt\_test04
+49997    ctt\_test04
+49998    ctt\_test04
+49999    ctt\_test04
+Name: dataset, Length: 50000, dtype: str & GradientBoosting & unknown & 0.0001 & best\_test\_upper\_bound & 0.1020 & 0.5556 & 0.1724 & 0.0001 & 0.0925 & 49 & 49951 \\
+0        ctt\_test04
+1        ctt\_test04
+2        ctt\_test04
+3        ctt\_test04
+4        ctt\_test04
+            ...    
+49995    ctt\_test04
+49996    ctt\_test04
+49997    ctt\_test04
+49998    ctt\_test04
+49999    ctt\_test04
+Name: dataset, Length: 50000, dtype: str & GradientBoosting & unknown & 0.0005 & best\_test\_upper\_bound & 0.3061 & 0.3846 & 0.3409 & 0.0005 & 0.0078 & 49 & 49951 \\
+0        ctt\_test04
+1        ctt\_test04
+2        ctt\_test04
+3        ctt\_test04
+4        ctt\_test04
+            ...    
+49995    ctt\_test04
+49996    ctt\_test04
+49997    ctt\_test04
+49998    ctt\_test04
+49999    ctt\_test04
+Name: dataset, Length: 50000, dtype: str & GradientBoosting & unknown & 0.0010 & best\_test\_upper\_bound & 0.3061 & 0.2344 & 0.2655 & 0.0010 & 0.0078 & 49 & 49951 \\
+0        ctt\_test04
+1        ctt\_test04
+2        ctt\_test04
+3        ctt\_test04
+4        ctt\_test04
+            ...    
+49995    ctt\_test04
+49996    ctt\_test04
+49997    ctt\_test04
+49998    ctt\_test04
+49999    ctt\_test04
+Name: dataset, Length: 50000, dtype: str & GradientBoosting & unknown & 0.0050 & best\_test\_upper\_bound & 0.3061 & 0.0568 & 0.0958 & 0.0050 & 0.0078 & 49 & 49951 \\
+0        ctt\_test04
+1        ctt\_test04
+2        ctt\_test04
+3        ctt\_test04
+4        ctt\_test04
+            ...    
+49995    ctt\_test04
+49996    ctt\_test04
+49997    ctt\_test04
+49998    ctt\_test04
+49999    ctt\_test04
+Name: dataset, Length: 50000, dtype: str & GradientBoosting & unknown & 0.0100 & best\_test\_upper\_bound & 0.3061 & 0.0292 & 0.0533 & 0.0100 & 0.0078 & 49 & 49951 \\
+0        ctt\_test04
+1        ctt\_test04
+2        ctt\_test04
+3        ctt\_test04
+4        ctt\_test04
+            ...    
+49995    ctt\_test04
+49996    ctt\_test04
+49997    ctt\_test04
+49998    ctt\_test04
+49999    ctt\_test04
+Name: dataset, Length: 50000, dtype: str & RandomForest & unknown & 0.0001 & best\_test\_upper\_bound & 0.0612 & 0.4286 & 0.1071 & 0.0001 & 0.1429 & 49 & 49951 \\
+0        ctt\_test04
+1        ctt\_test04
+2        ctt\_test04
+3        ctt\_test04
+4        ctt\_test04
+            ...    
+49995    ctt\_test04
+49996    ctt\_test04
+49997    ctt\_test04
+49998    ctt\_test04
+49999    ctt\_test04
+Name: dataset, Length: 50000, dtype: str & RandomForest & unknown & 0.0005 & best\_test\_upper\_bound & 0.0612 & 0.1111 & 0.0789 & 0.0005 & 0.1100 & 49 & 49951 \\
+0        ctt\_test04
+1        ctt\_test04
+2        ctt\_test04
+3        ctt\_test04
+4        ctt\_test04
+            ...    
+49995    ctt\_test04
+49996    ctt\_test04
+49997    ctt\_test04
+49998    ctt\_test04
+49999    ctt\_test04
+Name: dataset, Length: 50000, dtype: str & RandomForest & unknown & 0.0010 & best\_test\_upper\_bound & 0.2245 & 0.1833 & 0.2018 & 0.0010 & 0.0571 & 49 & 49951 \\
+0        ctt\_test04
+1        ctt\_test04
+2        ctt\_test04
+3        ctt\_test04
+4        ctt\_test04
+            ...    
+49995    ctt\_test04
+49996    ctt\_test04
+49997    ctt\_test04
+49998    ctt\_test04
+49999    ctt\_test04
+Name: dataset, Length: 50000, dtype: str & RandomForest & unknown & 0.0050 & best\_test\_upper\_bound & 0.3265 & 0.0604 & 0.1019 & 0.0050 & 0.0529 & 49 & 49951 \\
+0        ctt\_test04
+1        ctt\_test04
+2        ctt\_test04
+3        ctt\_test04
+4        ctt\_test04
+            ...    
+49995    ctt\_test04
+49996    ctt\_test04
+49997    ctt\_test04
+49998    ctt\_test04
+49999    ctt\_test04
+Name: dataset, Length: 50000, dtype: str & RandomForest & unknown & 0.0100 & best\_test\_upper\_bound & 0.3469 & 0.0329 & 0.0602 & 0.0100 & 0.0286 & 49 & 49951 \\
 \bottomrule
 \end{tabular}
