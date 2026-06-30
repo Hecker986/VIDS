@@ -445,3 +445,4 @@
 [public_repro] eval RISKY_PROTOCOL setting=ctt_test02
 [public_repro] eval RISKY_PROTOCOL setting=ctt_test03
 [public_repro] eval RISKY_PROTOCOL setting=ctt_test04
+[test04_public_reproduction] done

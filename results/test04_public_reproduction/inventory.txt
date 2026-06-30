@@ -12,6 +12,7 @@ results/test04_public_reproduction/figures/safe_vs_risky_features.svg
 results/test04_public_reproduction/figures/timestamp_shortcut_audit.svg
 results/test04_public_reproduction/final_low_fpr_event_metrics.md
 results/test04_public_reproduction/final_security4_strategy.md
+results/test04_public_reproduction/git_large_artifact_status.md
 results/test04_public_reproduction/input_inventory.txt
 results/test04_public_reproduction/inventory.txt
 results/test04_public_reproduction/logs/test04_public_finalize.log

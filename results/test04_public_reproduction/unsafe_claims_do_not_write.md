@@ -1,7 +1,7 @@
 # Unsafe Claims Do Not Write
 
-- Do not claim test04 0.998 was reproduced.
-- Do not claim timestamp shortcut is proven as the source of public 0.998; local timestamp/risky rows did not reproduce it.
-- Do not claim Safe-CAN reaches Security-Four method-level performance; best local F1 is below 0.8.
-- Do not claim local set_01 is equivalent to can-train-and-test-v1.5.
-- Do not use best-test low-FPR thresholds as formal validation-threshold deployment evidence.
+- Do not claim public 0.998 test04 is real generalization unless Safe-CAN reproduces it.
+- Do not use timestamp-only, file-id, vehicle-id, or sample-index models as deployable IDS methods.
+- Do not present best-test low-FPR thresholds as formal validation-threshold deployment results.
+- Do not claim CT&T-v1.5 equivalence; the local tree has no v1.5 manifest.
+- Do not claim event-level deployment evidence is official; boundaries are approximate unless official metadata is supplied.

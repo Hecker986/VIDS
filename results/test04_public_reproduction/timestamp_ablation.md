@@ -1,3 +1,3 @@
 # Timestamp Ablation
 
-Raw timestamp did not explain the public high result on the local `set_01`: P1_public_default and P4_timestamp_only remain far below the Safe-CAN/delta-feature best rows.
+Compare P1_public_default, P2_no_timestamp, P4_timestamp_only, P6_delta_features, and P7_public_plus_delta in `tables/timestamp_ablation.csv`. Raw timestamp is unsafe if P4 or P1/P7 dominate while P2/SAFE_CAN collapse.
