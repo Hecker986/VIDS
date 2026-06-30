@@ -1,0 +1,46 @@
+# Large Artifact Git Status
+
+The following score dumps were generated locally and used for low-FPR/event analysis, but are not staged for git because individual files are far above GitHub normal file-size limits. Tables, SVGs, reports, logs, scripts, and inventory are committed instead.
+
+- `results/test04_public_reproduction/predictions/test04_P1_public_default_GradientBoosting_A_capped_seed42_scores.csv`: 1444.6 MiB
+- `results/test04_public_reproduction/predictions/test04_P1_public_default_GradientBoosting_B_2x_negative_cap_seed42_scores.csv`: 1561.8 MiB
+- `results/test04_public_reproduction/predictions/test04_P1_public_default_GradientBoosting_C_5x_negative_cap_seed42_scores.csv`: 1565.0 MiB
+- `results/test04_public_reproduction/predictions/test04_P1_public_default_HistGradientBoosting_A_capped_seed42_scores.csv`: 1540.1 MiB
+- `results/test04_public_reproduction/predictions/test04_P1_public_default_HistGradientBoosting_B_2x_negative_cap_seed42_scores.csv`: 1641.4 MiB
+- `results/test04_public_reproduction/predictions/test04_P1_public_default_HistGradientBoosting_C_5x_negative_cap_seed42_scores.csv`: 1666.7 MiB
+- `results/test04_public_reproduction/predictions/test04_P1_public_default_MLP_A_capped_seed42_scores.csv`: 1203.7 MiB
+- `results/test04_public_reproduction/predictions/test04_P1_public_default_MLP_B_2x_negative_cap_seed42_scores.csv`: 1344.3 MiB
+- `results/test04_public_reproduction/predictions/test04_P1_public_default_MLP_C_5x_negative_cap_seed42_scores.csv`: 1319.3 MiB
+- `results/test04_public_reproduction/predictions/test04_P2_no_timestamp_GradientBoosting_A_capped_seed42_scores.csv`: 1419.4 MiB
+- `results/test04_public_reproduction/predictions/test04_P2_no_timestamp_GradientBoosting_B_2x_negative_cap_seed42_scores.csv`: 1536.5 MiB
+- `results/test04_public_reproduction/predictions/test04_P2_no_timestamp_GradientBoosting_C_5x_negative_cap_seed42_scores.csv`: 1539.7 MiB
+- `results/test04_public_reproduction/predictions/test04_P2_no_timestamp_HistGradientBoosting_A_capped_seed42_scores.csv`: 1514.8 MiB
+- `results/test04_public_reproduction/predictions/test04_P2_no_timestamp_HistGradientBoosting_B_2x_negative_cap_seed42_scores.csv`: 1616.2 MiB
+- `results/test04_public_reproduction/predictions/test04_P2_no_timestamp_HistGradientBoosting_C_5x_negative_cap_seed42_scores.csv`: 1641.5 MiB
+- `results/test04_public_reproduction/predictions/test04_P2_no_timestamp_MLP_A_capped_seed42_scores.csv`: 1163.9 MiB
+- `results/test04_public_reproduction/predictions/test04_P2_no_timestamp_MLP_B_2x_negative_cap_seed42_scores.csv`: 1229.3 MiB
+- `results/test04_public_reproduction/predictions/test04_P2_no_timestamp_MLP_C_5x_negative_cap_seed42_scores.csv`: 1252.2 MiB
+- `results/test04_public_reproduction/predictions/test04_P4_timestamp_only_GradientBoosting_A_capped_seed42_scores.csv`: 1440.5 MiB
+- `results/test04_public_reproduction/predictions/test04_P4_timestamp_only_HistGradientBoosting_A_capped_seed42_scores.csv`: 1496.1 MiB
+- `results/test04_public_reproduction/predictions/test04_P4_timestamp_only_MLP_A_capped_seed42_scores.csv`: 1138.1 MiB
+- `results/test04_public_reproduction/predictions/test04_P7_public_plus_delta_GradientBoosting_A_capped_seed42_scores.csv`: 1489.8 MiB
+- `results/test04_public_reproduction/predictions/test04_P7_public_plus_delta_HistGradientBoosting_A_capped_seed42_scores.csv`: 1590.6 MiB
+- `results/test04_public_reproduction/predictions/test04_P7_public_plus_delta_MLP_A_capped_seed42_scores.csv`: 1227.6 MiB
+- `results/test04_public_reproduction/predictions/test04_RISKY_PROTOCOL_GradientBoosting_A_capped_seed42_scores.csv`: 1415.3 MiB
+- `results/test04_public_reproduction/predictions/test04_RISKY_PROTOCOL_GradientBoosting_B_2x_negative_cap_seed42_scores.csv`: 1528.5 MiB
+- `results/test04_public_reproduction/predictions/test04_RISKY_PROTOCOL_GradientBoosting_C_5x_negative_cap_seed42_scores.csv`: 1533.8 MiB
+- `results/test04_public_reproduction/predictions/test04_RISKY_PROTOCOL_HistGradientBoosting_A_capped_seed42_scores.csv`: 1503.6 MiB
+- `results/test04_public_reproduction/predictions/test04_RISKY_PROTOCOL_HistGradientBoosting_B_2x_negative_cap_seed42_scores.csv`: 1622.8 MiB
+- `results/test04_public_reproduction/predictions/test04_RISKY_PROTOCOL_HistGradientBoosting_C_5x_negative_cap_seed42_scores.csv`: 1616.7 MiB
+- `results/test04_public_reproduction/predictions/test04_RISKY_PROTOCOL_MLP_A_capped_seed42_scores.csv`: 1128.2 MiB
+- `results/test04_public_reproduction/predictions/test04_RISKY_PROTOCOL_MLP_B_2x_negative_cap_seed42_scores.csv`: 1234.0 MiB
+- `results/test04_public_reproduction/predictions/test04_RISKY_PROTOCOL_MLP_C_5x_negative_cap_seed42_scores.csv`: 1221.9 MiB
+- `results/test04_public_reproduction/predictions/test04_SAFE_CAN_GradientBoosting_A_capped_seed42_scores.csv`: 1338.5 MiB
+- `results/test04_public_reproduction/predictions/test04_SAFE_CAN_GradientBoosting_B_2x_negative_cap_seed42_scores.csv`: 1464.5 MiB
+- `results/test04_public_reproduction/predictions/test04_SAFE_CAN_GradientBoosting_C_5x_negative_cap_seed42_scores.csv`: 1451.9 MiB
+- `results/test04_public_reproduction/predictions/test04_SAFE_CAN_HistGradientBoosting_A_capped_seed42_scores.csv`: 1439.3 MiB
+- `results/test04_public_reproduction/predictions/test04_SAFE_CAN_HistGradientBoosting_B_2x_negative_cap_seed42_scores.csv`: 1527.7 MiB
+- `results/test04_public_reproduction/predictions/test04_SAFE_CAN_HistGradientBoosting_C_5x_negative_cap_seed42_scores.csv`: 1540.3 MiB
+- `results/test04_public_reproduction/predictions/test04_SAFE_CAN_MLP_A_capped_seed42_scores.csv`: 1078.0 MiB
+- `results/test04_public_reproduction/predictions/test04_SAFE_CAN_MLP_B_2x_negative_cap_seed42_scores.csv`: 1191.3 MiB
+- `results/test04_public_reproduction/predictions/test04_SAFE_CAN_MLP_C_5x_negative_cap_seed42_scores.csv`: 1206.0 MiB

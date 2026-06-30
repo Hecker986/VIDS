@@ -1,0 +1,15 @@
+# Feature Protocol Manifest
+
+```csv
+feature_protocol,columns,safe_can_feature_set,normalization,notes
+P0_current,can_id;dlc;data0;data1;data2;data3;data4;data5;data6;data7;delta_t_global;delta_t_same_id;payload_sum;payload_mean;payload_std;payload_delta_l1,True,StandardScaler fit on train split only,Current final_grain_can sample-level feature set.
+P1_public_default,timestamp;can_id;data0;data1;data2;data3;data4;data5;data6;data7,False,StandardScaler fit on train split only,Public-style timestamp + arbitration ID + split payload bytes.
+P2_no_timestamp,can_id;data0;data1;data2;data3;data4;data5;data6;data7,True,StandardScaler fit on train split only,Public payload/ID protocol with raw timestamp removed.
+P3_no_subdivision,timestamp;can_id;data_int,False,StandardScaler fit on train split only,Raw timestamp + arbitration ID + 8-byte payload interpreted as a single integer.
+P4_timestamp_only,timestamp,False,StandardScaler fit on train split only,"Raw timestamp only, shortcut audit."
+P5_arbitration_payload_only,can_id;data_int,True,StandardScaler fit on train split only,"Arbitration ID + payload as one numeric field, no raw timestamp."
+P6_delta_features,delta_t_global;delta_t_same_id;payload_delta_l1;payload_sum;payload_mean;payload_std,True,StandardScaler fit on train split only,Causal timing/payload-delta statistics only.
+P7_public_plus_delta,timestamp;can_id;data0;data1;data2;data3;data4;data5;data6;data7;delta_t_global;delta_t_same_id;payload_delta_l1;payload_sum;payload_mean;payload_std,False,StandardScaler fit on train split only,Public default plus causal delta/payload statistics.
+SAFE_CAN,can_id;dlc;data0;data1;data2;data3;data4;data5;data6;data7;delta_t_global;delta_t_same_id;payload_delta_l1;payload_sum;payload_mean;payload_std,True,StandardScaler fit on train split only,"Safe CAN-only features; no raw timestamp, sample index, file ID, or labels."
+RISKY_PROTOCOL,timestamp;sample_index;file_hash,False,StandardScaler fit on train split only,Risky protocol/capture-schedule features for shortcut audit only.
+```
