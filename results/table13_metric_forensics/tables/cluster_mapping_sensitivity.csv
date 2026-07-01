@@ -1,0 +1,11 @@
+model,feature_protocol,mapping,attack_f1,normal_f1,weighted_f1,accuracy,status,notes
+KMeans,NA,validation_majority_or_validation_f1,,,,,not_available_in_completed_prediction_table,No completed deployable row in available public reproduction table.
+IsolationForest,SAFE_CAN,validation_f1_threshold,0.002185333259486539,0.029660475794607313,0.029630873714341373,0.01611467899796945,computed,Deployable threshold selected without test labels.
+IsolationForest,SAFE_CAN,unsafe_test_majority_mapping,,,,,not_computable_without_cluster_assignments,Audit placeholder only; do not use as evidence.
+IsolationForest,P1_public_default,validation_f1_threshold,0.0022592678397925603,0.1877376405964082,0.1875378037558561,0.10450181554405243,computed,Deployable threshold selected without test labels.
+IsolationForest,P1_public_default,unsafe_test_majority_mapping,,,,,not_computable_without_cluster_assignments,Audit placeholder only; do not use as evidence.
+BIRCH,SAFE_CAN,validation_f1_threshold,0.0024851708961809303,0.31615231033242985,0.3158143612271064,0.18857687895856112,computed,Deployable threshold selected without test labels.
+BIRCH,SAFE_CAN,unsafe_test_majority_mapping,,,,,not_computable_without_cluster_assignments,Audit placeholder only; do not use as evidence.
+BIRCH,P1_public_default,validation_f1_threshold,0.002271937255722336,0.27920733580157403,0.27890896195744364,0.1630533665190304,computed,Deployable threshold selected without test labels.
+BIRCH,P1_public_default,unsafe_test_majority_mapping,,,,,not_computable_without_cluster_assignments,Audit placeholder only; do not use as evidence.
+MiniBatchKMeans,NA,validation_majority_or_validation_f1,,,,,not_available_in_completed_prediction_table,No completed deployable row in available public reproduction table.

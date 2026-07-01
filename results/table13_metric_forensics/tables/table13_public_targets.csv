@@ -1,0 +1,13 @@
+model,reported_accuracy,reported_precision,reported_recall,reported_f1,reported_training_time_ns,reported_testing_time_ns,source,notes
+BIRCH,,,,0.998,,,task_statement_approx_Table13_anchor,Approximate high Table 13 test04 F1 anchor from user task; exact table cell not locally available.
+GradientBoosting,,,,0.998,,,task_statement_approx_Table13_anchor,Approximate high Table 13 test04 F1 anchor from user task; exact table cell not locally available.
+LogisticRegression,,,,,,,not_available_in_workspace,"Model listed for Table 13 forensics, but exact reported values were not available locally."
+MLP,,,,0.998,,,task_statement_approx_Table13_anchor,Approximate high Table 13 test04 F1 anchor from user task; exact table cell not locally available.
+IsolationForest,,,,,,,not_available_in_workspace,"Model listed for Table 13 forensics, but exact reported values were not available locally."
+GaussianNB,,,,,,,not_available_in_workspace,"Model listed for Table 13 forensics, but exact reported values were not available locally."
+RandomForest,,,,,,,not_available_in_workspace,"Model listed for Table 13 forensics, but exact reported values were not available locally."
+ExtraTrees,,,,,,,not_available_in_workspace,"Model listed for Table 13 forensics, but exact reported values were not available locally."
+KNN,,,,,,,not_available_in_workspace,"Model listed for Table 13 forensics, but exact reported values were not available locally."
+LinearSVM,,,,,,,not_available_in_workspace,"Model listed for Table 13 forensics, but exact reported values were not available locally."
+DecisionTree,,,,,,,not_available_in_workspace,"Model listed for Table 13 forensics, but exact reported values were not available locally."
+RestrictedBoltzmannMachine,,,,,,,not_available_in_workspace,"Model listed for Table 13 forensics, but exact reported values were not available locally."

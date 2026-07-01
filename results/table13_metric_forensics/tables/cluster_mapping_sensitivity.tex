@@ -1,0 +1,16 @@
+\begin{tabular}{lllrrrrll}
+\toprule
+model & feature\_protocol & mapping & attack\_f1 & normal\_f1 & weighted\_f1 & accuracy & status & notes \\
+\midrule
+KMeans & NA & validation\_majority\_or\_validation\_f1 & NA & NA & NA & NA & not\_available\_in\_completed\_prediction\_table & No completed deployable row in available public reproduction table. \\
+IsolationForest & SAFE\_CAN & validation\_f1\_threshold & 0.0022 & 0.0297 & 0.0296 & 0.0161 & computed & Deployable threshold selected without test labels. \\
+IsolationForest & SAFE\_CAN & unsafe\_test\_majority\_mapping & NA & NA & NA & NA & not\_computable\_without\_cluster\_assignments & Audit placeholder only; do not use as evidence. \\
+IsolationForest & P1\_public\_default & validation\_f1\_threshold & 0.0023 & 0.1877 & 0.1875 & 0.1045 & computed & Deployable threshold selected without test labels. \\
+IsolationForest & P1\_public\_default & unsafe\_test\_majority\_mapping & NA & NA & NA & NA & not\_computable\_without\_cluster\_assignments & Audit placeholder only; do not use as evidence. \\
+BIRCH & SAFE\_CAN & validation\_f1\_threshold & 0.0025 & 0.3162 & 0.3158 & 0.1886 & computed & Deployable threshold selected without test labels. \\
+BIRCH & SAFE\_CAN & unsafe\_test\_majority\_mapping & NA & NA & NA & NA & not\_computable\_without\_cluster\_assignments & Audit placeholder only; do not use as evidence. \\
+BIRCH & P1\_public\_default & validation\_f1\_threshold & 0.0023 & 0.2792 & 0.2789 & 0.1631 & computed & Deployable threshold selected without test labels. \\
+BIRCH & P1\_public\_default & unsafe\_test\_majority\_mapping & NA & NA & NA & NA & not\_computable\_without\_cluster\_assignments & Audit placeholder only; do not use as evidence. \\
+MiniBatchKMeans & NA & validation\_majority\_or\_validation\_f1 & NA & NA & NA & NA & not\_available\_in\_completed\_prediction\_table & No completed deployable row in available public reproduction table. \\
+\bottomrule
+\end{tabular}

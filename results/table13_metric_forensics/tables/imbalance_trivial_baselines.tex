@@ -1,0 +1,10 @@
+\begin{tabular}{lrrrrrrrrrrrrlrrr}
+\toprule
+baseline & accuracy & binary\_f1\_attack\_positive & binary\_precision\_attack\_positive & binary\_recall\_attack\_positive & binary\_f1\_normal\_positive & binary\_precision\_normal\_positive & binary\_recall\_normal\_positive & macro\_f1 & weighted\_f1 & micro\_f1 & balanced\_accuracy & mcc & confusion\_matrix\_tn\_fp\_fn\_tp & num\_positive & num\_negative & positive\_rate \\
+\midrule
+predict\_all\_normal & 0.9989 & 0.0000 & 0.0000 & 0.0000 & 0.9995 & 0.9989 & 1.0000 & 0.4997 & 0.9984 & 0.9989 & 0.5000 & NA & 13206311,0,14244,0 & 14244 & 13206311 & 0.0011 \\
+predict\_all\_attack & 0.0011 & 0.0022 & 0.0011 & 1.0000 & 0.0000 & 0.0000 & 0.0000 & 0.0011 & 0.0000 & 0.0011 & 0.5000 & NA & 0,13206311,0,14244 & 14244 & 13206311 & 0.0011 \\
+random\_by\_base\_rate\_expected & 0.9978 & 0.0011 & 0.0011 & 0.0011 & 0.9989 & 0.9989 & 0.9989 & 0.5000 & 0.9978 & 0.9978 & 0.5000 & 0.0000 & 13192082,14229,14229,15 & 14244 & 13206311 & 0.0011 \\
+random\_1\_percent\_attack\_expected & 0.9889 & 0.0019 & 0.0011 & 0.0100 & 0.9944 & 0.9989 & 0.9900 & 0.4982 & 0.9934 & 0.9889 & 0.5000 & 0.0000 & 13074248,132063,14102,142 & 14244 & 13206311 & 0.0011 \\
+\bottomrule
+\end{tabular}

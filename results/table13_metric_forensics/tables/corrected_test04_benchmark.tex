@@ -1,0 +1,60 @@
+\begin{tabular}{lllrrrrrrrrrr}
+\toprule
+dataset & method & source & attack\_positive\_f1 & attack\_positive\_precision & attack\_positive\_recall & aupr & auroc & recall\_at\_fpr\_1e\_3 & recall\_at\_fpr\_1e\_2 & normal\_positive\_f1 & weighted\_f1 & accuracy \\
+\midrule
+ctt\_test04 & GradientBoosting / window\_100 & final\_grain\_can\_b1\_granularity\_full\_matrix & 0.6678 & 0.9365 & 0.5189 & 0.7845 & 0.9024 & NA & NA & NA & NA & NA \\
+ctt\_test04 & GradientBoosting / window\_20 & final\_grain\_can\_b1\_granularity\_full\_matrix & 0.6416 & 0.9424 & 0.4864 & 0.7228 & 0.8947 & NA & NA & NA & NA & NA \\
+ctt\_test04 & GradientBoosting / window\_50 & final\_grain\_can\_b1\_granularity\_full\_matrix & 0.6274 & 0.9915 & 0.4589 & 0.8235 & 0.9202 & NA & NA & NA & NA & NA \\
+ctt\_test04 & GradientBoosting / window\_10 & final\_grain\_can\_b1\_granularity\_full\_matrix & 0.6001 & 0.8892 & 0.4529 & 0.6185 & 0.8453 & NA & NA & NA & NA & NA \\
+ctt\_test04 & HistGradientBoosting / SAFE\_CAN / C\_5x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.5862 & 0.7759 & 0.4710 & 0.3671 & 0.7709 & NA & NA & 0.9996 & 0.9992 & 0.9993 \\
+ctt\_test04 & GradientBoosting / window\_5 & final\_grain\_can\_b1\_granularity\_full\_matrix & 0.5168 & 0.8738 & 0.3669 & 0.5140 & 0.7875 & NA & NA & NA & NA & NA \\
+ctt\_test04 & GradientBoosting / SAFE\_CAN / B\_2x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.4812 & 0.7389 & 0.3568 & 0.2636 & 0.6103 & NA & NA & 0.9996 & 0.9990 & 0.9992 \\
+ctt\_test04 & GradientBoosting / SAFE\_CAN / C\_5x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.4796 & 0.7396 & 0.3549 & 0.2647 & 0.6094 & NA & NA & 0.9996 & 0.9990 & 0.9992 \\
+ctt\_test04 & GradientBoosting / sample & final\_grain\_can\_b1\_granularity\_full\_matrix & 0.3884 & NA & NA & 0.2422 & 0.5926 & NA & NA & NA & NA & NA \\
+ctt\_test04 & HistGradientBoosting / SAFE\_CAN / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.3206 & 0.6050 & 0.2181 & 0.3055 & 0.6816 & NA & NA & 0.9995 & 0.9988 & 0.9990 \\
+ctt\_test04 & HistGradientBoosting / P7\_public\_plus\_delta / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.3204 & 0.6066 & 0.2177 & 0.3112 & 0.7050 & NA & NA & 0.9995 & 0.9988 & 0.9990 \\
+ctt\_test04 & HistGradientBoosting / SAFE\_CAN / B\_2x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.3090 & 0.5579 & 0.2137 & 0.1361 & 0.4596 & NA & NA & 0.9995 & 0.9987 & 0.9990 \\
+ctt\_test04 & GradientBoosting / P7\_public\_plus\_delta / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.1959 & 0.5139 & 0.1210 & 0.1405 & 0.4821 & NA & NA & 0.9995 & 0.9986 & 0.9989 \\
+ctt\_test04 & GradientBoosting / SAFE\_CAN / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.1956 & 0.5039 & 0.1214 & 0.1379 & 0.4821 & NA & NA & 0.9995 & 0.9986 & 0.9989 \\
+ctt\_test04 & RandomForest / SAFE\_CAN / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0571 & 0.0313 & 0.3232 & 0.0459 & 0.6790 & NA & NA & 0.9942 & 0.9932 & 0.9885 \\
+ctt\_test04 & LogisticRegression / P3\_no\_subdivision / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0419 & 0.1316 & 0.0249 & 0.0258 & 0.2808 & NA & NA & 0.9994 & 0.9984 & 0.9988 \\
+ctt\_test04 & LinearSVM / SAFE\_CAN / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0265 & 0.0206 & 0.0371 & 0.0077 & 0.2937 & NA & NA & 0.9985 & 0.9975 & 0.9971 \\
+ctt\_test04 & HistGradientBoosting / P5\_arbitration\_payload\_only / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0255 & 0.0173 & 0.0488 & 0.0044 & 0.6272 & NA & NA & 0.9980 & 0.9969 & 0.9960 \\
+ctt\_test04 & LogisticRegression / SAFE\_CAN / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0231 & 0.0142 & 0.0611 & 0.0179 & 0.3364 & NA & NA & 0.9972 & 0.9962 & 0.9944 \\
+ctt\_test04 & transformer / old\_window100\_deep & final\_grain\_can\_b1\_granularity\_full\_matrix & 0.0224 & 0.0113 & 0.9794 & 0.1733 & 0.6453 & NA & NA & NA & NA & 0.0263 \\
+ctt\_test04 & HistGradientBoosting / P1\_public\_default / C\_5x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.0193 & 0.0110 & 0.0807 & 0.0119 & 0.5325 & NA & NA & 0.9956 & 0.9945 & 0.9912 \\
+ctt\_test04 & HistGradientBoosting / P1\_public\_default / B\_2x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.0187 & 0.0105 & 0.0808 & 0.0031 & 0.5593 & NA & NA & 0.9954 & 0.9943 & 0.9908 \\
+ctt\_test04 & HistGradientBoosting / P1\_public\_default / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0187 & 0.0105 & 0.0808 & 0.0038 & 0.5642 & NA & NA & 0.9954 & 0.9943 & 0.9908 \\
+ctt\_test04 & GaussianNB / SAFE\_CAN / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0167 & 0.0106 & 0.0402 & 0.0017 & 0.5202 & NA & NA & 0.9975 & 0.9964 & 0.9949 \\
+ctt\_test04 & ExtraTrees / SAFE\_CAN / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0154 & 0.0088 & 0.0618 & 0.0333 & 0.5378 & NA & NA & 0.9957 & 0.9947 & 0.9915 \\
+ctt\_test04 & MLP / P7\_public\_plus\_delta / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0112 & 0.0062 & 0.0560 & 0.0075 & 0.4004 & NA & NA & 0.9946 & 0.9936 & 0.9893 \\
+ctt\_test04 & GaussianNB / P7\_public\_plus\_delta / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0101 & 0.0055 & 0.0676 & 0.0020 & 0.5019 & NA & NA & 0.9928 & 0.9918 & 0.9857 \\
+ctt\_test04 & LogisticRegression / P7\_public\_plus\_delta / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0091 & 0.0048 & 0.0842 & 0.0355 & 0.3340 & NA & NA & 0.9900 & 0.9889 & 0.9802 \\
+ctt\_test04 & MLP / SAFE\_CAN / B\_2x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.0081 & 0.0043 & 0.0779 & 0.0019 & 0.4635 & NA & NA & 0.9897 & 0.9886 & 0.9795 \\
+ctt\_test04 & GradientBoosting / P1\_public\_default / B\_2x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.0069 & 0.0036 & 0.0744 & 0.0204 & 0.5953 & NA & NA & 0.9883 & 0.9872 & 0.9769 \\
+ctt\_test04 & MLP / SAFE\_CAN / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0065 & 0.0034 & 0.0791 & 0.0024 & 0.4740 & NA & NA & 0.9867 & 0.9857 & 0.9738 \\
+ctt\_test04 & GradientBoosting / P5\_arbitration\_payload\_only / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0063 & 0.0032 & 0.2242 & 0.0441 & 0.7888 & NA & NA & 0.9603 & 0.9593 & 0.9237 \\
+ctt\_test04 & GradientBoosting / P3\_no\_subdivision / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0051 & 0.0026 & 0.2256 & 0.0299 & 0.8137 & NA & NA & 0.9504 & 0.9494 & 0.9055 \\
+ctt\_test04 & HistGradientBoosting / P3\_no\_subdivision / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0051 & 0.0026 & 0.9176 & 0.0045 & 0.7893 & NA & NA & 0.7601 & 0.7592 & 0.6134 \\
+ctt\_test04 & MLP / P5\_arbitration\_payload\_only / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0049 & 0.0025 & 0.1578 & 0.0229 & 0.2769 & NA & NA & 0.9646 & 0.9635 & 0.9316 \\
+ctt\_test04 & ExtraTrees / P1\_public\_default / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0044 & 0.0023 & 0.0810 & 0.0017 & 0.5061 & NA & NA & 0.9800 & 0.9789 & 0.9608 \\
+ctt\_test04 & GradientBoosting / P1\_public\_default / C\_5x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.0043 & 0.0022 & 0.0750 & 0.0273 & 0.6219 & NA & NA & 0.9811 & 0.9801 & 0.9630 \\
+ctt\_test04 & LogisticRegression / P1\_public\_default / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0041 & 0.0022 & 0.0331 & 0.0045 & 0.3007 & NA & NA & 0.9913 & 0.9903 & 0.9828 \\
+ctt\_test04 & GradientBoosting / P1\_public\_default / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0039 & 0.0020 & 0.0755 & 0.0164 & 0.5600 & NA & NA & 0.9789 & 0.9779 & 0.9587 \\
+ctt\_test04 & MLP / SAFE\_CAN / C\_5x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.0036 & 0.0019 & 0.0592 & 0.0016 & 0.3639 & NA & NA & 0.9821 & 0.9811 & 0.9649 \\
+ctt\_test04 & LinearSVM / P1\_public\_default / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0031 & 0.0016 & 0.0864 & 0.0121 & 0.3413 & NA & NA & 0.9696 & 0.9685 & 0.9409 \\
+ctt\_test04 & BIRCH / SAFE\_CAN / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0025 & 0.0012 & 0.9381 & 0.3198 & 0.7833 & NA & NA & 0.3162 & 0.3158 & 0.1886 \\
+ctt\_test04 & BIRCH / P1\_public\_default / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0023 & 0.0011 & 0.8844 & 0.0481 & 0.5977 & NA & NA & 0.2792 & 0.2789 & 0.1631 \\
+ctt\_test04 & IsolationForest / P1\_public\_default / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0023 & 0.0011 & 0.9410 & 0.0063 & 0.7314 & NA & NA & 0.1877 & 0.1875 & 0.1045 \\
+ctt\_test04 & IsolationForest / SAFE\_CAN / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0022 & 0.0011 & 1.0000 & 0.1645 & 0.7941 & NA & NA & 0.0297 & 0.0296 & 0.0161 \\
+ctt\_test04 & GaussianNB / P1\_public\_default / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0022 & 0.0011 & 0.1106 & 0.0011 & 0.4798 & NA & NA & 0.9421 & 0.9411 & 0.8906 \\
+ctt\_test04 & MLP / P1\_public\_default / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0022 & 0.0011 & 0.1032 & 0.0087 & 0.3404 & NA & NA & 0.9457 & 0.9447 & 0.8970 \\
+ctt\_test04 & RandomForest / P1\_public\_default / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0022 & 0.0011 & 1.0000 & 0.0062 & 0.5222 & NA & NA & 0.0000 & 0.0000 & 0.0011 \\
+ctt\_test04 & MLP / P3\_no\_subdivision / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0019 & 0.0010 & 0.3632 & 0.0350 & 0.5126 & NA & NA & 0.7479 & 0.7471 & 0.5974 \\
+ctt\_test04 & LogisticRegression / P5\_arbitration\_payload\_only / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0017 & 0.0009 & 0.0430 & 0.0406 & 0.2240 & NA & NA & 0.9726 & 0.9715 & 0.9466 \\
+ctt\_test04 & MLP / P1\_public\_default / B\_2x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.0017 & 0.0009 & 0.1090 & 0.0071 & 0.3388 & NA & NA & 0.9274 & 0.9264 & 0.8647 \\
+ctt\_test04 & MLP / P1\_public\_default / C\_5x\_negative\_cap & table13\_metric\_forensics\_full\_metric\_matrix & 0.0017 & 0.0008 & 0.1043 & 0.0054 & 0.3374 & NA & NA & 0.9286 & 0.9276 & 0.8667 \\
+ctt\_test04 & GaussianNB / P3\_no\_subdivision / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0017 & 0.0008 & 0.0338 & 0.0235 & 0.4207 & NA & NA & 0.9775 & 0.9765 & 0.9561 \\
+ctt\_test04 & GaussianNB / P5\_arbitration\_payload\_only / A\_capped & table13\_metric\_forensics\_full\_metric\_matrix & 0.0008 & 0.0004 & 0.0259 & 0.0254 & 0.1919 & NA & NA & 0.9651 & 0.9640 & 0.9325 \\
+\bottomrule
+\end{tabular}
