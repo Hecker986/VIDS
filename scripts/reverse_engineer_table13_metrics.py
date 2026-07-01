@@ -75,29 +75,42 @@ def norm_model(name: str) -> str:
 
 
 def table13_targets() -> pd.DataFrame:
-    # Exact Table 13 values are not present in the repository. The only concrete
-    # target values available in this workspace are task-stated high test04 F1
-    # anchors. Unknown cells stay NA instead of being fabricated.
-    rows = []
-    approx_high = {
-        "BIRCH": 0.998,
-        "GradientBoosting": 0.998,
-        "MLP": 0.998,
+    # The original arXiv paper labels sub-dataset #1 / testing subset #4 as
+    # Table 10, while later discussions/user notes often refer to the same kind
+    # of public table as Table 13. We store the exact original-paper Table 10
+    # values here to avoid comparing against vague 0.998 anchors.
+    exact = {
+        "GaussianNB": (0.8906, 0.9979, 0.8906, 0.9411, 2071507728, 1671649398),
+        "KNN": (0.9982, 0.0190, 0.0148, 0.0166, 106205148337753, 11972712642811),
+        "LogisticRegression": (0.9976, 0.9979, 0.9976, 0.9977, 112252658417, 984385909),
+        "LinearSVM": (0.9942, 0.0002, 0.0009, 0.0003, 35314797566, 661366602),
+        "DecisionTree": (0.9827, 0.0018, 0.0276, 0.0033, 8271963209, 997735598),
+        "ExtraTrees": (0.9988, 0.0000, 0.0000, 0.0000, 209531429363, 49439825750),
+        "GradientBoosting": (0.9984, 0.9980, 0.9984, 0.9982, 2451403662347, 18095133741),
+        "IsolationForest": (0.9881, 0.9980, 0.9881, 0.9930, 197244480367, 202233230770),
+        "RandomForest": (0.9988, 0.0011, 0.0001, 0.0003, 763511969876, 88901090110),
+        "KMeans": (0.8872, 0.9985, 0.8872, 0.9392, 97416359356, 1463804724),
+        "MiniBatchKMeans": (0.4748, 0.9984, 0.4748, 0.6429, 7678285764, 9274790788),
+        "BIRCH": (0.9990, 0.9979, 0.9990, 0.9984, 214197454658, 1171693676),
+        "MLP": (0.9973, 0.9979, 0.9973, 0.9976, 3088090156514, 27715472855),
+        "RestrictedBoltzmannMachine": (0.0010, 0.0000, 0.0010, 0.0000, 916661700320, 22041127093),
     }
-    for model in TABLE13_MODELS:
+    rows = []
+    for model in TABLE13_MODELS + ["KMeans", "MiniBatchKMeans"]:
+        vals = exact.get(model)
         rows.append(
             {
                 "model": model,
-                "reported_accuracy": np.nan,
-                "reported_precision": np.nan,
-                "reported_recall": np.nan,
-                "reported_f1": approx_high.get(model, np.nan),
-                "reported_training_time_ns": np.nan,
-                "reported_testing_time_ns": np.nan,
-                "source": "task_statement_approx_Table13_anchor" if model in approx_high else "not_available_in_workspace",
-                "notes": "Approximate high Table 13 test04 F1 anchor from user task; exact table cell not locally available."
-                if model in approx_high
-                else "Model listed for Table 13 forensics, but exact reported values were not available locally.",
+                "reported_accuracy": vals[0] if vals else np.nan,
+                "reported_precision": vals[1] if vals else np.nan,
+                "reported_recall": vals[2] if vals else np.nan,
+                "reported_f1": vals[3] if vals else np.nan,
+                "reported_training_time_ns": vals[4] if vals else np.nan,
+                "reported_testing_time_ns": vals[5] if vals else np.nan,
+                "source": "Lampe_Meng_2023_arxiv_Table10_subdataset1_test04" if vals else "not_available_in_original_Table10_or_not_locally_parsed",
+                "notes": "Original paper Table 10 values. The task calls this public high-score comparison Table 13, but the aligned arXiv source uses Table 10 for sub-dataset #1 testing subset #4."
+                if vals
+                else "Model listed for forensics, but exact reported values were not available in parsed Table 10.",
             }
         )
     out = pd.DataFrame(rows)
