@@ -1,0 +1,10 @@
+file_path,status,size
+results/final_evidence_completion/tables/external_dependency_audit.csv,ok,869
+results/final_evidence_completion/tables/v15_dataset_alignment.csv,ok,391
+results/final_evidence_completion/tables/author_code_confusion_matrix_search.csv,ok,722
+results/final_evidence_completion/tables/official_event_boundary_audit.csv,ok,2582
+results/final_evidence_completion/tables/external_full_corrected_benchmark.csv,ok,4951
+results/final_evidence_completion/tables/grain_full_retraining_ablation.csv,ok,2817
+results/final_evidence_completion/figures/external_full_corrected_benchmark.svg,ok,47104
+results/final_evidence_completion/figures/grain_full_retraining_ablation.svg,ok,38189
+results/final_evidence_completion/final_evidence_completion_report.md,ok,812

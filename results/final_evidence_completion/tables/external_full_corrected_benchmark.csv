@@ -1,0 +1,34 @@
+dataset,model,attack_f1,aupr,auroc,recall_at_fpr_1e_3,positive_rate,source,notes
+ROAD,transformer,0.8279109589041096,0.7794058319471616,,0.7090643274853801,,results/attack_centric_final/tables/i1_external_corrected_sanity.csv,window100_existing
+ROAD,concat_fusion,0.7885764888200133,0.7538768220527791,,0.7083333333333334,,results/attack_centric_final/tables/i1_external_corrected_sanity.csv,window100_existing
+ROAD,cmf_can,0.7893805309734513,0.805957074624345,,0.7083333333333334,,results/attack_centric_final/tables/i1_external_corrected_sanity.csv,window100_existing
+ROAD,can_transformer_plus_sameid,0.822871883061049,0.8078131371418161,,0.7083333333333334,,results/attack_centric_final/tables/i1_external_corrected_sanity.csv,can_transformer_plus
+CrySyS-subset,transformer,,,,,,results/attack_centric_final/tables/i1_external_corrected_sanity.csv,documented_subset
+CrySyS-subset,concat_fusion,,,,,,results/attack_centric_final/tables/i1_external_corrected_sanity.csv,documented_subset
+CrySyS-subset,cmf_can,,,,,,results/attack_centric_final/tables/i1_external_corrected_sanity.csv,documented_subset
+road,predict_all_normal,,,,,0.0331417694585137,results/attack_centric_final/tables/i1_external_corrected_sanity.csv,
+crysys_family_mod_subset,predict_all_normal,,,,,0.1711794552355202,results/attack_centric_final/tables/i1_external_corrected_sanity.csv,malicious frames are labeled from JSON attack start/end markers; benign captures are labeled normal
+hcrl_can_intrusion,predict_all_normal,,,,,0.4864139311259995,results/attack_centric_final/tables/i1_external_corrected_sanity.csv,attack files do not include per-frame labels; all frames in attack captures are marked anomalous
+car_hacking,predict_all_normal,,,,,0.1327868239981146,results/attack_centric_final/tables/i1_external_corrected_sanity.csv,CSV T flag is anomalous; R flag and normal_run_data are benign
+ROAD,transformer,0.8279109589041096,0.7794058319471616,0.9335419178297376,0.7090643274853801,,results/final_grain_can/tables/g1_cross_dataset_validation.csv,window100_existing
+ROAD,concat_fusion,0.7885764888200133,0.7538768220527791,0.8848564756580024,0.7083333333333334,,results/final_grain_can/tables/g1_cross_dataset_validation.csv,window100_existing
+ROAD,cmf_can,0.7893805309734513,0.805957074624345,0.943067350483829,0.7083333333333334,,results/final_grain_can/tables/g1_cross_dataset_validation.csv,window100_existing
+ROAD,can_transformer_plus_sameid,0.822871883061049,0.8078131371418161,0.939066654335234,0.7083333333333334,,results/final_grain_can/tables/g1_cross_dataset_validation.csv,can_transformer_plus
+CrySyS-subset,transformer,,,,,,results/final_grain_can/tables/g1_cross_dataset_validation.csv,documented_subset
+CrySyS-subset,concat_fusion,,,,,,results/final_grain_can/tables/g1_cross_dataset_validation.csv,documented_subset
+CrySyS-subset,cmf_can,,,,,,results/final_grain_can/tables/g1_cross_dataset_validation.csv,documented_subset
+ROAD,Transformer,0.8279109589041096,0.7794058319471616,0.9335419178297376,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+ROAD,Concat-Fusion,0.7885764888200133,0.7538768220527791,0.8848564756580024,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+ROAD,CMF-CAN,0.7893805309734513,0.805957074624345,0.943067350483829,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+CT&T test01,Transformer,0.9640943193997856,0.98438087210754,0.9968966598253644,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+CT&T test01,Concat-Fusion,0.8152007355194606,0.975534988105138,0.9875688953576576,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+CT&T test01,CMF-CAN,0.9687916777807416,0.9781093030763408,0.9907451786831104,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+HCRL,Transformer,1.0,1.0,1.0,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+HCRL,Concat-Fusion,0.9997771339425006,1.0,1.0,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+HCRL,CMF-CAN,0.996667407242835,1.0,1.0,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+Car-Hacking,Transformer,0.999802986721305,0.9999996723531732,0.9999998137606454,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+Car-Hacking,Concat-Fusion,0.9983430645415812,0.99973131930073,0.9997791622928528,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+Car-Hacking,CMF-CAN,0.9982636148382004,0.99999835147555,0.9999990512334764,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+CrySyS,Transformer,0.9317212883326996,0.9343438282416562,0.9899867669597155,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+CrySyS,Concat-Fusion,0.930725519466192,0.9183675161228272,0.98784967421478,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,
+CrySyS,CMF-CAN,0.9318765710900708,0.93496296616146,0.9898886208592504,,,results/cmf_tables/paper_table_overall_main_results_refined.csv,

@@ -1,0 +1,7 @@
+query,result,url,status
+can-train-and-test-v1.5 dataset can-sleuth 2025,No directly accessible public dataset/code hit found through web search.,,not_found_public_web
+can-train-and-test v1.5 set_01 MLP test04 F1 0.9981,No directly accessible public v1.5 source found through web search.,,not_found_public_web
+Lampe Meng can-train-and-test Table 13 confusion matrix code,Original arXiv paper found; confusion matrices/exact benchmark code not found in indexed public results.,https://arxiv.org/abs/2308.04972,paper_found_code_not_found
+can-sleuth GitHub can-train-and-test-v1.5,No directly accessible GitHub repository hit found through web search.,,not_found_public_web
+local filesystem search: v1.5 / v15 / can-sleuth,No local v1.5/can-sleuth directory detected.,,not_found_local
+local original CT&T dataset,data/raw/can-train-and-test,,aligned_original_set01_present

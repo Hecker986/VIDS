@@ -1,0 +1,39 @@
+\begin{tabular}{llrrrrrll}
+\toprule
+dataset & model & attack\_f1 & aupr & auroc & recall\_at\_fpr\_1e\_3 & positive\_rate & source & notes \\
+\midrule
+ROAD & transformer & 0.8279 & 0.7794 & NA & 0.7091 & NA & results/attack\_centric\_final/tables/i1\_external\_corrected\_sanity.csv & window100\_existing \\
+ROAD & concat\_fusion & 0.7886 & 0.7539 & NA & 0.7083 & NA & results/attack\_centric\_final/tables/i1\_external\_corrected\_sanity.csv & window100\_existing \\
+ROAD & cmf\_can & 0.7894 & 0.8060 & NA & 0.7083 & NA & results/attack\_centric\_final/tables/i1\_external\_corrected\_sanity.csv & window100\_existing \\
+ROAD & can\_transformer\_plus\_sameid & 0.8229 & 0.8078 & NA & 0.7083 & NA & results/attack\_centric\_final/tables/i1\_external\_corrected\_sanity.csv & can\_transformer\_plus \\
+CrySyS-subset & transformer & NA & NA & NA & NA & NA & results/attack\_centric\_final/tables/i1\_external\_corrected\_sanity.csv & documented\_subset \\
+CrySyS-subset & concat\_fusion & NA & NA & NA & NA & NA & results/attack\_centric\_final/tables/i1\_external\_corrected\_sanity.csv & documented\_subset \\
+CrySyS-subset & cmf\_can & NA & NA & NA & NA & NA & results/attack\_centric\_final/tables/i1\_external\_corrected\_sanity.csv & documented\_subset \\
+road & predict\_all\_normal & NA & NA & NA & NA & 0.0331 & results/attack\_centric\_final/tables/i1\_external\_corrected\_sanity.csv & NA \\
+crysys\_family\_mod\_subset & predict\_all\_normal & NA & NA & NA & NA & 0.1712 & results/attack\_centric\_final/tables/i1\_external\_corrected\_sanity.csv & malicious frames are labeled from JSON attack start/end markers; benign captures are labeled normal \\
+hcrl\_can\_intrusion & predict\_all\_normal & NA & NA & NA & NA & 0.4864 & results/attack\_centric\_final/tables/i1\_external\_corrected\_sanity.csv & attack files do not include per-frame labels; all frames in attack captures are marked anomalous \\
+car\_hacking & predict\_all\_normal & NA & NA & NA & NA & 0.1328 & results/attack\_centric\_final/tables/i1\_external\_corrected\_sanity.csv & CSV T flag is anomalous; R flag and normal\_run\_data are benign \\
+ROAD & transformer & 0.8279 & 0.7794 & 0.9335 & 0.7091 & NA & results/final\_grain\_can/tables/g1\_cross\_dataset\_validation.csv & window100\_existing \\
+ROAD & concat\_fusion & 0.7886 & 0.7539 & 0.8849 & 0.7083 & NA & results/final\_grain\_can/tables/g1\_cross\_dataset\_validation.csv & window100\_existing \\
+ROAD & cmf\_can & 0.7894 & 0.8060 & 0.9431 & 0.7083 & NA & results/final\_grain\_can/tables/g1\_cross\_dataset\_validation.csv & window100\_existing \\
+ROAD & can\_transformer\_plus\_sameid & 0.8229 & 0.8078 & 0.9391 & 0.7083 & NA & results/final\_grain\_can/tables/g1\_cross\_dataset\_validation.csv & can\_transformer\_plus \\
+CrySyS-subset & transformer & NA & NA & NA & NA & NA & results/final\_grain\_can/tables/g1\_cross\_dataset\_validation.csv & documented\_subset \\
+CrySyS-subset & concat\_fusion & NA & NA & NA & NA & NA & results/final\_grain\_can/tables/g1\_cross\_dataset\_validation.csv & documented\_subset \\
+CrySyS-subset & cmf\_can & NA & NA & NA & NA & NA & results/final\_grain\_can/tables/g1\_cross\_dataset\_validation.csv & documented\_subset \\
+ROAD & Transformer & 0.8279 & 0.7794 & 0.9335 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+ROAD & Concat-Fusion & 0.7886 & 0.7539 & 0.8849 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+ROAD & CMF-CAN & 0.7894 & 0.8060 & 0.9431 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+CT\&T test01 & Transformer & 0.9641 & 0.9844 & 0.9969 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+CT\&T test01 & Concat-Fusion & 0.8152 & 0.9755 & 0.9876 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+CT\&T test01 & CMF-CAN & 0.9688 & 0.9781 & 0.9907 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+HCRL & Transformer & 1.0000 & 1.0000 & 1.0000 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+HCRL & Concat-Fusion & 0.9998 & 1.0000 & 1.0000 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+HCRL & CMF-CAN & 0.9967 & 1.0000 & 1.0000 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+Car-Hacking & Transformer & 0.9998 & 1.0000 & 1.0000 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+Car-Hacking & Concat-Fusion & 0.9983 & 0.9997 & 0.9998 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+Car-Hacking & CMF-CAN & 0.9983 & 1.0000 & 1.0000 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+CrySyS & Transformer & 0.9317 & 0.9343 & 0.9900 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+CrySyS & Concat-Fusion & 0.9307 & 0.9184 & 0.9878 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+CrySyS & CMF-CAN & 0.9319 & 0.9350 & 0.9899 & NA & NA & results/cmf\_tables/paper\_table\_overall\_main\_results\_refined.csv &  \\
+\bottomrule
+\end{tabular}

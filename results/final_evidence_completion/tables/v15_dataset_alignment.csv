@@ -1,0 +1,3 @@
+dataset_candidate,exists,num_csv_files,total_size_bytes,has_set_01,has_test01,has_test02,has_test03,has_test04,has_test05,has_test06,v15_expected_extra_tests_present,alignment_status
+data/raw/can-train-and-test,True,236,7471443340,True,True,True,True,True,False,False,False,original_ctt_not_v15
+data/raw,True,335,10150239693,False,False,False,False,False,False,False,False,not_ctt_candidate
