@@ -1,0 +1,12 @@
+\begin{tabular}{llllrrrrrrrrl}
+\toprule
+dataset & model & granularity & threshold\_type & fpr\_budget & recall\_at\_fpr & precision\_at\_fpr & f1\_at\_fpr & actual\_fpr & event\_recall & detection\_delay & false\_alarm\_per\_hour\_or\_per\_100k & source \\
+\midrule
+ctt\_test04 & GradientBoosting & aggregate\_window & best\_test\_upper\_bound & 0.0001 & 0.4478 & 0.9811 & 0.6150 & 0.0001 & NA & NA & NA & final\_grain\_can\_e1\_low\_fpr \\
+ctt\_test04 & GradientBoosting & aggregate\_window & best\_test\_upper\_bound & 0.0005 & 0.6246 & 0.9353 & 0.7490 & 0.0005 & NA & NA & NA & final\_grain\_can\_e1\_low\_fpr \\
+ctt\_test04 & GradientBoosting & aggregate\_window & best\_test\_upper\_bound & 0.0010 & 0.8053 & 0.9031 & 0.8514 & 0.0010 & NA & NA & NA & final\_grain\_can\_e1\_low\_fpr \\
+ctt\_test04 & GradientBoosting & aggregate\_window & best\_test\_upper\_bound & 0.0050 & 0.8053 & 0.6499 & 0.7193 & 0.0050 & NA & NA & NA & final\_grain\_can\_e1\_low\_fpr \\
+ctt\_test04 & GradientBoosting & aggregate\_window & best\_test\_upper\_bound & 0.0100 & 0.8053 & 0.4813 & 0.6025 & 0.0100 & NA & NA & NA & final\_grain\_can\_e1\_low\_fpr \\
+ctt\_test04 & GradientBoosting & aggregate\_window100 & approximate\_event\_from\_label\_transition & NA & NA & NA & NA & NA & 0.3650 & 42.6036 & 0.6263 & final\_grain\_can\_f2\_event\_level \\
+\bottomrule
+\end{tabular}

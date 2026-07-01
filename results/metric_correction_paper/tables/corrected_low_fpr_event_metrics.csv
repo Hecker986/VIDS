@@ -1,0 +1,7 @@
+dataset,model,granularity,threshold_type,fpr_budget,recall_at_fpr,precision_at_fpr,f1_at_fpr,actual_fpr,event_recall,detection_delay,false_alarm_per_hour_or_per_100k,source
+ctt_test04,GradientBoosting,aggregate_window,best_test_upper_bound,0.0001,0.4478405315614618,0.9810771470160116,0.614963503649635,9.946822755269905e-05,,,,final_grain_can_e1_low_fpr
+ctt_test04,GradientBoosting,aggregate_window,best_test_upper_bound,0.0005,0.6245847176079734,0.9353233830845772,0.749003984063745,0.0004973411377634,,,,final_grain_can_e1_low_fpr
+ctt_test04,GradientBoosting,aggregate_window,best_test_upper_bound,0.001,0.8053156146179402,0.903129657228018,0.8514225500526871,0.0009946822755269,,,,final_grain_can_e1_low_fpr
+ctt_test04,GradientBoosting,aggregate_window,best_test_upper_bound,0.005,0.8053156146179402,0.6498659517426274,0.7192878338278933,0.0049963655839932,,,,final_grain_can_e1_low_fpr
+ctt_test04,GradientBoosting,aggregate_window,best_test_upper_bound,0.01,0.8053156146179402,0.4813343923749007,0.6025354213273677,0.0099927311679865,,,,final_grain_can_e1_low_fpr
+ctt_test04,GradientBoosting,aggregate_window100,approximate_event_from_label_transition,,,,,,0.3650107991360691,42.60355029585799,0.6263237518910741,final_grain_can_f2_event_level
