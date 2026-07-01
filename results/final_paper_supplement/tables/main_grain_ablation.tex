@@ -1,0 +1,14 @@
+\begin{tabular}{lrrrrlrr}
+\toprule
+ablation & attack_f1 & aupr & recall_at_fpr_1e_3 & event_recall & source & single_feature_auc & tree_feature_importance \\
+\midrule
+sample-level & 0.3884 & 0.2422 & NaN & NaN & final_grain_can_b1/f2 & NaN & NaN \\
+window_10 & 0.6001 & 0.6185 & NaN & NaN & final_grain_can_b1/f2 & NaN & NaN \\
+window_20 & 0.6416 & 0.7228 & NaN & NaN & final_grain_can_b1/f2 & NaN & NaN \\
+window_100 aggregate & 0.6678 & 0.7845 & NaN & 0.3650 & final_grain_can_b1/f2 & NaN & NaN \\
+old window100 deep Transformer & 0.0224 & 0.1733 & 0.0585 & NaN & final_grain_can_b1/f2 & NaN & NaN \\
+without delta_t_same_id & NaN & NaN & NaN & NaN & feature_importance_proxy_no_retrain & 0.9932 & 0.4802 \\
+without payload_delta_l1 & NaN & NaN & NaN & NaN & feature_importance_proxy_no_retrain & 0.7605 & 0.0394 \\
+without payload statistics & NaN & NaN & NaN & NaN & feature_importance_proxy_no_retrain & 0.9286 & 0.0752 \\
+\bottomrule
+\end{tabular}

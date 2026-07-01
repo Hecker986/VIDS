@@ -1,0 +1,7 @@
+setting,model,recall_at_fpr_1e_4,recall_at_fpr_1e_3,recall_at_fpr_1e_2,aupr,event_recall,false_alarm_per_100k,detection_delay,source
+ctt_test04,predict_all_normal,0.0,0.0,,0.0026724392684081,,,,main_ctt_corrected_benchmark
+ctt_test04,Table13-style GradientBoosting,,,,0.3319792997758654,,,,main_ctt_corrected_benchmark
+ctt_test04,old window100 Transformer,,0.0584717607973421,,0.1732558303780162,,,,main_ctt_corrected_benchmark
+ctt_test04,CAN-Transformer+ same-ID,,,,,,,,main_ctt_corrected_benchmark
+ctt_test04,SAFE_CAN,,,,,,,,main_ctt_corrected_benchmark
+ctt_test04,GRAIN_window_100,0.4478405315614618,0.8053156146179402,0.8053156146179402,0.784533638387578,0.3650107991360691,0.6263237518910741,42.60355029585799,final_grain_can_low_fpr_event

@@ -1,0 +1,9 @@
+ablation,attack_f1,aupr,recall_at_fpr_1e_3,event_recall,source,single_feature_auc,tree_feature_importance
+sample-level,0.3883776726495897,0.2422355206604559,,,final_grain_can_b1/f2,,
+window_10,0.6001249888402821,0.6184722776882597,,,final_grain_can_b1/f2,,
+window_20,0.641630351192002,0.7227739499342077,,,final_grain_can_b1/f2,,
+window_100 aggregate,0.6678067550235144,0.784533638387578,,0.3650107991360691,final_grain_can_b1/f2,,
+old window100 deep Transformer,0.022388966522875,0.1732558303780162,0.0584717607973421,,final_grain_can_b1/f2,,
+without delta_t_same_id,,,,,feature_importance_proxy_no_retrain,0.9932036758916504,0.4802099169949528
+without payload_delta_l1,,,,,feature_importance_proxy_no_retrain,0.7604557717844762,0.0393615476801978
+without payload statistics,,,,,feature_importance_proxy_no_retrain,0.928570626946354,0.0751687926621771

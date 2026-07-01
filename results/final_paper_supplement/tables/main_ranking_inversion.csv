@@ -1,0 +1,5 @@
+setting,weighted_f1_vs_attack_f1_spearman,top3_overlap_weighted_vs_attack,predict_all_normal_rank_by_weighted,predict_all_normal_rank_by_attack,grain_can_best_rank_by_attack,grain_can_best_rank_by_weighted
+ctt_test01,,0.0,1.0,8.0,2.0,2.0
+ctt_test02,,0.3333333333333333,1.0,9.0,1.0,2.0
+ctt_test03,,0.3333333333333333,1.0,8.0,1.0,2.0
+ctt_test04,,0.0,1.0,8.0,1.0,2.0
