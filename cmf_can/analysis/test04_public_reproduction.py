@@ -614,13 +614,27 @@ def run_public_reproduction() -> pd.DataFrame:
     def completed_key(protocol: str, neg_protocol: str, seed: int) -> bool:
         if existing.empty:
             return False
+        seed_values = pd.to_numeric(existing.get("seed"), errors="coerce")
         sub = existing[
             existing["feature_protocol"].astype(str).eq(protocol)
             & existing["negative_protocol"].astype(str).eq(neg_protocol)
-            & existing["seed"].astype(str).eq(str(seed))
+            & seed_values.eq(float(seed))
             & existing["status"].astype(str).eq("completed")
         ]
         return set(sub["setting"].astype(str)) >= {"ctt_test01", "ctt_test02", "ctt_test03", "ctt_test04"}
+
+    def extra_completed(protocol: str, neg_protocol: str, seed: int, extra_models: list[str]) -> bool:
+        if existing.empty:
+            return False
+        seed_values = pd.to_numeric(existing.get("seed"), errors="coerce")
+        sub = existing[
+            existing["feature_protocol"].astype(str).eq(protocol)
+            & existing["negative_protocol"].astype(str).eq(neg_protocol)
+            & seed_values.eq(float(seed))
+            & existing["setting"].astype(str).eq("ctt_test04")
+            & existing["status"].astype(str).isin(["completed", "not_feasible_or_unavailable"])
+        ]
+        return set(sub["model"].astype(str)) >= set(extra_models)
 
     def flush() -> None:
         out = pd.DataFrame(rows)
@@ -648,22 +662,31 @@ def run_public_reproduction() -> pd.DataFrame:
                 flush()
                 if neg_protocol == "A_capped" and seed == 42 and protocol in {"P1_public_default", "P2_no_timestamp", "SAFE_CAN", "RISKY_PROTOCOL"}:
                     extra = ["RandomForest", "ExtraTrees", "IsolationForest", "BIRCH", "LinearSVM", "KNN", "XGBoost", "LightGBM", "CatBoost"]
+                    if extra_completed(protocol, neg_protocol, seed, extra):
+                        print(f"[public_repro] skip completed extra {neg_protocol} {protocol} seed={seed}", flush=True)
+                        continue
                     scaler2, fitted2, thresholds2, fit_times2, _, y_train2, _, _, status2 = fit_models(protocol, seed, neg_cap, val_cap, extra)
                     for s in status2:
                         rows.append({**s, "negative_protocol": neg_protocol, "setting": "ctt_test04"})
                     rows.extend(evaluate_models(protocol, scaler2, fitted2, thresholds2, fit_times2, y_train2, neg_protocol, seed, ["ctt_test04"]))
                     flush()
-    rows.append(
-        {
-            "feature_protocol": "all",
-            "model": "all",
-            "negative_protocol": "D_chunked_full_negative",
-            "seed": "",
-            "setting": "all",
-            "status": "documented_resource_limit",
-            "notes": "train_01 has 10,603,583 negative frames; full-negative for every feature/model/protocol would require chunked streaming implementation beyond sklearn batch estimators. This row records Protocol D feasibility evidence instead of silently skipping it.",
-        }
+    has_protocol_d = (
+        not existing.empty
+        and existing["feature_protocol"].astype(str).eq("all").any()
+        and existing["negative_protocol"].astype(str).eq("D_chunked_full_negative").any()
     )
+    if not has_protocol_d:
+        rows.append(
+            {
+                "feature_protocol": "all",
+                "model": "all",
+                "negative_protocol": "D_chunked_full_negative",
+                "seed": "",
+                "setting": "all",
+                "status": "documented_resource_limit",
+                "notes": "train_01 has 10,603,583 negative frames; full-negative for every feature/model/protocol would require chunked streaming implementation beyond sklearn batch estimators. This row records Protocol D feasibility evidence instead of silently skipping it.",
+            }
+        )
     flush()
     return pd.DataFrame(rows)
 

@@ -1,0 +1,209 @@
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[public_repro] fit P1_public_default MLP seed=42
+[public_repro] fit P1_public_default GradientBoosting seed=42
+[public_repro] fit P1_public_default HistGradientBoosting seed=42
+[public_repro] fit P1_public_default LogisticRegression seed=42
+[public_repro] fit P1_public_default GaussianNB seed=42
+[public_repro] eval P1_public_default setting=ctt_test01
+[public_repro] eval P1_public_default setting=ctt_test02
+[public_repro] eval P1_public_default setting=ctt_test03
+[public_repro] eval P1_public_default setting=ctt_test04
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[public_repro] read train P1_public_default data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[public_repro] read val P1_public_default data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[public_repro] fit P1_public_default RandomForest seed=42
+[public_repro] fit P1_public_default ExtraTrees seed=42
+[public_repro] fit P1_public_default IsolationForest seed=42
+[public_repro] fit P1_public_default BIRCH seed=42
+[public_repro] fit P1_public_default LinearSVM seed=42
+[public_repro] eval P1_public_default setting=ctt_test04
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[public_repro] fit P2_no_timestamp MLP seed=42
+/home/lqa/VIDS/.venv/lib/python3.12/site-packages/sklearn/neural_network/_multilayer_perceptron.py:785: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (30) reached and the optimization hasn't converged yet.
+  warnings.warn(
+[public_repro] fit P2_no_timestamp GradientBoosting seed=42
+[public_repro] fit P2_no_timestamp HistGradientBoosting seed=42
+[public_repro] fit P2_no_timestamp LogisticRegression seed=42
+[public_repro] fit P2_no_timestamp GaussianNB seed=42
+[public_repro] eval P2_no_timestamp setting=ctt_test01
+[public_repro] eval P2_no_timestamp setting=ctt_test02
+[public_repro] eval P2_no_timestamp setting=ctt_test03
+[public_repro] eval P2_no_timestamp setting=ctt_test04
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[public_repro] read train P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[public_repro] read val P2_no_timestamp data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[public_repro] fit P2_no_timestamp RandomForest seed=42
+[public_repro] fit P2_no_timestamp ExtraTrees seed=42
+[public_repro] fit P2_no_timestamp IsolationForest seed=42
+[public_repro] fit P2_no_timestamp BIRCH seed=42
+[public_repro] fit P2_no_timestamp LinearSVM seed=42
+[public_repro] eval P2_no_timestamp setting=ctt_test04
+[public_repro] read train P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[public_repro] read train P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[public_repro] read train P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[public_repro] read train P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[public_repro] read train P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[public_repro] read train P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[public_repro] read val P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[public_repro] read val P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[public_repro] read val P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[public_repro] read val P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[public_repro] read val P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[public_repro] read val P3_no_subdivision data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[public_repro] fit P3_no_subdivision MLP seed=42
+[public_repro] fit P3_no_subdivision GradientBoosting seed=42
+[public_repro] fit P3_no_subdivision HistGradientBoosting seed=42
+[public_repro] fit P3_no_subdivision LogisticRegression seed=42
+[public_repro] fit P3_no_subdivision GaussianNB seed=42
+[public_repro] eval P3_no_subdivision setting=ctt_test01
+[public_repro] eval P3_no_subdivision setting=ctt_test02
+[public_repro] eval P3_no_subdivision setting=ctt_test03
+[public_repro] eval P3_no_subdivision setting=ctt_test04
+[public_repro] read train P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[public_repro] read train P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[public_repro] read train P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[public_repro] read train P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[public_repro] read train P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[public_repro] read train P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[public_repro] read val P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[public_repro] read val P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[public_repro] read val P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[public_repro] read val P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[public_repro] read val P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[public_repro] read val P4_timestamp_only data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[public_repro] fit P4_timestamp_only MLP seed=42
+[public_repro] fit P4_timestamp_only GradientBoosting seed=42
+[public_repro] fit P4_timestamp_only HistGradientBoosting seed=42
+[public_repro] fit P4_timestamp_only LogisticRegression seed=42
+[public_repro] fit P4_timestamp_only GaussianNB seed=42
+[public_repro] eval P4_timestamp_only setting=ctt_test01
+[public_repro] eval P4_timestamp_only setting=ctt_test02
+[public_repro] eval P4_timestamp_only setting=ctt_test03
+[public_repro] eval P4_timestamp_only setting=ctt_test04
+[public_repro] read train P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[public_repro] read train P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[public_repro] read train P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[public_repro] read train P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[public_repro] read train P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[public_repro] read train P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[public_repro] read val P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[public_repro] read val P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[public_repro] read val P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[public_repro] read val P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[public_repro] read val P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[public_repro] read val P5_arbitration_payload_only data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[public_repro] fit P5_arbitration_payload_only MLP seed=42
+[public_repro] fit P5_arbitration_payload_only GradientBoosting seed=42
+[public_repro] fit P5_arbitration_payload_only HistGradientBoosting seed=42
+[public_repro] fit P5_arbitration_payload_only LogisticRegression seed=42
+[public_repro] fit P5_arbitration_payload_only GaussianNB seed=42
+[public_repro] eval P5_arbitration_payload_only setting=ctt_test01
+[public_repro] eval P5_arbitration_payload_only setting=ctt_test02
+[public_repro] eval P5_arbitration_payload_only setting=ctt_test03
+[public_repro] eval P5_arbitration_payload_only setting=ctt_test04
+[public_repro] read train P6_delta_features data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[public_repro] read train P6_delta_features data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[public_repro] read train P6_delta_features data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[public_repro] read train P6_delta_features data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[public_repro] read train P6_delta_features data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[public_repro] read train P6_delta_features data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[public_repro] read val P6_delta_features data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[public_repro] read val P6_delta_features data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[public_repro] read val P6_delta_features data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[public_repro] read val P6_delta_features data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[public_repro] read val P6_delta_features data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[public_repro] read val P6_delta_features data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[public_repro] fit P6_delta_features MLP seed=42
+[public_repro] fit P6_delta_features GradientBoosting seed=42
+[public_repro] fit P6_delta_features HistGradientBoosting seed=42
+[public_repro] fit P6_delta_features LogisticRegression seed=42
+[public_repro] fit P6_delta_features GaussianNB seed=42
+[public_repro] eval P6_delta_features setting=ctt_test01
+[public_repro] eval P6_delta_features setting=ctt_test02
+[public_repro] eval P6_delta_features setting=ctt_test03
+[public_repro] eval P6_delta_features setting=ctt_test04
+[public_repro] read train P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[public_repro] read train P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[public_repro] read train P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[public_repro] read train P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[public_repro] read train P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[public_repro] read train P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[public_repro] read val P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[public_repro] read val P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[public_repro] read val P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[public_repro] read val P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[public_repro] read val P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[public_repro] read val P7_public_plus_delta data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[public_repro] fit P7_public_plus_delta MLP seed=42
+[public_repro] fit P7_public_plus_delta GradientBoosting seed=42
+[public_repro] fit P7_public_plus_delta HistGradientBoosting seed=42
+[public_repro] fit P7_public_plus_delta LogisticRegression seed=42
+[public_repro] fit P7_public_plus_delta GaussianNB seed=42
+[public_repro] eval P7_public_plus_delta setting=ctt_test01
+[public_repro] eval P7_public_plus_delta setting=ctt_test02
+[public_repro] eval P7_public_plus_delta setting=ctt_test03
+[public_repro] eval P7_public_plus_delta setting=ctt_test04
+[public_repro] read train SAFE_CAN data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[public_repro] read train SAFE_CAN data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[public_repro] read train SAFE_CAN data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[public_repro] read train SAFE_CAN data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[public_repro] read train SAFE_CAN data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[public_repro] read train SAFE_CAN data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[public_repro] read val SAFE_CAN data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[public_repro] read val SAFE_CAN data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[public_repro] read val SAFE_CAN data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[public_repro] read val SAFE_CAN data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[public_repro] read val SAFE_CAN data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[public_repro] read val SAFE_CAN data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[public_repro] fit SAFE_CAN MLP seed=42
+[public_repro] fit SAFE_CAN GradientBoosting seed=42
+[public_repro] fit SAFE_CAN HistGradientBoosting seed=42
+[public_repro] fit SAFE_CAN LogisticRegression seed=42
+[public_repro] fit SAFE_CAN GaussianNB seed=42
+[public_repro] eval SAFE_CAN setting=ctt_test01
+[public_repro] eval SAFE_CAN setting=ctt_test02
+[public_repro] eval SAFE_CAN setting=ctt_test03
+[public_repro] eval SAFE_CAN setting=ctt_test04
+[public_repro] read train SAFE_CAN data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[public_repro] read train SAFE_CAN data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[public_repro] read train SAFE_CAN data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv

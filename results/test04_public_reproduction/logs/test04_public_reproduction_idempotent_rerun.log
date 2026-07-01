@@ -1,0 +1,17 @@
+[public_repro] skip completed A_capped P1_public_default seed=42
+[public_repro] skip completed A_capped P2_no_timestamp seed=42
+[public_repro] skip completed A_capped P3_no_subdivision seed=42
+[public_repro] skip completed A_capped P4_timestamp_only seed=42
+[public_repro] skip completed A_capped P5_arbitration_payload_only seed=42
+[public_repro] skip completed A_capped P6_delta_features seed=42
+[public_repro] skip completed A_capped P7_public_plus_delta seed=42
+[public_repro] skip completed A_capped SAFE_CAN seed=42
+[public_repro] skip completed A_capped RISKY_PROTOCOL seed=42
+[public_repro] skip completed B_2x_negative_cap P1_public_default seed=42
+[public_repro] skip completed B_2x_negative_cap P2_no_timestamp seed=42
+[public_repro] skip completed B_2x_negative_cap SAFE_CAN seed=42
+[public_repro] skip completed B_2x_negative_cap RISKY_PROTOCOL seed=42
+[public_repro] skip completed C_5x_negative_cap P1_public_default seed=42
+[public_repro] skip completed C_5x_negative_cap P2_no_timestamp seed=42
+[public_repro] skip completed C_5x_negative_cap SAFE_CAN seed=42
+[public_repro] skip completed C_5x_negative_cap RISKY_PROTOCOL seed=42
