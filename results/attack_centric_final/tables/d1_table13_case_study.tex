@@ -1,0 +1,21 @@
+\begin{tabular}{lrrrrlll}
+\toprule
+model & reported_accuracy & reported_recall & reported_f1 & accuracy_equals_recall & best_matching_f1_metric & model_level_hypothesis & source \\
+\midrule
+GaussianNB & 0.8906 & 0.8906 & 0.9411 & True & accuracy & weighted/accuracy-like & metric_correction_paper \\
+KNN & 0.9982 & 0.0148 & 0.0166 & False & unknown & unknown_no_local_row & metric_correction_paper \\
+LogisticRegression & 0.9976 & 0.9976 & 0.9977 & True & normal & weighted/accuracy-like & metric_correction_paper \\
+LinearSVM & 0.9942 & 0.0009 & 0.0003 & False & attack & attack-positive-like & metric_correction_paper \\
+DecisionTree & 0.9827 & 0.0276 & 0.0033 & False & unknown & unknown_no_local_row & metric_correction_paper \\
+ExtraTrees & 0.9988 & 0.0000 & 0.0000 & False & attack & attack-positive-like & metric_correction_paper \\
+GradientBoosting & 0.9984 & 0.9984 & 0.9982 & True & attack & weighted/accuracy-like & metric_correction_paper \\
+IsolationForest & 0.9881 & 0.9881 & 0.9930 & True & normal & weighted/accuracy-like & metric_correction_paper \\
+RandomForest & 0.9988 & 0.0001 & 0.0003 & False & attack & attack-positive-like & metric_correction_paper \\
+KMeans & 0.8872 & 0.8872 & 0.9392 & True & unknown & unknown_no_local_row & metric_correction_paper \\
+MiniBatchKMeans & 0.4748 & 0.4748 & 0.6429 & True & unknown & unknown_no_local_row & metric_correction_paper \\
+BIRCH & 0.9990 & 0.9990 & 0.9984 & True & normal & weighted/accuracy-like & metric_correction_paper \\
+MLP & 0.9973 & 0.9973 & 0.9976 & True & normal & weighted/accuracy-like & metric_correction_paper \\
+RestrictedBoltzmannMachine & 0.0010 & 0.0010 & 0.0000 & True & unknown & unknown_no_local_row & metric_correction_paper \\
+AdaBoost & NaN & NaN & NaN & False & unknown & unknown_no_local_row & metric_correction_paper \\
+\bottomrule
+\end{tabular}

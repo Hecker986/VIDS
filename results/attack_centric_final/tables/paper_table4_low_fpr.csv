@@ -1,0 +1,161 @@
+dataset,model,granularity,threshold_type,fpr_budget,recall_at_fpr,precision_at_fpr,f1_at_fpr,actual_fpr,aupr,auroc,source
+ctt_test01,GradientBoosting,aggregate_window,best_test_upper_bound,0.0001,0.8918779099844801,0.9971081550028918,0.9415619879847078,9.076222113307556e-05,,,final_grain_can_e1_low_fpr
+ctt_test01,GradientBoosting,aggregate_window,best_test_upper_bound,0.0005,0.892395240558717,0.9845890410958904,0.9362279511533242,0.0004901159941186,,,final_grain_can_e1_low_fpr
+ctt_test01,GradientBoosting,aggregate_window,best_test_upper_bound,0.001,0.892395240558717,0.9691011235955056,0.9291677888499864,0.0009983844324638,,,final_grain_can_e1_low_fpr
+ctt_test01,GradientBoosting,aggregate_window,best_test_upper_bound,0.005,0.892912571132954,0.862568715642179,0.8774783934926284,0.0049919221623191,,,final_grain_can_e1_low_fpr
+ctt_test01,GradientBoosting,aggregate_window,best_test_upper_bound,0.01,0.892912571132954,0.7583479789103691,0.8201473033974815,0.0099838443246383,,,final_grain_can_e1_low_fpr
+ctt_test02,GradientBoosting,aggregate_window,best_test_upper_bound,0.0001,0.6469329529243937,0.9986237269474264,0.7851964073152256,8.493723138600574e-05,,,final_grain_can_e1_low_fpr
+ctt_test02,GradientBoosting,aggregate_window,best_test_upper_bound,0.0005,0.9300998573466476,0.9944709246901812,0.9612088823366812,0.0004926359420388,,,final_grain_can_e1_low_fpr
+ctt_test02,GradientBoosting,aggregate_window,best_test_upper_bound,0.001,0.9306348074179744,0.989008906575706,0.9589343132751492,0.0009852718840776,,,final_grain_can_e1_low_fpr
+ctt_test02,GradientBoosting,aggregate_window,best_test_upper_bound,0.005,0.9306348074179744,0.9466715037184836,0.9385846596529088,0.0049943092054971,,,final_grain_can_e1_low_fpr
+ctt_test02,GradientBoosting,aggregate_window,best_test_upper_bound,0.01,0.9306348074179744,0.898742896504219,0.9144108628996932,0.0099886184109942,,,final_grain_can_e1_low_fpr
+ctt_test03,GradientBoosting,aggregate_window,best_test_upper_bound,0.0001,0.6739912105473432,0.9986187845303868,0.8048024171105987,8.878966995611254e-05,,,final_grain_can_e1_low_fpr
+ctt_test03,GradientBoosting,aggregate_window,best_test_upper_bound,0.0005,0.8208816087361832,0.9937127196517814,0.8990665110851809,0.0004946853040411,,,final_grain_can_e1_low_fpr
+ctt_test03,GradientBoosting,aggregate_window,best_test_upper_bound,0.001,0.921827140764416,0.9888571428571428,0.9541663794885932,0.0009893706080823,,,final_grain_can_e1_low_fpr
+ctt_test03,GradientBoosting,aggregate_window,best_test_upper_bound,0.005,0.9302170728459184,0.9466052310611194,0.9383396023643203,0.0049975899946726,,,final_grain_can_e1_low_fpr
+ctt_test03,GradientBoosting,aggregate_window,best_test_upper_bound,0.01,0.9302170728459184,0.8986234401132124,0.9141473629106136,0.0099951799893452,,,final_grain_can_e1_low_fpr
+ctt_test04,GradientBoosting,aggregate_window,best_test_upper_bound,0.0001,0.4478405315614618,0.9810771470160116,0.614963503649635,9.946822755269905e-05,,,final_grain_can_e1_low_fpr
+ctt_test04,GradientBoosting,aggregate_window,best_test_upper_bound,0.0005,0.6245847176079734,0.9353233830845772,0.749003984063745,0.0004973411377634,,,final_grain_can_e1_low_fpr
+ctt_test04,GradientBoosting,aggregate_window,best_test_upper_bound,0.001,0.8053156146179402,0.903129657228018,0.8514225500526871,0.0009946822755269,,,final_grain_can_e1_low_fpr
+ctt_test04,GradientBoosting,aggregate_window,best_test_upper_bound,0.005,0.8053156146179402,0.6498659517426274,0.7192878338278933,0.0049963655839932,,,final_grain_can_e1_low_fpr
+ctt_test04,GradientBoosting,aggregate_window,best_test_upper_bound,0.01,0.8053156146179402,0.4813343923749007,0.6025354213273677,0.0099927311679865,,,final_grain_can_e1_low_fpr
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",GradientBoosting,unknown,best_test_upper_bound,0.0001,0.1020408163265306,0.5555555555555556,0.1724137931034483,8.007847690736923e-05,,,final_grain_can_e1_low_fpr
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",GradientBoosting,unknown,best_test_upper_bound,0.0005,0.3061224489795918,0.3846153846153846,0.3409090909090909,0.0004804708614442,,,final_grain_can_e1_low_fpr
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",GradientBoosting,unknown,best_test_upper_bound,0.001,0.3061224489795918,0.234375,0.2654867256637168,0.0009809613421152,,,final_grain_can_e1_low_fpr
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",GradientBoosting,unknown,best_test_upper_bound,0.005,0.3061224489795918,0.0568181818181818,0.0958466453674121,0.0049848851874837,,,final_grain_can_e1_low_fpr
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",GradientBoosting,unknown,best_test_upper_bound,0.01,0.3061224489795918,0.0291828793774319,0.0532859680284191,0.0099897899941943,,,final_grain_can_e1_low_fpr
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",RandomForest,unknown,best_test_upper_bound,0.0001,0.0612244897959183,0.4285714285714285,0.1071428571428571,8.007847690736923e-05,,,final_grain_can_e1_low_fpr
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",RandomForest,unknown,best_test_upper_bound,0.0005,0.0612244897959183,0.1111111111111111,0.0789473684210526,0.0004804708614442,,,final_grain_can_e1_low_fpr
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",RandomForest,unknown,best_test_upper_bound,0.001,0.2244897959183673,0.1833333333333333,0.2018348623853211,0.0009809613421152,,,final_grain_can_e1_low_fpr
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",RandomForest,unknown,best_test_upper_bound,0.005,0.3265306122448979,0.060377358490566,0.1019108280254777,0.0049848851874837,,,final_grain_can_e1_low_fpr
+"0        ctt_test04
+1        ctt_test04
+2        ctt_test04
+3        ctt_test04
+4        ctt_test04
+            ...    
+49995    ctt_test04
+49996    ctt_test04
+49997    ctt_test04
+49998    ctt_test04
+49999    ctt_test04
+Name: dataset, Length: 50000, dtype: str",RandomForest,unknown,best_test_upper_bound,0.01,0.3469387755102041,0.0329457364341085,0.0601769911504424,0.0099897899941943,,,final_grain_can_e1_low_fpr
+ctt_test01,predict_all_normal,none,formal_trivial,0.0001,0.0,0.0,0.0,0.0,0.0068988940321512,,derived_trivial_baseline
+ctt_test01,predict_all_normal,none,formal_trivial,0.0005,0.0,0.0,0.0,0.0,0.0068988940321512,,derived_trivial_baseline
+ctt_test01,predict_all_normal,none,formal_trivial,0.001,0.0,0.0,0.0,0.0,0.0068988940321512,,derived_trivial_baseline
+ctt_test01,predict_all_normal,none,formal_trivial,0.005,0.0,0.0,0.0,0.0,0.0068988940321512,,derived_trivial_baseline
+ctt_test01,predict_all_normal,none,formal_trivial,0.01,0.0,0.0,0.0,0.0,0.0068988940321512,,derived_trivial_baseline
+ctt_test02,predict_all_normal,none,formal_trivial,0.0001,0.0,0.0,0.0,0.0,0.012497707013081102,,derived_trivial_baseline
+ctt_test02,predict_all_normal,none,formal_trivial,0.0005,0.0,0.0,0.0,0.0,0.012497707013081102,,derived_trivial_baseline
+ctt_test02,predict_all_normal,none,formal_trivial,0.001,0.0,0.0,0.0,0.0,0.012497707013081102,,derived_trivial_baseline
+ctt_test02,predict_all_normal,none,formal_trivial,0.005,0.0,0.0,0.0,0.0,0.012497707013081102,,derived_trivial_baseline
+ctt_test02,predict_all_normal,none,formal_trivial,0.01,0.0,0.0,0.0,0.0,0.012497707013081102,,derived_trivial_baseline
+ctt_test03,predict_all_normal,none,formal_trivial,0.0001,0.0,0.0,0.0,0.0,0.0036489260522443,,derived_trivial_baseline
+ctt_test03,predict_all_normal,none,formal_trivial,0.0005,0.0,0.0,0.0,0.0,0.0036489260522443,,derived_trivial_baseline
+ctt_test03,predict_all_normal,none,formal_trivial,0.001,0.0,0.0,0.0,0.0,0.0036489260522443,,derived_trivial_baseline
+ctt_test03,predict_all_normal,none,formal_trivial,0.005,0.0,0.0,0.0,0.0,0.0036489260522443,,derived_trivial_baseline
+ctt_test03,predict_all_normal,none,formal_trivial,0.01,0.0,0.0,0.0,0.0,0.0036489260522443,,derived_trivial_baseline
+ctt_test04,predict_all_normal,none,formal_trivial,0.0001,0.0,0.0,0.0,0.0,0.0026724392684081,,derived_trivial_baseline
+ctt_test04,predict_all_normal,none,formal_trivial,0.0005,0.0,0.0,0.0,0.0,0.0026724392684081,,derived_trivial_baseline
+ctt_test04,predict_all_normal,none,formal_trivial,0.001,0.0,0.0,0.0,0.0,0.0026724392684081,,derived_trivial_baseline
+ctt_test04,predict_all_normal,none,formal_trivial,0.005,0.0,0.0,0.0,0.0,0.0026724392684081,,derived_trivial_baseline
+ctt_test04,predict_all_normal,none,formal_trivial,0.01,0.0,0.0,0.0,0.0,0.0026724392684081,,derived_trivial_baseline

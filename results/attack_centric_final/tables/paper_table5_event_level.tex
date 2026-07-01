@@ -1,0 +1,14 @@
+\begin{tabular}{lllrrrrrrll}
+\toprule
+dataset & model & granularity & event_recall & mean_detection_delay & median_detection_delay & false_alarm_per_100k & false_alarm_per_hour & recall_under_FA_budget & event_boundary_source & source \\
+\midrule
+ctt_test01 & GradientBoosting & aggregate_window100 & 0.6667 & 58.3333 & 0.0000 & NaN & 0.1263 & NaN & approximate_from_labels & final_grain_can_f2_event_level \\
+ctt_test02 & GradientBoosting & aggregate_window100 & 0.3575 & 1048.5849 & 0.0000 & NaN & 0.4467 & NaN & approximate_from_labels & final_grain_can_f2_event_level \\
+ctt_test03 & GradientBoosting & aggregate_window100 & 0.8907 & 20.0099 & 0.0000 & NaN & 0.1251 & NaN & approximate_from_labels & final_grain_can_f2_event_level \\
+ctt_test04 & GradientBoosting & aggregate_window100 & 0.3650 & 42.6036 & 0.0000 & NaN & 0.6263 & NaN & approximate_from_labels & final_grain_can_f2_event_level \\
+ctt_test01 & predict_all_normal & none & 0.0000 & NaN & NaN & 0.0000 & 0.0000 & 0.0000 & derived_trivial & derived_trivial_baseline \\
+ctt_test02 & predict_all_normal & none & 0.0000 & NaN & NaN & 0.0000 & 0.0000 & 0.0000 & derived_trivial & derived_trivial_baseline \\
+ctt_test03 & predict_all_normal & none & 0.0000 & NaN & NaN & 0.0000 & 0.0000 & 0.0000 & derived_trivial & derived_trivial_baseline \\
+ctt_test04 & predict_all_normal & none & 0.0000 & NaN & NaN & 0.0000 & 0.0000 & 0.0000 & derived_trivial & derived_trivial_baseline \\
+\bottomrule
+\end{tabular}

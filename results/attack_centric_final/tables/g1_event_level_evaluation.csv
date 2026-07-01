@@ -1,0 +1,9 @@
+dataset,model,granularity,event_recall,mean_detection_delay,median_detection_delay,false_alarm_per_100k,false_alarm_per_hour,recall_under_FA_budget,event_boundary_source,source
+ctt_test01,GradientBoosting,aggregate_window100,0.6666666666666666,58.333333333333336,0.0,,0.1262670548209463,,approximate_from_labels,final_grain_can_f2_event_level
+ctt_test02,GradientBoosting,aggregate_window100,0.357504215851602,1048.5849056603774,0.0,,0.4466847615354788,,approximate_from_labels,final_grain_can_f2_event_level
+ctt_test03,GradientBoosting,aggregate_window100,0.8906935908691835,20.00985707244948,0.0,,0.1250767253060326,,approximate_from_labels,final_grain_can_f2_event_level
+ctt_test04,GradientBoosting,aggregate_window100,0.3650107991360691,42.60355029585799,0.0,,0.6263237518910741,,approximate_from_labels,final_grain_can_f2_event_level
+ctt_test01,predict_all_normal,none,0.0,,,0.0,0.0,0.0,derived_trivial,derived_trivial_baseline
+ctt_test02,predict_all_normal,none,0.0,,,0.0,0.0,0.0,derived_trivial,derived_trivial_baseline
+ctt_test03,predict_all_normal,none,0.0,,,0.0,0.0,0.0,derived_trivial,derived_trivial_baseline
+ctt_test04,predict_all_normal,none,0.0,,,0.0,0.0,0.0,derived_trivial,derived_trivial_baseline

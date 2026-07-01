@@ -1,0 +1,12 @@
+dataset,model,positive_rate,predict_all_normal_weighted_f1,predict_all_normal_attack_f1,best_available_model_attack_f1,best_available_model_aupr,recall_at_fpr_1e_3,notes_on_protocol,source
+ROAD,transformer,,,0.0,0.8279109589041096,0.7794058319471616,0.7090643274853801,window100_existing,final_grain_can_g1_cross_dataset_validation
+ROAD,concat_fusion,,,0.0,0.7885764888200133,0.7538768220527791,0.7083333333333334,window100_existing,final_grain_can_g1_cross_dataset_validation
+ROAD,cmf_can,,,0.0,0.7893805309734513,0.805957074624345,0.7083333333333334,window100_existing,final_grain_can_g1_cross_dataset_validation
+ROAD,can_transformer_plus_sameid,,,0.0,0.822871883061049,0.8078131371418161,0.7083333333333334,can_transformer_plus,final_grain_can_g1_cross_dataset_validation
+CrySyS-subset,transformer,,,0.0,,,,documented_subset,final_grain_can_g1_cross_dataset_validation
+CrySyS-subset,concat_fusion,,,0.0,,,,documented_subset,final_grain_can_g1_cross_dataset_validation
+CrySyS-subset,cmf_can,,,0.0,,,,documented_subset,final_grain_can_g1_cross_dataset_validation
+road,predict_all_normal,0.0331417694585137,0.9505683653808943,0.0,,,,nan,metric_trap_audit
+crysys_family_mod_subset,predict_all_normal,0.1711794552355202,0.7512410187215667,0.0,,,,malicious frames are labeled from JSON attack start/end markers; benign captures are labeled normal,metric_trap_audit
+hcrl_can_intrusion,predict_all_normal,0.4864139311259995,0.3485454032649276,0.0,,,,attack files do not include per-frame labels; all frames in attack captures are marked anomalous,metric_trap_audit
+car_hacking,predict_all_normal,0.1327868239981146,0.8055427875447775,0.0,,,,CSV T flag is anomalous; R flag and normal_run_data are benign,metric_trap_audit

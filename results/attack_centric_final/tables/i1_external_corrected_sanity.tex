@@ -1,0 +1,17 @@
+\begin{tabular}{llrrrrrrll}
+\toprule
+dataset & model & positive_rate & predict_all_normal_weighted_f1 & predict_all_normal_attack_f1 & best_available_model_attack_f1 & best_available_model_aupr & recall_at_fpr_1e_3 & notes_on_protocol & source \\
+\midrule
+ROAD & transformer & NaN & NaN & 0.0000 & 0.8279 & 0.7794 & 0.7091 & window100_existing & final_grain_can_g1_cross_dataset_validation \\
+ROAD & concat_fusion & NaN & NaN & 0.0000 & 0.7886 & 0.7539 & 0.7083 & window100_existing & final_grain_can_g1_cross_dataset_validation \\
+ROAD & cmf_can & NaN & NaN & 0.0000 & 0.7894 & 0.8060 & 0.7083 & window100_existing & final_grain_can_g1_cross_dataset_validation \\
+ROAD & can_transformer_plus_sameid & NaN & NaN & 0.0000 & 0.8229 & 0.8078 & 0.7083 & can_transformer_plus & final_grain_can_g1_cross_dataset_validation \\
+CrySyS-subset & transformer & NaN & NaN & 0.0000 & NaN & NaN & NaN & documented_subset & final_grain_can_g1_cross_dataset_validation \\
+CrySyS-subset & concat_fusion & NaN & NaN & 0.0000 & NaN & NaN & NaN & documented_subset & final_grain_can_g1_cross_dataset_validation \\
+CrySyS-subset & cmf_can & NaN & NaN & 0.0000 & NaN & NaN & NaN & documented_subset & final_grain_can_g1_cross_dataset_validation \\
+road & predict_all_normal & 0.0331 & 0.9506 & 0.0000 & NaN & NaN & NaN & nan & metric_trap_audit \\
+crysys_family_mod_subset & predict_all_normal & 0.1712 & 0.7512 & 0.0000 & NaN & NaN & NaN & malicious frames are labeled from JSON attack start/end markers; benign captures are labeled normal & metric_trap_audit \\
+hcrl_can_intrusion & predict_all_normal & 0.4864 & 0.3485 & 0.0000 & NaN & NaN & NaN & attack files do not include per-frame labels; all frames in attack captures are marked anomalous & metric_trap_audit \\
+car_hacking & predict_all_normal & 0.1328 & 0.8055 & 0.0000 & NaN & NaN & NaN & CSV T flag is anomalous; R flag and normal_run_data are benign & metric_trap_audit \\
+\bottomrule
+\end{tabular}
