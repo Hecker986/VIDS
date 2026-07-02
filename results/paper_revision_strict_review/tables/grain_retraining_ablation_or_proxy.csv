@@ -1,0 +1,6 @@
+status,feature,single_feature_auc,tree_feature_importance,leakage_risk,attack_f1,aupr,recall_at_fpr_1e_3
+proxy_only_no_retraining,delta_t_same_id,0.9932036758916504,0.4802099169949528,past-only/audited,,,
+proxy_only_no_retraining,payload_delta_l1,0.7604557717844762,0.0393615476801978,past-only/audited,,,
+proxy_only_no_retraining,payload_sum,0.928570626946354,0.0751687926621771,low,,,
+proxy_only_no_retraining,payload_std,0.9307254409777308,0.0282807619344803,low,,,
+proxy_only_no_retraining,can_id,0.9369316575591986,0.0244556306422893,low,,,
