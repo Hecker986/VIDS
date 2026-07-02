@@ -1,6 +1,6 @@
 file_path,kind,status,size
-results/final_paper_supplement/tables/current_result_check.csv,csv,ok,17195
-results/final_paper_supplement/tables/current_result_check.tex,tex,ok,20870
+results/final_paper_supplement/tables/current_result_check.csv,csv,ok,17624
+results/final_paper_supplement/tables/current_result_check.tex,tex,ok,21383
 results/final_paper_supplement/tables/main_ctt_corrected_benchmark.csv,csv,ok,6971
 results/final_paper_supplement/tables/main_ctt_corrected_benchmark.tex,tex,ok,6583
 results/final_paper_supplement/tables/main_ranking_inversion.csv,csv,ok,364
@@ -8,10 +8,10 @@ results/final_paper_supplement/tables/main_grain_ablation.csv,csv,ok,853
 results/final_paper_supplement/tables/main_grain_ablation.tex,tex,ok,954
 results/final_paper_supplement/tables/main_low_fpr_event.csv,csv,ok,745
 results/final_paper_supplement/tables/main_low_fpr_event.tex,tex,ok,928
-results/final_paper_supplement/figures/main_ctt_corrected_benchmark.svg,svg,ok,53218
-results/final_paper_supplement/figures/main_ranking_inversion.svg,svg,ok,24394
-results/final_paper_supplement/figures/main_grain_ablation.svg,svg,ok,28055
-results/final_paper_supplement/figures/main_low_fpr_event.svg,svg,ok,26924
+results/final_paper_supplement/figures/main_ctt_corrected_benchmark.svg,svg,ok,51121
+results/final_paper_supplement/figures/main_ranking_inversion.svg,svg,ok,23805
+results/final_paper_supplement/figures/main_grain_ablation.svg,svg,ok,27456
+results/final_paper_supplement/figures/main_low_fpr_event.svg,svg,ok,26345
 results/final_paper_supplement/current_result_check.md,md,ok,552
 results/final_paper_supplement/main_ctt_corrected_benchmark.md,md,ok,1215
 results/final_paper_supplement/main_ranking_inversion.md,md,ok,327

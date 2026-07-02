@@ -1,0 +1,3 @@
+# Completed Test04 Low-FPR/Event Reflection
+
+Rows were recomputed from existing score dumps where available. GRAIN window100 is still strongest at Recall@FPR=1e-3. SAFE-CAN improves over public-default/no-timestamp sample protocols, but remains far below GRAIN under low-FPR recall. The rerun CAN-Transformer+ same-ID row improves over the old window100 Transformer in AUPR, but its Recall@FPR=1e-3 remains low and its event recall is poor. The old Transformer and CMF-CAN rows show high event recall under their stored thresholds, but low-FPR recall and AUPR remain weak, indicating poor score separation and excessive false-positive pressure.

@@ -27,6 +27,7 @@ MODEL_ORDER = [
     "GRAIN_window_20",
     "GRAIN_window_100",
 ]
+PLOT_COLORS = ["#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#1F78B4"]
 
 
 def setup() -> None:
@@ -339,9 +340,10 @@ def plot_bar(df, path: Path, x: str, y: str, title: str, hue: str | None = None)
         ax.text(0.5, 0.5, "No supported data", ha="center", va="center")
     elif hue and hue in d:
         piv = d.pivot_table(index=x, columns=hue, values=y, aggfunc="max")
-        piv.plot(kind="bar", ax=ax, edgecolor="black", linewidth=0.7, hatch="/", color=["#4C78A8", "#F2CF5B", "#72B7B2", "#B279A2"])
+        piv.plot(kind="bar", ax=ax, edgecolor="#333333", linewidth=0.5, color=PLOT_COLORS[: len(piv.columns)])
     else:
-        ax.bar(range(len(d)), d[y], color="#4C78A8", edgecolor="black", linewidth=0.7, hatch="//")
+        colors = [PLOT_COLORS[i % len(PLOT_COLORS)] for i in range(len(d))]
+        ax.bar(range(len(d)), d[y], color=colors, edgecolor="#333333", linewidth=0.5)
         ax.set_xticks(range(len(d)))
         ax.set_xticklabels(d[x].astype(str), rotation=35, ha="right")
     ax.set_title(title, fontsize=10)

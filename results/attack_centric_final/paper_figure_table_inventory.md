@@ -1,5 +1,6 @@
 | Item | Path | Source | Recommended placement | Caveat |
 |---|---|---|---|---|
+| Figure | `results/attack_centric_final/figures/paper_fig10_completed_low_fpr_event.svg` | corresponding CSV in tables/ | main/appendix by paper length | SVG only |
 | Figure | `results/attack_centric_final/figures/paper_fig1_metric_trap_across_datasets.svg` | corresponding CSV in tables/ | main/appendix by paper length | SVG only |
 | Figure | `results/attack_centric_final/figures/paper_fig2_ctt_corrected_benchmark.svg` | corresponding CSV in tables/ | main/appendix by paper length | SVG only |
 | Figure | `results/attack_centric_final/figures/paper_fig3_table13_case_study.svg` | corresponding CSV in tables/ | main/appendix by paper length | SVG only |

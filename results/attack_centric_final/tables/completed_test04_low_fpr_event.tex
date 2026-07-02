@@ -1,0 +1,14 @@
+\begin{tabular}{lrrrrrrrll}
+\toprule
+model & aupr & auroc & recall\_at\_fpr\_0\_0001 & recall\_at\_fpr\_0\_001 & recall\_at\_fpr\_0\_01 & event\_recall & num\_events & evidence\_status & source \\
+\midrule
+GRAIN window100 & 0.7845 & 0.9024 & 0.4478 & 0.8053 & 0.8053 & 0.3650 & NA & score\_dump\_recomputed & final\_grain\_can score/event tables \\
+SAFE-CAN GradientBoosting & 0.2647 & 0.6094 & 0.1911 & 0.3549 & 0.3552 & 0.4758 & 11398.0000 & score\_dump\_recomputed & test04\_public\_reproduction score dumps \\
+CAN-Transformer+ same-ID & 0.2843 & 0.7876 & 0.1355 & 0.1681 & 0.3495 & 0.1361 & 463.0000 & score\_dump\_recomputed & results/cmf\_predictions/ctt\_test04\_can\_transformer\_plus\_sameid\_predictions.csv \\
+Old window100 Transformer & 0.1732 & 0.6453 & 0.0120 & 0.1462 & 0.2764 & 1.0000 & 463.0000 & score\_dump\_recomputed & results/cmf\_predictions/ctt\_test04\_transformer\_predictions.csv \\
+CMF-CAN & 0.1656 & 0.6845 & 0.0033 & 0.1276 & 0.2957 & 0.8531 & 463.0000 & score\_dump\_recomputed & results/cmf\_predictions/ctt\_test04\_cmf\_can\_predictions.csv \\
+Public-default HistGradientBoosting & 0.0119 & 0.5351 & 0.0095 & 0.0109 & 0.0719 & 0.1637 & 11398.0000 & score\_dump\_recomputed & test04\_public\_reproduction score dumps \\
+No-timestamp HistGradientBoosting & 0.0119 & 0.5351 & 0.0095 & 0.0109 & 0.0719 & 0.1637 & 11398.0000 & score\_dump\_recomputed & test04\_public\_reproduction score dumps \\
+Predict all normal & 0.0027 & NA & 0.0000 & 0.0000 & 0.0000 & 0.0000 & NA & derived & derived\_trivial\_baseline \\
+\bottomrule
+\end{tabular}

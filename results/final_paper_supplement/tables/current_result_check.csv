@@ -3,9 +3,11 @@ results/attack_centric_final/audits/output_integrity_audit.csv,csv,4757,47.0,9.0
 results/attack_centric_final/audits/output_integrity_audit.md,md,136,,,ok,support_or_limitations
 results/attack_centric_final/b1_metric_trap_audit_all_datasets.md,md,1526,,,ok,support_or_limitations
 results/attack_centric_final/c1_ctt_all_settings_corrected_benchmark.md,md,1578,,,ok,support_or_limitations
+results/attack_centric_final/completed_test04_low_fpr_event_reflection.md,md,630,,,ok,support_or_limitations
 results/attack_centric_final/d1_table13_case_study.md,md,360,,,ok,support_or_limitations
 results/attack_centric_final/e1_ranking_inversion_all.md,md,212,,,ok,support_or_limitations
 results/attack_centric_final/f1_low_fpr_deployment.md,md,223,,,ok,support_or_limitations
+results/attack_centric_final/figures/paper_fig10_completed_low_fpr_event.svg,svg,54035,,,ok,main
 results/attack_centric_final/figures/paper_fig1_metric_trap_across_datasets.svg,svg,38804,,,ok,main
 results/attack_centric_final/figures/paper_fig2_ctt_corrected_benchmark.svg,svg,58403,,,ok,main
 results/attack_centric_final/figures/paper_fig3_table13_case_study.svg,svg,48770,,,ok,main
@@ -28,6 +30,8 @@ results/attack_centric_final/tables/b1_metric_trap_audit_all_datasets.csv,csv,22
 results/attack_centric_final/tables/b1_metric_trap_audit_all_datasets.tex,tex,1952,,,ok,support_or_limitations
 results/attack_centric_final/tables/c1_ctt_all_settings_corrected_benchmark.csv,csv,16471,67.0,24.0,ok,support_or_limitations
 results/attack_centric_final/tables/c1_ctt_all_settings_corrected_benchmark.tex,tex,17245,,,ok,support_or_limitations
+results/attack_centric_final/tables/completed_test04_low_fpr_event.csv,csv,1475,7.0,10.0,ok,support_or_limitations
+results/attack_centric_final/tables/completed_test04_low_fpr_event.tex,tex,1361,,,ok,support_or_limitations
 results/attack_centric_final/tables/d1_table13_case_study.csv,csv,1476,15.0,8.0,ok,support_or_limitations
 results/attack_centric_final/tables/d1_table13_case_study.tex,tex,1841,,,ok,support_or_limitations
 results/attack_centric_final/tables/e1_ranking_inversion_all.csv,csv,465,4.0,9.0,ok,support_or_limitations
