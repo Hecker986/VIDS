@@ -7,4 +7,4 @@
 5. Are low-FPR/event-level protocols marked? **Yes; threshold and event-boundary columns are added.**
 6. Are external datasets only sanity checks? **Yes.**
 7. Is template formatting repaired? **Yes; credits headings are unnumbered and LNCS keywords remain.**
-8. Remaining limitations: metric ambiguity without original confusion matrices, approximate event boundaries, best-test threshold diagnostics, proxy-only mechanism evidence, and non-universal external sanity checks.
+8. Remaining limitations: metric ambiguity without original confusion matrices, approximate event boundaries, best-test threshold diagnostics, capped-negative feature-removal retraining, and non-universal external sanity checks.

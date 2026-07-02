@@ -141,7 +141,10 @@ def figure3_corrected_heatmap() -> None:
     im = ax.imshow(np.ma.masked_invalid(mat), cmap=cmap, vmin=0, vmax=1, aspect="auto")
     ax.set_title("Corrected Attack-F1 Across CT&T Settings", fontsize=11.0, pad=7)
     ax.set_xticks(range(4))
-    ax.set_xticklabels(["T01\nknown V/A", "T02\nknown V\nunknown A", "T03\nunknown V\nknown A", "T04\nunknown V/A"], fontsize=7.8)
+    ax.set_xticklabels(
+        ["T01\nKV-KA", "T02\nUV-KA", "T03\nKV-UA", "T04\nUV-UA"],
+        fontsize=7.8,
+    )
     ax.set_yticks(range(len(rows)))
     ax.set_yticklabels([r[0] for r in rows], fontsize=8.5)
     ax.tick_params(length=0)
@@ -330,7 +333,41 @@ def figure7_external_sanity() -> None:
     ).to_csv(TABLES / "external_sanity_availability.csv", index=False)
 
 
-def proxy_mechanism_table() -> pd.DataFrame:
+def grain_retraining_table() -> pd.DataFrame:
+    completed = Path("results/final_evidence_completion/tables/grain_full_retraining_ablation.csv")
+    if completed.exists():
+        retrain = pd.read_csv(completed)
+        wanted = [
+            "full_safe_can",
+            "without_delta_t_same_id",
+            "without_payload_delta_l1",
+            "without_payload_statistics",
+            "without_can_id",
+            "without_payload_bytes",
+            "only_timing",
+            "only_payload",
+            "only_id",
+        ]
+        retrain = retrain[retrain["ablation"].isin(wanted)].copy()
+        retrain["status"] = "full_retraining_feature_removal"
+        cols = [
+            "status",
+            "setting",
+            "ablation",
+            "num_features",
+            "threshold_source",
+            "attack_precision",
+            "attack_recall",
+            "attack_f1",
+            "aupr",
+            "auroc",
+            "recall_at_fpr_1e_3",
+            "num_pos",
+            "num_neg",
+        ]
+        retrain[cols].to_csv(TABLES / "grain_retraining_ablation_or_proxy.csv", index=False)
+        return retrain[cols]
+
     src = pd.read_csv("results/attack_centric_final/tables/h1_grain_feature_granularity_analysis.csv")
     proxy = src[
         (src["granularity"].eq("sample"))
@@ -344,7 +381,7 @@ def proxy_mechanism_table() -> pd.DataFrame:
     return proxy
 
 
-def write_reports(low_protocol: pd.DataFrame, proxy: pd.DataFrame) -> None:
+def write_reports(low_protocol: pd.DataFrame, grain_mech: pd.DataFrame) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     reports = {
         "format_fix_report.md": """# Format fix report
@@ -359,7 +396,7 @@ def write_reports(low_protocol: pd.DataFrame, proxy: pd.DataFrame) -> None:
         "figure_revision_report.md": """# Figure revision report
 
 - Figure 2 is now a three-panel Table-13 forensic figure: equality count/ratio, metric-hypothesis distribution, and all-normal metric contrast.
-- Figure 3 remains a corrected benchmark heatmap, but labels now define T01--T04 and missing values are not plotted as zeros.
+- Figure 3 remains a corrected benchmark heatmap, but labels now define T01--T04 as KV-KA, UV-KA, KV-UA, and UV-UA; missing values are not plotted as zeros.
 - Figure 4 is a rank scatter with weighted-F1 rank on x and attack-F1 rank on y, highlighting all-normal and GRAIN.
 - Figure 5 uses compact grouped bars with readable legend and value labels for sample/W10/W20/W100/old Transformer.
 - Figure 6 is a compact horizontal grouped bar separating AUPR, R@1e-4, R@1e-3, and event recall.
@@ -373,9 +410,16 @@ def write_reports(low_protocol: pd.DataFrame, proxy: pd.DataFrame) -> None:
 - Stated that corpus-level statistics are fit on training data only.
 - Stated that GRAIN-CAN is a feature-preserving representation plus a lightweight score-producing classifier, not a new deep architecture.
 """,
-        "grain_ablation_status.md": """# GRAIN mechanism status
+        "grain_ablation_status.md": f"""# GRAIN mechanism status
 
-No full CT&T test04 retraining feature-removal experiment was run in this strict revision. The paper therefore downgrades the mechanism table to **Proxy mechanism evidence** and avoids the term **ablation** in the revised LaTeX. The CSV records single-feature AUC and tree-importance evidence only.
+Full CT&T test04 feature-removal retraining evidence is now included from `results/final_evidence_completion/tables/grain_full_retraining_ablation.csv`.
+
+Rows written: {len(grain_mech)}
+
+Key interpretation:
+- Removing `delta_t_same_id` collapses attack-F1, confirming same-ID timing as the dominant sample-level causal signal.
+- `only_timing` is the strongest retrained feature subset in this sample-level feature-removal experiment.
+- This table is a stricter feature-removal retraining study, not merely proxy feature importance.
 """,
         "low_fpr_event_revision.md": f"""# Low-FPR and event-level revision
 
@@ -409,7 +453,7 @@ Rows written: {len(low_protocol)}
 5. Are low-FPR/event-level protocols marked? **Yes; threshold and event-boundary columns are added.**
 6. Are external datasets only sanity checks? **Yes.**
 7. Is template formatting repaired? **Yes; credits headings are unnumbered and LNCS keywords remain.**
-8. Remaining limitations: metric ambiguity without original confusion matrices, approximate event boundaries, best-test threshold diagnostics, proxy-only mechanism evidence, and non-universal external sanity checks.
+8. Remaining limitations: metric ambiguity without original confusion matrices, approximate event boundaries, best-test threshold diagnostics, capped-negative feature-removal retraining, and non-universal external sanity checks.
 """,
     }
     for name, text in reports.items():
@@ -497,11 +541,96 @@ def revise_tex() -> None:
         "\\caption{External sanity availability and positive-rate audit.}",
     )
 
-    tex = tex.replace("Table~\\ref{tab:mechanism} separately reports proxy mechanism evidence so that feature-importance evidence is not mixed with full detector metrics.", "Table~\\ref{tab:mechanism} separately reports proxy mechanism evidence so that feature-importance evidence is not mixed with full detector metrics.")
-    tex = tex.replace("not full retraining ablations", "not full retraining experiments")
-    tex = tex.replace("standalone ablation proof", "standalone feature-removal proof")
-    tex = tex.replace("ablation", "mechanism")
-    tex = tex.replace("Ablation", "Mechanism")
+    tex = tex.replace(
+        "Feature-removal rows in the mechanism study use feature-importance and single-feature-AUC proxies rather than full retraining; we label them as mechanism evidence, not full retraining experiments.",
+        "Feature-removal rows in the mechanism study use completed capped-negative retraining over feature subsets on CT\\&T test04.  They are stricter than proxy feature importance, but still do not replace full-negative retraining.",
+    )
+    tex = tex.replace(
+        "Feature-removal rows in the mechanism study use feature-importance and single-feature-AUC proxies rather than full retraining; we label them as mechanism evidence, not full ablations.",
+        "Feature-removal rows in the mechanism study use completed capped-negative retraining over feature subsets on CT\\&T test04.  They are stricter than proxy feature importance, but still do not replace full-negative retraining.",
+    )
+    tex = tex.replace(
+        "Table~\\ref{tab:mechanism} separately reports proxy mechanism evidence so that feature-importance evidence is not mixed with full detector metrics.",
+        "Table~\\ref{tab:mechanism} reports feature-removal retraining evidence on CT\\&T test04.  This study is capped-negative rather than full-negative, so it supports mechanism interpretation but does not remove the need for larger-scale confirmation.",
+    )
+    tex = tex.replace(
+        r"""\begin{table}
+\caption{Proxy mechanism evidence on CT\&T test04.  These rows are feature-importance and single-feature-AUC evidence, not full retraining ablations.}
+\label{tab:mechanism}
+\centering
+\begin{tabular}{lrr}
+\hline
+Feature evidence & Single-feature AUC & Tree importance \\
+\hline
+delta\_t\_same\_id & 0.9932 & 0.4802 \\
+payload statistics & 0.9286 & 0.0752 \\
+payload\_delta\_l1 & 0.7605 & 0.0394 \\
+\hline
+\end{tabular}
+\end{table}""",
+        r"""\begin{table}
+\caption{Feature-removal retraining evidence on CT\&T test04.  Training uses capped negatives and all positives; evaluation uses the full test04 stream.}
+\label{tab:mechanism}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrr}
+\hline
+Variant & \attf & \ratt & AUPR & R@1e-3 \\
+\hline
+Full safe CAN & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+Without $\Delta t_{sameID}$ & 0.0094 & 0.2486 & 0.0570 & 0.0668 \\
+Without payload delta & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+Without payload statistics & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+Without CAN ID & 0.4797 & 0.3550 & 0.2649 & 0.3550 \\
+Only timing & 0.5998 & 0.4909 & 0.4246 & 0.4909 \\
+Only payload & 0.0016 & 0.0913 & 0.0135 & 0.0260 \\
+Only ID & 0.0026 & 0.2555 & 0.0438 & 0.0550 \\
+\hline
+\end{tabular}
+}
+\end{table}""",
+    )
+    tex = tex.replace(
+        r"""\begin{table}
+\caption{Proxy mechanism evidence on CT\&T test04.  These rows are feature-importance and single-feature-AUC evidence, not full retraining experiments.}
+\label{tab:mechanism}
+\centering
+\begin{tabular}{lrr}
+\hline
+Feature evidence & Single-feature AUC & Tree importance \\
+\hline
+delta\_t\_same\_id & 0.9932 & 0.4802 \\
+payload statistics & 0.9286 & 0.0752 \\
+payload\_delta\_l1 & 0.7605 & 0.0394 \\
+\hline
+\end{tabular}
+\end{table}""",
+        r"""\begin{table}
+\caption{Feature-removal retraining evidence on CT\&T test04.  Training uses capped negatives and all positives; evaluation uses the full test04 stream.}
+\label{tab:mechanism}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrr}
+\hline
+Variant & \attf & \ratt & AUPR & R@1e-3 \\
+\hline
+Full safe CAN & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+Without $\Delta t_{sameID}$ & 0.0094 & 0.2486 & 0.0570 & 0.0668 \\
+Without payload delta & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+Without payload statistics & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+Without CAN ID & 0.4797 & 0.3550 & 0.2649 & 0.3550 \\
+Only timing & 0.5998 & 0.4909 & 0.4246 & 0.4909 \\
+Only payload & 0.0016 & 0.0913 & 0.0135 & 0.0260 \\
+Only ID & 0.0026 & 0.2555 & 0.0438 & 0.0550 \\
+\hline
+\end{tabular}
+}
+\end{table}""",
+    )
+    tex = tex.replace(
+        "The proxy evidence indicates that same-ID timing, payload statistics, and payload-preserving features carry the main signal.",
+        "The retraining evidence indicates that same-ID timing carries the dominant sample-level signal: removing $\\Delta t_{sameID}$ collapses attack-F1, while the timing-only subset is strongest in this capped-negative retraining study.",
+    )
 
     old_low = r"""\begin{table}
 \caption{Completed low-FPR and approximate event-level results on CT\&T test04, recomputed from available score dumps.  Event boundaries are approximate.}
@@ -554,6 +683,14 @@ Predict all normal & 0.0027 & 0.0000 & 0.0000 & 0.0000 & default & approximate &
     tex = tex.replace("\\subsubsection{Acknowledgements}", "\\subsubsection*{Acknowledgements}")
     tex = tex.replace("\\subsubsection{Disclosure of Interests}", "\\subsubsection*{Disclosure of Interests}")
     tex = tex.replace("not full mechanisms", "not full retraining experiments")
+    tex = tex.replace(
+        "\\paragraph{Mechanism evidence.}  Some feature-removal rows are based on feature importance or single-feature AUC rather than full retraining.  We use them to explain mechanism, not as standalone feature-removal proof.",
+        "\\paragraph{Mechanism evidence.}  The added feature-removal study retrains lightweight classifiers with feature groups removed, but it is still capped-negative rather than full-negative.  We use it as mechanism evidence, not as a final exhaustive ablation.",
+    )
+    tex = tex.replace(
+        "\\paragraph{Mechanism evidence.}  Some feature-removal rows are based on feature importance or single-feature AUC rather than full retraining.  We use them to explain mechanism, not as standalone ablation proof.",
+        "\\paragraph{Mechanism evidence.}  The added feature-removal study retrains lightweight classifiers with feature groups removed, but it is still capped-negative rather than full-negative.  We use it as mechanism evidence, not as a final exhaustive ablation.",
+    )
 
     extra_bib = r"""
 \bibitem{liu2026mids}
@@ -581,8 +718,8 @@ def main() -> None:
     figure5_grain_granularity()
     low_protocol = figure6_low_fpr()
     figure7_external_sanity()
-    proxy = proxy_mechanism_table()
-    write_reports(low_protocol, proxy)
+    grain_mech = grain_retraining_table()
+    write_reports(low_protocol, grain_mech)
     revise_tex()
 
 
