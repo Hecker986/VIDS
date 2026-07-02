@@ -33,3 +33,19 @@ df789fd Add final paper supplement for attack-centric CAN IDS
 ```
 
 Current push blocker: SSH host key verification, not a LaTeX or experiment failure.
+
+Additional remediation attempted:
+
+```text
+mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+ssh-keyscan -T 10 github.com
+```
+
+Both `ssh-keyscan` commands exited with code 1 and returned no host key output in this environment, so the remote SSH host key could not be refreshed from here.
+
+Latest local commit after recording this file:
+
+```text
+9e07774 Record strict review push failure status
+e265cae Revise attack-centric CAN IDS paper after strict review
+```
