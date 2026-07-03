@@ -1,0 +1,15 @@
+\begin{tabular}{lrrrr}
+\toprule
+ablation & attack\_f1\_mean & attack\_f1\_std & aupr\_mean & recall\_at\_fpr\_1e\_3\_mean \\
+\midrule
+only\_timing & 0.6013 & 0.0015 & 0.4239 & 0.4920 \\
+without\_can\_id & 0.4805 & 0.0010 & 0.2653 & 0.3560 \\
+full\_safe\_can & 0.4803 & 0.0014 & 0.2619 & 0.3560 \\
+without\_payload\_delta\_l1 & 0.4803 & 0.0014 & 0.2619 & 0.3560 \\
+without\_payload\_statistics & 0.4803 & 0.0014 & 0.2619 & 0.3560 \\
+without\_payload\_bytes & 0.4551 & 0.0030 & 0.3244 & 0.4348 \\
+without\_delta\_t\_same\_id & 0.0085 & 0.0008 & 0.0595 & 0.0668 \\
+only\_id & 0.0026 & 0.0000 & 0.0437 & 0.0550 \\
+only\_payload & 0.0016 & 0.0000 & 0.0135 & 0.0260 \\
+\bottomrule
+\end{tabular}

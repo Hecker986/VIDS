@@ -322,23 +322,23 @@ The retraining evidence indicates that same-ID timing carries the dominant sampl
 \end{figure}
 
 \subsection{RQ5: What Happens Under Low-FPR and Event-Level Metrics?}
-Low-FPR metrics sharpen the deployment story.  GRAIN window100 achieves Recall@FPR=$10^{-4}$ of 0.4478 and Recall@FPR=$10^{-3}$ of 0.8053, with AUPR 0.7845.  Safe-feature GradientBoosting improves over public-default sample protocols, but reaches only 0.3549 Recall@FPR=$10^{-3}$ and AUPR 0.2647.  The old window100 Transformer has high approximate event recall under its stored threshold, but weak AUPR and low-FPR recall, indicating poor score separation and excessive false-positive pressure.  These numbers support the claim that GRAIN is a strong corrected baseline, but they also prevent overclaiming.  Best-test rows in Table~\ref{tab:lowfpr} are diagnostic score-separability evidence, not validation-tuned deployment thresholds.  Approximate event recall is constructed from available labels and file/timestamp continuity; it is not official event-boundary evidence.  False alarms per 100k samples and detection delay are therefore not reported in the main table unless timestamp-calibrated event data are available for all rows.  Consequently, high approximate event recall is insufficient when AUPR and low-FPR recall are weak.
+Low-FPR metrics sharpen the deployment story.  After adding validation-threshold evaluation, GRAIN window100 achieves AUPR 0.7868 on CT\&T test04.  A threshold selected on the validation split for an FPR budget of $5\times10^{-4}$ gives attack-F1 0.8639, attack recall 0.8053, and actual test FPR 0.000681.  The corresponding best-test Recall@FPR=$10^{-3}$ upper bound is 0.8053.  Safe-feature GradientBoosting improves over public-default sample protocols, but reaches only 0.3549 Recall@FPR=$10^{-3}$ and AUPR 0.2647.  The old window100 Transformer has high approximate event recall under its stored threshold, but weak AUPR and low-FPR recall, indicating poor score separation and excessive false-positive pressure.  These numbers support the claim that GRAIN is a strong corrected baseline, but they also prevent overclaiming.  Best-test rows in Table~\ref{tab:lowfpr} are diagnostic score-separability evidence, not validation-tuned deployment thresholds.  Approximate event recall is constructed from available labels and file/timestamp continuity; it is not official event-boundary evidence.  False alarms per 100k samples and detection delay are therefore not reported in the main table unless timestamp-calibrated event data are available for all rows.  Consequently, high approximate event recall is insufficient when AUPR and low-FPR recall are weak.
 
 \begin{table}[!htbp]
-\caption{Completed low-FPR and approximate event-level results on CT\&T test04, recomputed from available score dumps.  Event boundaries are approximate.}
+\caption{Low-FPR and approximate event evidence on CT\&T test04.  Validation rows use thresholds selected on the train-derived validation split; best-test rows are upper-bound score-separability diagnostics.}
 \label{tab:lowfpr}
 \centering
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrr}
+\begin{tabular}{llrrrr}
 \hline
-Model & AUPR & R@1e-4 & R@1e-3 & Event rec. \\
+Model & Threshold & AUPR & Recall & Actual FPR & Event rec. \\
 \hline
-GRAIN window100 & 0.7845 & 0.4478 & 0.8053 & 0.3650 \\
-Safe-feature GB & 0.2647 & 0.1911 & 0.3549 & 0.4758 \\
-Old window100 Transformer & 0.1732 & 0.0120 & 0.1462 & 1.0000 \\
-No-timestamp HistGradientBoosting & 0.0119 & 0.0095 & 0.0109 & 0.1637 \\
-Public-default HistGradientBoosting & 0.0119 & 0.0095 & 0.0109 & 0.1637 \\
-Predict all normal & 0.0027 & 0.0000 & 0.0000 & 0.0000 \\
+GRAIN window100 & val-FPR $5e{-}4$ & 0.7868 & 0.8053 & 0.000681 & 0.3650 \\
+GRAIN window100 & best-test R@1e-3 & 0.7868 & 0.8053 & 0.000995 & 0.3650 \\
+Safe-feature GB & best-test R@1e-3 & 0.2647 & 0.3549 & 0.001000 & 0.4758 \\
+Old window100 Transformer & best-test R@1e-3 & 0.1732 & 0.1462 & 0.001000 & 1.0000 \\
+Public-default HGB & best-test R@1e-3 & 0.0119 & 0.0109 & 0.001000 & 0.1637 \\
+Predict all normal & default & 0.0027 & 0.0000 & 0.000000 & 0.0000 \\
 \hline
 \end{tabular}
 }

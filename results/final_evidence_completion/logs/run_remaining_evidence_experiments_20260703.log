@@ -1,0 +1,128 @@
+[remaining] skip existing formal_validation_low_fpr.csv
+[remaining] collect train once for ablation seed=42
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[remaining] multiseed ablation seed=42 ablation=full_safe_can
+[remaining] multiseed ablation seed=42 ablation=without_delta_t_same_id
+[remaining] multiseed ablation seed=42 ablation=without_payload_delta_l1
+[remaining] multiseed ablation seed=42 ablation=without_payload_statistics
+[remaining] multiseed ablation seed=42 ablation=without_can_id
+[remaining] multiseed ablation seed=42 ablation=without_payload_bytes
+[remaining] multiseed ablation seed=42 ablation=only_timing
+[remaining] multiseed ablation seed=42 ablation=only_payload
+[remaining] multiseed ablation seed=42 ablation=only_id
+[remaining] collect train once for ablation seed=2024
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[remaining] multiseed ablation seed=2024 ablation=full_safe_can
+[remaining] multiseed ablation seed=2024 ablation=without_delta_t_same_id
+[remaining] multiseed ablation seed=2024 ablation=without_payload_delta_l1
+[remaining] multiseed ablation seed=2024 ablation=without_payload_statistics
+[remaining] multiseed ablation seed=2024 ablation=without_can_id
+[remaining] multiseed ablation seed=2024 ablation=without_payload_bytes
+[remaining] multiseed ablation seed=2024 ablation=only_timing
+[remaining] multiseed ablation seed=2024 ablation=only_payload
+[remaining] multiseed ablation seed=2024 ablation=only_id
+[remaining] collect train once for ablation seed=2026
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[remaining] multiseed ablation seed=2026 ablation=full_safe_can
+[remaining] multiseed ablation seed=2026 ablation=without_delta_t_same_id
+[remaining] multiseed ablation seed=2026 ablation=without_payload_delta_l1
+[remaining] multiseed ablation seed=2026 ablation=without_payload_statistics
+[remaining] multiseed ablation seed=2026 ablation=without_can_id
+[remaining] multiseed ablation seed=2026 ablation=without_payload_bytes
+[remaining] multiseed ablation seed=2026 ablation=only_timing
+[remaining] multiseed ablation seed=2026 ablation=only_payload
+[remaining] multiseed ablation seed=2026 ablation=only_id
+[remaining] train chunked-negative ensemble
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv

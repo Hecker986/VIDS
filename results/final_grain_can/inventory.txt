@@ -41,6 +41,7 @@ results/final_grain_can/i1_strong_baseline_leaderboard.md
 results/final_grain_can/input_inventory.txt
 results/final_grain_can/inventory.txt
 results/final_grain_can/logs/final_grain_can_revision.log
+results/final_grain_can/logs/final_grain_can_revision_rerun_20260703.log
 results/final_grain_can/logs/plot_final_grain_can.log
 results/final_grain_can/manifests/event_boundary_manifest.csv
 results/final_grain_can/missing_final_figures.md
