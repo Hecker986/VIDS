@@ -603,10 +603,40 @@ Rows written: {len(low_protocol)}
         "related_work_revision.md": """# Related work revision
 
 - Added recent masquerade/stealthy CAN IDS positioning including MIDS/Bidirectional Mamba as related work, not as a baseline.
-- Added 2024--2025 survey/benchmarking references covering learning-based IVN IDS, CAN IDS benchmarking frameworks, ROAD comparative analysis, and CAN authentication protocols.
+- Added 2024--2026 survey/benchmarking references covering learning-based IVN IDS, CAN IDS benchmarking frameworks, ROAD comparative analysis, embedded CAN IDS, Mamba/SSM IDS, graph CAN IDS, and CAN authentication protocols.
 - Expanded benchmark and dataset discussion around ROAD, CT&T, CrySyS, and dataset-audit work.
 - Added imbalanced-evaluation references around precision-recall and MCC.
 - Clarified that physical-layer IDS and cryptographic defenses are complementary to trace-based IDS evaluation.
+""",
+        "civs_scope_compliance_report.md": """# CIVS 2026 Scope and Format Compliance Check
+
+Source checked: user-provided CIVS 2026 call text and the public conference URL `https://ccf.org.cn/civs2026`. The public page is JavaScript-rendered in this environment, so the detailed checklist uses the user's supplied call-for-papers excerpt.
+
+## Scope Fit
+
+The paper fits the listed **Automotive Safety and Security** scope:
+
+- **In-Vehicle Network Security**: the core topic is CAN intrusion detection and attack-centric evaluation.
+- **Vehicle-Mounted AI Safety and Explainability**: the work audits metric-driven model selection, claim boundaries, and explainable feature-preserving evidence.
+- Adjacent: **Automotive Safety Verification and Validation**, because the paper validates whether IDS evidence is aligned with attack detection rather than normal-class recognition.
+
+## Paper Type
+
+- Suitable type: **Research Paper**.
+- Language: English, which is allowed by the call.
+- Recommended framing: `attack-centric evaluation framework + corrected CAN IDS benchmark + feature-preserving GRAIN-CAN baseline`.
+
+## Page Limit Risk
+
+- The call says Research Papers are recommended to be no more than 16 pages.
+- Local fallback compilation currently produces 19 pages because this environment does not have the official CIVS/LNCS class installed and uses the built-in article fallback.
+- This remains a submission risk. The source now has tighter float spacing, shorter captions, and top-aligned float pages, but final page count must be rechecked with the official CIVS template package.
+
+## Required Claim Boundary
+
+- Do not claim unknown attacks are solved.
+- Do not claim universal external-dataset dominance.
+- Do not accuse CT&T or original authors; state metric ambiguity and corrected evaluation evidence.
 """,
         "reviewer_self_check.md": """# Reviewer self-check
 
@@ -660,7 +690,7 @@ def revise_tex() -> None:
 
     tex = tex.replace(
         "Physical-layer methods fingerprint transmitters using clock skew, voltage characteristics, or signal-level artifacts, and can provide source attribution when the required hardware access is available \\cite{cho2016fingerprinting,cho2017viden}.  Timing and statistical methods exploit CAN periodicity, inter-arrival regularity, ID frequencies, and payload changes \\cite{song2016intrusion,tyree2018shape}.  Deep-learning methods use recurrent networks, transformers, graph learning, or language-model analogies to learn temporal or structural patterns from frame streams \\cite{taylor2016frequency,kang2016survival,alkhatib2022canbert,wang2023statgraph}.  Public datasets and benchmark studies, including ROAD, CT\\&T, CrySyS, and dataset-audit work, have made cross-study comparison more feasible while also exposing protocol mismatch and generalization difficulty \\cite{verma2020road,lampe2024ctt,gazdag2023crysys,kidmose2025cansleuth}.",
-        "Physical-layer methods fingerprint transmitters using clock skew, voltage characteristics, or signal-level artifacts, and can provide source attribution when the required hardware access is available \\cite{cho2016fingerprinting,cho2017viden}.  Cryptographic and authenticated-communication defenses are complementary: they can prevent or authenticate messages, whereas this paper studies how to evaluate trace-based IDS behavior when such protections are absent or incomplete \\cite{lu2019leap,lotto2024survey}.  Timing and statistical methods exploit CAN periodicity, inter-arrival regularity, ID frequencies, and payload changes \\cite{song2016intrusion,tyree2018shape}.\n\nDeep-learning IDS work uses recurrent networks, transformers, graph learning, language-model analogies, and recently state-space models to learn temporal or structural patterns from frame streams \\cite{taylor2016frequency,kang2016survival,alkhatib2022canbert,wang2023statgraph,majumder2024uavcan,liu2026mids}.  MIDS, for example, targets stealthy masquerade and tampering attacks with bidirectional Mamba-style sequence modelling.  We cite such systems as related work and positioning, not as direct baselines, because our repository does not contain a reproduced MIDS row under the exact CT\\&T protocol.  Recent surveys and benchmarking studies likewise emphasize that in-vehicle IDS evaluation must account for attack type, workload construction, protocol assumptions, and metric choice \\cite{althunayyan2025survey,sharmin2024benchmarking,guerra2024road}.\n\nPublic datasets and benchmark studies, including ROAD, CT\\&T, CrySyS, and dataset-audit work, have made cross-study comparison more feasible while also exposing protocol mismatch and generalization difficulty \\cite{verma2020road,lampe2024ctt,gazdag2023crysys,kidmose2025cansleuth,guerra2024road}.  Imbalanced-evaluation work further motivates precision-recall analysis, MCC, and explicit positive-class reporting when the positive class is rare \\cite{davis2006pr,saito2015pr,chicco2020mcc}.",
+        "Physical-layer methods fingerprint transmitters using clock skew, voltage characteristics, or signal-level artifacts, while cryptographic and authentication protocols provide complementary prevention-oriented defenses \\cite{cho2016fingerprinting,cho2017viden,lu2019leap,lotto2024survey}.  Timing and statistical IDS methods exploit CAN periodicity, inter-arrival regularity, ID frequencies, and payload changes \\cite{song2016intrusion,tyree2018shape}.\n\nRecent learning-based IDS work uses recurrent networks, transformers, graph learning, language-model analogies, hardware-integrated detection, and state-space models to learn temporal or structural patterns from frame streams \\cite{taylor2016frequency,kang2016survival,alkhatib2022canbert,wang2023statgraph,seccan2025,khandelsurvey2025,majumder2024uavcan,liu2026mids}.  We cite Mamba/MIDS-style systems and hardware IDS systems as related work, not direct baselines, because our repository does not contain reproduced rows under the exact CT\\&T protocol.  Recent surveys and benchmarking studies emphasize the same evaluation pressure point we study here: attack type, workload construction, protocol assumptions, and metric choice strongly affect conclusions \\cite{althunayyan2025survey,sharmin2024benchmarking,guerra2024road}.\n\nPublic datasets and benchmark studies, including ROAD, CT\\&T, CrySyS, and can-sleuth, make comparison more feasible while exposing protocol mismatch and generalization difficulty \\cite{verma2020road,lampe2024ctt,gazdag2023crysys,kidmose2025cansleuth}.  Imbalanced-evaluation work further motivates precision-recall analysis, MCC, and explicit positive-class reporting when attacks are rare \\cite{davis2006pr,saito2015pr,chicco2020mcc}.",
     )
 
     algorithm = r"""
@@ -977,6 +1007,12 @@ Sharmin, S., Mansor, H., Abdul Kadir, A.F., Aziz, N.A.: Benchmarking frameworks 
 
 \bibitem{majumder2024uavcan}
 Majumder, R., Comert, G., Werth, D., Gale, A., Chowdhury, M., Salek, M.S.: Graph-powered defense: Controller area network intrusion detection for unmanned aerial vehicles. arXiv:2412.02539 (2024)
+
+\bibitem{seccan2025}
+Khandelwal, S., Shanker, S.: SecCAN: An extended CAN controller with embedded intrusion detection. arXiv:2505.14924 (2025)
+
+\bibitem{khandelsurvey2025}
+Liu, Y., Xue, L., Wang, S., Luo, X., Zhao, K., Jing, P., Ma, X., Tang, Y., Zhou, H.: Vehicular intrusion detection system for controller area network: a comprehensive survey and evaluation. arXiv:2505.17274 (2025)
 """
     tex = tex.replace("\\end{thebibliography}", extra_bib + "\n\\end{thebibliography}")
     tex = tex.replace("\\begin{figure}\n", "\\begin{figure}[!htbp]\n")
