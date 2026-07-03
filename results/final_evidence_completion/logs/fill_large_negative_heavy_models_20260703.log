@@ -1,0 +1,148 @@
+[heavy-fill] protocol=B_2x_negative_cap cap=120000 seed=42
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[heavy-fill] fit ExtraTrees
+[heavy-fill] eval ExtraTrees ctt_test01
+[heavy-fill] eval ExtraTrees ctt_test02
+[heavy-fill] eval ExtraTrees ctt_test03
+[heavy-fill] eval ExtraTrees ctt_test04
+[heavy-fill] fit RandomForest
+[heavy-fill] eval RandomForest ctt_test01
+[heavy-fill] eval RandomForest ctt_test02
+[heavy-fill] eval RandomForest ctt_test03
+[heavy-fill] eval RandomForest ctt_test04
+[heavy-fill] fit MLP
+[heavy-fill] eval MLP ctt_test01
+[heavy-fill] eval MLP ctt_test02
+[heavy-fill] eval MLP ctt_test03
+[heavy-fill] eval MLP ctt_test04
+[heavy-fill] protocol=B_2x_negative_cap cap=120000 seed=2024
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[heavy-fill] fit ExtraTrees
+[heavy-fill] eval ExtraTrees ctt_test01
+[heavy-fill] eval ExtraTrees ctt_test02
+[heavy-fill] eval ExtraTrees ctt_test03
+[heavy-fill] eval ExtraTrees ctt_test04
+[heavy-fill] fit RandomForest
+[heavy-fill] eval RandomForest ctt_test01
+[heavy-fill] eval RandomForest ctt_test02
+[heavy-fill] eval RandomForest ctt_test03
+[heavy-fill] eval RandomForest ctt_test04
+[heavy-fill] fit MLP
+[heavy-fill] eval MLP ctt_test01
+[heavy-fill] eval MLP ctt_test02
+[heavy-fill] eval MLP ctt_test03
+[heavy-fill] eval MLP ctt_test04
+[heavy-fill] protocol=B_2x_negative_cap cap=120000 seed=2026
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[heavy-fill] fit ExtraTrees
+[heavy-fill] eval ExtraTrees ctt_test01
+[heavy-fill] eval ExtraTrees ctt_test02
+[heavy-fill] eval ExtraTrees ctt_test03
+[heavy-fill] eval ExtraTrees ctt_test04
+[heavy-fill] fit RandomForest
+[heavy-fill] eval RandomForest ctt_test01
+[heavy-fill] eval RandomForest ctt_test02
+[heavy-fill] eval RandomForest ctt_test03
+[heavy-fill] eval RandomForest ctt_test04
+[heavy-fill] fit MLP
+[heavy-fill] eval MLP ctt_test01
+[heavy-fill] eval MLP ctt_test02
+[heavy-fill] eval MLP ctt_test03
+[heavy-fill] eval MLP ctt_test04
+[heavy-fill] protocol=C_5x_negative_cap cap=300000 seed=42
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/DoS-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/accessory-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/attack-free-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/force-neutral-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/rpm-2.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-1.csv
+[protocol_rescue] read train data/raw/can-train-and-test/set_01/train_01/standstill-2.csv
+[heavy-fill] fit ExtraTrees
+[heavy-fill] eval ExtraTrees ctt_test01
+[heavy-fill] eval ExtraTrees ctt_test02
+[heavy-fill] eval ExtraTrees ctt_test03
+[heavy-fill] eval ExtraTrees ctt_test04
+[heavy-fill] fit RandomForest
+[heavy-fill] eval RandomForest ctt_test01
+[heavy-fill] eval RandomForest ctt_test02
+[heavy-fill] eval RandomForest ctt_test03
+[heavy-fill] eval RandomForest ctt_test04
+[heavy-fill] fit MLP
+[heavy-fill] eval MLP ctt_test01
+[heavy-fill] eval MLP ctt_test02
+[heavy-fill] eval MLP ctt_test03
+[heavy-fill] eval MLP ctt_test04
+/home/lqa/VIDS/scripts/fill_large_negative_heavy_models.py:149: PerformanceWarning: indexing past lexsort depth may impact performance.
+  if key in df2.index:
+/home/lqa/VIDS/scripts/fill_large_negative_heavy_models.py:151: PerformanceWarning: indexing past lexsort depth may impact performance.
+  df2.loc[key, col] = val
+Traceback (most recent call last):
+  File "/home/lqa/VIDS/scripts/fill_large_negative_heavy_models.py", line 171, in <module>
+    main()
+  File "/home/lqa/VIDS/scripts/fill_large_negative_heavy_models.py", line 151, in main
+    df2.loc[key, col] = val
+    ~~~~~~~^^^^^^^^^^
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/core/indexing.py", line 938, in __setitem__
+    iloc._setitem_with_indexer(indexer, value, self.name)
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/core/indexing.py", line 1953, in _setitem_with_indexer
+    self._setitem_with_indexer_split_path(indexer, value, name)
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/core/indexing.py", line 2044, in _setitem_with_indexer_split_path
+    self._setitem_single_column(loc, value, pi)
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/core/indexing.py", line 2181, in _setitem_single_column
+    self.obj._mgr.column_setitem(loc, plane_indexer, value)
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py", line 1528, in column_setitem
+    new_mgr = col_mgr.setitem((idx,), value)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py", line 607, in setitem
+    return self.apply("setitem", indexer=indexer, value=value)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py", line 445, in apply
+    applied = getattr(b, f)(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/core/internals/blocks.py", line 1667, in setitem
+    values[indexer] = value
+    ~~~~~~^^^^^^^^^
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/core/arrays/arrow/array.py", line 2237, in __setitem__
+    value = self._maybe_convert_setitem_value(value)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lqa/VIDS/.venv/lib/python3.12/site-packages/pandas/core/arrays/string_arrow.py", line 287, in _maybe_convert_setitem_value
+    raise TypeError(
+TypeError: Invalid value '120000' for dtype 'str'. Value should be a string or missing value, got 'int' instead.

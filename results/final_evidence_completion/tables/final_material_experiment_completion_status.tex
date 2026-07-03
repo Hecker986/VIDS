@@ -1,0 +1,14 @@
+\begin{tabular}{lrll}
+\toprule
+item & rows & status & evidence \\
+\midrule
+formal validation-threshold low-FPR & 44 & completed & GRAIN window100 CT\&T test01-test04 \\
+multi-seed feature-removal retraining & 9 & completed & sample-level SAFE-CAN feature masks on CT\&T test04 \\
+chunked-negative ensemble probe & 20 & completed & sample-level GradientBoosting CT\&T test02/test04 \\
+B/C heavy-model large-negative rows & 48 & completed & ExtraTrees/RandomForest/MLP Protocol B/C \\
+original author confusion matrix/code & 0 & audited\_external\_dependency & not found in accessible public/local sources \\
+can-train-and-test-v1.5 exact alignment & 0 & audited\_external\_dependency & local data aligns with original CT\&T, not v1.5 test05/test06 layout \\
+official event boundaries & 0 & audited\_external\_dependency & not found; event rows remain approximate\_from\_labels \\
+exact Protocol D full-negative & 1 & protocol\_marker\_retained & exhaustive full-negative item retained as distinct protocol requirement \\
+\bottomrule
+\end{tabular}

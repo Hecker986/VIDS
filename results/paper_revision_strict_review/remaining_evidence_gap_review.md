@@ -26,6 +26,7 @@ The current evidence supports a conservative measurement + IDS-baseline paper. I
 - Validation-threshold low-FPR evidence now exists for GRAIN window100 on CT&T test01-test04.
 - Multi-seed feature-removal retraining evidence now exists for CT&T test04 sample-level SAFE-CAN features.
 - Chunked-negative ensemble stability probes now exist for CT&T test02/test04 sample-level GradientBoosting.
+- ExtraTrees, RandomForest, and MLP Protocol B/C large-negative rows have now been completed with constrained real training/evaluation runs.
 
 ## Remaining Data Gaps
 
@@ -80,13 +81,14 @@ Impact:
 Current:
 
 - 2x and 5x negative-cap stability is available.
+- B/C large-negative rows for ExtraTrees, RandomForest, and MLP are now real completed rows rather than resource-limit placeholders.
 - A chunked-negative ensemble probe is now available for sample-level GradientBoosting on CT&T test02/test04.
 - CT&T test02 remains stable under chunked-negative sampling.
 - CT&T test04 sample-level chunked ensemble remains much weaker than the aggregate-window GRAIN result, supporting the feature-preserving aggregate-window direction.
 
 Still missing:
 
-- exact full-negative training for every main GRAIN aggregate-window baseline,
+- exact full-negative Protocol D training for every main GRAIN aggregate-window baseline,
 - chunked-full-negative training for every feature-removal ablation.
 
 Impact:
