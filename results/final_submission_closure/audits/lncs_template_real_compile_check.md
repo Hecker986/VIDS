@@ -25,7 +25,8 @@ The supplied files were copied into `results/final_submission_closure/template/`
 - Official LNCS PDF:
   `results/final_submission_closure/template/attack_centric_can_ids_paper_lncs_submission.pdf`
 - Page count under official `llncs.cls` v2.24: 15 pages.
-- File size: 477256 bytes.
+- File size: 476995 bytes.
+- Author block: `Qi'ao Li`, School of Cyber Science and Technology, Beihang University, `qi_aolee@buaa.edu.cn`.
 - Undefined references: none.
 - Undefined citations: none.
 - Overfull boxes in official LNCS compile: none reported by the final grep check.

@@ -8,6 +8,7 @@ credits_environment,pass,"acknowledgements/disclosure follow LNCS credits patter
 bibliography,pass,"inline thebibliography retained; splncs04.bst included for template completeness"
 official_compile,pass,"latexmk with supplied llncs.cls completed"
 official_pdf_pages,pass,15
+author_block,pass,"Qi'ao Li; School of Cyber Science and Technology, Beihang University; qi_aolee@buaa.edu.cn"
 undefined_references,pass,0
 undefined_citations,pass,0
 official_overfull_boxes,pass,0
