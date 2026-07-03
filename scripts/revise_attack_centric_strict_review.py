@@ -201,18 +201,8 @@ def figure1_pipeline_fixed() -> None:
     arrow(ax, (0.295, 0.28), (0.365, 0.28), GREEN)
     arrow(ax, (0.625, 0.28), (0.695, 0.28), GREEN)
 
-    metric = FancyBboxPatch((0.095, 0.030), 0.21, 0.080, boxstyle="round,pad=0.012,rounding_size=0.014",
-                            linewidth=0.95, edgecolor=ORANGE, facecolor="#FFF7E6", transform=ax.transAxes)
-    ax.add_patch(metric)
-    ax.text(0.20, 0.070, "metric trap:\nhigh score, zero recall", transform=ax.transAxes, ha="center", va="center", fontsize=7.0, color=ORANGE, fontweight="bold", linespacing=0.95)
-    for i, label in enumerate(["Attack-F1", "AUPR", "R@FPR", "Event"]):
-        x = 0.52 + i * 0.085
-        pill = FancyBboxPatch((x, 0.063), 0.073, 0.040, boxstyle="round,pad=0.012,rounding_size=0.018",
-                              linewidth=0.9, edgecolor=RED, facecolor="white", transform=ax.transAxes)
-        ax.add_patch(pill)
-        ax.text(x + 0.0365, 0.083, label, transform=ax.transAxes, ha="center", va="center", fontsize=7.1, color=RED, fontweight="bold")
-    ax.plot([0.06, 0.94], [0.005, 0.005], transform=ax.transAxes, color="#CCCCCC", linewidth=0.8)
-    ax.text(0.50, -0.034, "Output: corrected benchmark + deployment evidence + reproducible reporting checklist",
+    ax.plot([0.06, 0.94], [0.105, 0.105], transform=ax.transAxes, color="#CCCCCC", linewidth=0.8)
+    ax.text(0.50, 0.045, "Output: corrected benchmark + deployment evidence + reproducible reporting checklist",
             transform=ax.transAxes, ha="center", fontsize=8.2, fontweight="bold", color="#222222")
     save(fig, "figure1_attack_centric_pipeline_fixed")
 
@@ -447,7 +437,6 @@ def figure6_low_fpr() -> pd.DataFrame:
 
 def figure7_external_sanity() -> None:
     audit = pd.read_csv("results/attack_centric_final/tables/b1_metric_trap_audit_all_datasets.csv")
-    ext = pd.read_csv("results/attack_centric_final/tables/i1_external_corrected_sanity.csv")
     external = audit[audit["dataset"].isin(["road", "crysys_family_mod_subset", "hcrl_can_intrusion", "car_hacking"])].copy()
     external["dataset_label"] = external["dataset"].map(
         {
@@ -457,38 +446,26 @@ def figure7_external_sanity() -> None:
             "car_hacking": "Car-Hacking",
         }
     )
-    road_results = ext[(ext["dataset"].eq("ROAD")) & ext["best_available_model_attack_f1"].notna()]
     availability = {
-        "ROAD": "model+metric",
-        "CrySyS": "positive-rate only",
-        "HCRL": "positive-rate only",
-        "Car-Hacking": "positive-rate only",
+        "ROAD": "corrected-metric sanity",
+        "CrySyS": "positive-rate sanity",
+        "HCRL": "positive-rate sanity",
+        "Car-Hacking": "positive-rate sanity",
     }
 
-    fig, axes = plt.subplots(1, 2, figsize=(7.45, 2.75), gridspec_kw={"width_ratios": [1.05, 1.25], "wspace": 0.38})
+    external = external.sort_values("positive_rate", ascending=True)
+    fig, ax = plt.subplots(figsize=(6.0, 2.35))
     x = np.arange(len(external))
-    axes[0].bar(x, external["positive_rate"].astype(float), color=[BLUE, ORANGE, GREEN, GREY], edgecolor="white")
-    axes[0].set_xticks(x)
-    axes[0].set_xticklabels(external["dataset_label"], rotation=20, ha="right", fontsize=7.7)
-    axes[0].set_ylabel("Positive rate", fontsize=8.8)
-    axes[0].set_title("(a) Positive-rate audit", fontsize=9.8)
+    colors = [BLUE, ORANGE, GREEN, GREY][: len(external)]
+    ax.bar(x, external["positive_rate"].astype(float), color=colors, edgecolor="black", linewidth=0.7, hatch="//")
+    ax.set_xticks(x)
+    ax.set_xticklabels(external["dataset_label"], rotation=0, ha="center", fontsize=8.0)
+    ax.set_ylabel("Attack positive rate", fontsize=8.8)
+    ax.set_title("External sanity availability and label-balance audit", fontsize=9.4)
     for xi, val in zip(x, external["positive_rate"].astype(float)):
-        axes[0].text(xi, val + 0.018, f"{val:.3f}", ha="center", fontsize=7.2)
-    axes[0].set_ylim(0, max(0.55, float(external["positive_rate"].max()) + 0.08))
-    open_axis(axes[0])
-
-    road_models = road_results["model"].str.replace("can_transformer_plus_sameid", "CAN-Tr+", regex=False).str.replace("concat_fusion", "Concat", regex=False).str.replace("cmf_can", "CMF", regex=False).str.replace("transformer", "Transformer", regex=False)
-    y = np.arange(len(road_results))
-    axes[1].barh(y, road_results["best_available_model_attack_f1"].astype(float), color=RED, edgecolor="white", hatch="//")
-    axes[1].set_yticks(y)
-    axes[1].set_yticklabels(road_models, fontsize=7.5)
-    axes[1].invert_yaxis()
-    axes[1].set_xlim(0, 1.0)
-    axes[1].set_xlabel("Attack-F1", fontsize=8.8)
-    axes[1].set_title("(b) External model availability: ROAD only", fontsize=9.8)
-    for yi, val in zip(y, road_results["best_available_model_attack_f1"].astype(float)):
-        axes[1].text(val + 0.02, yi, f"{val:.3f}", va="center", fontsize=7.3)
-    open_axis(axes[1])
+        ax.text(xi, val + 0.018, f"{val:.3f}", ha="center", fontsize=7.2)
+    ax.set_ylim(0, max(0.55, float(external["positive_rate"].max()) + 0.08))
+    open_axis(ax)
     save(fig, "figure7_external_sanity_availability")
 
     pd.DataFrame(
