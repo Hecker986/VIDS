@@ -17,8 +17,9 @@
 
 \newcommand{\safeincludegraphics}[2]{%
   \IfFileExists{#1}{\centering\includegraphics[width=0.88\textwidth]{#1}}{%
+  \IfFileExists{../#1}{\centering\includegraphics[width=0.88\textwidth]{../#1}}{%
   \fbox{\parbox[c][0.22\textheight][c]{0.94\textwidth}{\centering\small #2\\[2mm]
-  \footnotesize\url{#1}}}}%
+  \footnotesize\url{#1}}}}}%
 }
 \providecommand{\doi}[1]{\url{https://doi.org/#1}}
 \newcommand{\method}{GRAIN-CAN}
@@ -67,7 +68,7 @@ Our contributions are as follows.
 \begin{itemize}
     \item \framework{} reports attack precision, recall and F1, AUPR, Recall@FPR, false-alarm rates, event-level evidence, trivial baselines, and ranking inversion for rare-attack CAN IDS.
     \item The metric forensics show how all-normal prediction can reach near-perfect accuracy and weighted-F1 while detecting no attacks.  Several Table-13-style rows also have reported recall equal to accuracy, which fits a weighted or accuracy-like interpretation.
-    \item The corrected benchmark covers CT\&T test01--test04 and additional sanity-check datasets.  It compares trivial predictors, Table-13-style classical ML, fixed-window neural baselines, safe-feature protocols, and GRAIN representations under attack-centric metrics.
+    \item We build a corrected benchmark for four CT\&T settings and other data.  It covers trivial predictors, public-style ML, neural baselines, safe-feature protocols, and GRAIN rows.
     \item \method{} preserves same-ID timing, payload changes, payload statistics, and CAN-ID behavior.  It does not solve unknown attacks, but it is the best corrected baseline in our runs: on CT\&T test04 it reaches attack-F1 0.6678, AUPR 0.7845, AUROC 0.9024, and validation-threshold recall 0.8053 at actual FPR 0.000681.
     \item We add validation-threshold low-FPR evaluation, large-negative protocols, chunked-negative probes, and multi-seed feature-removal retraining.  The remaining gaps depend on external artifacts such as original code, confusion matrices, and official event boundaries.
 \end{itemize}
@@ -90,7 +91,7 @@ This observation is not specific to one algorithm.  It is a consequence of class
 \subsection{Related Work and Positioning}
 Automotive IDS research splits roughly into signal, protocol, and learning approaches.  Physical-layer methods fingerprint transmitters using clock skew, voltage characteristics, or other signal artifacts.  Cryptographic and authentication protocols address a different part of the problem by trying to prevent unauthenticated messages \cite{cho2016fingerprinting,cho2017viden,lu2019leap,lotto2024survey}.  Timing and statistical IDS methods use CAN periodicity, inter-arrival regularity, ID frequencies, and payload changes \cite{song2016intrusion,tyree2018shape}.
 
-Recent work also uses recurrent networks, transformers, graph learning, language-model style tokenization, hardware-integrated detection, and state-space models \cite{taylor2016frequency,kang2016survival,alkhatib2022canbert,wang2023statgraph,seccan2025,khandelsurvey2025,majumder2024uavcan,liu2026mids}.  We treat Mamba/MIDS-style and hardware IDS papers as related work rather than direct baselines because we do not have reproduced rows under the same CT\&T protocol.  Recent surveys and benchmark studies point to the same weak spot studied here: conclusions change with attack type, workload construction, protocol assumptions, and metric choice \cite{althunayyan2025survey,sharmin2024benchmarking,guerra2024road}.
+Neural IDS work uses recurrent models, transformers, and tokenized CAN frames \cite{taylor2016frequency,kang2016survival,alkhatib2022canbert}.  Graph learning and state-space models are also used for CAN traces \cite{wang2023statgraph,liu2026mids}.  Hardware IDS and UAV CAN detectors study related deployment settings \cite{seccan2025,khandelsurvey2025,majumder2024uavcan}.  We treat Mamba/MIDS-style and hardware IDS papers as related work rather than direct baselines because we do not have reproduced rows under the same CT\&T protocol.  Recent surveys and benchmark studies point to the same weak spot studied here: conclusions change with attack type, workload construction, protocol assumptions, and metric choice \cite{althunayyan2025survey,sharmin2024benchmarking,guerra2024road}.
 
 Public datasets and benchmark studies, including ROAD, CT\&T, CrySyS, and can-sleuth, make comparison more feasible while exposing protocol mismatch and generalization difficulty \cite{verma2020road,lampe2024ctt,gazdag2023crysys,kidmose2025cansleuth}.  Imbalanced-evaluation work further motivates precision-recall analysis, MCC, and explicit positive-class reporting when attacks are rare \cite{davis2006pr,saito2015pr,chicco2020mcc}.
 
@@ -116,7 +117,7 @@ for deployment budgets such as $\alpha=10^{-4}$ or $10^{-3}$.  This definition m
     F1_{attack}=\frac{2P_{attack}R_{attack}}{P_{attack}+R_{attack}},
 \end{equation}
 together with accuracy, macro-F1, weighted-F1, balanced accuracy, and MCC.  Accuracy and weighted-F1 are treated as diagnostic context, not as primary IDS metrics.
-\paragraph{Score-based operation.}  For models that output scores, we report AUROC, AUPR, and Recall@FPR for $10^{-4}$, $5\times10^{-4}$, $10^{-3}$, $5\times10^{-3}$, and $10^{-2}$ false-positive budgets.  AUPR is reported because precision-recall behavior is more informative than ROC behavior under severe imbalance \cite{davis2006pr,saito2015pr}.
+\paragraph{Score-based operation.}  For score-producing models, we report AUROC, AUPR, and Recall@FPR at $10^{-4}$, $5\times10^{-4}$, $10^{-3}$, $5\times10^{-3}$, and $10^{-2}$.  AUPR is included because precision-recall behavior is more informative than ROC behavior under severe imbalance \cite{davis2006pr,saito2015pr}.
 \paragraph{Event-level evidence.}  When official attack intervals are unavailable, we construct transparent approximate event boundaries from contiguous positive segments within the same file/attack type and report the construction as a limitation.  We measure event recall, approximate detection delay, and false alarms per 100k samples or per hour when timestamps support it.
 
 \subsection{Evaluation Protocol}
@@ -148,9 +149,15 @@ Its core feature groups are:
 
 
 \paragraph{Algorithm 1: causal GRAIN-CAN extraction.}
-Given ordered frames $(t_i,id_i,dlc_i,b_{i,1:8})$, a training split, window size $k$, and a lightweight classifier: (1) emit raw DLC/payload bytes, payload sum/standard deviation, train-fit CAN-ID encodings, same-ID inter-arrival time $\Delta t^{id}_i$, same-ID payload change $\|b_i-b_{prev(id_i)}\|_1$, and causal ID-history summaries; (2) fit all corpus-level encoders, frequency tables, scalers, and rarity summaries on training frames only; (3) aggregate non-future window-$k$ groups by mean, standard deviation, minimum, maximum, and last value for timing, payload, and ID-behavior groups; (4) assign a window attack label if at least one frame in the window is attack-labelled, never using labels as features; and (5) train a score-producing classifier and report threshold-free AUPR/AUROC plus thresholded Recall@FPR.  The output is a feature-preserving representation plus a lightweight score-producing classifier; \method{} is not a new deep architecture.
+Given ordered CAN frames, a training split, a window size $k$, and a lightweight classifier:
+(1) emit DLC/payload bytes, payload statistics, train-fit CAN-ID encodings, same-ID inter-arrival time, same-ID payload change, and causal ID-history summaries;
+(2) fit all corpus-level encoders, frequency tables, scalers, and rarity summaries on training frames only;
+(3) aggregate non-future window-$k$ groups by mean, standard deviation, minimum, maximum, and last value for timing, payload, and ID-behavior groups;
+(4) assign a window attack label if at least one frame in the window is attack-labelled, never using labels as features; and
+(5) train a score-producing classifier and report threshold-free AUPR/AUROC plus thresholded Recall@FPR.
+The output is a feature-preserving representation plus a lightweight score-producing classifier; \method{} is not a new deep architecture.
 
-We instantiate \method{} with lightweight tree-based classifiers.  The point is not to introduce another deep architecture.  The point is to test whether preserving CAN-specific evidence gives a better corrected baseline than fixed deep windows.  The method outputs scores for low-FPR analysis, supports feature and granularity audits, and keeps the model simple enough that the result is not hidden behind architecture complexity.
+We instantiate \method{} with lightweight tree classifiers.  The point is not to introduce another deep architecture.  The point is to test whether preserving CAN-specific evidence gives a better corrected baseline than fixed deep windows.  The method outputs scores for low-FPR analysis, supports feature and granularity audits, and keeps the model simple enough that the result is not hidden behind architecture complexity.
 
 \subsection{Causality and Leakage Controls}
 The representation uses only train-derived encoders or statistics when a feature requires corpus-level information.  Same-ID deltas are computed online from prior occurrences of the same ID.  Window labels are derived from attack presence in the window, but feature values do not use labels.  We separately audit shortcut-prone fields such as absolute timestamp protocols and distinguish safe CAN-derived features from risky metadata-derived features.  This does not eliminate every external-validity risk, but it makes the corrected benchmark a test of attack evidence rather than a test of file or timestamp leakage.
@@ -289,7 +296,7 @@ Only ID & 0.0026 & 0.2555 & 0.0438 & 0.0550 \\
 The retraining rows point to same-ID timing as the dominant sample-level signal.  Removing $\Delta t_{sameID}$ collapses attack-F1, while the timing-only subset is strongest in this capped-negative study.  The three-seed summary shows the same pattern: timing-only reaches mean attack-F1 0.6013, while removing $\Delta t_{sameID}$ drops mean attack-F1 to 0.0085.  This matches the CAN setting: many attacks disturb periodicity, ID behavior, payload continuity, or short event structure.  A representation that averages these signals away will struggle even with an expressive classifier.
 
 \subsection{RQ5: What Happens Under Low-FPR and Event-Level Metrics?}
-Low-FPR metrics give a stricter view of deployment.  After adding validation-threshold evaluation, GRAIN window100 obtains AUPR 0.7868 on CT\&T test04.  A threshold selected on the validation split for an FPR budget of $5\times10^{-4}$ gives attack-F1 0.8639, attack recall 0.8053, and actual test FPR 0.000681.  The corresponding best-test Recall@FPR=$10^{-3}$ upper bound is 0.8053.  Safe-feature GradientBoosting improves over public-default sample protocols, but reaches only 0.3549 Recall@FPR=$10^{-3}$ and AUPR 0.2647.  The old window100 Transformer has high approximate event recall under its stored threshold, but weak AUPR and low-FPR recall, which points to poor score separation and false-positive pressure.  Best-test rows in Table~\ref{tab:lowfpr} are diagnostic score-separability evidence, not validation-tuned deployment thresholds.  Approximate event recall is built from labels, file continuity, and timestamps; it is not official event-boundary evidence.
+Low-FPR metrics give a stricter view of deployment.  With validation-threshold evaluation, GRAIN window100 reaches AUPR 0.7868 on CT\&T test04.  A threshold selected on the validation split for an FPR budget of $5\times10^{-4}$ gives attack-F1 0.8639, attack recall 0.8053, and actual test FPR 0.000681.  The corresponding best-test Recall@FPR=$10^{-3}$ upper bound is 0.8053.  Safe-feature GradientBoosting improves over public-default sample protocols, but reaches only 0.3549 Recall@FPR=$10^{-3}$ and AUPR 0.2647.  The old window100 Transformer has high approximate event recall under its stored threshold, but weak AUPR and low-FPR recall, which points to poor score separation and false-positive pressure.  Best-test rows in Table~\ref{tab:lowfpr} are diagnostic score-separability evidence, not validation-tuned deployment thresholds.  Approximate event recall is built from labels, file continuity, and timestamps; it is not official event-boundary evidence.
 
 \begin{table}[!htbp]
 \caption{Low-FPR and approximate event evidence on CT\&T test04.  Validation rows use thresholds selected on the train-derived validation split; best-test rows are upper-bound score-separability diagnostics.}

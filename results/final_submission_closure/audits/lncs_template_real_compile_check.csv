@@ -1,0 +1,14 @@
+item,status,detail
+official_llncs_cls,copied,results/final_submission_closure/template/llncs.cls
+official_splncs04_bst,copied,results/final_submission_closure/template/splncs04.bst
+official_samplepaper,copied,results/final_submission_closure/template/samplepaper.tex
+documentclass,pass,"\\documentclass[runningheads]{llncs}"
+keywords,pass,"uses \\keywords with \\and separators"
+credits_environment,pass,"acknowledgements/disclosure follow LNCS credits pattern"
+bibliography,pass,"inline thebibliography retained; splncs04.bst included for template completeness"
+official_compile,pass,"latexmk with supplied llncs.cls completed"
+official_pdf_pages,pass,15
+undefined_references,pass,0
+undefined_citations,pass,0
+official_overfull_boxes,pass,0
+citation_key_balance,pass,"29 cited keys and 29 bibitems in all maintained TeX sources"
