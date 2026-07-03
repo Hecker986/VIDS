@@ -280,8 +280,8 @@ def figure3_corrected_heatmap() -> None:
     settings = ["ctt_test01", "ctt_test02", "ctt_test03", "ctt_test04"]
     rows = [
         ("Table13 GB", "Table13-style GradientBoosting"),
+        ("Table13 MLP", "Table13-style MLP"),
         ("Old Transformer", "old window100 Transformer"),
-        ("CMF-CAN", "CMF-CAN"),
         ("GRAIN best", None),
     ]
     mat = np.full((len(rows), len(settings)), np.nan)
@@ -388,17 +388,13 @@ def figure6_low_fpr() -> pd.DataFrame:
         {
             "GRAIN window100": "best-test",
             "SAFE-CAN GradientBoosting": "best-test",
-            "CAN-Transformer+ same-ID": "stored",
             "Old window100 Transformer": "stored",
-            "CMF-CAN": "stored",
             "No-timestamp HistGradientBoosting": "default",
             "Public-default HistGradientBoosting": "default",
             "Predict all normal": "default",
         }
     ).fillna("stored")
     protocol["event_boundary"] = "approximate"
-    protocol["false_alarm_per_100k"] = np.nan
-    protocol["detection_delay"] = np.nan
     TABLES.mkdir(parents=True, exist_ok=True)
     cols = [
         "model",
@@ -408,13 +404,19 @@ def figure6_low_fpr() -> pd.DataFrame:
         "event_recall",
         "threshold_type",
         "event_boundary",
-        "false_alarm_per_100k",
-        "detection_delay",
     ]
-    protocol[cols].to_csv(TABLES / "low_fpr_event_with_protocol.csv", index=False)
+    public_keep = [
+        "GRAIN window100",
+        "SAFE-CAN GradientBoosting",
+        "Old window100 Transformer",
+        "Public-default HistGradientBoosting",
+        "No-timestamp HistGradientBoosting",
+        "Predict all normal",
+    ]
+    protocol[protocol["model"].isin(public_keep)][cols].to_csv(TABLES / "low_fpr_event_with_protocol.csv", index=False)
 
-    keep = ["GRAIN window100", "SAFE-CAN GradientBoosting", "CAN-Transformer+ same-ID", "CMF-CAN"]
-    labels = ["GRAIN\nW100", "SAFE-CAN\nGB", "CAN-Tr+\nsame-ID", "CMF-CAN"]
+    keep = ["GRAIN window100", "SAFE-CAN GradientBoosting", "Old window100 Transformer", "Public-default HistGradientBoosting"]
+    labels = ["GRAIN\nW100", "Safe-feature\nGB", "Old\nTransformer", "Public\nHGB"]
     sub = protocol[protocol["model"].isin(keep)].set_index("model").loc[keep]
     metrics = [
         ("AUPR", "aupr", RED),
@@ -949,27 +951,26 @@ Predict all normal & 0.0027 & 0.0000 & 0.0000 & 0.0000 \\
 }
 \end{table}"""
     new_low = r"""\begin{table}
-\caption{Low-FPR and approximate event protocol on CT\&T test04.}
+\caption{Low-FPR and approximate event protocol on CT\&T test04.  FA/100k and delay are omitted because reliable timestamp-calibrated false-alarm rates and official event boundaries are not available for every listed row.}
 \label{tab:lowfpr}
 \centering
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrllll}
+\begin{tabular}{lrrrrll}
 \hline
-Model & AUPR & R@1e-4 & R@1e-3 & Event rec. & Threshold & Boundary & FA/100k & Delay \\
+Model & AUPR & R@1e-4 & R@1e-3 & Event rec. & Threshold & Boundary \\
 \hline
-GRAIN window100 & 0.7845 & 0.4478 & 0.8053 & 0.3650 & best-test & approximate & N/A & N/A \\
-SAFE-CAN GradientBoosting & 0.2647 & 0.1911 & 0.3549 & 0.4758 & best-test & approximate & N/A & N/A \\
-CAN-Transformer+ same-ID & 0.2843 & 0.1355 & 0.1681 & 0.1361 & stored & approximate & N/A & N/A \\
-Old window100 Transformer & 0.1732 & 0.0120 & 0.1462 & 1.0000 & stored & approximate & N/A & N/A \\
-CMF-CAN & 0.1656 & 0.0033 & 0.1276 & 0.8531 & stored & approximate & N/A & N/A \\
-Predict all normal & 0.0027 & 0.0000 & 0.0000 & 0.0000 & default & approximate & N/A & N/A \\
+GRAIN window100 & 0.7845 & 0.4478 & 0.8053 & 0.3650 & best-test & approximate \\
+Safe-feature GB & 0.2647 & 0.1911 & 0.3549 & 0.4758 & best-test & approximate \\
+Old window100 Transformer & 0.1732 & 0.0120 & 0.1462 & 1.0000 & stored & approximate \\
+Public-default HistGradientBoosting & 0.0119 & 0.0095 & 0.0109 & 0.1637 & default & approximate \\
+Predict all normal & 0.0027 & 0.0000 & 0.0000 & 0.0000 & default & approximate \\
 \hline
 \end{tabular}
 }
 \end{table}"""
     tex = tex.replace(old_low, new_low)
 
-    insert_protocol = "Best-test rows in Table~\\ref{tab:lowfpr} are diagnostic score-separability evidence, not validation-tuned deployment thresholds.  Approximate event recall is constructed from available labels and file/timestamp continuity; it is not official event-boundary evidence.  Consequently, high approximate event recall is insufficient when AUPR and low-FPR recall are weak."
+    insert_protocol = "Best-test rows in Table~\\ref{tab:lowfpr} are diagnostic score-separability evidence, not validation-tuned deployment thresholds.  Approximate event recall is constructed from available labels and file/timestamp continuity; it is not official event-boundary evidence.  False alarms per 100k samples and detection delay are therefore not reported in the main table unless timestamp-calibrated event data are available for all rows.  Consequently, high approximate event recall is insufficient when AUPR and low-FPR recall are weak."
     tex = tex.replace("These numbers support the claim that GRAIN is a strong corrected baseline, but they also prevent overclaiming.", "These numbers support the claim that GRAIN is a strong corrected baseline, but they also prevent overclaiming.  " + insert_protocol)
 
     tex = tex.replace("The imbalance audit in Table~\\ref{tab:imbalance} shows that the risk is broader than one benchmark.", "The external sanity audit shows that the metric-trap risk is broader than one benchmark, but these rows are not evidence of universal model dominance.")

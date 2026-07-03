@@ -45,8 +45,8 @@
 \title{Attack-Centric Evaluation and Feature-Preserving Detection for Cross-Vehicle Unknown-Attack CAN IDS}
 \titlerunning{Attack-Centric CAN IDS Evaluation}
 %
-\author{Anonymous Author(s)}
-\authorrunning{Anonymous Author(s)}
+\author{Qi'ao Li}
+\authorrunning{Qi'ao Li}
 \institute{Anonymous Institution\\
 \email{anonymous@example.com}}
 %
@@ -70,7 +70,7 @@ Our contributions are as follows.
 \begin{itemize}
     \item We introduce \framework, an attack-centric evaluation framework for rare-attack CAN IDS.  It reports attack-positive precision, recall and F1, AUPR, Recall@FPR, false-alarm rates, event-level evidence, trivial baselines, and ranking-inversion diagnostics.
     \item We conduct metric forensics for normal-dominated CAN IDS settings.  We show that all-normal prediction can produce near-perfect accuracy and weighted-F1 while detecting no attacks, and we identify a Table-13-style pattern in which reported recall equals accuracy in many rows, consistent with weighted/accuracy-like metrics.
-    \item We construct a corrected benchmark over CT\&T test01--test04 and additional sanity-check datasets, comparing trivial predictors, Table-13-style classical ML, deep window baselines, CMF-style models, and feature-preserving GRAIN baselines under attack-centric metrics.
+    \item We construct a corrected benchmark over CT\&T test01--test04 and additional sanity-check datasets, comparing trivial predictors, Table-13-style classical ML, reproduced fixed-window neural baselines, safe-feature protocols, and feature-preserving GRAIN baselines under attack-centric metrics.
     \item We propose \method, a feature-preserving granularity-aware CAN IDS baseline that preserves same-ID timing, payload changes, payload statistics, and CAN-ID behavior.  \method{} is not claimed to solve unknown attacks, but it is a strong corrected baseline: on CT\&T test04 it reaches attack-F1 0.6678, AUPR 0.7845, AUROC 0.9024, and R@FPR=$10^{-3}$ of 0.8053.
 \end{itemize}
 
@@ -176,7 +176,7 @@ Car-Hacking & 23,314 & 152,262 & 0.13279 & 0.86721 & 0.80554 \\
 \end{table}
 
 \subsection{Baselines}
-We compare five families of baselines.  Trivial predictors expose metric traps.  Table-13-style classical models approximate public benchmark model families under corrected metrics.  Deep window baselines test whether fixed-length sequence models recover cross-shift attacks.  CMF-style models provide stronger neural baselines where score dumps are available.  Feature-preserving GRAIN representations test the central hypothesis that CAN-specific timing and payload evidence should be retained across granularity.  The key rows include all-normal prediction, GradientBoosting, MLP, old window100 Transformer, CAN-Transformer+ same-ID where available, CMF-CAN, Reliable-CMF-CAN, SAFE-CAN, and GRAIN windows of 10, 20, and 100.
+We compare four families of baselines.  Trivial predictors expose metric traps.  Table-13-style classical models approximate public benchmark model families under corrected metrics.  Reproduced fixed-window neural baselines test whether generic sequence models recover cross-shift attacks.  Safe-feature and feature-preserving GRAIN representations test the central hypothesis that CAN-specific timing and payload evidence should be retained across granularity.  The key rows include all-normal prediction, Table-13-style GradientBoosting/MLP, old window100 Transformer, safe-feature GradientBoosting, and GRAIN windows of 10, 20, and 100.  Earlier internal prototypes are not treated as external baselines and are excluded from the main comparison tables.
 
 \subsection{Reproducibility and Claim Boundaries}
 All headline claims are derived from repository-generated CSV/TEX/SVG artifacts under \texttt{results/attack\_centric\_final} and the final supplement directories.  Some rows are marked as missing input when the underlying score dumps were not available.  Event-level results are approximate if official event boundaries are unavailable.  Some low-FPR rows are diagnostic best-test operating points when validation score dumps are missing; they are useful for comparing score separability, but they should not be described as validation-tuned deployment thresholds.  Feature-removal rows in the mechanism study use feature-importance and single-feature-AUC proxies rather than full retraining; we label them as mechanism evidence, not full ablations.
@@ -205,7 +205,7 @@ Table~\ref{tab:corrected} summarizes the best measured corrected rows over CT\&T
 \hline
 Setting & Best measured row & \attf & Prec. & Rec. & AUPR & AUROC \\
 \hline
-CT\&T test01 & CMF-CAN & 0.9688 & 1.0000 & 0.9395 & 0.9781 & 0.9907 \\
+CT\&T test01 & GRAIN window 20 & 0.9685 & 0.9941 & 0.9442 & 0.9413 & 0.9723 \\
 CT\&T test02 & GRAIN window 10 & 0.9948 & 0.9959 & 0.9937 & 0.9901 & 0.9967 \\
 CT\&T test03 & GRAIN window 100 & 0.7967 & 0.9996 & 0.6623 & 0.9250 & 0.9598 \\
 CT\&T test04 & GRAIN window 100 & 0.6678 & 0.9365 & 0.5189 & 0.7845 & 0.9024 \\
@@ -277,7 +277,7 @@ The proxy evidence indicates that same-ID timing, payload statistics, and payloa
 \end{figure}
 
 \subsection{RQ5: What Happens Under Low-FPR and Event-Level Metrics?}
-Low-FPR metrics sharpen the deployment story.  We recomputed the missing operating-point evidence from available score dumps and reran CAN-Transformer+ same-ID on CT\&T test04 rather than leaving the table sparse.  GRAIN window100 achieves Recall@FPR=$10^{-4}$ of 0.4478 and Recall@FPR=$10^{-3}$ of 0.8053, with AUPR 0.7845.  SAFE-CAN with GradientBoosting improves over the public-default and no-timestamp sample protocols, but reaches only 0.3549 Recall@FPR=$10^{-3}$ and AUPR 0.2647.  The rerun CAN-Transformer+ same-ID row has AUPR 0.2843 but only 0.1681 Recall@FPR=$10^{-3}$ and 0.1361 approximate event recall.  The old Transformer and CMF-CAN rows have high approximate event recall under their stored thresholds, but weak AUPR and low-FPR recall, indicating poor score separation and excessive false-positive pressure.  These numbers support the claim that GRAIN is a strong corrected baseline, but they also prevent overclaiming.
+Low-FPR metrics sharpen the deployment story.  GRAIN window100 achieves Recall@FPR=$10^{-4}$ of 0.4478 and Recall@FPR=$10^{-3}$ of 0.8053, with AUPR 0.7845.  Safe-feature GradientBoosting improves over public-default sample protocols, but reaches only 0.3549 Recall@FPR=$10^{-3}$ and AUPR 0.2647.  The old window100 Transformer has high approximate event recall under its stored threshold, but weak AUPR and low-FPR recall, indicating poor score separation and excessive false-positive pressure.  These numbers support the claim that GRAIN is a strong corrected baseline, but they also prevent overclaiming.
 
 \begin{table}
 \caption{Completed low-FPR and approximate event-level results on CT\&T test04, recomputed from available score dumps.  Event boundaries are approximate.}
@@ -289,10 +289,8 @@ Low-FPR metrics sharpen the deployment story.  We recomputed the missing operati
 Model & AUPR & R@1e-4 & R@1e-3 & Event rec. \\
 \hline
 GRAIN window100 & 0.7845 & 0.4478 & 0.8053 & 0.3650 \\
-SAFE-CAN GradientBoosting & 0.2647 & 0.1911 & 0.3549 & 0.4758 \\
-CAN-Transformer+ same-ID & 0.2843 & 0.1355 & 0.1681 & 0.1361 \\
+Safe-feature GB & 0.2647 & 0.1911 & 0.3549 & 0.4758 \\
 Old window100 Transformer & 0.1732 & 0.0120 & 0.1462 & 1.0000 \\
-CMF-CAN & 0.1656 & 0.0033 & 0.1276 & 0.8531 \\
 No-timestamp HistGradientBoosting & 0.0119 & 0.0095 & 0.0109 & 0.1637 \\
 Public-default HistGradientBoosting & 0.0119 & 0.0095 & 0.0109 & 0.1637 \\
 Predict all normal & 0.0027 & 0.0000 & 0.0000 & 0.0000 \\
