@@ -1,15 +1,6 @@
-% This paper follows the LLNCS template provided by the user.
-% Before final submission, replace author placeholders and convert SVG figures to PDF/EPS if needed.
-\pdfminorversion=7
-\input{glyphtounicode}
-\pdfgentounicode=1
-\IfFileExists{llncs.cls}{%
-  \documentclass[runningheads]{llncs}%
-  \newif\ifllncsfallback\llncsfallbackfalse
-}{%
-  \documentclass{article}%
-  \newif\ifllncsfallback\llncsfallbacktrue
-}
+% Strict LLNCS submission source generated from the locally compiled manuscript.
+% Requires llncs.cls from the official template.
+\documentclass[runningheads]{llncs}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{textcomp}
@@ -23,16 +14,6 @@
 \usepackage{xcolor}
 \usepackage{booktabs}
 
-\ifllncsfallback
-  \newcommand{\titlerunning}[1]{}
-  \newcommand{\authorrunning}[1]{}
-  \newcommand{\institute}[1]{}
-  \newcommand{\email}[1]{\texttt{#1}}
-  \newcommand{\keywords}[1]{\par\noindent\textbf{Keywords: }#1}
-  \newenvironment{credits}{}{}
-  \newcommand{\ackname}{Acknowledgements}
-  \newcommand{\discintname}{Disclosure of Interests}
-\fi
 
 \newcommand{\safeincludegraphics}[2]{%
   \IfFileExists{#1}{\centering\includegraphics[width=0.88\textwidth]{#1}}{%

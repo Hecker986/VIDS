@@ -1,0 +1,11 @@
+gap,status,evidence_file,can_be_filled_locally,manuscript_position
+"Original author confusion matrix / exact code","external_blocker_documented","results/final_evidence_completion/author_code_confusion_matrix_search.md",false,"Limitation and metric ambiguity wording"
+"can-train-and-test-v1.5 exact alignment","external_blocker_documented","results/final_evidence_completion/v15_dataset_alignment.md",false,"Avoids exact v1.5 reproduction claim"
+"Official event boundaries","external_blocker_documented","results/final_evidence_completion/official_event_boundary_audit.md",false,"Approximate event-boundary limitation"
+"More external corrected benchmark rows","completed","results/final_evidence_completion/tables/external_full_corrected_benchmark.csv",true,"External sanity only"
+"Feature-removal retraining","completed","results/final_evidence_completion/tables/grain_multiseed_feature_removal.csv",true,"GRAIN mechanism evidence"
+"Large-negative heavy-model protocols","completed","results/final_evidence_completion/tables/large_negative_heavy_model_completion.csv",true,"Negative-sampling robustness discussion"
+"Chunked-negative ensemble probe","completed","results/final_evidence_completion/tables/chunked_negative_ensemble.csv",true,"Negative-sampling robustness discussion"
+"Formal validation-threshold low-FPR","completed","results/final_evidence_completion/tables/formal_validation_low_fpr.csv",true,"Low-FPR table and text"
+"Internal prototype removal from manuscript","completed","PDF text scan and manuscript baseline section",true,"Main comparisons exclude internal prototypes"
+"LNCS template alignment","completed_with_local_compile_note","results/final_submission_closure/template/attack_centric_can_ids_paper_lncs_submission.tex",true,"Strict source provided"
