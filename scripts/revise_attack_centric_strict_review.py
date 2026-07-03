@@ -4,6 +4,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 import numpy as np
 import pandas as pd
 
@@ -54,6 +55,166 @@ def open_axis(ax) -> None:
     ax.spines["left"].set_color("#333333")
     ax.spines["bottom"].set_color("#333333")
     ax.tick_params(axis="both", length=0, labelsize=8.5)
+
+
+def draw_box(ax, xy, wh, title, lines, edge, face, title_color=None, fontsize=7.55) -> None:
+    x, y = xy
+    w, h = wh
+    patch = FancyBboxPatch(
+        (x, y),
+        w,
+        h,
+        boxstyle="round,pad=0.016,rounding_size=0.018",
+        linewidth=1.05,
+        edgecolor=edge,
+        facecolor=face,
+        transform=ax.transAxes,
+    )
+    ax.add_patch(patch)
+    ax.text(
+        x + 0.018,
+        y + h - 0.04,
+        title,
+        transform=ax.transAxes,
+        fontsize=fontsize + 0.6,
+        fontweight="bold",
+        color=title_color or edge,
+        va="top",
+    )
+    ax.text(
+        x + 0.018,
+        y + h - 0.102,
+        "\n".join(lines),
+        transform=ax.transAxes,
+        fontsize=fontsize,
+        color="#222222",
+        va="top",
+        linespacing=1.02,
+    )
+
+
+def arrow(ax, start, end, color) -> None:
+    ax.add_patch(
+        FancyArrowPatch(
+            start,
+            end,
+            transform=ax.transAxes,
+            arrowstyle="-|>",
+            mutation_scale=12,
+            linewidth=1.15,
+            color=color,
+            shrinkA=2,
+            shrinkB=2,
+        )
+    )
+
+
+def figure1_pipeline_fixed() -> None:
+    fig, ax = plt.subplots(figsize=(7.35, 3.55))
+    ax.set_axis_off()
+    ax.text(
+        0.03,
+        0.96,
+        "ACE-CAN attack-centric CAN IDS pipeline",
+        transform=ax.transAxes,
+        fontsize=12.2,
+        fontweight="bold",
+        va="top",
+        color="#222222",
+    )
+    ax.text(
+        0.03,
+        0.905,
+        "Repair the objective first, then test feature-preserving detection.",
+        transform=ax.transAxes,
+        fontsize=8.6,
+        color="#555555",
+        va="top",
+    )
+
+    headers = [("Input conditions", BLUE), ("Branch operation", GREY), ("Evidence outputs", GREY)]
+    for x, (label, color) in zip([0.055, 0.38, 0.70], headers):
+        ax.text(x + 0.105, 0.80, label, transform=ax.transAxes, fontsize=9.0, color=color, fontweight="bold", ha="center")
+        ax.plot([x + 0.02, x + 0.245], [0.775, 0.775], transform=ax.transAxes, color=color, linewidth=1.05)
+
+    draw_box(
+        ax,
+        (0.035, 0.49),
+        (0.26, 0.22),
+        "I1  Rare traces",
+        ["CAN ID, DLC, payload", "timestamp, source", "attack rate < 1%"],
+        BLUE,
+        "#EEF5FC",
+    )
+    draw_box(
+        ax,
+        (0.365, 0.49),
+        (0.26, 0.22),
+        "E1  Metric audit",
+        ["all-normal check", "weighted-score ambiguity", "ranking inversion"],
+        RED,
+        "#FDEEEF",
+        title_color=RED,
+    )
+    draw_box(
+        ax,
+        (0.695, 0.49),
+        (0.26, 0.22),
+        "E2  Corrected eval",
+        ["attack P/R/F1", "AUPR, R@FPR", "event recall"],
+        RED,
+        "#FDEEEF",
+        title_color=RED,
+    )
+    draw_box(
+        ax,
+        (0.035, 0.17),
+        (0.26, 0.22),
+        "I2  Cross-shift",
+        ["unknown vehicle", "unknown attack family", "normal traffic dominates"],
+        BLUE,
+        "#EEF5FC",
+    )
+    draw_box(
+        ax,
+        (0.365, 0.17),
+        (0.26, 0.22),
+        "D1  GRAIN-CAN",
+        ["same-ID timing", "payload dynamics", "ID behavior"],
+        GREEN,
+        "#EEF8F4",
+        title_color=GREEN,
+    )
+    draw_box(
+        ax,
+        (0.695, 0.17),
+        (0.26, 0.22),
+        "D2  Claim boundary",
+        ["strong baseline", "low-FPR evidence", "not solved"],
+        GREEN,
+        "#EEF8F4",
+        title_color=GREEN,
+    )
+
+    arrow(ax, (0.295, 0.60), (0.365, 0.60), RED)
+    arrow(ax, (0.625, 0.60), (0.695, 0.60), RED)
+    arrow(ax, (0.295, 0.28), (0.365, 0.28), GREEN)
+    arrow(ax, (0.625, 0.28), (0.695, 0.28), GREEN)
+
+    metric = FancyBboxPatch((0.095, 0.030), 0.21, 0.080, boxstyle="round,pad=0.012,rounding_size=0.014",
+                            linewidth=0.95, edgecolor=ORANGE, facecolor="#FFF7E6", transform=ax.transAxes)
+    ax.add_patch(metric)
+    ax.text(0.20, 0.070, "metric trap:\nhigh score, zero recall", transform=ax.transAxes, ha="center", va="center", fontsize=7.0, color=ORANGE, fontweight="bold", linespacing=0.95)
+    for i, label in enumerate(["Attack-F1", "AUPR", "R@FPR", "Event"]):
+        x = 0.52 + i * 0.085
+        pill = FancyBboxPatch((x, 0.063), 0.073, 0.040, boxstyle="round,pad=0.012,rounding_size=0.018",
+                              linewidth=0.9, edgecolor=RED, facecolor="white", transform=ax.transAxes)
+        ax.add_patch(pill)
+        ax.text(x + 0.0365, 0.083, label, transform=ax.transAxes, ha="center", va="center", fontsize=7.1, color=RED, fontweight="bold")
+    ax.plot([0.06, 0.94], [0.005, 0.005], transform=ax.transAxes, color="#CCCCCC", linewidth=0.8)
+    ax.text(0.50, -0.034, "Output: corrected benchmark + deployment evidence + reproducible reporting checklist",
+            transform=ax.transAxes, ha="center", fontsize=8.2, fontweight="bold", color="#222222")
+    save(fig, "figure1_attack_centric_pipeline_fixed")
 
 
 def figure2_table13_forensics() -> None:
@@ -388,13 +549,15 @@ def write_reports(low_protocol: pd.DataFrame, grain_mech: pd.DataFrame) -> None:
 
 - Preserved LNCS-style `\\keywords{... \\and ...}`.
 - Added safer PDF text extraction support with `glyphtounicode`, `\\pdfgentounicode=1`, UTF-8 input, T1/text companion encoding, and Latin Modern fonts.
-- Changed acknowledgements and disclosure headings to starred headings inside `credits`, avoiding numbered 9.0.1/9.0.2 sections.
+- Kept the LNCS sample-paper structure: table captions above tables, figure captions below figures, `\\keywords{... \\and ...}` inside the abstract, and `\\ackname`/`\\discintname` inside `credits`.
+- Added conservative float placement, compact float spacing, and top-aligned float pages to reduce large blank gaps without changing the research content.
 - Shortened figure captions and kept detailed protocol caveats in body text.
 - Replaced over-wide result displays with resized or compact tables.
 - Kept bibliography in one `thebibliography` block and added recent related-work entries consistently.
 """,
         "figure_revision_report.md": """# Figure revision report
 
+- Figure 1 is redrawn so all text fits inside boxes.
 - Figure 2 is now a three-panel Table-13 forensic figure: equality count/ratio, metric-hypothesis distribution, and all-normal metric contrast.
 - Figure 3 remains a corrected benchmark heatmap, but labels now define T01--T04 as KV-KA, UV-KA, KV-UA, and UV-UA; missing values are not plotted as zeros.
 - Figure 4 is a rank scatter with weighted-F1 rank on x and attack-F1 rank on y, highlighting all-normal and GRAIN.
@@ -440,6 +603,7 @@ Rows written: {len(low_protocol)}
         "related_work_revision.md": """# Related work revision
 
 - Added recent masquerade/stealthy CAN IDS positioning including MIDS/Bidirectional Mamba as related work, not as a baseline.
+- Added 2024--2025 survey/benchmarking references covering learning-based IVN IDS, CAN IDS benchmarking frameworks, ROAD comparative analysis, and CAN authentication protocols.
 - Expanded benchmark and dataset discussion around ROAD, CT&T, CrySyS, and dataset-audit work.
 - Added imbalanced-evaluation references around precision-recall and MCC.
 - Clarified that physical-layer IDS and cryptographic defenses are complementary to trace-based IDS evaluation.
@@ -477,10 +641,26 @@ def revise_tex() -> None:
         "\\usepackage[T1]{fontenc}\n\\usepackage[utf8]{inputenc}\n\\usepackage{textcomp}\n\\usepackage{lmodern}\n",
     )
     tex = tex.replace("\\newenvironment{credits}{}{}", "\\newenvironment{credits}{}{}")
+    tex = tex.replace(
+        "\\newenvironment{credits}{}{}\n",
+        "\\newenvironment{credits}{}{}\n  \\newcommand{\\ackname}{Acknowledgements}\n  \\newcommand{\\discintname}{Disclosure of Interests}\n",
+    )
+    tex = tex.replace(
+        "\\begin{document}",
+        "\\setlength{\\textfloatsep}{8pt plus 2pt minus 2pt}\n"
+        "\\setlength{\\floatsep}{8pt plus 2pt minus 2pt}\n"
+        "\\setlength{\\intextsep}{8pt plus 2pt minus 2pt}\n"
+        "\\makeatletter\n"
+        "\\setlength{\\@fptop}{0pt}\n"
+        "\\setlength{\\@fpsep}{8pt plus 2pt minus 2pt}\n"
+        "\\setlength{\\@fpbot}{0pt plus 1fil}\n"
+        "\\makeatother\n"
+        "\\raggedbottom\n\\begin{document}",
+    )
 
     tex = tex.replace(
         "Physical-layer methods fingerprint transmitters using clock skew, voltage characteristics, or signal-level artifacts, and can provide source attribution when the required hardware access is available \\cite{cho2016fingerprinting,cho2017viden}.  Timing and statistical methods exploit CAN periodicity, inter-arrival regularity, ID frequencies, and payload changes \\cite{song2016intrusion,tyree2018shape}.  Deep-learning methods use recurrent networks, transformers, graph learning, or language-model analogies to learn temporal or structural patterns from frame streams \\cite{taylor2016frequency,kang2016survival,alkhatib2022canbert,wang2023statgraph}.  Public datasets and benchmark studies, including ROAD, CT\\&T, CrySyS, and dataset-audit work, have made cross-study comparison more feasible while also exposing protocol mismatch and generalization difficulty \\cite{verma2020road,lampe2024ctt,gazdag2023crysys,kidmose2025cansleuth}.",
-        "Physical-layer methods fingerprint transmitters using clock skew, voltage characteristics, or signal-level artifacts, and can provide source attribution when the required hardware access is available \\cite{cho2016fingerprinting,cho2017viden}.  Cryptographic and authenticated-communication defenses are complementary: they can prevent or authenticate messages, whereas this paper studies how to evaluate trace-based IDS behavior when such protections are absent or incomplete \\cite{lu2019leap,lotto2024survey}.  Timing and statistical methods exploit CAN periodicity, inter-arrival regularity, ID frequencies, and payload changes \\cite{song2016intrusion,tyree2018shape}.\n\nDeep-learning IDS work uses recurrent networks, transformers, graph learning, language-model analogies, and recently state-space models to learn temporal or structural patterns from frame streams \\cite{taylor2016frequency,kang2016survival,alkhatib2022canbert,wang2023statgraph,liu2026mids}.  MIDS, for example, targets stealthy masquerade and tampering attacks with bidirectional Mamba-style sequence modelling.  We cite such systems as related work and positioning, not as direct baselines, because our repository does not contain a reproduced MIDS row under the exact CT\\&T protocol.\n\nPublic datasets and benchmark studies, including ROAD, CT\\&T, CrySyS, and dataset-audit work, have made cross-study comparison more feasible while also exposing protocol mismatch and generalization difficulty \\cite{verma2020road,lampe2024ctt,gazdag2023crysys,kidmose2025cansleuth,guerra2024road}.  Imbalanced-evaluation work further motivates precision-recall analysis, MCC, and explicit positive-class reporting when the positive class is rare \\cite{davis2006pr,saito2015pr,chicco2020mcc}.",
+        "Physical-layer methods fingerprint transmitters using clock skew, voltage characteristics, or signal-level artifacts, and can provide source attribution when the required hardware access is available \\cite{cho2016fingerprinting,cho2017viden}.  Cryptographic and authenticated-communication defenses are complementary: they can prevent or authenticate messages, whereas this paper studies how to evaluate trace-based IDS behavior when such protections are absent or incomplete \\cite{lu2019leap,lotto2024survey}.  Timing and statistical methods exploit CAN periodicity, inter-arrival regularity, ID frequencies, and payload changes \\cite{song2016intrusion,tyree2018shape}.\n\nDeep-learning IDS work uses recurrent networks, transformers, graph learning, language-model analogies, and recently state-space models to learn temporal or structural patterns from frame streams \\cite{taylor2016frequency,kang2016survival,alkhatib2022canbert,wang2023statgraph,majumder2024uavcan,liu2026mids}.  MIDS, for example, targets stealthy masquerade and tampering attacks with bidirectional Mamba-style sequence modelling.  We cite such systems as related work and positioning, not as direct baselines, because our repository does not contain a reproduced MIDS row under the exact CT\\&T protocol.  Recent surveys and benchmarking studies likewise emphasize that in-vehicle IDS evaluation must account for attack type, workload construction, protocol assumptions, and metric choice \\cite{althunayyan2025survey,sharmin2024benchmarking,guerra2024road}.\n\nPublic datasets and benchmark studies, including ROAD, CT\\&T, CrySyS, and dataset-audit work, have made cross-study comparison more feasible while also exposing protocol mismatch and generalization difficulty \\cite{verma2020road,lampe2024ctt,gazdag2023crysys,kidmose2025cansleuth,guerra2024road}.  Imbalanced-evaluation work further motivates precision-recall analysis, MCC, and explicit positive-class reporting when the positive class is rare \\cite{davis2006pr,saito2015pr,chicco2020mcc}.",
     )
 
     algorithm = r"""
@@ -506,6 +686,7 @@ def revise_tex() -> None:
     tex = tex.replace("We instantiate \\method{} with lightweight tree-based classifiers", algorithm + "\nWe instantiate \\method{} with lightweight tree-based classifiers")
 
     fig_repls = {
+        "results/attack_centric_final/figures/paper_fig9_attack_centric_pipeline.pdf": "results/paper_revision_strict_review/figures/figure1_attack_centric_pipeline_fixed.pdf",
         "results/attack_centric_final/figures/paper_fig3_table13_case_study.pdf": "results/paper_revision_strict_review/figures/figure2_table13_metric_forensics.pdf",
         "results/final_paper_supplement/figures/main_ctt_corrected_benchmark.pdf": "results/paper_revision_strict_review/figures/figure3_corrected_benchmark_heatmap.pdf",
         "results/final_paper_supplement/figures/main_ranking_inversion.pdf": "results/paper_revision_strict_review/figures/figure4_ranking_inversion_scatter.pdf",
@@ -516,6 +697,10 @@ def revise_tex() -> None:
     for old, new in fig_repls.items():
         tex = tex.replace(old, new)
 
+    tex = tex.replace(
+        "\\caption{\\framework{} pipeline.  Conventional aggregate scores are treated as context; attack-centric, low-FPR, and event-level metrics determine IDS utility.}",
+        "\\caption{Attack-centric evaluation and feature-preserving detection pipeline.}",
+    )
     tex = tex.replace(
         "\\caption{CT\\&T Table 13 metric-forensics case study.  The equality pattern is consistent with weighted/accuracy-like reporting in many rows, but exact original metric settings cannot be proven without confusion matrices.}",
         "\\caption{Table-13 metric forensics.}",
@@ -631,6 +816,86 @@ Only ID & 0.0026 & 0.2555 & 0.0438 & 0.0550 \\
         "The proxy evidence indicates that same-ID timing, payload statistics, and payload-preserving features carry the main signal.",
         "The retraining evidence indicates that same-ID timing carries the dominant sample-level signal: removing $\\Delta t_{sameID}$ collapses attack-F1, while the timing-only subset is strongest in this capped-negative retraining study.",
     )
+    tex = tex.replace(
+        r"""\begin{table}
+\caption{Comparable GRAIN-CAN granularity results on CT\&T test04.  Only metrics available for every listed representation are shown.}
+\label{tab:grain}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrr}
+\hline
+Representation & \attf & AUPR \\
+\hline
+Sample-level & 0.3884 & 0.2422 \\
+GRAIN window 10 & 0.6001 & 0.6185 \\
+GRAIN window 20 & 0.6416 & 0.7228 \\
+GRAIN window 100 aggregate & 0.6678 & 0.7845 \\
+Old window100 Transformer & 0.0224 & 0.1733 \\
+\hline
+\end{tabular}
+}
+\end{table}""",
+        r"""\begin{table}[tbp]
+\caption{Comparable GRAIN-CAN granularity results on CT\&T test04.}
+\label{tab:grain}
+\centering
+\small
+\begin{tabular*}{0.92\textwidth}{@{\extracolsep{\fill}}lrr@{}}
+\hline
+Representation & \attf & AUPR \\
+\hline
+Sample-level & 0.3884 & 0.2422 \\
+GRAIN W10 & 0.6001 & 0.6185 \\
+GRAIN W20 & 0.6416 & 0.7228 \\
+GRAIN W100 aggregate & 0.6678 & 0.7845 \\
+Old W100 Transformer & 0.0224 & 0.1733 \\
+\hline
+\end{tabular*}
+\end{table}""",
+    )
+    tex = tex.replace(
+        r"""\begin{table}
+\caption{Feature-removal retraining evidence on CT\&T test04.  Training uses capped negatives and all positives; evaluation uses the full test04 stream.}
+\label{tab:mechanism}
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrr}
+\hline
+Variant & \attf & \ratt & AUPR & R@1e-3 \\
+\hline
+Full safe CAN & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+Without $\Delta t_{sameID}$ & 0.0094 & 0.2486 & 0.0570 & 0.0668 \\
+Without payload delta & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+Without payload statistics & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+Without CAN ID & 0.4797 & 0.3550 & 0.2649 & 0.3550 \\
+Only timing & 0.5998 & 0.4909 & 0.4246 & 0.4909 \\
+Only payload & 0.0016 & 0.0913 & 0.0135 & 0.0260 \\
+Only ID & 0.0026 & 0.2555 & 0.0438 & 0.0550 \\
+\hline
+\end{tabular}
+}
+\end{table}""",
+        r"""\begin{table}[tbp]
+\caption{Feature-removal retraining evidence on CT\&T test04.}
+\label{tab:mechanism}
+\centering
+\small
+\begin{tabular*}{0.98\textwidth}{@{\extracolsep{\fill}}lrrrr@{}}
+\hline
+Variant & \attf & \ratt & AUPR & R@1e-3 \\
+\hline
+Full safe CAN & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+w/o $\Delta t_{sameID}$ & 0.0094 & 0.2486 & 0.0570 & 0.0668 \\
+w/o payload delta & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+w/o payload stats & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+w/o CAN ID & 0.4797 & 0.3550 & 0.2649 & 0.3550 \\
+Only timing & 0.5998 & 0.4909 & 0.4246 & 0.4909 \\
+Only payload & 0.0016 & 0.0913 & 0.0135 & 0.0260 \\
+Only ID & 0.0026 & 0.2555 & 0.0438 & 0.0550 \\
+\hline
+\end{tabular*}
+\end{table}""",
+    )
 
     old_low = r"""\begin{table}
 \caption{Completed low-FPR and approximate event-level results on CT\&T test04, recomputed from available score dumps.  Event boundaries are approximate.}
@@ -680,8 +945,10 @@ Predict all normal & 0.0027 & 0.0000 & 0.0000 & 0.0000 & default & approximate &
     tex = tex.replace("The imbalance audit in Table~\\ref{tab:imbalance} shows that the risk is broader than one benchmark.", "The external sanity audit shows that the metric-trap risk is broader than one benchmark, but these rows are not evidence of universal model dominance.")
     tex = tex.replace("The severity changes with the positive rate, but the reporting rule should not", "The severity changes with the positive rate; CT\\&T test04 remains the central cross-vehicle unknown-attack case study, and the external rows are only sanity checks.  The reporting rule should not")
 
-    tex = tex.replace("\\subsubsection{Acknowledgements}", "\\subsubsection*{Acknowledgements}")
-    tex = tex.replace("\\subsubsection{Disclosure of Interests}", "\\subsubsection*{Disclosure of Interests}")
+    tex = tex.replace("\\subsubsection{Acknowledgements}", "\\subsubsection{\\ackname}")
+    tex = tex.replace("\\subsubsection{Disclosure of Interests}", "\\subsubsection{\\discintname}")
+    tex = tex.replace("\\subsubsection*{Acknowledgements}", "\\subsubsection{\\ackname}")
+    tex = tex.replace("\\subsubsection*{Disclosure of Interests}", "\\subsubsection{\\discintname}")
     tex = tex.replace("not full mechanisms", "not full retraining experiments")
     tex = tex.replace(
         "\\paragraph{Mechanism evidence.}  Some feature-removal rows are based on feature importance or single-feature AUC rather than full retraining.  We use them to explain mechanism, not as standalone feature-removal proof.",
@@ -701,8 +968,21 @@ Lu, Z., Wang, Q., Chen, X., Qu, G., Lyu, Y., Liu, Z.: LEAP: A lightweight encryp
 
 \bibitem{lotto2024survey}
 Lotto, A., Marchiori, F., Brighente, A., Conti, M.: A survey and comparative analysis of security properties of CAN authentication protocols. arXiv:2401.10736 (2024)
+
+\bibitem{althunayyan2025survey}
+Althunayyan, M., Javed, A., Rana, O.: A survey of learning-based intrusion detection systems for in-vehicle network. arXiv:2505.11551 (2025)
+
+\bibitem{sharmin2024benchmarking}
+Sharmin, S., Mansor, H., Abdul Kadir, A.F., Aziz, N.A.: Benchmarking frameworks and comparative studies of controller area network intrusion detection systems: a review. arXiv:2402.06904 (2024)
+
+\bibitem{majumder2024uavcan}
+Majumder, R., Comert, G., Werth, D., Gale, A., Chowdhury, M., Salek, M.S.: Graph-powered defense: Controller area network intrusion detection for unmanned aerial vehicles. arXiv:2412.02539 (2024)
 """
     tex = tex.replace("\\end{thebibliography}", extra_bib + "\n\\end{thebibliography}")
+    tex = tex.replace("\\begin{figure}\n", "\\begin{figure}[!htbp]\n")
+    tex = tex.replace("\\begin{table}\n", "\\begin{table}[!htbp]\n")
+    tex = tex.replace("\\begin{figure}[tbp]\n", "\\begin{figure}[!htbp]\n")
+    tex = tex.replace("\\begin{table}[tbp]\n", "\\begin{table}[!htbp]\n")
 
     OUT.mkdir(parents=True, exist_ok=True)
     REV_TEX.write_text(tex)
@@ -712,6 +992,7 @@ def main() -> None:
     setup_style()
     OUT.mkdir(parents=True, exist_ok=True)
     TABLES.mkdir(parents=True, exist_ok=True)
+    figure1_pipeline_fixed()
     figure2_table13_forensics()
     figure3_corrected_heatmap()
     figure4_rank_scatter()

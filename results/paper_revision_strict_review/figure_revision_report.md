@@ -1,5 +1,6 @@
 # Figure revision report
 
+- Figure 1 is redrawn so all text fits inside boxes.
 - Figure 2 is now a three-panel Table-13 forensic figure: equality count/ratio, metric-hypothesis distribution, and all-normal metric contrast.
 - Figure 3 remains a corrected benchmark heatmap, but labels now define T01--T04 as KV-KA, UV-KA, KV-UA, and UV-UA; missing values are not plotted as zeros.
 - Figure 4 is a rank scatter with weighted-F1 rank on x and attack-F1 rank on y, highlighting all-normal and GRAIN.
