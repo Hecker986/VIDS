@@ -1,6 +1,8 @@
 % This paper follows the LLNCS template provided by the user.
 % Before final submission, replace author placeholders and convert SVG figures to PDF/EPS if needed.
 \pdfminorversion=7
+\input{glyphtounicode}
+\pdfgentounicode=1
 \IfFileExists{llncs.cls}{%
   \documentclass[runningheads]{llncs}%
   \newif\ifllncsfallback\llncsfallbackfalse
@@ -9,6 +11,9 @@
   \newif\ifllncsfallback\llncsfallbacktrue
 }
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{lmodern}
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{url}
@@ -25,6 +30,8 @@
   \newcommand{\email}[1]{\texttt{#1}}
   \newcommand{\keywords}[1]{\par\noindent\textbf{Keywords: }#1}
   \newenvironment{credits}{}{}
+  \newcommand{\ackname}{Acknowledgements}
+  \newcommand{\discintname}{Disclosure of Interests}
 \fi
 
 \newcommand{\safeincludegraphics}[2]{%
@@ -40,6 +47,15 @@
 \newcommand{\ratt}{R$_{attack}$}
 \newcommand{\patt}{P$_{attack}$}
 
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\makeatletter
+\setlength{\@fptop}{0pt}
+\setlength{\@fpsep}{8pt plus 2pt minus 2pt}
+\setlength{\@fpbot}{0pt plus 1fil}
+\makeatother
+\raggedbottom
 \begin{document}
 %
 \title{Attack-Centric Evaluation and Feature-Preserving Detection for Cross-Vehicle Unknown-Attack CAN IDS}
@@ -53,7 +69,7 @@
 \maketitle
 %
 \begin{abstract}
-In-vehicle Controller Area Network (CAN) intrusion detection is frequently evaluated under severe class imbalance: benign traffic dominates while the security-relevant attack frames are rare.  From first principles, however, an intrusion detector is useful only if it detects attacks within an acceptable false-alarm budget; it is not useful merely because it recognizes the majority benign class.  This distinction becomes critical in cross-vehicle unknown-attack evaluation, where conventional accuracy or weighted-F1 can approach one even when no attack is detected.  We present \framework, an attack-centric evaluation and detection framework for CAN IDS.  \framework{} treats the attack class as the positive class, performs metric forensics against normal-dominated scores, and reports attack-positive precision, recall and F1, AUPR, Recall@FPR, false-alarm rates, trivial baselines, and event-level evidence.  We then propose \method, a feature-preserving granularity-aware baseline that keeps same-ID timing, payload dynamics, and CAN-ID behavior across sample, short-window, and aggregate-window representations.  On the cross-vehicle unknown-attack CT\&T test04 setting, \method{} reaches corrected attack-F1 0.6678, AUPR 0.7845, and Recall@FPR=$10^{-3}$ of 0.8053.  These numbers improve the corrected baseline, but they also show that unknown-attack detection is not solved: attack recall is 0.5189 and approximate event recall is 0.3650.  Our results argue that CAN IDS papers should report attack-centric, low-FPR, and event-level evidence, with explicit class distributions and confusion matrices, rather than relying on normal-dominated aggregate scores.
+In-vehicle Controller Area Network (CAN) intrusion detection is frequently evaluated under severe class imbalance: benign traffic dominates while the security-relevant attack frames are rare.  From first principles, however, an intrusion detector is useful only if it detects attacks within an acceptable false-alarm budget; it is not useful merely because it recognizes the majority benign class.  This distinction becomes critical in cross-vehicle unknown-attack evaluation, where conventional accuracy or weighted-F1 can approach one even when no attack is detected.  We present \framework, an attack-centric evaluation and detection framework for CAN IDS.  \framework{} treats the attack class as the positive class, performs metric forensics against normal-dominated scores, and reports attack-positive precision, recall and F1, AUPR, Recall@FPR, false-alarm rates, trivial baselines, and event-level evidence.  We then propose \method, a feature-preserving granularity-aware baseline that keeps same-ID timing, payload dynamics, and CAN-ID behavior across sample, short-window, and aggregate-window representations.  On the cross-vehicle unknown-attack CT\&T test04 setting, \method{} reaches corrected attack-F1 0.6678, AUPR 0.7845, and Recall@FPR=$10^{-3}$ of 0.8053.  With a validation-selected low-FPR threshold, the same GRAIN window100 score stream obtains attack recall 0.8053 at actual test FPR 0.000681.  These numbers improve the corrected baseline, but they also show that unknown-attack detection is not solved: default-threshold attack recall is 0.5189 and approximate event recall is 0.3650.  Our results argue that CAN IDS papers should report attack-centric, low-FPR, and event-level evidence, with explicit class distributions, threshold rules, and confusion matrices, rather than relying on normal-dominated aggregate scores.
 \keywords{Automotive security \and CAN bus \and intrusion detection \and class imbalance \and benchmark evaluation \and attack-centric metrics.}
 \end{abstract}
 %
@@ -71,7 +87,8 @@ Our contributions are as follows.
     \item We introduce \framework, an attack-centric evaluation framework for rare-attack CAN IDS.  It reports attack-positive precision, recall and F1, AUPR, Recall@FPR, false-alarm rates, event-level evidence, trivial baselines, and ranking-inversion diagnostics.
     \item We conduct metric forensics for normal-dominated CAN IDS settings.  We show that all-normal prediction can produce near-perfect accuracy and weighted-F1 while detecting no attacks, and we identify a Table-13-style pattern in which reported recall equals accuracy in many rows, consistent with weighted/accuracy-like metrics.
     \item We construct a corrected benchmark over CT\&T test01--test04 and additional sanity-check datasets, comparing trivial predictors, Table-13-style classical ML, reproduced fixed-window neural baselines, safe-feature protocols, and feature-preserving GRAIN baselines under attack-centric metrics.
-    \item We propose \method, a feature-preserving granularity-aware CAN IDS baseline that preserves same-ID timing, payload changes, payload statistics, and CAN-ID behavior.  \method{} is not claimed to solve unknown attacks, but it is a strong corrected baseline: on CT\&T test04 it reaches attack-F1 0.6678, AUPR 0.7845, AUROC 0.9024, and R@FPR=$10^{-3}$ of 0.8053.
+    \item We propose \method, a feature-preserving granularity-aware CAN IDS baseline that preserves same-ID timing, payload changes, payload statistics, and CAN-ID behavior.  \method{} is not claimed to solve unknown attacks, but it is a strong corrected baseline: on CT\&T test04 it reaches attack-F1 0.6678, AUPR 0.7845, AUROC 0.9024, and validation-threshold recall 0.8053 at actual FPR 0.000681.
+    \item We close the main local evidence gaps with validation-threshold low-FPR evaluation, large-negative B/C protocols for heavy classical baselines, chunked-negative probes, and multi-seed feature-removal retraining.  Remaining gaps are external protocol dependencies: original confusion matrices/code, exact CT\&T-v1.5 alignment, official event boundaries, and exhaustive full-negative Protocol D.
 \end{itemize}
 
 \section{Background and First-Principles Motivation}
@@ -90,7 +107,11 @@ When $N_1/(N_0+N_1)$ is below one percent, the accuracy is close to one even tho
 This observation is not specific to one algorithm.  It is a consequence of class imbalance and metric definition.  Any evaluation that does not report the attack-class confusion matrix can be misread.  The correct response is not to discard datasets, but to repair the evaluation protocol.
 
 \subsection{Related Work and Positioning}
-Automotive IDS research has advanced along several complementary directions.  Physical-layer methods fingerprint transmitters using clock skew, voltage characteristics, or signal-level artifacts, and can provide source attribution when the required hardware access is available \cite{cho2016fingerprinting,cho2017viden}.  Timing and statistical methods exploit CAN periodicity, inter-arrival regularity, ID frequencies, and payload changes \cite{song2016intrusion,tyree2018shape}.  Deep-learning methods use recurrent networks, transformers, graph learning, or language-model analogies to learn temporal or structural patterns from frame streams \cite{taylor2016frequency,kang2016survival,alkhatib2022canbert,wang2023statgraph}.  Public datasets and benchmark studies, including ROAD, CT\&T, CrySyS, and dataset-audit work, have made cross-study comparison more feasible while also exposing protocol mismatch and generalization difficulty \cite{verma2020road,lampe2024ctt,gazdag2023crysys,kidmose2025cansleuth}.
+Automotive IDS research has advanced along several complementary directions.  Physical-layer methods fingerprint transmitters using clock skew, voltage characteristics, or signal-level artifacts, while cryptographic and authentication protocols provide complementary prevention-oriented defenses \cite{cho2016fingerprinting,cho2017viden,lu2019leap,lotto2024survey}.  Timing and statistical IDS methods exploit CAN periodicity, inter-arrival regularity, ID frequencies, and payload changes \cite{song2016intrusion,tyree2018shape}.
+
+Recent learning-based IDS work uses recurrent networks, transformers, graph learning, language-model analogies, hardware-integrated detection, and state-space models to learn temporal or structural patterns from frame streams \cite{taylor2016frequency,kang2016survival,alkhatib2022canbert,wang2023statgraph,seccan2025,khandelsurvey2025,majumder2024uavcan,liu2026mids}.  We cite Mamba/MIDS-style systems and hardware IDS systems as related work, not direct baselines, because our repository does not contain reproduced rows under the exact CT\&T protocol.  Recent surveys and benchmarking studies emphasize the same evaluation pressure point we study here: attack type, workload construction, protocol assumptions, and metric choice strongly affect conclusions \cite{althunayyan2025survey,sharmin2024benchmarking,guerra2024road}.
+
+Public datasets and benchmark studies, including ROAD, CT\&T, CrySyS, and can-sleuth, make comparison more feasible while exposing protocol mismatch and generalization difficulty \cite{verma2020road,lampe2024ctt,gazdag2023crysys,kidmose2025cansleuth}.  Imbalanced-evaluation work further motivates precision-recall analysis, MCC, and explicit positive-class reporting when attacks are rare \cite{davis2006pr,saito2015pr,chicco2020mcc}.
 
 Our work is orthogonal to most model architectures.  We ask whether the evaluation objective matches the IDS objective under rare attacks, and then test whether a simple detector that preserves CAN-specific evidence can outperform more complex baselines under corrected metrics.  This positioning matters: if a benchmark selects models by normal-dominated aggregate scores, a more expressive architecture may still optimize the wrong target.  Conversely, if the metric suite is corrected but the representation discards same-ID timing and payload dynamics, the detector may still miss the signal.  \framework{} and \method{} address these two failure modes together.
 
@@ -123,9 +144,9 @@ The corrected protocol has four guardrails.  First, each dataset row reports pos
 \subsection{Metric Forensics and Ranking Inversion}
 In addition to reporting corrected metrics, \framework{} runs metric forensics.  It evaluates trivial predictors such as all-normal and all-attack, checks whether reported recall equals accuracy, compares reported F1 values against attack-positive, normal-positive, macro, weighted, and accuracy-like alternatives, and computes ranking inversion.  Ranking inversion asks whether a detector selected by weighted-F1 or accuracy would also be selected by attack-F1, AUPR, or Recall@FPR.  If not, the evaluation metric changes the engineering conclusion.
 
-\begin{figure}
-\safeincludegraphics{results/attack_centric_final/figures/paper_fig9_attack_centric_pipeline.pdf}{Attack-centric evaluation pipeline.  PDF conversion is required for camera-ready LLNCS builds.}
-\caption{\framework{} pipeline.  Conventional aggregate scores are treated as context; attack-centric, low-FPR, and event-level metrics determine IDS utility.}
+\begin{figure}[!htbp]
+\safeincludegraphics{results/paper_revision_strict_review/figures/figure1_attack_centric_pipeline_fixed.pdf}{Attack-centric evaluation pipeline.  PDF conversion is required for camera-ready LLNCS builds.}
+\caption{Attack-centric evaluation and feature-preserving detection pipeline.}
 \label{fig:pipeline}
 \end{figure}
 
@@ -143,6 +164,26 @@ Its core feature groups are:
     \item \textbf{ID behavior}: CAN-ID frequency, entropy, and optional train-only transition rarity.
     \item \textbf{Granularity}: sample-level, short-window, and feature-preserving aggregate summaries.
 \end{itemize}
+
+
+\begin{table}[!htbp]
+\caption{Algorithm 1: GRAIN-CAN causal feature extraction.}
+\label{alg:grain}
+\centering
+\small
+\begin{tabular}{p{0.96\textwidth}}
+\hline
+\textbf{Input:} ordered CAN frames $(t_i,id_i,dlc_i,b_{i,1:8})$, training split, window size $k$, classifier family.\\
+\textbf{1. Sample features:} for each frame, emit raw DLC/payload bytes, payload sum/standard deviation, CAN-ID indicators or train-fit encodings, same-ID inter-arrival time $\Delta t^{id}_i$, same-ID payload change $\|b_i-b_{prev(id_i)}\|_1$, and causal ID-history summaries.\\
+\textbf{2. Train-only statistics:} fit all corpus-level encoders, frequency tables, scalers, and rarity summaries on training frames only; apply frozen statistics to validation/test frames.\\
+\textbf{3. Window-$k$ aggregation:} group causal sample features into non-future windows and compute mean, standard deviation, minimum, maximum, and last-value summaries for timing, payload, and ID-behavior groups.\\
+\textbf{4. Window label rule:} assign a window attack label if at least one frame in the window is attack-labelled; otherwise assign normal. Labels are never used as feature values.\\
+\textbf{5. Score output:} train a lightweight score-producing classifier on the selected representation and output attack scores $s_i$ or $s_w$ for threshold-free AUPR/AUROC and thresholded Recall@FPR.\\
+\textbf{Output:} a feature-preserving representation plus a lightweight score-producing classifier; \method{} is not a new deep architecture.\\
+\hline
+\end{tabular}
+\end{table}
+
 We instantiate \method{} with lightweight tree-based classifiers because the goal is not to claim a new deep architecture, but to test whether preserving CAN-specific evidence yields a stronger corrected IDS baseline than fixed deep windows.  The resulting method has three useful properties for a benchmark baseline: it is score-producing, so low-FPR operating points can be evaluated; it is interpretable enough for feature and granularity audits; and it is simple enough that performance gains are less likely to be hidden behind architecture complexity.
 
 \subsection{Causality and Leakage Controls}
@@ -152,7 +193,7 @@ The representation uses only train-derived encoders or statistics when a feature
 \subsection{Datasets and Settings}
 We use CT\&T test01--test04 as the main controlled cross-shift benchmark.  These settings separate known/unknown vehicle and known/unknown attack regimes, with test04 representing the hardest cross-vehicle unknown-attack case.  The CT\&T rows are the primary evidence for corrected cross-shift evaluation.  We also include ROAD, CrySyS subset/family data, HCRL, and Car-Hacking sanity checks for metric-trap analysis.  These external datasets are not used to overclaim universal superiority; they test whether normal-dominated metrics are a broader risk across different label balances and dataset conventions.
 
-\begin{table}
+\begin{table}[!htbp]
 \caption{Class imbalance and trivial all-normal behavior across settings.  The attack-F1 of all-normal prediction is always zero, but accuracy and weighted-F1 can be high under rare attacks.}
 \label{tab:imbalance}
 \centering
@@ -179,7 +220,7 @@ Car-Hacking & 23,314 & 152,262 & 0.13279 & 0.86721 & 0.80554 \\
 We compare four families of baselines.  Trivial predictors expose metric traps.  Table-13-style classical models approximate public benchmark model families under corrected metrics.  Reproduced fixed-window neural baselines test whether generic sequence models recover cross-shift attacks.  Safe-feature and feature-preserving GRAIN representations test the central hypothesis that CAN-specific timing and payload evidence should be retained across granularity.  The key rows include all-normal prediction, Table-13-style GradientBoosting/MLP, old window100 Transformer, safe-feature GradientBoosting, and GRAIN windows of 10, 20, and 100.  Earlier internal prototypes are not treated as external baselines and are excluded from the main comparison tables.
 
 \subsection{Reproducibility and Claim Boundaries}
-All headline claims are derived from repository-generated CSV/TEX/SVG artifacts under \texttt{results/attack\_centric\_final} and the final supplement directories.  Some rows are marked as missing input when the underlying score dumps were not available.  Event-level results are approximate if official event boundaries are unavailable.  Some low-FPR rows are diagnostic best-test operating points when validation score dumps are missing; they are useful for comparing score separability, but they should not be described as validation-tuned deployment thresholds.  Feature-removal rows in the mechanism study use feature-importance and single-feature-AUC proxies rather than full retraining; we label them as mechanism evidence, not full ablations.
+All headline claims are derived from repository-generated CSV/TEX/SVG artifacts under \texttt{results/attack\_centric\_final}, \texttt{results/final\_grain\_can}, and \texttt{results/final\_evidence\_completion}.  Event-level results are approximate if official event boundaries are unavailable.  The main GRAIN window100 low-FPR row now uses a validation-selected threshold; rows labelled best-test remain diagnostic score-separability upper bounds.  Feature-removal rows use completed capped-negative retraining over feature subsets on CT\&T test04.  They are stricter than proxy feature importance, but still do not replace exhaustive full-negative retraining.
 
 \section{Results}
 \subsection{RQ1: Do Aggregate Metrics Overstate Detection?}
@@ -187,8 +228,8 @@ Table~\ref{tab:imbalance} shows the core failure.  In CT\&T test04 at sample lev
 
 The Table-13 case study reinforces this point.  Nine rows in the public target table have reported accuracy equal to reported recall within $10^{-4}$.  Because weighted recall equals accuracy in single-label classification, this pattern is consistent with a weighted/accuracy-like metric hypothesis.  We do not infer author error; without confusion matrices and exact code, the safe conclusion is metric ambiguity.  But that ambiguity is enough to require attack-centric reporting.
 
-\begin{figure}
-\safeincludegraphics{results/attack_centric_final/figures/paper_fig3_table13_case_study.pdf}{CT\&T Table 13 metric-forensics case study.  PDF conversion is required for camera-ready LLNCS builds.}
+\begin{figure}[!htbp]
+\safeincludegraphics{results/paper_revision_strict_review/figures/figure2_table13_metric_forensics.pdf}{CT\&T Table 13 metric-forensics case study.  PDF conversion is required for camera-ready LLNCS builds.}
 \caption{Metric forensics case study.  High aggregate scores under rare attacks can be consistent with normal-dominated metrics; they should not be interpreted as attack-positive F1 without confusion matrices.}
 \label{fig:case}
 \end{figure}
@@ -196,7 +237,7 @@ The Table-13 case study reinforces this point.  Nine rows in the public target t
 \subsection{RQ2: What Does the Corrected Benchmark Show?}
 Table~\ref{tab:corrected} summarizes the best measured corrected rows over CT\&T test01--test04.  The main trend is not that all settings are easy.  Instead, test01 and test02 are largely recoverable under corrected metrics, test03 remains difficult but tractable, and test04 remains the hardest setting.
 
-\begin{table}
+\begin{table}[!htbp]
 \caption{Best measured corrected rows on CT\&T settings.  Test04 remains substantially harder under attack-centric metrics.}
 \label{tab:corrected}
 \centering
@@ -216,70 +257,75 @@ CT\&T test04 & GRAIN window 100 & 0.6678 & 0.9365 & 0.5189 & 0.7845 & 0.9024 \\
 
 On test04, Table-13-style GradientBoosting reaches attack-F1 0.5477 and AUPR 0.3320, while old window100 Transformer collapses to attack-F1 0.0224 despite high recall because its precision is only 0.0113.  GRAIN window100 improves attack-F1 to 0.6678 and AUPR to 0.7845.  The precision--recall tradeoff is important: the corrected row is precise (\patt{} 0.9365), but it still misses nearly half of the attack windows (\ratt{} 0.5189).  This is strong evidence for feature preservation, but not a claim that cross-vehicle unknown attacks are solved.
 
-\begin{figure}
-\safeincludegraphics{results/final_paper_supplement/figures/main_ctt_corrected_benchmark.pdf}{Corrected CT\&T benchmark.  PDF conversion is required for camera-ready LLNCS builds.}
-\caption{Corrected benchmark across CT\&T settings.  The attack-centric view distinguishes genuine attack detection from normal-dominated aggregate scores.}
+\begin{figure}[!htbp]
+\safeincludegraphics{results/paper_revision_strict_review/figures/figure3_corrected_benchmark_heatmap.pdf}{Corrected CT\&T benchmark.  PDF conversion is required for camera-ready LLNCS builds.}
+\caption{Corrected CT\&T benchmark heatmap.}
 \label{fig:corrected}
 \end{figure}
 
 \subsection{RQ3: Does Metric Choice Change the Selected IDS?}
 The ranking inversion analysis shows that metric choice can change the selected detector.  All-normal prediction is always last by attack-F1 but can rank favorably by weighted-F1 in highly imbalanced settings.  GRAIN-CAN ranks near the top under attack-centric metrics, especially in test02--test04.  This matters operationally: an evaluation protocol that selects all-normal or normal-dominated models is not merely noisy; it is selecting against the security objective.
 
-\begin{figure}
-\safeincludegraphics{results/final_paper_supplement/figures/main_ranking_inversion.pdf}{Ranking inversion.  PDF conversion is required for camera-ready LLNCS builds.}
-\caption{Ranking inversion under aggregate and attack-centric metrics.  Normal-dominated metrics can change which IDS appears best.}
+\begin{figure}[!htbp]
+\safeincludegraphics{results/paper_revision_strict_review/figures/figure4_ranking_inversion_scatter.pdf}{Ranking inversion.  PDF conversion is required for camera-ready LLNCS builds.}
+\caption{Rank inversion between weighted-F1 and attack-F1.}
 \label{fig:ranking}
 \end{figure}
 
 \subsection{RQ4: Why Does Feature Preservation Help?}
-Table~\ref{tab:grain} shows comparable test04 detection metrics by representation.  Sample-level detection reaches attack-F1 0.3884 and AUPR 0.2422.  Short windows improve performance, and feature-preserving window100 aggregation reaches attack-F1 0.6678 and AUPR 0.7845.  The old window100 deep Transformer obtains attack-F1 0.0224 and AUPR 0.1733.  Therefore, the issue is not the window length alone; it is whether the representation preserves attack-relevant timing and payload evidence.  Table~\ref{tab:mechanism} separately reports proxy mechanism evidence so that feature-importance evidence is not mixed with full detector metrics.
+Table~\ref{tab:grain} shows comparable test04 detection metrics by representation.  Sample-level detection reaches attack-F1 0.3884 and AUPR 0.2422.  Short windows improve performance, and feature-preserving window100 aggregation reaches attack-F1 0.6678 and AUPR 0.7845.  The old window100 deep Transformer obtains attack-F1 0.0224 and AUPR 0.1733.  Therefore, the issue is not the window length alone; it is whether the representation preserves attack-relevant timing and payload evidence.  Table~\ref{tab:mechanism} reports feature-removal retraining evidence on CT\&T test04.  This study is capped-negative rather than full-negative, so it supports mechanism interpretation but does not remove the need for larger-scale confirmation.
 
-\begin{table}
-\caption{Comparable GRAIN-CAN granularity results on CT\&T test04.  Only metrics available for every listed representation are shown.}
+\begin{table}[!htbp]
+\caption{Comparable GRAIN-CAN granularity results on CT\&T test04.}
 \label{tab:grain}
 \centering
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrr}
+\small
+\begin{tabular*}{0.92\textwidth}{@{\extracolsep{\fill}}lrr@{}}
 \hline
 Representation & \attf & AUPR \\
 \hline
 Sample-level & 0.3884 & 0.2422 \\
-GRAIN window 10 & 0.6001 & 0.6185 \\
-GRAIN window 20 & 0.6416 & 0.7228 \\
-GRAIN window 100 aggregate & 0.6678 & 0.7845 \\
-Old window100 Transformer & 0.0224 & 0.1733 \\
+GRAIN W10 & 0.6001 & 0.6185 \\
+GRAIN W20 & 0.6416 & 0.7228 \\
+GRAIN W100 aggregate & 0.6678 & 0.7845 \\
+Old W100 Transformer & 0.0224 & 0.1733 \\
 \hline
-\end{tabular}
-}
+\end{tabular*}
 \end{table}
 
-\begin{table}
-\caption{Proxy mechanism evidence on CT\&T test04.  These rows are feature-importance and single-feature-AUC evidence, not full retraining ablations.}
+\begin{table}[!htbp]
+\caption{Feature-removal retraining evidence on CT\&T test04.}
 \label{tab:mechanism}
 \centering
-\begin{tabular}{lrr}
+\small
+\begin{tabular*}{0.98\textwidth}{@{\extracolsep{\fill}}lrrrr@{}}
 \hline
-Feature evidence & Single-feature AUC & Tree importance \\
+Variant & \attf & \ratt & AUPR & R@1e-3 \\
 \hline
-delta\_t\_same\_id & 0.9932 & 0.4802 \\
-payload statistics & 0.9286 & 0.0752 \\
-payload\_delta\_l1 & 0.7605 & 0.0394 \\
+Full safe CAN & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+w/o $\Delta t_{sameID}$ & 0.0094 & 0.2486 & 0.0570 & 0.0668 \\
+w/o payload delta & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+w/o payload stats & 0.4789 & 0.3540 & 0.2547 & 0.3550 \\
+w/o CAN ID & 0.4797 & 0.3550 & 0.2649 & 0.3550 \\
+Only timing & 0.5998 & 0.4909 & 0.4246 & 0.4909 \\
+Only payload & 0.0016 & 0.0913 & 0.0135 & 0.0260 \\
+Only ID & 0.0026 & 0.2555 & 0.0438 & 0.0550 \\
 \hline
-\end{tabular}
+\end{tabular*}
 \end{table}
 
-The proxy evidence indicates that same-ID timing, payload statistics, and payload-preserving features carry the main signal.  This is consistent with the CAN first-principles model: attacks perturb periodicity, ID behavior, payload continuity, or short event structure.  A representation that averages away these signals will fail even if the downstream classifier is expressive.
+The retraining evidence indicates that same-ID timing carries the dominant sample-level signal: removing $\Delta t_{sameID}$ collapses attack-F1, while the timing-only subset is strongest in this capped-negative retraining study.  The three-seed summary confirms the pattern: timing-only reaches mean attack-F1 0.6013, whereas removing $\Delta t_{sameID}$ drops mean attack-F1 to 0.0085.  This is consistent with the CAN first-principles model: attacks perturb periodicity, ID behavior, payload continuity, or short event structure.  A representation that averages away these signals will fail even if the downstream classifier is expressive.
 
-\begin{figure}
-\safeincludegraphics{results/final_paper_supplement/figures/main_grain_ablation.pdf}{GRAIN-CAN mechanism evidence.  PDF conversion is required for camera-ready LLNCS builds.}
-\caption{Feature-preserving granularity evidence.  Aggregate windows help when they preserve causal timing and payload signals rather than hiding rare evidence.}
+\begin{figure}[!htbp]
+\safeincludegraphics{results/paper_revision_strict_review/figures/figure5_grain_granularity.pdf}{GRAIN-CAN mechanism evidence.  PDF conversion is required for camera-ready LLNCS builds.}
+\caption{GRAIN-CAN granularity evidence on CT\&T test04.}
 \label{fig:grain}
 \end{figure}
 
 \subsection{RQ5: What Happens Under Low-FPR and Event-Level Metrics?}
-Low-FPR metrics sharpen the deployment story.  After adding validation-threshold evaluation, GRAIN window100 achieves AUPR 0.7868 on CT\&T test04.  A threshold selected on the validation split for an FPR budget of $5\times10^{-4}$ gives attack-F1 0.8639, attack recall 0.8053, and actual test FPR 0.000681.  The corresponding best-test Recall@FPR=$10^{-3}$ upper bound is 0.8053.  Safe-feature GradientBoosting improves over public-default sample protocols, but reaches only 0.3549 Recall@FPR=$10^{-3}$ and AUPR 0.2647.  The old window100 Transformer has high approximate event recall under its stored threshold, but weak AUPR and low-FPR recall, indicating poor score separation and excessive false-positive pressure.  These numbers support the claim that GRAIN is a strong corrected baseline, but they also prevent overclaiming.
+Low-FPR metrics sharpen the deployment story.  After adding validation-threshold evaluation, GRAIN window100 achieves AUPR 0.7868 on CT\&T test04.  A threshold selected on the validation split for an FPR budget of $5\times10^{-4}$ gives attack-F1 0.8639, attack recall 0.8053, and actual test FPR 0.000681.  The corresponding best-test Recall@FPR=$10^{-3}$ upper bound is 0.8053.  Safe-feature GradientBoosting improves over public-default sample protocols, but reaches only 0.3549 Recall@FPR=$10^{-3}$ and AUPR 0.2647.  The old window100 Transformer has high approximate event recall under its stored threshold, but weak AUPR and low-FPR recall, indicating poor score separation and excessive false-positive pressure.  These numbers support the claim that GRAIN is a strong corrected baseline, but they also prevent overclaiming.  Best-test rows in Table~\ref{tab:lowfpr} are diagnostic score-separability evidence, not validation-tuned deployment thresholds.  Approximate event recall is constructed from available labels and file/timestamp continuity; it is not official event-boundary evidence.  False alarms per 100k samples and detection delay are therefore not reported in the main table unless timestamp-calibrated event data are available for all rows.  Consequently, high approximate event recall is insufficient when AUPR and low-FPR recall are weak.
 
-\begin{table}
+\begin{table}[!htbp]
 \caption{Low-FPR and approximate event evidence on CT\&T test04.  Validation rows use thresholds selected on the train-derived validation split; best-test rows are upper-bound score-separability diagnostics.}
 \label{tab:lowfpr}
 \centering
@@ -299,18 +345,27 @@ Predict all normal & default & 0.0027 & 0.0000 & 0.000000 & 0.0000 \\
 }
 \end{table}
 
-\begin{figure}
-\safeincludegraphics{results/attack_centric_final/figures/paper_fig10_completed_low_fpr_event.pdf}{Completed low-FPR and event-level results.  PDF conversion is required for camera-ready LLNCS builds.}
-\caption{Completed low-FPR evidence after recomputing from available score dumps.  High event recall alone can be misleading when score separation and low-FPR recall are weak.}
+\begin{figure}[!htbp]
+\safeincludegraphics{results/paper_revision_strict_review/figures/figure6_low_fpr_event_protocol.pdf}{Completed low-FPR and event-level results.  PDF conversion is required for camera-ready LLNCS builds.}
+\caption{Low-FPR and approximate event evidence.}
 \label{fig:lowfpr}
 \end{figure}
 
-\subsection{RQ6: Is the Metric Trap Specific to CT\&T?}
-The imbalance audit in Table~\ref{tab:imbalance} shows that the risk is broader than one benchmark.  ROAD and Car-Hacking have less extreme attack rates than CT\&T test04, but an all-normal classifier still obtains high accuracy and weighted-F1 on ROAD.  HCRL is more balanced, and the same trivial baseline is visibly weak there.  This contrast supports the central mechanism: the misleading score is caused by the interaction between support-weighted metrics and rare positives, not by any single dataset artifact.  The severity changes with the positive rate, but the reporting rule should not: attack-positive metrics and trivial baselines are required whenever the detector's security value depends on rare attack recovery.
+\subsection{RQ6: Are the Remaining Evidence Gaps Local or External?}
+The final evidence-closure audit separates locally controllable experiments from external protocol dependencies.  Locally, we completed 44 validation-threshold low-FPR rows, 48 B/C large-negative rows for ExtraTrees, RandomForest, and MLP, 20 chunked-negative ensemble rows, and a three-seed feature-removal summary.  This matters because earlier versions of the evidence package contained large-negative placeholders for heavy models and best-test-only low-FPR rows.  Those local gaps are now result-backed.  The remaining items are different in kind: original authors' confusion matrices/exact code, fully aligned can-train-and-test-v1.5 data, and official event boundaries were audited but not found in accessible public or local sources; exact Protocol D full-negative remains an exhaustive protocol marker rather than a headline claim.
 
-\begin{figure}
-\safeincludegraphics{results/attack_centric_final/figures/paper_fig8_external_sanity.pdf}{External sanity-check evidence.  PDF conversion is required for camera-ready LLNCS builds.}
-\caption{External sanity checks.  Normal-dominated metrics are most dangerous when the attack positive rate is very small; more balanced datasets expose all-normal behavior more clearly.}
+\begin{figure}[!htbp]
+\safeincludegraphics{results/paper_revision_strict_review/figures/figure8_evidence_closure.pdf}{Evidence closure audit.  PDF conversion is required for camera-ready LLNCS builds.}
+\caption{Evidence-closure audit after the final supplement.  Local evaluation gaps were converted into result tables; external alignment items remain documented protocol dependencies rather than hidden omissions.}
+\label{fig:evidenceclosure}
+\end{figure}
+
+\subsection{RQ7: Is the Metric Trap Specific to CT\&T?}
+The external sanity audit shows that the metric-trap risk is broader than one benchmark, but these rows are not evidence of universal model dominance.  ROAD and Car-Hacking have less extreme attack rates than CT\&T test04, but an all-normal classifier still obtains high accuracy and weighted-F1 on ROAD.  HCRL is more balanced, and the same trivial baseline is visibly weak there.  This contrast supports the central mechanism: the misleading score is caused by the interaction between support-weighted metrics and rare positives, not by any single dataset artifact.  The severity changes with the positive rate; CT\&T test04 remains the central cross-vehicle unknown-attack case study, and the external rows are only sanity checks.  The reporting rule should not: attack-positive metrics and trivial baselines are required whenever the detector's security value depends on rare attack recovery.
+
+\begin{figure}[!htbp]
+\safeincludegraphics{results/paper_revision_strict_review/figures/figure7_external_sanity_availability.pdf}{External sanity-check evidence.  PDF conversion is required for camera-ready LLNCS builds.}
+\caption{External sanity availability and positive-rate audit.}
 \label{fig:external}
 \end{figure}
 
@@ -335,16 +390,17 @@ Based on our findings, future CAN IDS papers should report at least: class distr
 \paragraph{Event boundaries.}  Some event-level results are based on transparent approximate construction from labels, files, attack types, and timestamp gaps.  They are useful for deployment intuition but not equivalent to official event-boundary evaluation.
 \paragraph{External datasets.}  ROAD, CrySyS subset/family data, HCRL, and Car-Hacking are used as sanity checks for metric-trap risk and corrected reporting.  Their protocols and labels differ, so we avoid claiming universal model dominance across all datasets.
 \paragraph{Low-FPR thresholding.}  Some low-FPR rows are best-test diagnostic operating points because validation score dumps are unavailable.  They measure score separability under a false-positive budget but should not be presented as final deployment thresholds.
-\paragraph{Mechanism evidence.}  Some feature-removal rows are based on feature importance or single-feature AUC rather than full retraining.  We use them to explain mechanism, not as standalone ablation proof.
+\paragraph{Negative protocols.}  Protocol B/C large-negative rows are completed for the main classical model families, including constrained ExtraTrees, RandomForest, and MLP runs.  Exact Protocol D full-negative is retained as a distinct exhaustive protocol item and should not be implied by the B/C rows.
+\paragraph{Mechanism evidence.}  The added feature-removal study retrains lightweight classifiers with feature groups removed, but it is still capped-negative rather than full-negative.  We use it as mechanism evidence, not as a final exhaustive ablation.
 \paragraph{Scope.}  This paper addresses evaluation and data-driven detection on CAN traces.  It does not replace physical-layer authentication, cryptographic in-vehicle protocols, or system-level prevention mechanisms.
 
 \section{Conclusion}
 This paper argues that cross-vehicle unknown-attack CAN IDS must be evaluated from the attack outward.  Accuracy and weighted-F1 can be dominated by normal traffic; in extreme rare-attack settings, an all-normal predictor can appear nearly perfect while detecting no attacks.  We introduced \framework{}, a metric-forensics and attack-centric evaluation framework, and \method{}, a feature-preserving granularity-aware detection baseline.  Corrected evaluation shows that some settings are largely recoverable, but CT\&T test04 remains difficult: the best measured GRAIN row achieves attack-F1 0.6678 and AUPR 0.7845, not an unknown-attack solution.  The broader lesson is that CAN IDS research should report attack-positive, low-FPR, and event-level evidence, alongside clear class distributions and confusion matrices, before claiming robust detection.
 
 \begin{credits}
-\subsubsection{Acknowledgements} This work was conducted as part of an academic study on automotive intrusion detection evaluation.  The authors thank the maintainers of public CAN IDS datasets and open-source tooling used for reproducible evaluation.
+\subsubsection{\ackname} This work was conducted as part of an academic study on automotive intrusion detection evaluation.  The authors thank the maintainers of public CAN IDS datasets and open-source tooling used for reproducible evaluation.
 
-\subsubsection{Disclosure of Interests} The authors have no competing interests to declare that are relevant to the content of this article.
+\subsubsection{\discintname} The authors have no competing interests to declare that are relevant to the content of this article.
 \end{credits}
 
 \begin{thebibliography}{30}
@@ -416,5 +472,30 @@ Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O.,
 
 \bibitem{chicco2020mcc}
 Chicco, D., Jurman, G.: The advantages of the Matthews correlation coefficient over F1 score and accuracy in binary classification evaluation. BMC Genomics \textbf{21}, 6 (2020). \doi{10.1186/s12864-019-6413-7}
+
+\bibitem{liu2026mids}
+Liu, Q., Song, R., Cui, L., Zhang, H., Sun, Y., Sun, L.: MIDS: Detecting stealthy masquerade and tampering attacks on CAN bus via bidirectional Mamba. arXiv:2606.18599 (2026)
+
+\bibitem{lu2019leap}
+Lu, Z., Wang, Q., Chen, X., Qu, G., Lyu, Y., Liu, Z.: LEAP: A lightweight encryption and authentication protocol for in-vehicle communications. arXiv:1909.10380 (2019)
+
+\bibitem{lotto2024survey}
+Lotto, A., Marchiori, F., Brighente, A., Conti, M.: A survey and comparative analysis of security properties of CAN authentication protocols. arXiv:2401.10736 (2024)
+
+\bibitem{althunayyan2025survey}
+Althunayyan, M., Javed, A., Rana, O.: A survey of learning-based intrusion detection systems for in-vehicle network. arXiv:2505.11551 (2025)
+
+\bibitem{sharmin2024benchmarking}
+Sharmin, S., Mansor, H., Abdul Kadir, A.F., Aziz, N.A.: Benchmarking frameworks and comparative studies of controller area network intrusion detection systems: a review. arXiv:2402.06904 (2024)
+
+\bibitem{majumder2024uavcan}
+Majumder, R., Comert, G., Werth, D., Gale, A., Chowdhury, M., Salek, M.S.: Graph-powered defense: Controller area network intrusion detection for unmanned aerial vehicles. arXiv:2412.02539 (2024)
+
+\bibitem{seccan2025}
+Khandelwal, S., Shanker, S.: SecCAN: An extended CAN controller with embedded intrusion detection. arXiv:2505.14924 (2025)
+
+\bibitem{khandelsurvey2025}
+Liu, Y., Xue, L., Wang, S., Luo, X., Zhao, K., Jing, P., Ma, X., Tang, Y., Zhou, H.: Vehicular intrusion detection system for controller area network: a comprehensive survey and evaluation. arXiv:2505.17274 (2025)
+
 \end{thebibliography}
 \end{document}
