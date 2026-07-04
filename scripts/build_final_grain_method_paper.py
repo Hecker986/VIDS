@@ -9,6 +9,7 @@ os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib-vids")
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import matplotlib as mpl
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -448,23 +449,82 @@ def plot_bar(df, name, x, y, title, hue=None, max_rows=16):
 
 
 def draw_pipeline():
-    fig, ax = plt.subplots(figsize=(7.2, 2.9))
+    fig, ax = plt.subplots(figsize=(6.35, 3.35))
     ax.axis("off")
-    labels = [
-        ("Raw CAN stream", "timestamp, ID, DLC, payload"),
-        ("Same-ID history", "last timestamp, payload, counts"),
-        ("Local behavior", "time gap, payload change, ID behavior"),
-        ("Fixed window", "pre-test aggregation"),
-        ("Supervised classifier", "normal/attack score"),
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+
+    stages = [
+        (
+            "Input CAN trace",
+            "#1",
+            "timestamp\nCAN ID and DLC\npayload bytes",
+            "#F2F6FA",
+            "#315F8C",
+        ),
+        (
+            "GRAIN feature extraction",
+            "#2",
+            "same-ID history buffer\nsame-ID timing gap\npayload delta and statistics\nlocal ID behavior",
+            "#ECF7F1",
+            "#1B8E5A",
+        ),
+        (
+            "Window classifier",
+            "#3",
+            "fixed W10/W20/W100 windows\nsupervised score model\nnormal / attack decision",
+            "#FFF6E5",
+            "#B7791F",
+        ),
     ]
-    xs = np.linspace(0.08, 0.92, len(labels))
-    for i, (x, (title, sub)) in enumerate(zip(xs, labels)):
-        ax.add_patch(plt.Rectangle((x - 0.085, 0.38), 0.17, 0.28, facecolor="#EEF3F7", edgecolor="#2F5D8C", lw=1.2))
-        ax.text(x, 0.57, title, ha="center", va="center", fontsize=8.5, fontweight="bold")
-        ax.text(x, 0.47, sub, ha="center", va="center", fontsize=7.2)
-        if i < len(labels) - 1:
-            ax.annotate("", xy=(xs[i + 1] - 0.095, 0.52), xytext=(x + 0.095, 0.52), arrowprops=dict(arrowstyle="-|>", lw=1.2, color="#333333"))
-    ax.text(0.5, 0.18, "Feature definitions, window size, classifier, and threshold are fixed before test-time evaluation.", ha="center", fontsize=8)
+    xs = [0.19, 0.50, 0.81]
+    y = 0.58
+    width, height = 0.245, 0.38
+    for i, (x, (title, num, sub, face, edge)) in enumerate(zip(xs, stages)):
+        box = mpatches.FancyBboxPatch(
+            (x - width / 2, y - height / 2),
+            width,
+            height,
+            boxstyle="round,pad=0.015,rounding_size=0.018",
+            facecolor=face,
+            edgecolor=edge,
+            linewidth=1.1,
+        )
+        ax.add_patch(box)
+        ax.text(x - width / 2 + 0.020, y + height / 2 - 0.050, num, ha="left", va="center", fontsize=9.8, fontweight="bold", color=edge)
+        ax.text(x, y + 0.105, title, ha="center", va="center", fontsize=9.2, fontweight="bold", color="#222222")
+        ax.text(x, y - 0.035, sub, ha="center", va="center", fontsize=8.0, linespacing=1.18, color="#222222")
+        if i < len(stages) - 1:
+            ax.annotate(
+                "",
+                xy=(xs[i + 1] - width / 2 - 0.012, y),
+                xytext=(x + width / 2 + 0.012, y),
+                arrowprops=dict(arrowstyle="-|>", mutation_scale=10, lw=1.1, color="#4A4A4A"),
+            )
+
+    constraint_y = 0.18
+    constraints = [
+        ("causal", "current + past frames only"),
+        ("fixed", "window and threshold fixed before test"),
+        ("reported", "P/R/F1, FNR/FPR, confusion matrix"),
+    ]
+    cxs = [0.19, 0.50, 0.81]
+    for x, (head, sub) in zip(cxs, constraints):
+        chip = mpatches.FancyBboxPatch(
+            (x - 0.125, constraint_y - 0.06),
+            0.25,
+            0.12,
+            boxstyle="round,pad=0.012,rounding_size=0.035",
+            facecolor="#FFFFFF",
+            edgecolor="#777777",
+            linewidth=0.9,
+        )
+        ax.add_patch(chip)
+        ax.text(x, constraint_y + 0.018, head.upper(), ha="center", va="center", fontsize=7.9, fontweight="bold")
+        ax.text(x, constraint_y - 0.026, sub, ha="center", va="center", fontsize=7.0)
+
+    ax.text(0.5, 0.91, "GRAIN-CAN feature-preserving IDS pipeline", ha="center", va="center", fontsize=12.0, fontweight="bold")
+    ax.text(0.5, 0.845, "Local same-ID behavior is extracted before window aggregation.", ha="center", va="center", fontsize=9.0, color="#444444")
     fig.tight_layout()
     fig.savefig(FIGS / "grain_can_pipeline.svg", format="svg")
     fig.savefig(FIGS / "grain_can_pipeline.pdf", format="pdf")
@@ -573,7 +633,8 @@ def latex_table(path, cols, caption, label, max_rows=8):
         }
     )
     body = "\\begin{table}[t]\n\\caption{" + caption + "}\\label{" + label + "}\n\\centering\\small\n"
-    body += use.to_latex(index=False, escape=True).replace("\\toprule", "\\hline").replace("\\midrule", "\\hline").replace("\\bottomrule", "\\hline")
+    tabular = use.to_latex(index=False, escape=True).replace("\\toprule", "\\hline").replace("\\midrule", "\\hline").replace("\\bottomrule", "\\hline")
+    body += "\\resizebox{\\textwidth}{!}{%\n" + tabular + "}\n"
     body += "\\end{table}\n"
     return body
 
@@ -616,13 +677,20 @@ Classical CAN provides compact message fields but no semantic signal names.  IDS
 Recent CAN IDS work includes fingerprinting, statistical timing models, sequence encoders, graph-style representations, and benchmark studies.  These lines are complementary to GRAIN-CAN: we do not introduce a new deep backbone or physical-layer fingerprint.  Instead, we ask whether causal same-ID local behavior features, kept before window aggregation, improve a supervised detector under cross-shift evaluation.  Because rare-attack settings can make accuracy-like metrics misleading, we report attack-positive precision, recall, F1, FPR, FNR, and confusion matrices first, with AUPR and ROC-style operating metrics as supplementary evidence~\cite{davis2006pr,saito2015pr}.
 
 \subsection{Local Evidence Dilution}
-Many CAN attacks affect only a small number of frames or a small subset of IDs.  If a model receives a raw long window, the abnormal frames may be numerically diluted by normal traffic.  GRAIN-CAN makes the local change explicit first, then aggregates it.
+Many CAN attacks affect only a small number of frames or a small subset of IDs.  If a model receives a raw long window, the abnormal frames may be numerically diluted by normal traffic.  GRAIN-CAN makes the local change explicit first, then aggregates it.  This design choice is intentionally modest: it does not assume that one statistic can describe all attacks, and it does not rely on a new deep backbone.  It asks whether the evidence already present in CAN timing and payload continuity can be kept visible long enough for a supervised detector to use it.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.95\textwidth]{results/paper_revision_final_grain_can/figures/grain_can_pipeline.pdf}
 \caption{GRAIN-CAN pipeline.  Same-ID local history is converted into timing, payload-change, and ID-behavior features before fixed-window aggregation and supervised classification.}
 \label{fig:pipeline}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\textwidth]{results/paper_revision_final_grain_can/figures/local_evidence_dilution.pdf}
+\caption{Motivation for feature preservation.  Raw long windows can hide a short burst of abnormal frames, whereas GRAIN-CAN exposes local same-ID changes before aggregation.}
+\label{fig:dilution}
 \end{figure}
 
 \section{GRAIN-CAN Method}
@@ -635,8 +703,12 @@ The input is an ordered stream \(x_i=(t_i,id_i,dlc_i,b_{i,1},\ldots,b_{i,8})\). 
 \subsection{Local Behavior Features}
 For a frame with CAN ID \(id_i\), the method computes the same-ID time gap, payload difference from the previous same-ID frame, payload summary statistics, and local CAN-ID behavior.  These are relative local changes rather than raw absolute distributions alone.
 
+The main feature groups are: (i) same-ID timing, including the gap between the current frame and the previous frame with the same CAN ID; (ii) payload dynamics, including byte values and the \(L_1\) change from the previous payload of the same ID; (iii) payload statistics, such as sum, mean, and standard deviation; and (iv) local ID behavior, including ID frequency and short-window concentration.  All history-dependent quantities are causal.  The extractor never uses a future frame, a test label, or a statistic fitted on the test split.
+
 \subsection{Fixed Window Aggregation and Classifier}
 Frame-level features are aggregated using a fixed pre-test window length, such as W10, W20, or W100.  The window label is attack if any frame in the window is labelled attack.  The classifier is a supervised score-producing model; the current GRAIN rows use GradientBoosting-style tree classifiers in the available repository results.
+
+For a window \(W_j=\{x_s,\ldots,x_e\}\), GRAIN-CAN applies simple summary operators over the frame-level features: last value, mean, standard deviation, minimum, maximum, and selected count/entropy features where available.  These operators are deliberately transparent.  They keep strong local changes, such as a large same-ID timing gap or payload delta, while still producing a fixed-length representation for conventional supervised classifiers.
 
 \paragraph{Algorithm 1: GRAIN-CAN training and inference.}
 Training initializes per-ID history states, processes training frames in temporal order, computes same-ID time gaps, payload differences, payload statistics, and local ID behavior, aggregates fixed windows, trains a supervised classifier with normal/attack labels, and selects a threshold on validation data if scores are available.  Inference freezes feature definitions, classifier, window size, and threshold before processing test frames.  It uses only current and previous frames; test labels, future frames, test-set statistics, test-set thresholds, and test-set window selection are not used.
@@ -663,10 +735,22 @@ where FNR measures missed attacks and FPR measures false alarms on benign traffi
 where \(\tau\) is the threshold and \(\alpha\) is the false-alarm-rate budget.
 
 """
+    tex += latex_table("dataset_summary.csv", ["Dataset", "Usage", "Frames", "Windows", "Attack ratio"], "Dataset and class-balance summary for settings used in the revised evidence package.", "tab:data", 8)
+    tex += r"""
+
+\subsection{Implementation and Selection Protocol}
+GRAIN-CAN is evaluated as a fixed supervised pipeline.  Feature definitions are causal; classifier training uses the recorded training data; and the test split is not used to choose feature definitions, thresholds, or window lengths.  Because the repository contains several historical result tables, we keep protocol-audit tables in the main paper rather than asking the reader to infer what was fixed and what was only sensitivity analysis.
+"""
+    tex += latex_table("grain_classifier_details.csv", ["setting", "classifier", "feature_groups", "score_available", "test_used_for_selection"], "GRAIN-CAN classifier and feature protocol.", "tab:classifier", 2)
+    tex += latex_table("window_selection_audit.csv", ["setting", "candidate_windows", "selected_by_validation", "selected_window", "selected_by_test"], "Window-length selection audit.  Window rows are sensitivity evidence, not test-time selection.", "tab:winaudit", 4)
+    tex += latex_table("threshold_selection_audit.csv", ["setting", "model", "score_available", "threshold_selected_on", "test_used_for_threshold"], "Threshold-selection audit.", "tab:thraudit", 3)
+    tex += r"""
+
+"""
     tex += latex_table("conventional_ids_metrics_ctt.csv", ["setting", "model", "precision", "recall", "f1", "fnr", "fpr"], "Conventional IDS metrics for representative CT\\&T rows.  Attack is the positive class.", "tab:main", 10)
     tex += r"""
 \subsection{Main Results}
-The corrected CT\&T results show that GRAIN rows are competitive with reproduced baselines under conventional attack-positive metrics.  The results should not be read as a universal unknown-attack solution: test04 remains the hardest setting, and recall/FNR show nontrivial misses.
+The corrected CT\&T results show that GRAIN rows are competitive with reproduced baselines under conventional attack-positive metrics.  The results should not be read as a universal unknown-attack solution: test04 remains the hardest setting, and recall/FNR show nontrivial misses.  Table~\ref{tab:main} deliberately reports precision, recall, F1, FNR, and FPR rather than only aggregate accuracy.  A detector that reports high aggregate scores but misses the rare attack class is not sufficient for an IDS.
 
 \begin{figure}[t]
 \centering
@@ -675,16 +759,42 @@ The corrected CT\&T results show that GRAIN rows are competitive with reproduced
 \label{fig:main}
 \end{figure}
 
+\subsection{Confusion-Matrix Evidence}
+Confusion matrices make the false-alarm and missed-attack tradeoff explicit.  This is important because CT\&T test04 is strongly normal-dominated; a method can look acceptable under aggregate metrics while still producing zero useful attack detection.  We therefore keep TP, FP, TN, and FN as first-class reporting fields.
+"""
+    tex += latex_table("confusion_matrices_ctt.csv", ["setting", "model", "tp", "fp", "tn", "fn"], "Representative confusion-matrix counts.  Attack is positive.", "tab:confusion", 8)
+    tex += r"""
+
+\subsection{Cross-Shift Decomposition}
+The four CT\&T settings isolate different sources of shift.  Test02 changes the vehicle but keeps attack families known; test03 keeps the vehicle known but changes the attack family; test04 changes both.  This decomposition is why test04 should be interpreted as the central cross-vehicle unknown-attack stress case rather than as one more ordinary test split.
+"""
+    tex += latex_table("cross_shift_decomposition.csv", ["setting", "test_vehicles", "test_attacks", "model", "f1", "aupr"], "CT\\&T shift decomposition with GRAIN window rows.", "tab:shift", 8)
+    tex += r"""
+
 \subsection{Raw Fixed-Window Versus GRAIN-CAN}
 This comparison tests whether local timing and payload-change evidence before window aggregation improves detection compared with raw fixed-window representations.
 """
     tex += latex_table("raw_window_vs_grain.csv", ["setting", "model", "window_size", "precision", "recall", "f1", "aupr"], "Raw fixed-window and GRAIN-CAN comparison.", "tab:rawgrain", 8)
     tex += r"""
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/raw_window_vs_grain.pdf}
+\caption{Raw fixed-window representation versus GRAIN-CAN on CT\&T test04.  The result supports preserving local behavior changes before aggregation.}
+\label{fig:rawgrain}
+\end{figure}
+
 \subsection{Rule and Statistical Baselines}
 Single-feature threshold rows and normal-only statistical anomaly detection test whether GRAIN-CAN is merely a rule detector.  The results show that individual signals can be useful, especially timing, but the supervised pipeline is the method-level object studied here.
 """
     tex += latex_table("rule_statistical_baseline_comparison.csv", ["model", "precision", "recall", "f1", "fpr", "fnr", "aupr"], "Rule/statistical baselines on CT\\&T test04 with validation-selected thresholds.", "tab:rules", 5)
     tex += r"""
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/rule_statistical_vs_grain.pdf}
+\caption{Single-signal rule/statistical baselines on CT\&T test04.  They can trigger on anomalies, but their false-alarm behavior is not competitive with the supervised GRAIN representation.}
+\label{fig:rules}
+\end{figure}
+
 \subsection{Feature Ablation and Window Sensitivity}
 Feature-removal retraining identifies same-ID timing as the strongest sample-level signal in the current CT\&T test04 setup.  Payload and ID behavior contribute less consistently in these capped-negative runs.  Window-length rows are sensitivity analyses, not test-time selection.
 """
@@ -698,13 +808,35 @@ Feature-removal retraining identifies same-ID timing as the strongest sample-lev
 \label{fig:ablation}
 \end{figure}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/window_length_sensitivity.pdf}
+\caption{Window-length sensitivity on CT\&T test04.  These rows show sensitivity, not a test-selected hyperparameter search.}
+\label{fig:windows}
+\end{figure}
+
 \subsection{Supplementary Operating Analysis}
 Score-based AUPR, AUROC, and fixed-FPR detection rates are reported only when scores are available.  They are not compared to prior papers unless predictions or scores allow recomputation under the same rule.
 """
     tex += latex_table("supplementary_operating_metrics_ctt.csv", ["setting", "model", "aupr", "auroc", "detection_rate_at_fpr_1e_4", "detection_rate_at_fpr_1e_3"], "Supplementary score-based metrics.", "tab:supp", 8)
     tex += r"""
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/supplementary_operating_analysis.pdf}
+\caption{Supplementary score-based analysis.  AUPR and fixed-FPR detection rates are useful deployment evidence, but only when scores are available under the same protocol.}
+\label{fig:supp}
+\end{figure}
+
+\subsection{Metric Availability and Prior Comparability}
+Not every reproduced row has calibrated scores, and not every prior result exposes the positive class, averaging rule, or confusion matrix.  The paper therefore separates conventional attack-positive metrics from supplementary score-based metrics and does not directly compare attack-positive F1 to an externally reported F1 unless the metric definition is recoverable.
+"""
+    tex += latex_table("metric_availability_matrix.csv", ["setting", "model", "attack_positive_F1_computed", "AUPR_computed", "AUROC_computed", "fixed_FPR_detection_rate_computed"], "Metric availability audit.", "tab:availability", 8)
+    tex += latex_table("prior_metric_comparability.csv", ["work", "dataset_setting", "reported_metrics", "directly_comparable_to_our_attack_positive_F1"], "Prior-result comparability audit.", "tab:prior", 3)
+    tex += r"""
 \section{Discussion and Limitations}
-GRAIN-CAN reduces, but does not eliminate, dependence on vehicle-specific absolute CAN distributions.  It does not guarantee detection of arbitrary unseen attacks.  If an unseen attack preserves timing, payload continuity, and local ID behavior, it may be missed.  The method is supervised and uses normal/attack labels; unknown-attack generalization relies on shared local disruptions, not attack-name recognition.  Prior reported F1 values are not directly comparable without positive-class definition, averaging rule, confusion matrix, and predictions or scores.  Event-level results remain approximate when official event boundaries are unavailable.  Window size and threshold must be fixed before testing.
+GRAIN-CAN reduces, but does not eliminate, dependence on vehicle-specific absolute CAN distributions.  It does not guarantee detection of arbitrary unseen attacks.  If an unseen attack preserves timing, payload continuity, and local ID behavior, it may be missed.  The method is supervised and uses normal/attack labels; unknown-attack generalization relies on shared local disruptions, not attack-name recognition.
+
+The experimental evidence also has boundaries.  First, the feature ablation is a controlled retraining ablation for the available CT\&T test04 protocol, but it is not proof that the same feature ordering holds on every vehicle or attack family.  Second, score-based rows depend on whether a model exposes comparable scores; missing score metrics are marked unavailable rather than inferred.  Third, prior reported F1 values are not directly comparable without positive-class definition, averaging rule, confusion matrix, and predictions or scores.  Fourth, event-level deployment evidence still requires official event boundaries for a definitive operational claim.  Finally, window size and threshold must be fixed before testing; window sensitivity should not be written as test-time selection.
 
 \section{Conclusion}
 This paper refocuses CAN IDS evaluation around GRAIN-CAN as a supervised feature-based method.  The evidence supports same-ID local behavior features before window aggregation as a useful design for cross-shift CAN IDS, while also showing clear limits under unknown-attack test04.
