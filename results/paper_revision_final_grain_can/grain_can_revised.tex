@@ -7,6 +7,7 @@
 \usepackage{amsmath}
 \usepackage{url}
 \usepackage{booktabs}
+\usepackage[section]{placeins}
 \newcommand{\method}{GRAIN-CAN}
 \begin{document}
 \title{GRAIN-CAN: Preserving Local CAN Behavior Changes for Cross-Vehicle Intrusion Detection}
@@ -21,30 +22,30 @@ Cross-vehicle and unknown-attack CAN intrusion detection is difficult because ve
 \end{abstract}
 
 \section{Introduction}
-CAN IDS observes only timestamps, arbitration IDs, DLCs, and payload bytes.  In cross-vehicle unknown-attack evaluation, both the vehicle and the attack family may change between training and testing.  A detector that mainly memorizes absolute CAN-ID frequencies, payload ranges, or attack-script IDs can fail when these distributions move.  A long raw window can also bury a short injection or spoofing artifact under many normal frames.
+CAN IDS observes only timestamps, arbitration IDs, DLCs, and payload bytes.  The need for such detectors follows from long-standing demonstrations that in-vehicle networks expose practical attack surfaces and that CAN lacks built-in message authentication~\cite{koscher2010experimental,checkoway2011comprehensive,miller2015remote}.  In cross-vehicle unknown-attack evaluation, both the vehicle and the attack family may change between training and testing.  A detector that mainly memorizes absolute CAN-ID frequencies, payload ranges, or attack-script IDs can fail when these distributions move.  A long raw window can also bury a short injection or spoofing artifact under many normal frames.
 
-\method{} addresses this by extracting local behavior changes before aggregation.  For each frame, it compares the current message with recent history of the same CAN ID and records timing gaps, payload differences, payload statistics, and local ID behavior.  A fixed window then aggregates these explicit local signals, and a supervised classifier learns the normal/attack boundary.  GRAIN-CAN reduces, but does not eliminate, dependence on vehicle-specific absolute CAN distributions.  It does not recognize unseen attack names; it detects local behavior disruptions that may be shared by injection, spoofing, replay, flooding, and masquerade attacks.  It may miss attacks that preserve timing, payload continuity, and local CAN-ID behavior.
+\method{} addresses this by extracting local behavior changes before aggregation.  For each frame, it compares the current message with recent history of the same CAN ID and records timing gaps, payload differences, payload statistics, and local ID behavior.  This design is close in spirit to timing/statistical IDS lines~\cite{song2016intrusion,taylor2016frequency}, but it keeps multiple local behavior signals together before fixed-window aggregation.  A fixed window then aggregates these explicit local signals, and a supervised classifier learns the normal/attack boundary.  GRAIN-CAN reduces, but does not eliminate, dependence on vehicle-specific absolute CAN distributions.  It does not recognize unseen attack names; it detects local behavior disruptions that may be shared by injection, spoofing, replay, flooding, and masquerade attacks.  It may miss attacks that preserve timing, payload continuity, and local CAN-ID behavior.
 
 Our contributions are limited to two points.  First, we propose GRAIN-CAN, a supervised feature-based CAN IDS pipeline that converts raw frames into same-ID local behavior changes before window aggregation.  Second, we evaluate it under CT\&T cross-vehicle and unknown-attack settings with conventional IDS metrics and explicit confusion matrices, comparing against all-normal, public-style classical, raw fixed-window, rule/statistical, and safe-feature baselines where available.
 
 \section{Background and Motivation}
 \subsection{CAN IDS and Cross-Shift}
-Classical CAN provides compact message fields but no semantic signal names.  IDS methods infer attacks from timing, payload evolution, ID frequencies, transition structure, learned sequence models, or physical-layer artifacts~\cite{cho2016fingerprinting,cho2017viden,alkhatib2022canbert,wang2023statgraph}.  CT\&T and ROAD have made shifted CAN IDS easier to study, but they also show that train/test protocol and metric definitions matter~\cite{verma2020road,lampe2024ctt,kidmose2025cansleuth}.  Cross-vehicle unknown-attack detection is harder because training and testing differ in both vehicle behavior and attack behavior.
+Classical CAN provides compact message fields but no semantic signal names.  IDS methods infer attacks from timing, payload evolution, ID frequencies, transition structure, learned sequence models, or physical-layer artifacts~\cite{cho2016fingerprinting,cho2017viden,song2016intrusion,taylor2016frequency}.  Recent learning-based work has explored BERT-style sequence modeling, signal-level deep learning, statistical graph learning, federated multi-stage detection, and state-space sequence models~\cite{alkhatib2022canbert,shahriar2022canshield,wang2023statgraph,althunayyan2024federated,liu2026mids}.  CT\&T and ROAD have made shifted CAN IDS easier to study, but they also show that train/test protocol and metric definitions matter~\cite{verma2020road,lampe2024ctt,guerra2024road,kidmose2025cansleuth}.  Cross-vehicle unknown-attack detection is harder because training and testing differ in both vehicle behavior and attack behavior.
 
 \subsection{Relation to Recent Work}
-Recent CAN IDS work includes fingerprinting, statistical timing models, sequence encoders, graph-style representations, and benchmark studies.  These lines are complementary to GRAIN-CAN: we do not introduce a new deep backbone or physical-layer fingerprint.  Instead, we ask whether causal same-ID local behavior features, kept before window aggregation, improve a supervised detector under cross-shift evaluation.  Because rare-attack settings can make accuracy-like metrics misleading, we report attack-positive precision, recall, F1, FPR, FNR, and confusion matrices first, with AUPR and ROC-style operating metrics as supplementary evidence~\cite{davis2006pr,saito2015pr}.
+Recent CAN IDS work includes fingerprinting, statistical timing models, sequence encoders, graph-style representations, and benchmark studies~\cite{sharmin2024benchmarking,guerra2024road,hossain2026falsealarm}.  These lines are complementary to GRAIN-CAN: we do not introduce a new deep backbone or physical-layer fingerprint, and we do not claim to replace strong recent models such as signal-level autoencoders, graph IDS, or Mamba-style sequence baselines~\cite{shahriar2022canshield,wang2023statgraph,liu2026mids}.  Instead, we ask whether causal same-ID local behavior features, kept before window aggregation, improve a supervised detector under cross-shift evaluation.  Because rare-attack settings can make accuracy-like metrics misleading, we report attack-positive precision, recall, F1, FPR, FNR, and confusion matrices first, with AUPR and ROC-style operating metrics as supplementary evidence~\cite{davis2006pr,saito2015pr}.
 
 \subsection{Local Evidence Dilution}
 Many CAN attacks affect only a small number of frames or a small subset of IDs.  If a model receives a raw long window, the abnormal frames may be numerically diluted by normal traffic.  GRAIN-CAN makes the local change explicit first, then aggregates it.  This design choice is intentionally modest: it does not assume that one statistic can describe all attacks, and it does not rely on a new deep backbone.  It asks whether the evidence already present in CAN timing and payload continuity can be kept visible long enough for a supervised detector to use it.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.95\textwidth]{results/paper_revision_final_grain_can/figures/grain_can_pipeline.pdf}
 \caption{GRAIN-CAN pipeline.  Same-ID local history is converted into timing, payload-change, and ID-behavior features before fixed-window aggregation and supervised classification.}
 \label{fig:pipeline}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.88\textwidth]{results/paper_revision_final_grain_can/figures/local_evidence_dilution.pdf}
 \caption{Motivation for feature preservation.  Raw long windows can hide a short burst of abnormal frames, whereas GRAIN-CAN exposes local same-ID changes before aggregation.}
@@ -92,7 +93,7 @@ where FNR measures missed attacks and FPR measures false alarms on benign traffi
 \]
 where \(\tau\) is the threshold and \(\alpha\) is the false-alarm-rate budget.
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Dataset and class-balance summary for settings used in the revised evidence package.}\label{tab:data}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -116,7 +117,7 @@ car\_hacking & sanity check & 17558346 & 175576 & 0.1328 \\
 
 \subsection{Implementation and Selection Protocol}
 GRAIN-CAN is evaluated as a fixed supervised pipeline.  Feature definitions are causal; classifier training uses the recorded training data; and the test split is not used to choose feature definitions, thresholds, or window lengths.  Because the repository contains several historical result tables, we keep protocol-audit tables in the main paper rather than asking the reader to infer what was fixed and what was only sensitivity analysis.
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{GRAIN-CAN classifier and feature protocol.}\label{tab:classifier}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -129,7 +130,7 @@ ctt\_test01-test04 & GradientBoostingClassifier for GRAIN rows & same-ID timing|
 \end{tabular}
 }
 \end{table}
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Window-length selection audit.  Window rows are sensitivity evidence, not test-time selection.}\label{tab:winaudit}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -145,7 +146,7 @@ ctt\_test04 & 10|20|100 & False & none; report W10/W20/W100 separately & False \
 \end{tabular}
 }
 \end{table}
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Threshold-selection audit.}\label{tab:thraudit}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -160,7 +161,7 @@ ctt\_test04 & GRAIN-W100 & True & validation or stored default; best-test rows s
 \end{table}
 
 
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Conventional IDS metrics for representative CT\&T rows.  Attack is the positive class.}\label{tab:main}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -186,7 +187,7 @@ ctt\_test02 & GradientBoosting / sample & 0.9314 & 0.9981 & 0.9636 & 0.0019 & 0.
 \subsection{Main Results}
 The corrected CT\&T results show that GRAIN rows are competitive with reproduced baselines under conventional attack-positive metrics.  The results should not be read as a universal unknown-attack solution: test04 remains the hardest setting, and recall/FNR show nontrivial misses.  Table~\ref{tab:main} deliberately reports precision, recall, F1, FNR, and FPR rather than only aggregate accuracy.  A detector that reports high aggregate scores but misses the rare attack class is not sufficient for an IDS.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/main_conventional_ids_results.pdf}
 \caption{Representative conventional F1 results.  The chart uses reproduced or locally computed rows only.}
@@ -195,7 +196,7 @@ The corrected CT\&T results show that GRAIN rows are competitive with reproduced
 
 \subsection{Confusion-Matrix Evidence}
 Confusion matrices make the false-alarm and missed-attack tradeoff explicit.  This is important because CT\&T test04 is strongly normal-dominated; a method can look acceptable under aggregate metrics while still producing zero useful attack detection.  We therefore keep TP, FP, TN, and FN as first-class reporting fields.
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Representative confusion-matrix counts.  Attack is positive.}\label{tab:confusion}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -219,7 +220,7 @@ ctt\_test01 & Transformer & 1050.0000 & 0.0000 & 162419.0000 & 78.0000 \\
 
 \subsection{Cross-Shift Decomposition}
 The four CT\&T settings isolate different sources of shift.  Test02 changes the vehicle but keeps attack families known; test03 keeps the vehicle known but changes the attack family; test04 changes both.  This decomposition is why test04 should be interpreted as the central cross-vehicle unknown-attack stress case rather than as one more ordinary test split.
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{CT\&T shift decomposition with GRAIN window rows.}\label{tab:shift}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -243,7 +244,7 @@ ctt\_test03 & known & unknown & GRAIN-W20 & 0.6677 & 0.7094 \\
 
 \subsection{Raw Fixed-Window Versus GRAIN-CAN}
 This comparison tests whether local timing and payload-change evidence before window aggregation improves detection compared with raw fixed-window representations.
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Raw fixed-window and GRAIN-CAN comparison.}\label{tab:rawgrain}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -264,7 +265,7 @@ ctt\_test04 & Old raw window100 Transformer & 100 & 0.0113 & 0.9794 & 0.0224 & 0
 }
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/raw_window_vs_grain.pdf}
 \caption{Raw fixed-window representation versus GRAIN-CAN on CT\&T test04.  The result supports preserving local behavior changes before aggregation.}
@@ -273,7 +274,7 @@ ctt\_test04 & Old raw window100 Transformer & 100 & 0.0113 & 0.9794 & 0.0224 & 0
 
 \subsection{Rule and Statistical Baselines}
 Single-feature threshold rows and normal-only statistical anomaly detection test whether GRAIN-CAN is merely a rule detector.  The results show that individual signals can be useful, especially timing, but the supervised pipeline is the method-level object studied here.
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Rule/statistical baselines on CT\&T test04 with validation-selected thresholds.}\label{tab:rules}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -290,7 +291,7 @@ IsolationForest normal-only statistical & 0.0011 & 1.0000 & 0.0022 & 0.9772 & 0.
 }
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/rule_statistical_vs_grain.pdf}
 \caption{Single-signal rule/statistical baselines on CT\&T test04.  They can trigger on anomalies, but their false-alarm behavior is not competitive with the supervised GRAIN representation.}
@@ -299,7 +300,7 @@ IsolationForest normal-only statistical & 0.0011 & 1.0000 & 0.0022 & 0.9772 & 0.
 
 \subsection{Feature Ablation and Window Sensitivity}
 Feature-removal retraining identifies same-ID timing as the strongest sample-level signal in the current CT\&T test04 setup.  Payload and ID behavior contribute less consistently in these capped-negative runs.  Window-length rows are sensitivity analyses, not test-time selection.
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{GRAIN feature-group retraining ablation on CT\&T test04.}\label{tab:ablation}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -319,7 +320,7 @@ only\_id & 0.0013 & 0.2555 & 0.0026 & 0.0438 & 0.0550 \\
 \end{tabular}
 }
 \end{table}
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Window-length sensitivity.  Rows are not used for test-time window selection.}\label{tab:windows}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -342,14 +343,14 @@ ctt\_test04 & GRAIN-W10 & 0.8892 & 0.4529 & 0.6001 & 0.6185 \\
 }
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/grain_feature_ablation.pdf}
 \caption{Feature-group ablation.  Same-ID timing is the dominant sample-level signal in this experiment.}
 \label{fig:ablation}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/window_length_sensitivity.pdf}
 \caption{Window-length sensitivity on CT\&T test04.  These rows show sensitivity, not a test-selected hyperparameter search.}
@@ -358,7 +359,7 @@ ctt\_test04 & GRAIN-W10 & 0.8892 & 0.4529 & 0.6001 & 0.6185 \\
 
 \subsection{Supplementary Operating Analysis}
 Score-based AUPR, AUROC, and fixed-FPR detection rates are reported only when scores are available.  They are not compared to prior papers unless predictions or scores allow recomputation under the same rule.
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Supplementary score-based metrics.}\label{tab:supp}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -379,7 +380,7 @@ ctt\_test01 & MLP / sample & 0.3565 & 0.6208 & NA & NA \\
 }
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/supplementary_operating_analysis.pdf}
 \caption{Supplementary score-based analysis.  AUPR and fixed-FPR detection rates are useful deployment evidence, but only when scores are available under the same protocol.}
@@ -388,7 +389,7 @@ ctt\_test01 & MLP / sample & 0.3565 & 0.6208 & NA & NA \\
 
 \subsection{Metric Availability and Prior Comparability}
 Not every reproduced row has calibrated scores, and not every prior result exposes the positive class, averaging rule, or confusion matrix.  The paper therefore separates conventional attack-positive metrics from supplementary score-based metrics and does not directly compare attack-positive F1 to an externally reported F1 unless the metric definition is recoverable.
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Metric availability audit.}\label{tab:availability}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -408,7 +409,7 @@ ctt\_test01 & MLP / sample & True & True & True & False \\
 \end{tabular}
 }
 \end{table}
-\begin{table}[t]
+\begin{table}[!htbp]
 \caption{Prior-result comparability audit.}\label{tab:prior}
 \centering\small
 \resizebox{\textwidth}{!}{%
@@ -430,17 +431,6 @@ The experimental evidence also has boundaries.  First, the feature ablation is a
 \section{Conclusion}
 This paper refocuses CAN IDS evaluation around GRAIN-CAN as a supervised feature-based method.  The evidence supports same-ID local behavior features before window aggregation as a useful design for cross-shift CAN IDS, while also showing clear limits under unknown-attack test04.
 
-\begin{thebibliography}{10}
-\bibitem{koscher2010experimental} Koscher, K., et al.: Experimental security analysis of a modern automobile. IEEE S\&P (2010)
-\bibitem{checkoway2011comprehensive} Checkoway, S., et al.: Comprehensive experimental analyses of automotive attack surfaces. USENIX Security (2011)
-\bibitem{cho2016fingerprinting} Cho, K.T., Shin, K.G.: Fingerprinting electronic control units for vehicle intrusion detection. USENIX Security (2016)
-\bibitem{cho2017viden} Cho, K.T., Shin, K.G.: Viden: Attacker identification on in-vehicle networks. CCS (2017)
-\bibitem{verma2020road} Verma, M.E., et al.: ROAD: The real ORNL automotive dynamometer CAN intrusion dataset. (2020)
-\bibitem{lampe2024ctt} Lampe, B., Meng, W.: can-train-and-test: A curated CAN dataset for automotive intrusion detection. Computers \& Security 140, 103777 (2024)
-\bibitem{alkhatib2022canbert} Al-Khatib, N., et al.: CAN-BERT for automotive intrusion detection. (2022)
-\bibitem{wang2023statgraph} Wang, H., et al.: Statistical graph learning for CAN intrusion detection. (2023)
-\bibitem{kidmose2025cansleuth} Kidmose, E., et al.: can-sleuth: Benchmarking CAN intrusion detection. (2025)
-\bibitem{davis2006pr} Davis, J., Goadrich, M.: The relationship between precision-recall and ROC curves. ICML (2006)
-\bibitem{saito2015pr} Saito, T., Rehmsmeier, M.: The precision-recall plot is more informative than ROC under class imbalance. PLoS ONE (2015)
-\end{thebibliography}
+\bibliographystyle{splncs04}
+\bibliography{grain_can_refs}
 \end{document}

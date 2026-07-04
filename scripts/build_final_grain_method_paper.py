@@ -660,11 +660,166 @@ def latex_table(path, cols, caption, label, max_rows=8):
             "detection_rate_at_fpr_1e_3": "R@1e-3",
         }
     )
-    body = "\\begin{table}[t]\n\\caption{" + caption + "}\\label{" + label + "}\n\\centering\\small\n"
+    body = "\\begin{table}[!htbp]\n\\caption{" + caption + "}\\label{" + label + "}\n\\centering\\small\n"
     tabular = use.to_latex(index=False, escape=True).replace("\\toprule", "\\hline").replace("\\midrule", "\\hline").replace("\\bottomrule", "\\hline")
     body += "\\resizebox{\\textwidth}{!}{%\n" + tabular + "}\n"
     body += "\\end{table}\n"
     return body
+
+
+def write_bibliography_file():
+    bib = r"""@inproceedings{koscher2010experimental,
+  author    = {Koscher, Karl and Czeskis, Alexei and Roesner, Franziska and Patel, Shwetak and Kohno, Tadayoshi and Checkoway, Stephen and McCoy, Damon and Kantor, Brian and Anderson, Danny and Shacham, Hovav and Savage, Stefan},
+  title     = {Experimental Security Analysis of a Modern Automobile},
+  booktitle = {Proceedings of the IEEE Symposium on Security and Privacy},
+  pages     = {447--462},
+  year      = {2010}
+}
+
+@inproceedings{checkoway2011comprehensive,
+  author    = {Checkoway, Stephen and McCoy, Damon and Kantor, Brian and Anderson, Danny and Shacham, Hovav and Savage, Stefan and Koscher, Karl and Czeskis, Alexei and Roesner, Franziska and Kohno, Tadayoshi},
+  title     = {Comprehensive Experimental Analyses of Automotive Attack Surfaces},
+  booktitle = {Proceedings of the USENIX Security Symposium},
+  year      = {2011}
+}
+
+@inproceedings{miller2015remote,
+  author    = {Miller, Charlie and Valasek, Chris},
+  title     = {Remote Exploitation of an Unaltered Passenger Vehicle},
+  booktitle = {Black Hat USA},
+  year      = {2015}
+}
+
+@inproceedings{cho2016fingerprinting,
+  author    = {Cho, Kyong-Tak and Shin, Kang G.},
+  title     = {Fingerprinting Electronic Control Units for Vehicle Intrusion Detection},
+  booktitle = {Proceedings of the USENIX Security Symposium},
+  pages     = {911--927},
+  year      = {2016}
+}
+
+@inproceedings{cho2017viden,
+  author    = {Cho, Kyong-Tak and Shin, Kang G.},
+  title     = {{Viden}: Attacker Identification on In-Vehicle Networks},
+  booktitle = {Proceedings of the ACM Conference on Computer and Communications Security},
+  pages     = {1109--1123},
+  year      = {2017}
+}
+
+@inproceedings{song2016intrusion,
+  author    = {Song, Hyun Min and Kim, Ha Rang and Kim, Huy Kang},
+  title     = {Intrusion Detection System Based on the Analysis of Time Intervals of {CAN} Messages for In-Vehicle Network},
+  booktitle = {International Conference on Information Networking},
+  pages     = {63--68},
+  year      = {2016}
+}
+
+@inproceedings{taylor2016frequency,
+  author    = {Taylor, Adrian and Leblanc, Sylvain and Japkowicz, Nathalie},
+  title     = {Frequency-Based Anomaly Detection for the Automotive {CAN} Bus},
+  booktitle = {World Congress on Industrial Control Systems Security},
+  pages     = {45--49},
+  year      = {2015}
+}
+
+@article{sharmin2024benchmarking,
+  author  = {Sharmin, Shaila and Mansor, Hafizah and Abdul Kadir, Andi Fitriah and Aziz, Normaziah A.},
+  title   = {Benchmarking Frameworks and Comparative Studies of Controller Area Network Intrusion Detection Systems: A Review},
+  journal = {arXiv preprint arXiv:2402.06904},
+  year    = {2024}
+}
+
+@article{verma2020road,
+  author  = {Verma, M. E. and Bridges, R. A. and Hollifield, S. C. and Iannacone, M. D. and Moriano, P.},
+  title   = {{ROAD}: The Real {ORNL} Automotive Dynamometer Controller Area Network Intrusion Detection Dataset},
+  journal = {arXiv preprint arXiv:2012.14600},
+  year    = {2020}
+}
+
+@article{guerra2024road,
+  author  = {Guerra, Lorenzo and Xu, Linhan and Bellavista, Paolo and Chapuis, Thomas and Duc, Guillaume and Mozharovskyi, Pavlo and Nguyen, Van-Tam},
+  title   = {{AI}-Driven Intrusion Detection Systems on the {ROAD} Dataset: A Comparative Analysis for Automotive {CAN}},
+  journal = {arXiv preprint arXiv:2408.17235},
+  year    = {2024}
+}
+
+@article{lampe2024ctt,
+  author  = {Lampe, Brooke and Meng, Weizhi},
+  title   = {can-train-and-test: A Curated {CAN} Dataset for Automotive Intrusion Detection},
+  journal = {Computers \& Security},
+  volume  = {140},
+  pages   = {103777},
+  year    = {2024}
+}
+
+@article{alkhatib2022canbert,
+  author  = {Alkhatib, Natasha and Mushtaq, Maria and Ghauch, Hadi and Danger, Jean-Luc},
+  title   = {{CAN-BERT} Do It? Controller Area Network Intrusion Detection System Based on {BERT} Language Model},
+  journal = {arXiv preprint arXiv:2210.09439},
+  year    = {2022}
+}
+
+@article{shahriar2022canshield,
+  author  = {Shahriar, Md Hasan and Xiao, Yang and Moriano, Pablo and Lou, Wenjing and Hou, Y. Thomas},
+  title   = {{CANShield}: Deep Learning-Based Intrusion Detection Framework for Controller Area Networks at the Signal-Level},
+  journal = {arXiv preprint arXiv:2205.01306},
+  year    = {2022}
+}
+
+@article{wang2023statgraph,
+  author  = {Wang, Kai and Jiang, Qiguang and Wang, Bailing and Zhang, Yongzheng and Wu, Yulei},
+  title   = {Effective In-Vehicle Intrusion Detection via Multi-View Statistical Graph Learning on {CAN} Messages},
+  journal = {arXiv preprint arXiv:2311.07056},
+  year    = {2023}
+}
+
+@article{althunayyan2024federated,
+  author  = {Althunayyan, Muzun and Javed, Amir and Rana, Omer},
+  title   = {A Robust Multi-Stage Intrusion Detection System for In-Vehicle Network Security Using Hierarchical Federated Learning},
+  journal = {arXiv preprint arXiv:2408.08433},
+  year    = {2024}
+}
+
+@article{liu2026mids,
+  author  = {Liu, Qiqi and Song, Runhan and Cui, Lei and Zhang, Heng and Sun, Yuyan and Sun, Limin},
+  title   = {{MIDS}: Detecting Stealthy Masquerade and Tampering Attacks on {CAN} Bus via Bidirectional {Mamba}},
+  journal = {arXiv preprint arXiv:2606.18599},
+  year    = {2026}
+}
+
+@article{hossain2026falsealarm,
+  author  = {Hossain, Nirab and Moriano, Pablo},
+  title   = {Evaluating False Alarm and Missing Attacks in {CAN} {IDS}},
+  journal = {arXiv preprint arXiv:2602.02781},
+  year    = {2026}
+}
+
+@misc{kidmose2025cansleuth,
+  author       = {Kidmose, Egil and others},
+  title        = {can-sleuth: Benchmarking {CAN} Intrusion Detection},
+  howpublished = {Public project and benchmark documentation},
+  year         = {2025}
+}
+
+@inproceedings{davis2006pr,
+  author    = {Davis, Jesse and Goadrich, Mark},
+  title     = {The Relationship Between Precision-Recall and {ROC} Curves},
+  booktitle = {Proceedings of the International Conference on Machine Learning},
+  pages     = {233--240},
+  year      = {2006}
+}
+
+@article{saito2015pr,
+  author  = {Saito, Takaya and Rehmsmeier, Marc},
+  title   = {The Precision-Recall Plot Is More Informative than the {ROC} Plot When Evaluating Binary Classifiers on Imbalanced Datasets},
+  journal = {PLOS ONE},
+  volume  = {10},
+  number  = {3},
+  pages   = {e0118432},
+  year    = {2015}
+}
+"""
+    (OUT / "grain_can_refs.bib").write_text(bib, encoding="utf-8")
 
 
 def write_latex():
@@ -677,6 +832,7 @@ def write_latex():
 \usepackage{amsmath}
 \usepackage{url}
 \usepackage{booktabs}
+\usepackage[section]{placeins}
 \newcommand{\method}{GRAIN-CAN}
 \begin{document}
 \title{GRAIN-CAN: Preserving Local CAN Behavior Changes for Cross-Vehicle Intrusion Detection}
@@ -691,30 +847,30 @@ Cross-vehicle and unknown-attack CAN intrusion detection is difficult because ve
 \end{abstract}
 
 \section{Introduction}
-CAN IDS observes only timestamps, arbitration IDs, DLCs, and payload bytes.  In cross-vehicle unknown-attack evaluation, both the vehicle and the attack family may change between training and testing.  A detector that mainly memorizes absolute CAN-ID frequencies, payload ranges, or attack-script IDs can fail when these distributions move.  A long raw window can also bury a short injection or spoofing artifact under many normal frames.
+CAN IDS observes only timestamps, arbitration IDs, DLCs, and payload bytes.  The need for such detectors follows from long-standing demonstrations that in-vehicle networks expose practical attack surfaces and that CAN lacks built-in message authentication~\cite{koscher2010experimental,checkoway2011comprehensive,miller2015remote}.  In cross-vehicle unknown-attack evaluation, both the vehicle and the attack family may change between training and testing.  A detector that mainly memorizes absolute CAN-ID frequencies, payload ranges, or attack-script IDs can fail when these distributions move.  A long raw window can also bury a short injection or spoofing artifact under many normal frames.
 
-\method{} addresses this by extracting local behavior changes before aggregation.  For each frame, it compares the current message with recent history of the same CAN ID and records timing gaps, payload differences, payload statistics, and local ID behavior.  A fixed window then aggregates these explicit local signals, and a supervised classifier learns the normal/attack boundary.  GRAIN-CAN reduces, but does not eliminate, dependence on vehicle-specific absolute CAN distributions.  It does not recognize unseen attack names; it detects local behavior disruptions that may be shared by injection, spoofing, replay, flooding, and masquerade attacks.  It may miss attacks that preserve timing, payload continuity, and local CAN-ID behavior.
+\method{} addresses this by extracting local behavior changes before aggregation.  For each frame, it compares the current message with recent history of the same CAN ID and records timing gaps, payload differences, payload statistics, and local ID behavior.  This design is close in spirit to timing/statistical IDS lines~\cite{song2016intrusion,taylor2016frequency}, but it keeps multiple local behavior signals together before fixed-window aggregation.  A fixed window then aggregates these explicit local signals, and a supervised classifier learns the normal/attack boundary.  GRAIN-CAN reduces, but does not eliminate, dependence on vehicle-specific absolute CAN distributions.  It does not recognize unseen attack names; it detects local behavior disruptions that may be shared by injection, spoofing, replay, flooding, and masquerade attacks.  It may miss attacks that preserve timing, payload continuity, and local CAN-ID behavior.
 
 Our contributions are limited to two points.  First, we propose GRAIN-CAN, a supervised feature-based CAN IDS pipeline that converts raw frames into same-ID local behavior changes before window aggregation.  Second, we evaluate it under CT\&T cross-vehicle and unknown-attack settings with conventional IDS metrics and explicit confusion matrices, comparing against all-normal, public-style classical, raw fixed-window, rule/statistical, and safe-feature baselines where available.
 
 \section{Background and Motivation}
 \subsection{CAN IDS and Cross-Shift}
-Classical CAN provides compact message fields but no semantic signal names.  IDS methods infer attacks from timing, payload evolution, ID frequencies, transition structure, learned sequence models, or physical-layer artifacts~\cite{cho2016fingerprinting,cho2017viden,alkhatib2022canbert,wang2023statgraph}.  CT\&T and ROAD have made shifted CAN IDS easier to study, but they also show that train/test protocol and metric definitions matter~\cite{verma2020road,lampe2024ctt,kidmose2025cansleuth}.  Cross-vehicle unknown-attack detection is harder because training and testing differ in both vehicle behavior and attack behavior.
+Classical CAN provides compact message fields but no semantic signal names.  IDS methods infer attacks from timing, payload evolution, ID frequencies, transition structure, learned sequence models, or physical-layer artifacts~\cite{cho2016fingerprinting,cho2017viden,song2016intrusion,taylor2016frequency}.  Recent learning-based work has explored BERT-style sequence modeling, signal-level deep learning, statistical graph learning, federated multi-stage detection, and state-space sequence models~\cite{alkhatib2022canbert,shahriar2022canshield,wang2023statgraph,althunayyan2024federated,liu2026mids}.  CT\&T and ROAD have made shifted CAN IDS easier to study, but they also show that train/test protocol and metric definitions matter~\cite{verma2020road,lampe2024ctt,guerra2024road,kidmose2025cansleuth}.  Cross-vehicle unknown-attack detection is harder because training and testing differ in both vehicle behavior and attack behavior.
 
 \subsection{Relation to Recent Work}
-Recent CAN IDS work includes fingerprinting, statistical timing models, sequence encoders, graph-style representations, and benchmark studies.  These lines are complementary to GRAIN-CAN: we do not introduce a new deep backbone or physical-layer fingerprint.  Instead, we ask whether causal same-ID local behavior features, kept before window aggregation, improve a supervised detector under cross-shift evaluation.  Because rare-attack settings can make accuracy-like metrics misleading, we report attack-positive precision, recall, F1, FPR, FNR, and confusion matrices first, with AUPR and ROC-style operating metrics as supplementary evidence~\cite{davis2006pr,saito2015pr}.
+Recent CAN IDS work includes fingerprinting, statistical timing models, sequence encoders, graph-style representations, and benchmark studies~\cite{sharmin2024benchmarking,guerra2024road,hossain2026falsealarm}.  These lines are complementary to GRAIN-CAN: we do not introduce a new deep backbone or physical-layer fingerprint, and we do not claim to replace strong recent models such as signal-level autoencoders, graph IDS, or Mamba-style sequence baselines~\cite{shahriar2022canshield,wang2023statgraph,liu2026mids}.  Instead, we ask whether causal same-ID local behavior features, kept before window aggregation, improve a supervised detector under cross-shift evaluation.  Because rare-attack settings can make accuracy-like metrics misleading, we report attack-positive precision, recall, F1, FPR, FNR, and confusion matrices first, with AUPR and ROC-style operating metrics as supplementary evidence~\cite{davis2006pr,saito2015pr}.
 
 \subsection{Local Evidence Dilution}
 Many CAN attacks affect only a small number of frames or a small subset of IDs.  If a model receives a raw long window, the abnormal frames may be numerically diluted by normal traffic.  GRAIN-CAN makes the local change explicit first, then aggregates it.  This design choice is intentionally modest: it does not assume that one statistic can describe all attacks, and it does not rely on a new deep backbone.  It asks whether the evidence already present in CAN timing and payload continuity can be kept visible long enough for a supervised detector to use it.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.95\textwidth]{results/paper_revision_final_grain_can/figures/grain_can_pipeline.pdf}
 \caption{GRAIN-CAN pipeline.  Same-ID local history is converted into timing, payload-change, and ID-behavior features before fixed-window aggregation and supervised classification.}
 \label{fig:pipeline}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.88\textwidth]{results/paper_revision_final_grain_can/figures/local_evidence_dilution.pdf}
 \caption{Motivation for feature preservation.  Raw long windows can hide a short burst of abnormal frames, whereas GRAIN-CAN exposes local same-ID changes before aggregation.}
@@ -780,7 +936,7 @@ GRAIN-CAN is evaluated as a fixed supervised pipeline.  Feature definitions are 
 \subsection{Main Results}
 The corrected CT\&T results show that GRAIN rows are competitive with reproduced baselines under conventional attack-positive metrics.  The results should not be read as a universal unknown-attack solution: test04 remains the hardest setting, and recall/FNR show nontrivial misses.  Table~\ref{tab:main} deliberately reports precision, recall, F1, FNR, and FPR rather than only aggregate accuracy.  A detector that reports high aggregate scores but misses the rare attack class is not sufficient for an IDS.
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/main_conventional_ids_results.pdf}
 \caption{Representative conventional F1 results.  The chart uses reproduced or locally computed rows only.}
@@ -804,7 +960,7 @@ This comparison tests whether local timing and payload-change evidence before wi
 """
     tex += latex_table("raw_window_vs_grain.csv", ["setting", "model", "window_size", "precision", "recall", "f1", "aupr"], "Raw fixed-window and GRAIN-CAN comparison.", "tab:rawgrain", 8)
     tex += r"""
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/raw_window_vs_grain.pdf}
 \caption{Raw fixed-window representation versus GRAIN-CAN on CT\&T test04.  The result supports preserving local behavior changes before aggregation.}
@@ -816,7 +972,7 @@ Single-feature threshold rows and normal-only statistical anomaly detection test
 """
     tex += latex_table("rule_statistical_baseline_comparison.csv", ["model", "precision", "recall", "f1", "fpr", "fnr", "aupr"], "Rule/statistical baselines on CT\\&T test04 with validation-selected thresholds.", "tab:rules", 5)
     tex += r"""
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/rule_statistical_vs_grain.pdf}
 \caption{Single-signal rule/statistical baselines on CT\&T test04.  They can trigger on anomalies, but their false-alarm behavior is not competitive with the supervised GRAIN representation.}
@@ -829,14 +985,14 @@ Feature-removal retraining identifies same-ID timing as the strongest sample-lev
     tex += latex_table("grain_feature_ablation.csv", ["ablation", "precision", "recall", "f1", "aupr", "detection_rate_at_fpr_1e_3"], "GRAIN feature-group retraining ablation on CT\\&T test04.", "tab:ablation", 8)
     tex += latex_table("window_length_sensitivity.csv", ["setting", "model", "precision", "recall", "f1", "aupr"], "Window-length sensitivity.  Rows are not used for test-time window selection.", "tab:windows", 10)
     tex += r"""
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/grain_feature_ablation.pdf}
 \caption{Feature-group ablation.  Same-ID timing is the dominant sample-level signal in this experiment.}
 \label{fig:ablation}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/window_length_sensitivity.pdf}
 \caption{Window-length sensitivity on CT\&T test04.  These rows show sensitivity, not a test-selected hyperparameter search.}
@@ -848,7 +1004,7 @@ Score-based AUPR, AUROC, and fixed-FPR detection rates are reported only when sc
 """
     tex += latex_table("supplementary_operating_metrics_ctt.csv", ["setting", "model", "aupr", "auroc", "detection_rate_at_fpr_1e_4", "detection_rate_at_fpr_1e_3"], "Supplementary score-based metrics.", "tab:supp", 8)
     tex += r"""
-\begin{figure}[t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=0.86\textwidth]{results/paper_revision_final_grain_can/figures/supplementary_operating_analysis.pdf}
 \caption{Supplementary score-based analysis.  AUPR and fixed-FPR detection rates are useful deployment evidence, but only when scores are available under the same protocol.}
@@ -869,19 +1025,8 @@ The experimental evidence also has boundaries.  First, the feature ablation is a
 \section{Conclusion}
 This paper refocuses CAN IDS evaluation around GRAIN-CAN as a supervised feature-based method.  The evidence supports same-ID local behavior features before window aggregation as a useful design for cross-shift CAN IDS, while also showing clear limits under unknown-attack test04.
 
-\begin{thebibliography}{10}
-\bibitem{koscher2010experimental} Koscher, K., et al.: Experimental security analysis of a modern automobile. IEEE S\&P (2010)
-\bibitem{checkoway2011comprehensive} Checkoway, S., et al.: Comprehensive experimental analyses of automotive attack surfaces. USENIX Security (2011)
-\bibitem{cho2016fingerprinting} Cho, K.T., Shin, K.G.: Fingerprinting electronic control units for vehicle intrusion detection. USENIX Security (2016)
-\bibitem{cho2017viden} Cho, K.T., Shin, K.G.: Viden: Attacker identification on in-vehicle networks. CCS (2017)
-\bibitem{verma2020road} Verma, M.E., et al.: ROAD: The real ORNL automotive dynamometer CAN intrusion dataset. (2020)
-\bibitem{lampe2024ctt} Lampe, B., Meng, W.: can-train-and-test: A curated CAN dataset for automotive intrusion detection. Computers \& Security 140, 103777 (2024)
-\bibitem{alkhatib2022canbert} Al-Khatib, N., et al.: CAN-BERT for automotive intrusion detection. (2022)
-\bibitem{wang2023statgraph} Wang, H., et al.: Statistical graph learning for CAN intrusion detection. (2023)
-\bibitem{kidmose2025cansleuth} Kidmose, E., et al.: can-sleuth: Benchmarking CAN intrusion detection. (2025)
-\bibitem{davis2006pr} Davis, J., Goadrich, M.: The relationship between precision-recall and ROC curves. ICML (2006)
-\bibitem{saito2015pr} Saito, T., Rehmsmeier, M.: The precision-recall plot is more informative than ROC under class imbalance. PLoS ONE (2015)
-\end{thebibliography}
+\bibliographystyle{splncs04}
+\bibliography{grain_can_refs}
 \end{document}
 """
     (OUT / "grain_can_revised.tex").write_text(tex, encoding="utf-8")
@@ -911,6 +1056,7 @@ def final_checklist():
 
 def main():
     setup()
+    write_bibliography_file()
     conv = build_conventional_tables()
     ws, ab = build_grain_tables()
     rule = build_rule_baselines()
