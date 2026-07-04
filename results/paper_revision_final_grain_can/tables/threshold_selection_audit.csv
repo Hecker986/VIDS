@@ -1,0 +1,2 @@
+setting,model,score_available,default_threshold,validation_threshold_available,selected_threshold,threshold_selected_on,test_used_for_threshold,main_result_or_supplementary,notes
+ctt_test04,GRAIN-W100,True,0.5,True,from score dump / validation-FPR row where available,validation or stored default; best-test rows supplementary only,False,main conventional result uses stored/default; fixed-FPR score rows supplementary,Best-test upper-bound rows must not be used as deployment claims.

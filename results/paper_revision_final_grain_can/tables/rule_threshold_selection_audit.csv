@@ -1,0 +1,5 @@
+setting,model,threshold_selected_on,threshold,note
+ctt_test04,Timing-threshold delta_t_same_id,validation_f1,7.152555099310121e-07,single timing threshold
+ctt_test04,Payload-delta threshold,validation_f1,0.0,single payload-change threshold
+ctt_test04,CAN-ID value threshold,validation_f1,0.04713064804673195,single CAN-ID numeric threshold
+ctt_test04,IsolationForest normal-only statistical,validation_f1,-0.11430316086518888,normal-only statistical anomaly baseline over safe CAN features

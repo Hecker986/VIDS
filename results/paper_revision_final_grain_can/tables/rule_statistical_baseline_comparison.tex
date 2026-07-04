@@ -1,0 +1,10 @@
+\begin{tabular}{lllrlrrrrrrrrrrrrrr}
+\toprule
+setting & model & threshold\_selected\_on & threshold & note & tp & fp & tn & fn & accuracy & precision & recall & f1 & fnr & fpr & auroc & aupr & detection\_rate\_at\_fpr\_1e\_4 & detection\_rate\_at\_fpr\_1e\_3 \\
+\midrule
+ctt\_test04 & Timing-threshold delta\_t\_same\_id & validation\_f1 & 0.0000 & single timing threshold & 11610 & 13205567 & 744 & 2634 & 0.0009 & 0.0009 & 0.8151 & 0.0018 & 0.1849 & 0.9999 & 0.3926 & 0.0898 & 0.0287 & 0.1698 \\
+ctt\_test04 & Payload-delta threshold & validation\_f1 & 0.0000 & single payload-change threshold & 14244 & 13206311 & 0 & 0 & 0.0011 & 0.0011 & 1.0000 & 0.0022 & 0.0000 & 1.0000 & 0.5251 & 0.0533 & 0.0630 & 0.1564 \\
+ctt\_test04 & CAN-ID value threshold & validation\_f1 & 0.0471 & single CAN-ID numeric threshold & 13199 & 13206311 & 0 & 1045 & 0.0010 & 0.0010 & 0.9266 & 0.0020 & 0.0734 & 1.0000 & 0.7599 & 0.0415 & 0.0276 & 0.0298 \\
+ctt\_test04 & IsolationForest normal-only statistical & validation\_f1 & -0.1143 & normal-only statistical anomaly baseline over safe CAN features & 14244 & 12905244 & 301067 & 0 & 0.0239 & 0.0011 & 1.0000 & 0.0022 & 0.0000 & 0.9772 & 0.8041 & 0.0917 & 0.0554 & 0.2004 \\
+\bottomrule
+\end{tabular}

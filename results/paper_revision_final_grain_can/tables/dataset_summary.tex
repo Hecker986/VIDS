@@ -1,0 +1,14 @@
+\begin{tabular}{lllrllrrrl}
+\toprule
+Dataset & Usage & Split protocol & Vehicles & Attack types & Train / validation / test setting & Frames & Windows & Attack ratio & Notes \\
+\midrule
+road & main, few-label, ablation, efficiency & time/group split & 1 & fuzzing, malfunction, masquerade, spoof & NA/NA/NA & 28244539 & 282192 & 0.0331 & NA \\
+ctt\_test01 & main, few-label, generalization, ablation, low-FPR & set\_01/test\_01\_known\_vehicle\_known\_attack & 1 & DoS-1, DoS-2, DoS-3, DoS-4, force-neutral-1, force-neutral-2, force-neutral-3, force-neutral-4 ... & 57620/48905/57022 & 16355810 & 163547 & 0.0069 & NA \\
+ctt\_test02 & unknown vehicle, known attack & set\_01/test\_02\_unknown\_vehicle\_known\_attack & 1 & DoS-1, DoS-2, DoS-3, DoS-4, force-neutral-1, force-neutral-2, force-neutral-3, force-neutral-4 ... & 57620/48905/64475 & 17101057 & 171000 & 0.0125 & NA \\
+ctt\_test03 & known vehicle, unknown attack & set\_01/test\_03\_known\_vehicle\_unknown\_attack & 1 & DoS-1, DoS-2, double-3, double-4, force-neutral-1, force-neutral-2, fuzzing-3, fuzzing-4 ... & 57620/48905/86347 & 19288415 & 192872 & 0.0036 & NA \\
+ctt\_test04 & unknown vehicle, unknown attack & set\_01/test\_04\_unknown\_vehicle\_unknown\_attack & 1 & DoS-1, DoS-2, double-3, double-4, force-neutral-1, force-neutral-2, fuzzing-3, fuzzing-4 ... & 57620/48905/132200 & 23873695 & 238725 & 0.0027 & NA \\
+crysys\_family\_mod\_subset & optional external sanity/generalization & stratified non-overlapping windows after per-capture windowing & 26 & add\_decr\_msg\_mod, add\_incr\_msg\_mod, const\_msg\_mod, double\_msg\_mod & 230970/76989/76992 & 38503318 & 384951 & 0.1712 & malicious frames are labeled from JSON attack start/end markers; benign captures are labeled normal \\
+hcrl\_can\_intrusion & sanity check & time/group split & 1 & dos, fuzzy, impersonation & 27678/9224/9224 & 4613439 & 46126 & 0.4864 & attack files do not include per-frame labels; all frames in attack captures are marked anomalous \\
+car\_hacking & sanity check & time/group split & 1 & dos, fuzzy, gear, rpm & 105348/35114/35114 & 17558346 & 175576 & 0.1328 & CSV T flag is anomalous; R flag and normal\_run\_data are benign \\
+\bottomrule
+\end{tabular}

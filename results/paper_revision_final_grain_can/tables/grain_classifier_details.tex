@@ -1,0 +1,7 @@
+\begin{tabular}{lllrlrllrl}
+\toprule
+setting & window\_size & classifier & supervised\_labels\_used & feature\_groups & score\_available & threshold\_rule & validation\_used & test\_used\_for\_selection & source\_script\_or\_log \\
+\midrule
+ctt\_test01-test04 & 10/20/100 sensitivity; W100 reported as fixed row & GradientBoostingClassifier for GRAIN rows & True & same-ID timing|payload bytes|payload statistics|payload delta|CAN-ID behavior & True & default or validation-selected where recorded; best-test only diagnostic & train\_01 suffix -2 or recorded validation split where available & False & cmf\_can.analysis.protocol\_rescue; scripts/build\_final\_evidence\_completion.py; final\_grain\_can logs \\
+\bottomrule
+\end{tabular}

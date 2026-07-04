@@ -1,0 +1,14 @@
+\begin{tabular}{llllrrrrrrrrrlll}
+\toprule
+setting & vehicle\_shift & attack\_shift & model & window\_size & precision & recall & f1 & fnr & fpr & aupr & auroc & detection\_rate\_at\_fpr\_1e\_3 & source & input\_representation & classifier \\
+\midrule
+ctt\_test01 & False & False & GRAIN-W100 & 100 & 0.9988 & 0.8919 & 0.9423 & 0.1081 & 0.0000 & 0.8960 & 0.9462 & NA & results/final\_grain\_can/tables/b1\_granularity\_full\_matrix.csv & same-ID local behavior features before aggregation & GradientBoosting \\
+ctt\_test01 & NA & NA & Old raw window100 Transformer & 100 & 1.0000 & 0.9307 & 0.9641 & 0.0693 & 0.0000 & 0.9844 & 0.9969 & 0.9741 & results/final\_grain\_can/tables/b1\_granularity\_full\_matrix.csv & raw fixed-window deep representation & Transformer \\
+ctt\_test02 & True & False & GRAIN-W100 & 100 & 0.9836 & 0.9306 & 0.9564 & 0.0694 & 0.0015 & 0.9354 & 0.9652 & NA & results/final\_grain\_can/tables/b1\_granularity\_full\_matrix.csv & same-ID local behavior features before aggregation & GradientBoosting \\
+ctt\_test02 & NA & NA & Old raw window100 Transformer & 100 & 0.0870 & 1.0000 & 0.1600 & 0.0000 & 1.0000 & 0.0489 & 0.1152 & 0.0005 & results/final\_grain\_can/tables/b1\_granularity\_full\_matrix.csv & raw fixed-window deep representation & Transformer \\
+ctt\_test03 & False & True & GRAIN-W100 & 100 & 0.9996 & 0.6623 & 0.7967 & 0.3377 & 0.0000 & 0.9250 & 0.9598 & NA & results/final\_grain\_can/tables/b1\_granularity\_full\_matrix.csv & same-ID local behavior features before aggregation & GradientBoosting \\
+ctt\_test03 & NA & NA & Old raw window100 Transformer & 100 & 1.0000 & 0.0133 & 0.0263 & 0.9867 & 0.0000 & 0.2708 & 0.6188 & 0.1001 & results/final\_grain\_can/tables/b1\_granularity\_full\_matrix.csv & raw fixed-window deep representation & Transformer \\
+ctt\_test04 & True & True & GRAIN-W100 & 100 & 0.9365 & 0.5189 & 0.6678 & 0.4811 & 0.0004 & 0.7845 & 0.9024 & NA & results/final\_grain\_can/tables/b1\_granularity\_full\_matrix.csv & same-ID local behavior features before aggregation & GradientBoosting \\
+ctt\_test04 & NA & NA & Old raw window100 Transformer & 100 & 0.0113 & 0.9794 & 0.0224 & 0.0206 & 0.9847 & 0.1733 & 0.6453 & 0.0585 & results/final\_grain\_can/tables/b1\_granularity\_full\_matrix.csv & raw fixed-window deep representation & Transformer \\
+\bottomrule
+\end{tabular}

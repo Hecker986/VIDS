@@ -1,0 +1,5 @@
+setting,candidate_windows,validation_metrics_available,selected_by_validation,selected_window,selected_by_test,test_metrics_reported,is_main_claim,action_required
+ctt_test01,10|20|100,partial,False,none; report W10/W20/W100 separately,False,True,W100 fixed row; sensitivity rows separate,Do not call it test-selected best.
+ctt_test02,10|20|100,partial,False,none; report W10/W20/W100 separately,False,True,W100 fixed row; sensitivity rows separate,Do not call it test-selected best.
+ctt_test03,10|20|100,partial,False,none; report W10/W20/W100 separately,False,True,W100 fixed row; sensitivity rows separate,Do not call it test-selected best.
+ctt_test04,10|20|100,partial,False,none; report W10/W20/W100 separately,False,True,W100 fixed row; sensitivity rows separate,Do not call it test-selected best.

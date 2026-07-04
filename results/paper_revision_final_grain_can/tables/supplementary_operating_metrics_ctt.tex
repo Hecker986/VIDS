@@ -1,0 +1,43 @@
+\begin{tabular}{lllrrrrl}
+\toprule
+setting & model & granularity & aupr & auroc & detection\_rate\_at\_fpr\_1e\_4 & detection\_rate\_at\_fpr\_1e\_3 & source \\
+\midrule
+ctt\_test01 & GradientBoosting / sample & sample & 0.9117 & 0.9897 & NA & NA & final\_grain\_can\_a1\_negative\_stability \\
+ctt\_test01 & GradientBoosting / sample & sample & 0.8088 & 0.8755 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test01 & GradientBoosting / window\_10 & window\_10 & 0.9330 & 0.9765 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test01 & GradientBoosting / window\_100 & window\_100 & 0.8960 & 0.9462 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test01 & GradientBoosting / window\_20 & window\_20 & 0.9413 & 0.9723 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test01 & GradientBoosting / window\_5 & window\_5 & 0.9301 & 0.9825 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test01 & GradientBoosting / window\_50 & window\_50 & 0.9207 & 0.9590 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test01 & MLP / sample & sample & 0.3565 & 0.6208 & NA & NA & final\_grain\_can\_a1\_negative\_stability \\
+ctt\_test01 & Transformer & window100\_deep & 0.9844 & 0.9969 & NA & NA & cmf\_tables\_overall\_main\_results\_refined \\
+ctt\_test01 & transformer / old\_window100\_deep & old\_window100\_deep & 0.9844 & 0.9969 & 0.9715 & 0.9741 & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test02 & GradientBoosting / sample & sample & 0.9459 & 0.9983 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test02 & GradientBoosting / sample & sample & 0.9365 & 0.9982 & NA & NA & final\_grain\_can\_a1\_negative\_stability \\
+ctt\_test02 & GradientBoosting / window\_10 & window\_10 & 0.9901 & 0.9967 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test02 & GradientBoosting / window\_100 & window\_100 & 0.9354 & 0.9652 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test02 & GradientBoosting / window\_20 & window\_20 & 0.9866 & 0.9942 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test02 & GradientBoosting / window\_5 & window\_5 & 0.9806 & 0.9975 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test02 & GradientBoosting / window\_50 & window\_50 & 0.9703 & 0.9848 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test02 & MLP / sample & sample & 0.1937 & 0.9358 & NA & NA & final\_grain\_can\_a1\_negative\_stability \\
+ctt\_test02 & transformer / old\_window100\_deep & old\_window100\_deep & 0.0489 & 0.1152 & 0.0000 & 0.0005 & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test03 & GradientBoosting / sample & sample & 0.5969 & 0.7959 & NA & NA & final\_grain\_can\_a1\_negative\_stability \\
+ctt\_test03 & GradientBoosting / sample & sample & 0.5444 & 0.7501 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test03 & GradientBoosting / window\_10 & window\_10 & 0.6778 & 0.8478 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test03 & GradientBoosting / window\_100 & window\_100 & 0.9250 & 0.9598 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test03 & GradientBoosting / window\_20 & window\_20 & 0.7094 & 0.8527 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test03 & GradientBoosting / window\_5 & window\_5 & 0.6563 & 0.8374 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test03 & GradientBoosting / window\_50 & window\_50 & 0.8531 & 0.9234 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test03 & MLP / sample & sample & 0.2445 & 0.7027 & NA & NA & final\_grain\_can\_a1\_negative\_stability \\
+ctt\_test03 & transformer / old\_window100\_deep & old\_window100\_deep & 0.2708 & 0.6188 & 0.0754 & 0.1001 & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test04 & GradientBoosting / sample & sample & 0.3320 & 0.6985 & NA & NA & final\_grain\_can\_a1\_negative\_stability \\
+ctt\_test04 & GradientBoosting / sample & sample & 0.2422 & 0.5926 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test04 & GradientBoosting / window\_10 & window\_10 & 0.6185 & 0.8453 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test04 & GradientBoosting / window\_100 & window\_100 & 0.7845 & 0.9024 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test04 & GradientBoosting / window\_20 & window\_20 & 0.7228 & 0.8947 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test04 & GradientBoosting / window\_5 & window\_5 & 0.5140 & 0.7875 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test04 & GradientBoosting / window\_50 & window\_50 & 0.8235 & 0.9202 & NA & NA & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+ctt\_test04 & MLP / sample & sample & 0.0018 & 0.4767 & NA & NA & final\_grain\_can\_a1\_negative\_stability \\
+ctt\_test04 & transformer / old\_window100\_deep & old\_window100\_deep & 0.1733 & 0.6453 & 0.0000 & 0.0585 & final\_grain\_can\_b1\_granularity\_full\_matrix \\
+\bottomrule
+\end{tabular}
