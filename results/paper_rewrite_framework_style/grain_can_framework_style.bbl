@@ -1,0 +1,97 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\providecommand{\doi}[1]{https://doi.org/#1}
+
+\bibitem{alkhatib2022canbert}
+Alkhatib, N., Mushtaq, M., Ghauch, H., Danger, J.L.: {CAN-BERT} do it?
+  controller area network intrusion detection system based on {BERT} language
+  model. arXiv preprint arXiv:2210.09439  (2022)
+
+\bibitem{althunayyan2024federated}
+Althunayyan, M., Javed, A., Rana, O.: A robust multi-stage intrusion detection
+  system for in-vehicle network security using hierarchical federated learning.
+  arXiv preprint arXiv:2408.08433  (2024)
+
+\bibitem{blevins2021time}
+Blevins, D.H., Moriano, P., Bridges, R.A., Verma, M.E., Iannacone, M.D.,
+  Hollifield, S.C.: Time-based {CAN} intrusion detection benchmark. arXiv
+  preprint arXiv:2101.05781  (2021)
+
+\bibitem{checkoway2011comprehensive}
+Checkoway, S., McCoy, D., Kantor, B., Anderson, D., Shacham, H., Savage, S.,
+  Koscher, K., Czeskis, A., Roesner, F., Kohno, T.: Comprehensive experimental
+  analyses of automotive attack surfaces. In: Proceedings of the USENIX
+  Security Symposium (2011)
+
+\bibitem{cho2016fingerprinting}
+Cho, K.T., Shin, K.G.: Fingerprinting electronic control units for vehicle
+  intrusion detection. In: Proceedings of the USENIX Security Symposium. pp.
+  911--927 (2016)
+
+\bibitem{cho2017viden}
+Cho, K.T., Shin, K.G.: {Viden}: Attacker identification on in-vehicle networks.
+  In: Proceedings of the ACM Conference on Computer and Communications
+  Security. pp. 1109--1123 (2017)
+
+\bibitem{guerra2024road}
+Guerra, L., Xu, L., Bellavista, P., Chapuis, T., Duc, G., Mozharovskyi, P.,
+  Nguyen, V.T.: {AI}-driven intrusion detection systems on the {ROAD} dataset:
+  A comparative analysis for automotive {CAN}. arXiv preprint arXiv:2408.17235
+  (2024)
+
+\bibitem{canet2019}
+Hanselmann, M., Strauss, T., Dormann, K., Ulmer, H.: {CANet}: An unsupervised
+  intrusion detection system for high dimensional {CAN} bus data. arXiv
+  preprint arXiv:1906.02492  (2019)
+
+\bibitem{xcanids2023}
+Jeong, S., Lee, S., Lee, H., Kim, H.K.: {X-CANIDS}: Signal-aware explainable
+  intrusion detection system for controller area network-based in-vehicle
+  network. arXiv preprint arXiv:2303.12278  (2023)
+
+\bibitem{koscher2010experimental}
+Koscher, K., Czeskis, A., Roesner, F., Patel, S., Kohno, T., Checkoway, S.,
+  McCoy, D., Kantor, B., Anderson, D., Shacham, H., Savage, S.: Experimental
+  security analysis of a modern automobile. In: Proceedings of the IEEE
+  Symposium on Security and Privacy. pp. 447--462 (2010)
+
+\bibitem{lampe2024ctt}
+Lampe, B., Meng, W.: can-train-and-test: A curated {CAN} dataset for automotive
+  intrusion detection. Computers \& Security  \textbf{140},  103777 (2024)
+
+\bibitem{liu2026mids}
+Liu, Q., Song, R., Cui, L., Zhang, H., Sun, Y., Sun, L.: {MIDS}: Detecting
+  stealthy masquerade and tampering attacks on {CAN} bus via bidirectional
+  {Mamba}. arXiv preprint arXiv:2606.18599  (2026)
+
+\bibitem{miller2015remote}
+Miller, C., Valasek, C.: Remote exploitation of an unaltered passenger vehicle.
+  In: Black Hat USA (2015)
+
+\bibitem{shahriar2022canshield}
+Shahriar, M.H., Xiao, Y., Moriano, P., Lou, W., Hou, Y.T.: {CANShield}: Deep
+  learning-based intrusion detection framework for controller area networks at
+  the signal-level. arXiv preprint arXiv:2205.01306  (2022)
+
+\bibitem{song2016intrusion}
+Song, H.M., Kim, H.R., Kim, H.K.: Intrusion detection system based on the
+  analysis of time intervals of {CAN} messages for in-vehicle network. In:
+  International Conference on Information Networking. pp. 63--68 (2016)
+
+\bibitem{taylor2016frequency}
+Taylor, A., Leblanc, S., Japkowicz, N.: Frequency-based anomaly detection for
+  the automotive {CAN} bus. In: World Congress on Industrial Control Systems
+  Security. pp. 45--49 (2015)
+
+\bibitem{verma2020road}
+Verma, M.E., Bridges, R.A., Hollifield, S.C., Iannacone, M.D., Moriano, P.:
+  {ROAD}: The real {ORNL} automotive dynamometer controller area network
+  intrusion detection dataset. arXiv preprint arXiv:2012.14600  (2020)
+
+\bibitem{wang2023statgraph}
+Wang, K., Jiang, Q., Wang, B., Zhang, Y., Wu, Y.: Effective in-vehicle
+  intrusion detection via multi-view statistical graph learning on {CAN}
+  messages. arXiv preprint arXiv:2311.07056  (2023)
+
+\end{thebibliography}

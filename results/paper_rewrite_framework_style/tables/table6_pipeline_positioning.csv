@@ -1,0 +1,6 @@
+Work,Core mechanism,Required information,Difference
+CANShield,signal-level multi-scale autoencoder ensemble,DBC / signal extraction,GRAIN uses raw fields and no AE ensemble
+X-CANIDS,signal-aware explainable detection,CAN database / signal semantics,GRAIN does not require decoded signals
+CANet,message-level unsupervised neural detector,raw CAN messages,GRAIN is supervised and window-aggregated
+MIDS,bidirectional Mamba sequence model,message sequence,"GRAIN is a feature pipeline, not a deep backbone"
+GRAIN-CAN,same-ID local behavior before aggregation,"timestamp, ID, DLC, payload",proposed lightweight supervised pipeline

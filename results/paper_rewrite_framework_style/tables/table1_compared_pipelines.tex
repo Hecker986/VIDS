@@ -1,0 +1,14 @@
+\begin{table}[H]
+\caption{Compared IDS pipelines used in the main evaluation.}\label{tab:pipelines}
+\centering\small
+\begin{tabular}{llll}
+\hline
+Detector & Representation & Classifier & Purpose \\
+\hline
+Public GB & sample public-style features & GB & classical reproduced baseline \\
+Public MLP & sample public-style features & MLP & neural classical baseline \\
+Raw-Trans & raw fixed frame sequence, W100 & Transformer & raw-window deep baseline \\
+GRAIN-W100 & same-ID local behavior features, W100 & GB & proposed detector pipeline \\
+\hline
+\end{tabular}
+\end{table}

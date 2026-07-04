@@ -1,0 +1,16 @@
+\begin{table}[H]
+\caption{Feature-group ablation on CT\&T Test04.}\label{tab:ablation}
+\centering\small
+\begin{tabular}{llllllll}
+\hline
+Variant & P & R & F1 & FNR & FPR & AUPR & R@1e-3 \\
+\hline
+Timing only & 0.771 & 0.491 & 0.600 & 0.509 & 0.000 & 0.425 & 0.491 \\
+w/o CAN ID & 0.740 & 0.355 & 0.480 & 0.645 & 0.000 & 0.265 & 0.355 \\
+Full safe features & 0.740 & 0.354 & 0.479 & 0.646 & 0.000 & 0.255 & 0.355 \\
+w/o payload stats & 0.740 & 0.354 & 0.479 & 0.646 & 0.000 & 0.255 & 0.355 \\
+w/o payload delta & 0.740 & 0.354 & 0.479 & 0.646 & 0.000 & 0.255 & 0.355 \\
+w/o same-ID timing & 0.005 & 0.249 & 0.009 & 0.751 & 0.056 & 0.057 & 0.067 \\
+\hline
+\end{tabular}
+\end{table}

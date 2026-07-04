@@ -1,0 +1,5 @@
+Setting,Vehicle shift,Attack shift,Frames,Positive rate,Role
+Test01,known,known,16355810,0.0068988940321512,known-vehicle known-attack baseline
+Test02,unknown,known,17101057,0.0124977070130811,vehicle-shift stress test
+Test03,known,unknown,19288415,0.0036489260522443,attack-shift stress test
+Test04,unknown,unknown,23873695,0.0026724392684081,joint vehicle/attack-shift stress test
