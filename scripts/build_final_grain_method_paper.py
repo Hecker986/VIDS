@@ -449,85 +449,113 @@ def plot_bar(df, name, x, y, title, hue=None, max_rows=16):
 
 
 def draw_pipeline():
-    fig, ax = plt.subplots(figsize=(6.35, 3.35))
-    ax.axis("off")
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
+    fig = plt.figure(figsize=(7.2, 5.15))
+    gs = fig.add_gridspec(3, 6, height_ratios=[0.46, 1.10, 0.74], hspace=0.06, wspace=0.18)
+    ax_title = fig.add_subplot(gs[0, :])
+    ax = fig.add_subplot(gs[1, :])
+    ax_bottom = fig.add_subplot(gs[2, :])
+    for a in [ax_title, ax, ax_bottom]:
+        a.axis("off")
+        a.set_xlim(0, 1)
+        a.set_ylim(0, 1)
 
-    stages = [
-        (
-            "Input CAN trace",
-            "#1",
-            "timestamp\nCAN ID and DLC\npayload bytes",
-            "#F2F6FA",
-            "#315F8C",
-        ),
-        (
-            "GRAIN feature extraction",
-            "#2",
-            "same-ID history buffer\nsame-ID timing gap\npayload delta and statistics\nlocal ID behavior",
-            "#ECF7F1",
-            "#1B8E5A",
-        ),
-        (
-            "Window classifier",
-            "#3",
-            "fixed W10/W20/W100 windows\nsupervised score model\nnormal / attack decision",
-            "#FFF6E5",
-            "#B7791F",
-        ),
-    ]
-    xs = [0.19, 0.50, 0.81]
-    y = 0.58
-    width, height = 0.245, 0.38
-    for i, (x, (title, num, sub, face, edge)) in enumerate(zip(xs, stages)):
-        box = mpatches.FancyBboxPatch(
-            (x - width / 2, y - height / 2),
-            width,
-            height,
-            boxstyle="round,pad=0.015,rounding_size=0.018",
-            facecolor=face,
-            edgecolor=edge,
-            linewidth=1.1,
+    blue = "#315F8C"
+    green = "#1B8E5A"
+    gold = "#B7791F"
+    red = "#B3262E"
+    dark = "#2B2B2B"
+    grey = "#777777"
+
+    ax_title.text(0.01, 0.62, "a", fontsize=9, fontweight="bold", ha="left", va="center")
+    ax_title.text(0.06, 0.62, "GRAIN-CAN feature-preserving CAN IDS", fontsize=12.5, fontweight="bold", ha="left", va="center")
+    ax_title.text(
+        0.06,
+        0.22,
+        "Causal same-ID local behavior is extracted before fixed-window aggregation and supervised detection.",
+        fontsize=8.4,
+        color="#444444",
+        ha="left",
+        va="center",
+    )
+
+    def rbox(axis, xy, wh, text, fc, ec, lw=1.05, fs=7.4, weight="normal", color=dark, linespacing=1.16):
+        x, y = xy
+        w, h = wh
+        patch = mpatches.FancyBboxPatch(
+            (x, y),
+            w,
+            h,
+            boxstyle="round,pad=0.012,rounding_size=0.018",
+            facecolor=fc,
+            edgecolor=ec,
+            linewidth=lw,
         )
-        ax.add_patch(box)
-        ax.text(x - width / 2 + 0.020, y + height / 2 - 0.050, num, ha="left", va="center", fontsize=9.8, fontweight="bold", color=edge)
-        ax.text(x, y + 0.105, title, ha="center", va="center", fontsize=9.2, fontweight="bold", color="#222222")
-        ax.text(x, y - 0.035, sub, ha="center", va="center", fontsize=8.0, linespacing=1.18, color="#222222")
-        if i < len(stages) - 1:
-            ax.annotate(
-                "",
-                xy=(xs[i + 1] - width / 2 - 0.012, y),
-                xytext=(x + width / 2 + 0.012, y),
-                arrowprops=dict(arrowstyle="-|>", mutation_scale=10, lw=1.1, color="#4A4A4A"),
-            )
+        axis.add_patch(patch)
+        axis.text(x + w / 2, y + h / 2, text, ha="center", va="center", fontsize=fs, fontweight=weight, color=color, linespacing=linespacing)
+        return patch
 
-    constraint_y = 0.18
-    constraints = [
-        ("causal", "current + past frames only"),
-        ("fixed", "window and threshold fixed before test"),
-        ("reported", "P/R/F1, FNR/FPR, confusion matrix"),
+    # Left: ordered CAN frames.
+    rbox(ax, (0.03, 0.15), (0.18, 0.68), "", "#F2F6FA", blue, fs=7.4, weight="bold")
+    ax.text(0.12, 0.75, "Raw CAN trace", fontsize=7.8, fontweight="bold", ha="center", va="center", color=dark)
+    ax.text(0.12, 0.70, "ordered frames", fontsize=6.6, ha="center", va="center", color=dark)
+    y0 = 0.74
+    ids = ["0x120", "0x315", "0x120", "0x7A0", "0x120", "0x315"]
+    for i, can_id in enumerate(ids):
+        y = y0 - i * 0.083
+        color = red if i == 4 else blue
+        y = 0.61 - i * 0.062
+        ax.add_patch(mpatches.Rectangle((0.058, y - 0.018), 0.108, 0.031, facecolor="white", edgecolor=color, linewidth=0.75))
+        ax.text(0.111, y - 0.002, can_id, fontsize=6.2, ha="center", va="center", color=color, fontweight="bold" if i == 4 else "normal")
+    ax.text(0.12, 0.20, "$t_i$, ID, DLC, payload", fontsize=6.2, color=dark, ha="center")
+
+    # Same-ID memory and feature families.
+    rbox(ax, (0.275, 0.53), (0.18, 0.25), "Same-ID memory\nlast timestamp\nlast payload\nlocal counts", "#EEF3F7", blue, fs=7.2, weight="bold")
+    rbox(ax, (0.275, 0.17), (0.18, 0.25), "Causal deltas\n$\\Delta t_{sameID}$\npayload change\nID concentration", "#ECF7F1", green, fs=7.2, weight="bold")
+    ax.annotate("", xy=(0.265, 0.65), xytext=(0.215, 0.58), arrowprops=dict(arrowstyle="-|>", mutation_scale=10, lw=1.0, color=grey))
+    ax.annotate("", xy=(0.265, 0.30), xytext=(0.215, 0.45), arrowprops=dict(arrowstyle="-|>", mutation_scale=10, lw=1.0, color=grey))
+    ax.annotate("", xy=(0.365, 0.44), xytext=(0.365, 0.53), arrowprops=dict(arrowstyle="-|>", mutation_scale=10, lw=1.0, color=green))
+
+    # Feature matrix.
+    rbox(ax, (0.52, 0.18), (0.20, 0.60), "", "#FFFFFF", "#555555", fs=7.6, weight="bold")
+    ax.text(0.62, 0.72, "Feature-preserving", fontsize=7.4, fontweight="bold", ha="center", va="center", color=dark)
+    ax.text(0.62, 0.675, "window table", fontsize=7.4, fontweight="bold", ha="center", va="center", color=dark)
+    for r in range(5):
+        for c in range(4):
+            val = [0.25, 0.45, 0.68, 0.88][(r + c) % 4]
+            ax.add_patch(mpatches.Rectangle((0.532 + c * 0.04, 0.50 - r * 0.043), 0.031, 0.029, facecolor=plt.cm.Greens(val), edgecolor="white", linewidth=0.35))
+    ax.text(0.62, 0.25, "last / mean / max / std\nfixed-length vector", fontsize=6.2, ha="center", va="center", color="#333333")
+
+    # Classifier and outputs.
+    rbox(ax, (0.795, 0.52), (0.17, 0.25), "Supervised\nclassifier", "#FFF6E5", gold, fs=7.8, weight="bold")
+    xs = np.linspace(0.825, 0.935, 45)
+    curve = 0.60 + 0.055 * np.sin(np.linspace(0, 3.5 * np.pi, 45)) + np.linspace(-0.02, 0.08, 45)
+    ax.plot(xs, curve, color=red, lw=1.3, clip_on=False)
+    ax.axhline(0.63, xmin=0.79, xmax=0.965, color="#555555", lw=0.7, ls="--")
+    ax.text(0.88, 0.45, "attack score", fontsize=6.5, ha="center", color=red)
+    rbox(ax, (0.795, 0.17), (0.17, 0.19), "report\nP/R/F1, FNR/FPR\nconfusion matrix", "#F9EBEA", red, fs=6.9, weight="bold")
+
+    for start, end in [((0.455, 0.65), (0.510, 0.65)), ((0.720, 0.49), (0.785, 0.62)), ((0.720, 0.36), (0.785, 0.27))]:
+        ax.annotate("", xy=end, xytext=start, arrowprops=dict(arrowstyle="-|>", mutation_scale=11, lw=1.1, color="#4A4A4A"))
+
+    ax.text(0.03, 0.92, "b", fontsize=9, fontweight="bold", ha="left")
+    ax.text(0.065, 0.92, "Mechanism: preserve local evidence before aggregation", fontsize=8.5, fontweight="bold", ha="left")
+
+    # Bottom evidence/protocol row.
+    ax_bottom.text(0.01, 0.86, "c", fontsize=9, fontweight="bold", ha="left")
+    ax_bottom.text(0.06, 0.86, "Fixed evaluation contract", fontsize=8.6, fontweight="bold", ha="left")
+    chips = [
+        ("Causal features", "current + past\nframes only", blue),
+        ("Fixed protocol", "window + threshold\nfixed before test", green),
+        ("Attack metrics", "P/R/F1, FNR/FPR\nTP/FP/TN/FN", red),
+        ("Score metrics", "AUPR, R@FPR\nwhen scores exist", gold),
     ]
-    cxs = [0.19, 0.50, 0.81]
-    for x, (head, sub) in zip(cxs, constraints):
-        chip = mpatches.FancyBboxPatch(
-            (x - 0.125, constraint_y - 0.06),
-            0.25,
-            0.12,
-            boxstyle="round,pad=0.012,rounding_size=0.035",
-            facecolor="#FFFFFF",
-            edgecolor="#777777",
-            linewidth=0.9,
-        )
-        ax.add_patch(chip)
-        ax.text(x, constraint_y + 0.018, head.upper(), ha="center", va="center", fontsize=7.9, fontweight="bold")
-        ax.text(x, constraint_y - 0.026, sub, ha="center", va="center", fontsize=7.0)
+    for i, (head, sub, edge) in enumerate(chips):
+        x = 0.055 + i * 0.235
+        rbox(ax_bottom, (x, 0.28), (0.205, 0.34), f"{head}\n{sub}", "#FFFFFF", edge, fs=5.75, weight="bold", linespacing=1.10)
 
-    ax.text(0.5, 0.91, "GRAIN-CAN feature-preserving IDS pipeline", ha="center", va="center", fontsize=12.0, fontweight="bold")
-    ax.text(0.5, 0.845, "Local same-ID behavior is extracted before window aggregation.", ha="center", va="center", fontsize=9.0, color="#444444")
-    fig.tight_layout()
-    fig.savefig(FIGS / "grain_can_pipeline.svg", format="svg")
-    fig.savefig(FIGS / "grain_can_pipeline.pdf", format="pdf")
+    fig.subplots_adjust(left=0.025, right=0.985, top=0.98, bottom=0.04)
+    fig.savefig(FIGS / "grain_can_pipeline.svg", format="svg", bbox_inches="tight", pad_inches=0.03)
+    fig.savefig(FIGS / "grain_can_pipeline.pdf", format="pdf", bbox_inches="tight", pad_inches=0.03)
     plt.close(fig)
 
 
