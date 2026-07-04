@@ -19,13 +19,30 @@ TABLES = OUT / "tables"
 LOGS = OUT / "logs"
 
 
-BLUE = "#3B6EA8"
-GREEN = "#2E8B57"
-RED = "#C43C39"
-GOLD = "#C28E2C"
-GRAY = "#6B7280"
-LIGHT = "#F7F8FA"
-DARK = "#202124"
+BLUE = "#2F5E8E"
+BLUE_SOFT = "#B7C9DF"
+TEAL = "#2F8C7D"
+TEAL_SOFT = "#BFDCD6"
+ROSE = "#B96B6C"
+ROSE_SOFT = "#E8C8C8"
+AMBER = "#B98A2E"
+AMBER_SOFT = "#E9D4A8"
+GRAY = "#6F7680"
+GRAY_SOFT = "#D8DDE3"
+LIGHT = "#F6F8FA"
+DARK = "#1F2933"
+METHOD_COLORS = {
+    "GB-sample": "#6F86A5",
+    "MLP": AMBER,
+    "Raw-Trans": ROSE,
+    "GRAIN-W100": TEAL,
+}
+METHOD_HATCHES = {
+    "GB-sample": "",
+    "MLP": "///",
+    "Raw-Trans": "\\\\",
+    "GRAIN-W100": "xx",
+}
 
 
 def setup() -> None:
@@ -43,8 +60,9 @@ def setup() -> None:
                 break
     mpl.rcParams.update(
         {
-            "font.family": "DejaVu Sans",
-            "font.size": 7.5,
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Arial", "Liberation Sans", "DejaVu Sans", "sans-serif"],
+            "font.size": 8.2,
             "axes.linewidth": 0.8,
             "axes.spines.top": False,
             "axes.spines.right": False,
@@ -58,8 +76,8 @@ def setup() -> None:
 
 
 def savefig(fig: plt.Figure, name: str) -> None:
-    fig.savefig(FIGS / f"{name}.svg", bbox_inches="tight", pad_inches=0.02)
-    fig.savefig(FIGS / f"{name}.pdf", bbox_inches="tight", pad_inches=0.02)
+    fig.savefig(FIGS / f"{name}.svg", bbox_inches="tight", pad_inches=0.006)
+    fig.savefig(FIGS / f"{name}.pdf", bbox_inches="tight", pad_inches=0.006)
     plt.close(fig)
 
 
@@ -231,130 +249,154 @@ def build_tables():
     return conv, raw, ab, win, supp, main
 
 
-def add_box(ax, xy, wh, text, fc, ec, fs=7.2, weight="bold"):
+def add_box(ax, xy, wh, text, fc, ec, fs=7.8, weight="bold"):
     box = patches.FancyBboxPatch(
         xy,
         wh[0],
         wh[1],
         boxstyle="round,pad=0.018,rounding_size=0.02",
-        linewidth=1.05,
+        linewidth=1.15,
         edgecolor=ec,
         facecolor=fc,
     )
     ax.add_patch(box)
-    ax.text(xy[0] + wh[0] / 2, xy[1] + wh[1] / 2, text, ha="center", va="center", fontsize=fs, fontweight=weight, color=DARK, linespacing=1.15)
+    ax.text(xy[0] + wh[0] / 2, xy[1] + wh[1] / 2, text, ha="center", va="center", fontsize=fs, fontweight=weight, color=DARK, linespacing=1.08)
 
 
 def draw_pipeline():
     # Claim: GRAIN-CAN is a clean detector pipeline, not an evaluation framework.
-    fig, ax = plt.subplots(figsize=(7.2, 2.25))
+    fig, ax = plt.subplots(figsize=(7.25, 2.05))
     ax.axis("off")
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
-    ax.text(0.02, 0.92, "GRAIN-CAN detector pipeline", fontsize=10.5, fontweight="bold", ha="left")
-    ax.text(0.02, 0.84, "Same-ID local behavior is extracted before fixed-window classification.", fontsize=7.4, color="#555555", ha="left")
+    ax.text(0.02, 0.93, "GRAIN-CAN detector pipeline", fontsize=12.4, fontweight="bold", ha="left", color=DARK)
+    ax.text(0.02, 0.82, "Same-ID behavior is extracted before fixed-window classification.", fontsize=8.6, color="#56616F", ha="left")
     labels = [
-        ("Raw CAN\nstream\n$t$, ID, DLC,\npayload", "#EFF4FB", BLUE),
-        ("Per-ID\nhistory state\nlast time,\nlast payload", "#EFF4FB", BLUE),
-        ("Same-ID\nlocal behavior\ntiming, payload,\nID behavior", "#EEF7F0", GREEN),
-        ("Fixed window\naggregation\nW fixed\nbefore test", "#FFF8E8", GOLD),
-        ("Supervised\ndetector\nscore + label", "#FCEEEF", RED),
+        ("Raw CAN\nstream\n$t$, ID, DLC,\npayload", "#EEF3F8", BLUE),
+        ("Per-ID\nhistory\nlast time,\nlast payload", "#EEF3F8", BLUE),
+        ("Local\nresiduals\ntiming, payload,\nID behavior", "#EAF5F2", TEAL),
+        ("Window\naggregation\nfixed W", "#F8F2E4", AMBER),
+        ("Detector\nscore + label", "#F7EEEE", ROSE),
     ]
-    x0, y, w, h, gap = 0.035, 0.28, 0.145, 0.42, 0.044
+    x0, y, w, h, gap = 0.028, 0.28, 0.142, 0.42, 0.055
     for i, (txt, fc, ec) in enumerate(labels):
         x = x0 + i * (w + gap)
-        add_box(ax, (x, y), (w, h), txt, fc, ec, fs=6.7)
+        add_box(ax, (x, y), (w, h), txt, fc, ec, fs=7.4)
         if i < len(labels) - 1:
-            ax.annotate("", xy=(x + w + 0.030, y + h / 2), xytext=(x + w + 0.005, y + h / 2), arrowprops=dict(arrowstyle="-|>", lw=1.1, color="#444444", mutation_scale=10))
-    ax.text(0.50, 0.09, "History-only extraction; no future frames, no test labels, no test-fitted statistics.", ha="center", fontsize=6.7, color="#444444")
+            ax.annotate(
+                "",
+                xy=(x + w + gap - 0.006, y + h / 2),
+                xytext=(x + w + 0.006, y + h / 2),
+                arrowprops=dict(arrowstyle="-|>", lw=1.65, color="#505A64", mutation_scale=15),
+            )
+    ax.text(0.50, 0.11, "History-only extraction: no future frames, no test labels, no test-fitted statistics.", ha="center", fontsize=7.8, color="#56616F")
     savefig(fig, "fig1_grain_pipeline")
 
 
 def draw_mechanism():
     # Claim: local residual extraction makes sparse attack evidence visible before aggregation.
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.45), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(7.25, 2.35), sharey=True)
     for ax in axes:
         ax.set_ylim(0, 1)
         ax.set_xticks([])
         ax.set_yticks([])
         ax.spines[:].set_visible(False)
-    n = 90
+    n = 56
     x = np.arange(n)
-    attack = (x >= 47) & (x <= 52)
-    axes[0].bar(x, np.where(attack, 0.22, 0.16), color=np.where(attack, RED, "#C9CED6"), width=0.9, edgecolor="none")
-    axes[0].set_title("(a) Raw long window", fontsize=8.5, fontweight="bold")
-    axes[0].text(0.5, 0.77, "sparse attack frames are visually and numerically diluted", ha="center", transform=axes[0].transAxes, fontsize=6.8, color="#444")
+    attack = (x >= 29) & (x <= 33)
+    axes[0].bar(x, np.where(attack, 0.20, 0.15), color=np.where(attack, ROSE, GRAY_SOFT), width=0.9, edgecolor="none")
+    axes[0].set_title("(a) Raw long window", fontsize=9.8, fontweight="bold", pad=2)
+    axes[0].text(0.5, 0.78, "sparse attack frames are diluted", ha="center", transform=axes[0].transAxes, fontsize=9.0, color="#39414A")
     residual = np.random.default_rng(3).normal(0.09, 0.015, n)
-    residual[attack] = [0.45, 0.55, 0.72, 0.66, 0.50, 0.42]
-    axes[1].bar(x, residual, color=np.where(attack, RED, GREEN), width=0.9, edgecolor="none", alpha=0.88)
-    axes[1].set_title("(b) Same-ID residual features", fontsize=8.5, fontweight="bold")
-    axes[1].text(0.5, 0.77, "timing and payload residuals expose the same local event", ha="center", transform=axes[1].transAxes, fontsize=6.8, color="#444")
+    residual[attack] = [0.46, 0.58, 0.74, 0.62, 0.48]
+    axes[1].bar(x, residual, color=np.where(attack, ROSE, TEAL), width=0.9, edgecolor="none", alpha=0.90)
+    axes[1].set_title("(b) Same-ID residual features", fontsize=9.8, fontweight="bold", pad=2)
+    axes[1].text(0.5, 0.78, "local residuals preserve the event", ha="center", transform=axes[1].transAxes, fontsize=9.0, color="#39414A")
     for ax in axes:
-        ax.axhline(0.3, color="#A0A0A0", lw=0.7, ls="--")
-        ax.text(0.02, 0.04, "window before classifier", transform=ax.transAxes, fontsize=6.4, color="#666")
-    fig.tight_layout(w_pad=1.1)
+        ax.axhline(0.3, color="#A8B0BA", lw=0.8, ls="--")
+    fig.tight_layout(w_pad=1.0, pad=0.2)
     savefig(fig, "fig2_local_evidence_mechanism")
 
 
 def draw_main_results(main: pd.DataFrame):
     # Claim: GRAIN is stable under test02/test04 compared with raw windows.
     models = ["GB-sample", "MLP", "Raw-Trans", "GRAIN-W100"]
-    colors = {"GB-sample": "#7B8FA1", "MLP": GOLD, "Raw-Trans": "#D07B64", "GRAIN-W100": GREEN}
     settings = ["Test01", "Test02", "Test03", "Test04"]
-    fig, ax = plt.subplots(figsize=(7.2, 2.75))
-    offsets = np.linspace(-0.24, 0.24, len(models))
+    fig, ax = plt.subplots(figsize=(7.25, 2.75))
+    x = np.arange(len(settings))
+    width = 0.18
+    offsets = (np.arange(len(models)) - (len(models) - 1) / 2) * width
     for off, m in zip(offsets, models):
-        y = []
+        vals = []
         for s in settings:
             d = main[(main["Setting"].eq(s)) & (main["Detector"].eq(m))]
-            y.append(float(d["F1"].iloc[0]) if len(d) else np.nan)
-        ax.plot(np.arange(len(settings)) + off, y, marker="o", lw=1.2, ms=4.2, label=m, color=colors[m])
+            vals.append(float(d["F1"].iloc[0]) if len(d) else np.nan)
+        bars = ax.bar(x + off, vals, width=width * 0.92, label=m, color=METHOD_COLORS[m], edgecolor="#252B33", linewidth=0.45)
+        for b in bars:
+            b.set_hatch(METHOD_HATCHES[m])
     ax.set_xticks(np.arange(len(settings)))
     ax.set_xticklabels(settings)
     ax.set_ylabel("Attack F1")
     ax.set_ylim(0, 1.05)
-    ax.grid(axis="y", color="#E6E8EB", lw=0.6)
-    ax.legend(ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.18), fontsize=6.8)
-    ax.set_title("CT&T cross-shift detection results", fontsize=9.2, fontweight="bold")
+    ax.grid(axis="y", color="#E8EBEF", lw=0.55)
+    ax.legend(ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.10), fontsize=7.6, handlelength=1.5, columnspacing=1.2)
     savefig(fig, "fig3_main_ctt_results")
 
 
 def draw_raw_vs_grain(raw: pd.DataFrame):
-    fig, ax = plt.subplots(figsize=(7.2, 2.55))
+    fig, ax = plt.subplots(figsize=(7.25, 2.55))
     d = raw.copy()
     d["Setting"] = d["setting"].map(short_setting)
-    for name, color, marker in [("GRAIN-W100", GREEN, "o"), ("Old raw window100 Transformer", RED, "s")]:
-        g = d[d["model"].eq(name)] if name == "GRAIN-W100" else d[d["model"].str.contains("Old raw", na=False)]
-        ax.plot(g["Setting"], g["f1"], marker=marker, lw=1.4, ms=4.4, color=color, label="GRAIN-W100" if name == "GRAIN-W100" else "Raw-Trans")
+    settings = ["Test01", "Test02", "Test03", "Test04"]
+    series = {}
+    for label, selector in [("GRAIN-W100", d["model"].eq("GRAIN-W100")), ("Raw-Trans", d["model"].str.contains("Old raw", na=False))]:
+        g = d[selector].set_index("Setting")
+        series[label] = [float(g.loc[s, "f1"]) if s in g.index else np.nan for s in settings]
+    x = np.arange(len(settings))
+    width = 0.31
+    for off, label in [(-width / 2, "Raw-Trans"), (width / 2, "GRAIN-W100")]:
+        bars = ax.bar(x + off, series[label], width=width, label=label, color=METHOD_COLORS[label], edgecolor="#252B33", linewidth=0.5)
+        for b in bars:
+            b.set_hatch(METHOD_HATCHES[label])
+    ax.set_xticks(x)
+    ax.set_xticklabels(settings)
     ax.set_ylabel("Attack F1")
     ax.set_ylim(0, 1.05)
-    ax.grid(axis="y", color="#E6E8EB", lw=0.6)
-    ax.legend(loc="lower left", fontsize=7)
-    ax.set_title("Feature-before-window representation stabilizes shifted detection", fontsize=9.2, fontweight="bold")
+    ax.grid(axis="y", color="#E8EBEF", lw=0.55)
+    ax.legend(loc="upper right", fontsize=7.8, ncol=2)
     savefig(fig, "fig4_raw_vs_grain")
 
 
 def draw_ablation(ab: pd.DataFrame):
-    fig, ax = plt.subplots(figsize=(6.4, 2.65))
+    fig, ax = plt.subplots(figsize=(7.25, 2.75))
     order = ["Full safe features", "Timing only", "w/o CAN ID", "w/o payload delta", "w/o payload stats", "w/o same-ID timing"]
     d = ab.set_index("Variant").reindex(order).reset_index()
     y = np.arange(len(d))
-    colors = [GREEN if v == "Full safe features" else BLUE if v == "Timing only" else "#B7BEC7" for v in d["Variant"]]
-    ax.barh(y, d["F1"], color=colors, edgecolor="#333333", lw=0.5)
+    base = mpl.colors.to_rgba(TEAL)
+    colors = []
+    for v in d["Variant"]:
+        if v == "Full safe features":
+            colors.append(TEAL)
+        elif v == "Timing only":
+            colors.append(BLUE)
+        else:
+            colors.append((base[0], base[1], base[2], 0.30))
+    ax.barh(y, d["F1"], color=colors, edgecolor="#252B33", lw=0.45)
     ax.set_yticks(y)
-    ax.set_yticklabels(d["Variant"], fontsize=7)
+    ax.set_yticklabels(d["Variant"], fontsize=7.8)
     ax.invert_yaxis()
     ax.set_xlabel("Attack F1")
     ax.set_xlim(0, max(0.72, float(d["F1"].max()) * 1.12))
-    ax.grid(axis="x", color="#E6E8EB", lw=0.6)
+    ax.grid(axis="x", color="#E8EBEF", lw=0.55)
     for i, v in enumerate(d["F1"]):
-        ax.text(v + 0.015, i, f"{v:.3f}", va="center", fontsize=6.6)
-    ax.set_title("Same-ID timing carries the strongest local signal", fontsize=9.2, fontweight="bold")
+        ax.text(v + 0.012, i, f"{v:.3f}", va="center", fontsize=7.5, color="#303943")
     savefig(fig, "fig5_feature_ablation")
 
 
 def draw_low_fpr(raw: pd.DataFrame, supp: pd.DataFrame):
-    fig, ax = plt.subplots(figsize=(6.8, 2.45))
+    fig, ax = plt.subplots(figsize=(7.25, 2.45))
+    corrected_path = Path("results/metric_correction_paper/tables/corrected_test04_benchmark_final.csv")
+    corrected = pd.read_csv(corrected_path) if corrected_path.exists() else pd.DataFrame()
     rows = []
     for label, model_filter in [("Raw-Trans", "old_window100"), ("GRAIN-W100", "window_100")]:
         if label == "Raw-Trans":
@@ -364,22 +406,30 @@ def draw_low_fpr(raw: pd.DataFrame, supp: pd.DataFrame):
         else:
             d = raw[(raw["setting"].eq("ctt_test04")) & (raw["model"].eq("GRAIN-W100"))]
             aupr = float(d["aupr"].iloc[0]) if len(d) else np.nan
-            r = float(d["detection_rate_at_fpr_1e_3"].iloc[0]) if len(d) and not pd.isna(d["detection_rate_at_fpr_1e_3"].iloc[0]) else np.nan
+            method_col = "method" if "method" in corrected.columns else "model"
+            c = corrected[corrected[method_col].astype(str).str.contains("GRAIN_window_100", na=False)] if len(corrected) and method_col in corrected.columns else pd.DataFrame()
+            r = float(c["recall_at_fpr_1e_3"].iloc[0]) if len(c) and "recall_at_fpr_1e_3" in c.columns else np.nan
         rows.append({"Model": label, "AUPR": aupr, "R@1e-3": r})
     op = pd.DataFrame(rows)
     op.to_csv(TABLES / "figure6_operating_points.csv", index=False)
-    vals = op.set_index("Model")[["AUPR", "R@1e-3"]]
-    x = np.arange(len(vals.index))
-    width = 0.32
-    ax.bar(x - width / 2, vals["AUPR"], width=width, color=BLUE, edgecolor="#333", lw=0.5, label="AUPR")
-    ax.bar(x + width / 2, vals["R@1e-3"], width=width, color=GREEN, edgecolor="#333", lw=0.5, label="R@1e-3")
-    ax.set_xticks(x)
-    ax.set_xticklabels(vals.index)
-    ax.set_ylim(0, 1.05)
-    ax.set_ylabel("Score metric")
-    ax.grid(axis="y", color="#E6E8EB", lw=0.6)
-    ax.legend(ncol=2, loc="upper center", bbox_to_anchor=(0.5, 1.18), fontsize=7)
-    ax.set_title("Supplementary low-false-alarm evidence on Test04", fontsize=9.2, fontweight="bold")
+    vals = op.set_index("Model")[["AUPR", "R@1e-3"]].loc[["Raw-Trans", "GRAIN-W100"]]
+    y = np.arange(len(vals.index))
+    height = 0.32
+    bars1 = ax.barh(y - height / 2, vals["AUPR"], height=height, color=BLUE_SOFT, edgecolor="#252B33", lw=0.45, label="AUPR")
+    bars2 = ax.barh(y + height / 2, vals["R@1e-3"], height=height, color=TEAL, edgecolor="#252B33", lw=0.45, label="R@1e-3")
+    for b in bars1:
+        b.set_hatch("//")
+    for b in bars2:
+        b.set_hatch("")
+    ax.set_yticks(y)
+    ax.set_yticklabels(vals.index)
+    ax.set_xlim(0, 1.05)
+    ax.set_xlabel("Metric value")
+    ax.grid(axis="x", color="#E8EBEF", lw=0.55)
+    for bars in [bars1, bars2]:
+        for b in bars:
+            ax.text(b.get_width() + 0.018, b.get_y() + b.get_height() / 2, f"{b.get_width():.2f}", va="center", fontsize=7.6, color="#303943")
+    ax.legend(ncol=2, loc="lower right", fontsize=7.8)
     savefig(fig, "fig6_low_fpr_operating")
 
 
@@ -504,7 +554,7 @@ Many CAN attacks are local in both time and ID space. A spoofing or injection bu
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.92\textwidth]{figures/fig2_local_evidence_mechanism.pdf}
+\includegraphics[width=\textwidth]{figures/fig2_local_evidence_mechanism.pdf}
 \caption{Feature-before-window extraction keeps sparse local attack evidence visible before aggregation, whereas raw long windows can numerically dilute the same event.}
 \label{fig:mechanism}
 \end{figure}
@@ -575,7 +625,7 @@ Table~\ref{tab:main} and Fig.~\ref{fig:main} summarize the main cross-shift resu
     tex += r"""
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.92\textwidth]{figures/fig3_main_ctt_results.pdf}
+\includegraphics[width=\textwidth]{figures/fig3_main_ctt_results.pdf}
 \caption{GRAIN-CAN remains competitive across CT\&T shifts, while the raw fixed-window Transformer collapses in vehicle-shifted settings.}
 \label{fig:main}
 \end{figure}
@@ -587,7 +637,7 @@ The raw-window comparison isolates the representation effect. Both pipelines use
     tex += r"""
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.90\textwidth]{figures/fig4_raw_vs_grain.pdf}
+\includegraphics[width=\textwidth]{figures/fig4_raw_vs_grain.pdf}
 \caption{The same W100 aggregation becomes more reliable when local behavior residuals are computed before the window is formed.}
 \label{fig:rawgrain}
 \end{figure}
@@ -599,7 +649,7 @@ Feature-group ablation on Test04 shows that same-ID timing is the strongest indi
     tex += r"""
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.86\textwidth]{figures/fig5_feature_ablation.pdf}
+\includegraphics[width=\textwidth]{figures/fig5_feature_ablation.pdf}
 \caption{Ablation identifies same-ID timing residuals as the strongest local behavior signal in Test04.}
 \label{fig:ablation}
 \end{figure}
@@ -611,7 +661,7 @@ W10, W20, and W100 behave differently across settings. Shorter windows help Test
 Score-based operating analysis is supplementary. Fig.~\ref{fig:opfpr} compares AUPR and the available fixed-FPR detection evidence on Test04. These metrics are useful for deployment discussions, but they are reported only when the underlying score is available under the same protocol.
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.82\textwidth]{figures/fig6_low_fpr_operating.pdf}
+\includegraphics[width=\textwidth]{figures/fig6_low_fpr_operating.pdf}
 \caption{Supplementary Test04 operating evidence shows that AUPR and fixed-FPR recall must be interpreted separately from thresholded F1.}
 \label{fig:opfpr}
 \end{figure}

@@ -52,7 +52,7 @@ Many CAN attacks are local in both time and ID space. A spoofing or injection bu
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.92\textwidth]{figures/fig2_local_evidence_mechanism.pdf}
+\includegraphics[width=\textwidth]{figures/fig2_local_evidence_mechanism.pdf}
 \caption{Feature-before-window extraction keeps sparse local attack evidence visible before aggregation, whereas raw long windows can numerically dilute the same event.}
 \label{fig:mechanism}
 \end{figure}
@@ -188,7 +188,7 @@ Test04 & GRAIN-W100 & 0.938 & 0.519 & 0.668 & 0.481 & 0.000 \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.92\textwidth]{figures/fig3_main_ctt_results.pdf}
+\includegraphics[width=\textwidth]{figures/fig3_main_ctt_results.pdf}
 \caption{GRAIN-CAN remains competitive across CT\&T shifts, while the raw fixed-window Transformer collapses in vehicle-shifted settings.}
 \label{fig:main}
 \end{figure}
@@ -216,7 +216,7 @@ Test04 & Raw-Trans & 0.011 & 0.979 & 0.022 & 0.173 \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.90\textwidth]{figures/fig4_raw_vs_grain.pdf}
+\includegraphics[width=\textwidth]{figures/fig4_raw_vs_grain.pdf}
 \caption{The same W100 aggregation becomes more reliable when local behavior residuals are computed before the window is formed.}
 \label{fig:rawgrain}
 \end{figure}
@@ -242,7 +242,7 @@ w/o same-ID timing & 0.005 & 0.249 & 0.009 & 0.751 & 0.056 & 0.057 & 0.067 \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.86\textwidth]{figures/fig5_feature_ablation.pdf}
+\includegraphics[width=\textwidth]{figures/fig5_feature_ablation.pdf}
 \caption{Ablation identifies same-ID timing residuals as the strongest local behavior signal in Test04.}
 \label{fig:ablation}
 \end{figure}
@@ -254,7 +254,7 @@ W10, W20, and W100 behave differently across settings. Shorter windows help Test
 Score-based operating analysis is supplementary. Fig.~\ref{fig:opfpr} compares AUPR and the available fixed-FPR detection evidence on Test04. These metrics are useful for deployment discussions, but they are reported only when the underlying score is available under the same protocol.
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.82\textwidth]{figures/fig6_low_fpr_operating.pdf}
+\includegraphics[width=\textwidth]{figures/fig6_low_fpr_operating.pdf}
 \caption{Supplementary Test04 operating evidence shows that AUPR and fixed-FPR recall must be interpreted separately from thresholded F1.}
 \label{fig:opfpr}
 \end{figure}
