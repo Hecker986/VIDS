@@ -1,0 +1,125 @@
+\relax 
+\citation{koscher2010experimental,checkoway2011comprehensive,miller2015remote}
+\@writefile{toc}{\contentsline {title}{GRAIN-CAN{}: Detecting Cross-Vehicle CAN Intrusions with Same-ID Residuals\unskip {}}{1}{}\protected@file@percent }
+\@writefile{toc}{\authcount {4}}
+\@writefile{toc}{\contentsline {author}{Qi'ao Li \and Simiao Gao \and Pengcheng Wang\unskip {} \and Yuran Li}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{}\protected@file@percent }
+\citation{lampe2024ctt}
+\citation{song2016intrusion}
+\citation{taylor2016frequency,blevins2021time}
+\citation{cho2016fingerprinting,cho2017viden}
+\citation{canet2019}
+\citation{alkhatib2022canbert,idsdec2024}
+\citation{rai2025deepcan,saravanan2025oadl,fedlitecan2025,liu2026mids}
+\citation{zhuo2024histcan}
+\citation{shahriar2022canshield}
+\citation{jeong2023xcanids}
+\citation{kang2024canival,gao2025signalrelation}
+\citation{wang2023statgraph,song2024dgids}
+\citation{althunayyan2024federated,khandelwal2024fpga,cantxsec2025,candosa2025}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Rule-, timing-, and statistical CAN IDS.}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Learning-based and historical CAN IDS.}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Signal-level and multimodal frameworks.}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Graph, federated, and deployment-oriented IDS.}{3}{}\protected@file@percent }
+\citation{verma2020road,lampe2024ctt,kidmose2024cansleuth}
+\citation{guerra2024road,verma2024dataguide,sharmin2024survey,althunayyan2026survey}
+\citation{fawcett2006roc,davis2006pr,saito2015pr,ulvila2003ids,gu2006cid}
+\citation{lampe2024ctt}
+\citation{verma2020road,kidmose2024cansleuth,guerra2024road,sharmin2024survey}
+\@writefile{toc}{\contentsline {paragraph}{Datasets, benchmarks, and metric comparability.}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Problem and Design Goals}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}CAN Stream and Cross-Shift Setting}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Window-Level Evidence Dilution}{4}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Feature-before-window extraction exposes sparse local attack evidence before aggregation. A raw long window can dilute a short burst, while same-ID residual features create visible timing or payload-change spikes before the detector sees the window.}}{5}{}\protected@file@percent }
+\newlabel{fig:mechanism}{{1}{5}{}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Design Goal: Residuals Before Aggregation}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}GRAIN-CAN{} Design}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Overview}{5}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces GRAIN-CAN{} detector pipeline. The representation is built before the window is formed: raw frames update a per-ID history state, local residuals are extracted from same-ID history, and the resulting frame features are aggregated for supervised classification.}}{6}{}\protected@file@percent }
+\newlabel{fig:pipeline}{{2}{6}{}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Input Stream and Per-ID State}{6}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Same-ID Residual Feature Construction}{6}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces GRAIN-CAN pipeline components. The representation modules are fixed before test-time evaluation.}}{7}{}\protected@file@percent }
+\newlabel{tab:components}{{1}{7}{}{table.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Window-Level Detector}{7}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Training and Inference Protocol}{7}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces CT\&T cross-shift settings used in the main evaluation. Positive rate is computed at the evaluated window or sample unit used by the existing result package.}}{8}{}\protected@file@percent }
+\newlabel{tab:settings}{{2}{8}{}{table.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Experimental Setup}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Dataset and Cross-Shift Splits}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Compared Pipelines}{8}{}\protected@file@percent }
+\citation{ulvila2003ids,gu2006cid,fawcett2006roc}
+\citation{davis2006pr,saito2015pr}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces IDS pipelines compared in the evaluation. GB denotes Gradient Boosting. The key controlled comparison is Raw-window GB versus GRAIN-CAN (GB), which uses the same classifier family and W100 window length but different input representations.}}{9}{}\protected@file@percent }
+\newlabel{tab:pipelines}{{3}{9}{}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Metrics and Operating Points}{9}{}\protected@file@percent }
+\newlabel{sec:metrics}{{5.3}{9}{}{subsection.5.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Implementation and Runtime Environment}{10}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Experimental environment used for metric recomputation and CPU-only runtime measurements.}}{10}{}\protected@file@percent }
+\newlabel{tab:environment}{{4}{10}{}{table.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Evaluation}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Cross-Shift Detection}{10}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Representative CT\&T results. Metrics follow the definitions and notation in Sec.~\ref {sec:metrics}; AUPR and Recall@FPR are reported only when comparable scores are available. Values are rounded to three decimals; ``--'' denotes unavailable or not recomputed for that row.}}{11}{}\protected@file@percent }
+\newlabel{tab:main}{{5}{11}{}{table.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Representation-controlled comparison using the same Gradient Boosting classifier and W100 windows. Metrics follow Sec.~\ref {sec:metrics}; values are rounded to three decimals, and ``--'' denotes unavailable or not recomputed for that row.}}{11}{}\protected@file@percent }
+\newlabel{tab:sameclf}{{6}{11}{}{table.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Representation-Controlled Comparison}{11}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Representation-controlled comparison. With the same Gradient Boosting classifier, same-ID residual features are not better in the closed Test01 setting, but they improve attack-F1 under the three shifted settings. Numbers above each group denote the attack-F1 change of GRAIN-CAN{} over raw-window statistics.}}{12}{}\protected@file@percent }
+\newlabel{fig:sameclf}{{3}{12}{}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Attack-F1 gain of same-ID residual features over raw-window statistics in the CT\&T vehicle-shift by attack-shift matrix. The categorical matrix is more appropriate than a line plot because Test01--Test04 are not temporal samples.}}{12}{}\protected@file@percent }
+\newlabel{fig:shiftmatrix}{{4}{12}{}{figure.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Feature Group Analysis}{12}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Feature ablation on Test04. Same-ID timing residuals are the dominant local-behavior signal under joint shift, while raw ID and payload-heavy variants can be less robust.}}{13}{}\protected@file@percent }
+\newlabel{fig:ablation}{{5}{13}{}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Low-False-Alarm Operating Analysis}{13}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Supplementary low-FPR operating points on Test04. Recall@FPR highlights that same-ID residual features preserve substantially higher attack detection rates than raw-window statistics under matched false-alarm budgets.}}{14}{}\protected@file@percent }
+\newlabel{fig:lowfpr}{{6}{14}{}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Deployment Cost}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6}Classifier Sensitivity}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Supported Claims}{14}{}\protected@file@percent }
+\bibcite{koscher2010experimental}{1}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces CPU-only deployment-cost measurement on the first two CT\&T Test04 files. The measurement includes stream parsing and feature construction and is repeated three times.}}{15}{}\protected@file@percent }
+\newlabel{tab:efficiency}{{7}{15}{}{table.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Failure Modes and Boundaries}{15}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Comparability to Prior Work}{15}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{15}{}\protected@file@percent }
+\bibcite{checkoway2011comprehensive}{2}
+\bibcite{miller2015remote}{3}
+\bibcite{song2016intrusion}{4}
+\bibcite{taylor2016frequency}{5}
+\bibcite{cho2016fingerprinting}{6}
+\bibcite{cho2017viden}{7}
+\bibcite{canet2019}{8}
+\bibcite{verma2020road}{9}
+\bibcite{blevins2021time}{10}
+\bibcite{shahriar2022canshield}{11}
+\bibcite{alkhatib2022canbert}{12}
+\bibcite{jeong2023xcanids}{13}
+\bibcite{wang2023statgraph}{14}
+\bibcite{khandelwal2024fpga}{15}
+\bibcite{sharmin2024survey}{16}
+\bibcite{lampe2024ctt}{17}
+\bibcite{kidmose2024cansleuth}{18}
+\bibcite{guerra2024road}{19}
+\bibcite{kang2024canival}{20}
+\bibcite{song2024dgids}{21}
+\bibcite{zhuo2024histcan}{22}
+\bibcite{liu2026mids}{23}
+\bibcite{idsdec2024}{24}
+\bibcite{rai2025deepcan}{25}
+\bibcite{saravanan2025oadl}{26}
+\bibcite{gao2025signalrelation}{27}
+\bibcite{althunayyan2024federated}{28}
+\bibcite{fedlitecan2025}{29}
+\bibcite{cantxsec2025}{30}
+\bibcite{candosa2025}{31}
+\bibcite{verma2024dataguide}{32}
+\bibcite{althunayyan2026survey}{33}
+\bibcite{fawcett2006roc}{34}
+\bibcite{davis2006pr}{35}
+\bibcite{ulvila2003ids}{36}
+\bibcite{gu2006cid}{37}
+\bibcite{saito2015pr}{38}
+\gdef \@abspage@last{17}

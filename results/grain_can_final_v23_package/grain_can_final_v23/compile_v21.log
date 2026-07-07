@@ -1,0 +1,544 @@
+Rc files read:
+  NONE
+Latexmk: This is Latexmk, John Collins, 11 Dec. 2024. Version 4.86.
+No existing .aux file, so I'll make a simple one, and require run of *latex.
+Latexmk: applying rule 'pdflatex'...
+Rule 'pdflatex':  Reasons for rerun
+Category 'other':
+  Rerun of 'pdflatex' forced or previously required:
+    Reason or flag: 'Initial setup'
+
+------------
+Run number 1 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex  -interaction=nonstopmode -recorder  "grain_can_framework_style_v21.tex"'
+------------
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./grain_can_framework_style_v21.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(./llncs.cls
+Document Class: llncs 2024/01/29 v2.24 
+ LaTeX document class for Lecture Notes in Computer Science
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/aliascnt.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty)
+
+Package amsmath Warning: Unable to redefine math accent \vec.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/placeins/placeins.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty)
+(/usr/share/texmf/tex/latex/lm/lmodern.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/share/texmf/tex/latex/lm/t1lmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(./grain_can_framework_style_v21.aux)
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
+(/usr/share/texmf/tex/latex/lm/ot1lmr.fd)
+(/usr/share/texmf/tex/latex/lm/omllmm.fd)
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd)
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd)
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd)
+Underfull \hbox (badness 2698) in paragraph at lines 36--36
+ [][]\T1/lmr/m/n/9 (+20) This work is sup-ported by the Na-tional Nat-u-ral Sci
+-ence Foun-da-tion of
+
+Underfull \hbox (badness 1931) in paragraph at lines 36--36
+ \T1/lmr/m/n/9 (+20) (LMS26E080008), Beijing-Tianjin-Hebei Ba-sic Re-search Co-
+op-er-a-tion Project
+
+LaTeX Warning: Citation `koscher2010experimental' on page 1 undefined on input 
+line 43.
+
+
+LaTeX Warning: Citation `checkoway2011comprehensive' on page 1 undefined on inp
+ut line 43.
+
+
+LaTeX Warning: Citation `miller2015remote' on page 1 undefined on input line 43
+.
+
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/en
+c/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/s
+hare/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm
+-mathsy.enc}]
+
+LaTeX Warning: Citation `lampe2024ctt' on page 2 undefined on input line 45.
+
+
+LaTeX Warning: Citation `song2016intrusion' on page 2 undefined on input line 6
+2.
+
+
+LaTeX Warning: Citation `taylor2016frequency' on page 2 undefined on input line
+ 62.
+
+
+LaTeX Warning: Citation `blevins2021time' on page 2 undefined on input line 62.
+
+
+
+LaTeX Warning: Citation `cho2016fingerprinting' on page 2 undefined on input li
+ne 62.
+
+
+LaTeX Warning: Citation `cho2017viden' on page 2 undefined on input line 62.
+
+
+[2]
+
+LaTeX Warning: Citation `canet2019' on page 3 undefined on input line 65.
+
+
+LaTeX Warning: Citation `alkhatib2022canbert' on page 3 undefined on input line
+ 65.
+
+
+LaTeX Warning: Citation `idsdec2024' on page 3 undefined on input line 65.
+
+
+LaTeX Warning: Citation `rai2025deepcan' on page 3 undefined on input line 65.
+
+
+LaTeX Warning: Citation `saravanan2025oadl' on page 3 undefined on input line 6
+5.
+
+
+LaTeX Warning: Citation `fedlitecan2025' on page 3 undefined on input line 65.
+
+
+LaTeX Warning: Citation `liu2026mids' on page 3 undefined on input line 65.
+
+
+LaTeX Warning: Citation `zhuo2024histcan' on page 3 undefined on input line 65.
+
+
+
+LaTeX Warning: Citation `shahriar2022canshield' on page 3 undefined on input li
+ne 68.
+
+
+LaTeX Warning: Citation `jeong2023xcanids' on page 3 undefined on input line 68
+.
+
+
+LaTeX Warning: Citation `kang2024canival' on page 3 undefined on input line 68.
+
+
+
+LaTeX Warning: Citation `gao2025signalrelation' on page 3 undefined on input li
+ne 68.
+
+
+LaTeX Warning: Citation `wang2023statgraph' on page 3 undefined on input line 7
+1.
+
+
+LaTeX Warning: Citation `song2024dgids' on page 3 undefined on input line 71.
+
+
+LaTeX Warning: Citation `althunayyan2024federated' on page 3 undefined on input
+ line 71.
+
+
+LaTeX Warning: Citation `khandelwal2024fpga' on page 3 undefined on input line 
+71.
+
+
+LaTeX Warning: Citation `cantxsec2025' on page 3 undefined on input line 71.
+
+
+LaTeX Warning: Citation `candosa2025' on page 3 undefined on input line 71.
+
+
+[3]
+
+LaTeX Warning: Citation `verma2020road' on page 4 undefined on input line 74.
+
+
+LaTeX Warning: Citation `lampe2024ctt' on page 4 undefined on input line 74.
+
+
+LaTeX Warning: Citation `kidmose2024cansleuth' on page 4 undefined on input lin
+e 74.
+
+
+LaTeX Warning: Citation `guerra2024road' on page 4 undefined on input line 74.
+
+
+LaTeX Warning: Citation `verma2024dataguide' on page 4 undefined on input line 
+74.
+
+
+LaTeX Warning: Citation `sharmin2024survey' on page 4 undefined on input line 7
+4.
+
+
+LaTeX Warning: Citation `althunayyan2026survey' on page 4 undefined on input li
+ne 74.
+
+
+LaTeX Warning: Citation `fawcett2006roc' on page 4 undefined on input line 74.
+
+
+LaTeX Warning: Citation `davis2006pr' on page 4 undefined on input line 74.
+
+
+LaTeX Warning: Citation `saito2015pr' on page 4 undefined on input line 74.
+
+
+LaTeX Warning: Citation `ulvila2003ids' on page 4 undefined on input line 74.
+
+
+LaTeX Warning: Citation `gu2006cid' on page 4 undefined on input line 74.
+
+
+LaTeX Warning: Citation `lampe2024ctt' on page 4 undefined on input line 79.
+
+
+LaTeX Warning: Citation `verma2020road' on page 4 undefined on input line 79.
+
+
+LaTeX Warning: Citation `kidmose2024cansleuth' on page 4 undefined on input lin
+e 79.
+
+
+LaTeX Warning: Citation `guerra2024road' on page 4 undefined on input line 79.
+
+
+LaTeX Warning: Citation `sharmin2024survey' on page 4 undefined on input line 7
+9.
+
+
+LaTeX Warning: Reference `fig:mechanism' on page 4 undefined on input line 84.
+
+
+[4]
+
+LaTeX Warning: Reference `fig:pipeline' on page 5 undefined on input line 100.
+
+
+[5 <./figures/fig2_mechanism.pdf>]
+[6{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc} <./figures/fig1_pipeline.
+pdf>]
+
+LaTeX Warning: Reference `tab:components' on page 7 undefined on input line 136
+.
+
+
+Underfull \hbox (badness 1253) in paragraph at lines 154--154
+[]|\T1/lmr/m/n/9 (+20) Reads state be-fore
+
+[7]
+
+LaTeX Warning: Reference `tab:settings' on page 8 undefined on input line 164.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+[]|\T1/lmr/m/n/9 (+20) Vehicle-shift
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+[]|\T1/lmr/m/n/9 (+20) Attack-shift
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+[]|\T1/lmr/m/n/9 (+20) Joint
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+\T1/lmr/m/n/9 (+20) vehicle/attack-
+
+Underfull \hbox (badness 2310) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Reproduced clas-si-
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Sample-feature
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Neural clas-si-cal
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Raw-window
+
+Underfull \hbox (badness 3179) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Raw W100 frame se-
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Raw W100 win-dow
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) GRAIN-CAN
+
+Underfull \hbox (badness 3746) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Proposed de-tec-tor
+
+[8]
+
+LaTeX Warning: Citation `ulvila2003ids' on page 9 undefined on input line 226.
+
+
+LaTeX Warning: Citation `gu2006cid' on page 9 undefined on input line 226.
+
+
+LaTeX Warning: Citation `fawcett2006roc' on page 9 undefined on input line 226.
+
+
+
+LaTeX Warning: Citation `davis2006pr' on page 9 undefined on input line 228.
+
+
+LaTeX Warning: Citation `saito2015pr' on page 9 undefined on input line 228.
+
+
+[9]
+
+LaTeX Warning: Reference `tab:main' on page 10 undefined on input line 261.
+
+
+LaTeX Warning: Reference `sec:metrics' on page 10 undefined on input line 261.
+
+
+LaTeX Warning: Reference `sec:metrics' on page 10 undefined on input line 265.
+
+
+LaTeX Warning: Reference `sec:metrics' on page 10 undefined on input line 265.
+
+
+LaTeX Warning: Reference `tab:sameclf' on page 10 undefined on input line 295.
+
+
+[10]
+
+LaTeX Warning: Reference `sec:metrics' on page 11 undefined on input line 299.
+
+
+LaTeX Warning: Reference `sec:metrics' on page 11 undefined on input line 299.
+
+
+[11]
+
+LaTeX Warning: Reference `fig:shiftmatrix' on page 12 undefined on input line 3
+28.
+
+
+[12 <./figures/fig3_same_classifier.pdf> <./figures/fig4_shift_matrix.pdf>]
+
+LaTeX Warning: Reference `fig:lowfpr' on page 13 undefined on input line 350.
+
+
+[13 <./figures/fig5_ablation.pdf> <./figures/fig6_low_fpr.pdf>]
+[14]
+[15]
+[16] (./grain_can_framework_style_v21.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(see the transcript file for additional information)</usr/share/texmf/fonts/typ
+e1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></us
+r/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf/fonts/type1/pub
+lic/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/shar
+e/texmf/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf/fonts/type1/public/lm
+/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/
+fonts/type1/public/lm/lmmib10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf/fonts/t
+ype1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/public
+/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/t
+exmf/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf/fonts/type1/public/lm/lm
+sy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fon
+ts/type1/public/lm/lmsy9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt9.pfb>
+
+Output written on grain_can_framework_style_v21.pdf (16 pages, 485574 bytes).
+Transcript written on grain_can_framework_style_v21.log.
+Latexmk: Getting log file 'grain_can_framework_style_v21.log'
+Latexmk: Examining 'grain_can_framework_style_v21.fls'
+Latexmk: Examining 'grain_can_framework_style_v21.log'
+Latexmk: References changed.
+Latexmk: Log file says output to 'grain_can_framework_style_v21.pdf'
+Latexmk: applying rule 'pdflatex'...
+Rule 'pdflatex':  Reasons for rerun
+Changed files or newly in use/created:
+  grain_can_framework_style_v21.aux
+
+------------
+Run number 2 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex  -interaction=nonstopmode -recorder  "grain_can_framework_style_v21.tex"'
+------------
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./grain_can_framework_style_v21.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(./llncs.cls
+Document Class: llncs 2024/01/29 v2.24 
+ LaTeX document class for Lecture Notes in Computer Science
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/aliascnt.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty)
+
+Package amsmath Warning: Unable to redefine math accent \vec.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/placeins/placeins.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty)
+(/usr/share/texmf/tex/latex/lm/lmodern.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/share/texmf/tex/latex/lm/t1lmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(./grain_can_framework_style_v21.aux)
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
+(/usr/share/texmf/tex/latex/lm/ot1lmr.fd)
+(/usr/share/texmf/tex/latex/lm/omllmm.fd)
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd)
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd)
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd)
+Underfull \hbox (badness 2698) in paragraph at lines 36--36
+ [][]\T1/lmr/m/n/9 (+20) This work is sup-ported by the Na-tional Nat-u-ral Sci
+-ence Foun-da-tion of
+
+Underfull \hbox (badness 1931) in paragraph at lines 36--36
+ \T1/lmr/m/n/9 (+20) (LMS26E080008), Beijing-Tianjin-Hebei Ba-sic Re-search Co-
+op-er-a-tion Project
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/en
+c/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/s
+hare/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm
+-mathsy.enc}]
+[2]
+[3]
+[4]
+[5 <./figures/fig2_mechanism.pdf>]
+[6{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc} <./figures/fig1_pipeline.
+pdf>]
+Underfull \hbox (badness 1253) in paragraph at lines 154--154
+[]|\T1/lmr/m/n/9 (+20) Reads state be-fore
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+[]|\T1/lmr/m/n/9 (+20) Vehicle-shift
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+[]|\T1/lmr/m/n/9 (+20) Attack-shift
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+[]|\T1/lmr/m/n/9 (+20) Joint
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+\T1/lmr/m/n/9 (+20) vehicle/attack-
+
+Underfull \hbox (badness 2310) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Reproduced clas-si-
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Sample-feature
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Neural clas-si-cal
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Raw-window
+
+Underfull \hbox (badness 3179) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Raw W100 frame se-
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Raw W100 win-dow
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) GRAIN-CAN
+
+Underfull \hbox (badness 3746) in paragraph at lines 204--204
+[]|\T1/lmr/m/n/9 (+20) Proposed de-tec-tor
+
+[8]
+[9]
+[10]
+[11]
+[12 <./figures/fig3_same_classifier.pdf> <./figures/fig4_shift_matrix.pdf>]
+[13 <./figures/fig5_ablation.pdf> <./figures/fig6_low_fpr.pdf>]
+[14]
+[15]
+[16] (./grain_can_framework_style_v21.aux) )
+(see the transcript file for additional information)</usr/share/texmf/fonts/typ
+e1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></us
+r/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf/fonts/type1/pub
+lic/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/shar
+e/texmf/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf/fonts/type1/public/lm
+/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/
+fonts/type1/public/lm/lmmib10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf/fonts/t
+ype1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/public
+/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/t
+exmf/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf/fonts/type1/public/lm/lm
+sy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fon
+ts/type1/public/lm/lmsy9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt9.pfb>
+
+Output written on grain_can_framework_style_v21.pdf (16 pages, 484132 bytes).
+Transcript written on grain_can_framework_style_v21.log.
+Latexmk: Getting log file 'grain_can_framework_style_v21.log'
+Latexmk: Examining 'grain_can_framework_style_v21.fls'
+Latexmk: Examining 'grain_can_framework_style_v21.log'
+Latexmk: Log file says output to 'grain_can_framework_style_v21.pdf'
+Latexmk: All targets (grain_can_framework_style_v21.pdf) are up-to-date
+

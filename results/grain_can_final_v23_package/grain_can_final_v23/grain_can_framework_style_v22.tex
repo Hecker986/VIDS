@@ -1,0 +1,441 @@
+\documentclass[runningheads]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{url}
+\usepackage{placeins}
+\usepackage{float}
+\usepackage{lmodern}
+\usepackage{microtype}
+\emergencystretch=2em
+\newcommand{\method}{GRAIN-CAN}
+\newcommand{\fpr}{\mathrm{FPR}}
+\newcommand{\fnr}{\mathrm{FNR}}
+\newcommand{\tpr}{\mathrm{TPR}}
+\begin{document}
+\raggedbottom
+\setlength{\textfloatsep}{8pt plus 1pt minus 2pt}
+\setlength{\floatsep}{8pt plus 1pt minus 2pt}
+\setlength{\intextsep}{8pt plus 1pt minus 2pt}
+
+\title{\method{}: Detecting Cross-Vehicle CAN Intrusions with Same-ID Residuals\thanks{This work is supported by the National Natural Science Foundation of China (62573030), Zhejiang Provincial Natural Science Foundation of China (LMS26E080008), Beijing-Tianjin-Hebei Basic Research Cooperation Project (E2024210149), and Public Open Project of Automobile Standardization (CATARC-Z-2025-00934).}}
+\titlerunning{\method{}}
+\author{Qi'ao Li\inst{1} \and Simiao Gao\inst{2} \and Pengcheng Wang\inst{1}\thanks{Corresponding author.} \and Yuran Li\inst{3}}
+\authorrunning{Q. Li et al.}
+\institute{School of Cyber Science and Technology, Beihang University, Beijing, China\\
+\email{\{qi\_aolee,pcwang\}@buaa.edu.cn}
+\and
+School of Transportation Science and Engineering, Beihang University, Beijing, China\\
+\email{GoesM@buaa.edu.cn}
+\and
+Automotive Standardization Research Institute, China Automotive Technology and Research Center Co., Ltd., Tianjin, China\\
+\email{liyuran@catarc.ac.cn}}
+\maketitle
+
+\begin{abstract}
+Modern CAN intrusion detection must identify rare attacks after both the vehicle and attack pattern shift. Raw fixed-window detectors are brittle in this setting: a window may contain many benign frames and only a few abnormal messages, causing local timing or payload evidence to be diluted. This paper presents \method{}, a lightweight supervised IDS pipeline that exposes same-ID residuals before aggregation. \method{} maintains a per-ID history state and converts each incoming frame into history-only timing-gap, payload-change, payload-statistical, and local ID-behavior residuals; fixed-window summaries are then classified by a tree-based detector. We evaluate \method{} with attack-positive precision, recall, attack-F1, false-negative rate, false-positive rate, and confusion matrices, and report AUPR and Recall@FPR as supplementary score-based operating metrics. In the hardest joint vehicle-and-attack shift, \method{} increases thresholded attack recall by 4.5$\times$ over the raw-window control and reaches 80.5\% Recall@FPR=$10^{-3}$, reducing the corresponding false-negative rate to 19.5\%. CPU-only inference processes about 97k frames/s.
+\end{abstract}
+
+\section{Introduction}
+Modern vehicles rely on Controller Area Network (CAN) buses to connect electronic control units. The classical CAN protocol was designed for reliability and low-latency broadcast communication rather than message authentication. This design has enabled practical attacks through malicious message injection, spoofing, and remote attack surfaces~\cite{koscher2010experimental,checkoway2011comprehensive,miller2015remote}. CAN intrusion detection systems (IDSs) therefore monitor message streams and infer abnormal behavior from the fields that are normally available in traces: timestamps, arbitration IDs, DLCs, and payload bytes.
+
+A detector that performs well on a closed split does not necessarily transfer to another vehicle or another attack family. Cross-vehicle evaluation changes the message distribution: the set of frequent IDs, their periods, payload ranges, and local traffic context can differ across vehicles. Unknown-attack evaluation changes the perturbation mechanism: the injected ID, payload manipulation, timing footprint, or replay pattern may differ from the attack families observed during training. These two shifts interact in the CT\&T Test04 setting, where both the test vehicle and attack family are unseen during training~\cite{lampe2024ctt}. In such a setting, a detector that mainly memorizes absolute CAN-ID frequencies or raw payload ranges can fail for reasons unrelated to attack behavior.
+
+Raw fixed-window representations introduce an additional failure mode. If a short burst affects only a few frames, a long window can contain many normal messages and only a small amount of attack evidence. A sequence model or window-level statistic may still learn to find such evidence, but the burden of preserving a sparse local event is moved to the downstream classifier. This motivates a representation that makes local deviations visible before a window is formed.
+
+\method{} follows this design principle. It maintains a compact history state for each CAN ID and converts each frame into local residual features relative to recent messages with the same ID. The residuals include same-ID timing gaps, payload-change magnitudes, coarse payload statistics, and local ID-behavior features. The frame-level features are then aggregated with a fixed pre-test window configuration and passed to a supervised classifier. The classifier is intentionally simple; the contribution is the representation pipeline that exposes same-ID local behavior before aggregation.
+
+The paper makes two contributions.
+\begin{enumerate}
+\item We design \method{}, a lightweight supervised CAN IDS pipeline that represents each frame with same-ID residuals before window aggregation. It maintains per-ID history states and extracts timing, payload-change, payload-statistical, and local ID-behavior residuals from past traffic. This design targets a specific failure mode of raw fixed windows: short attack evidence can be diluted before it reaches the detector.
+\item We implement and evaluate \method{} with controlled comparisons that separate representation effects from classifier and metric choices. The evaluation compares raw-window and residual features under the same classifier, includes feature and window analyses, reports attack-positive precision, attack recall, attack-F1, FNR, FPR, and confusion counts as primary IDS metrics, and uses AUPR and Recall@FPR only as supplementary score-based operating metrics.
+\end{enumerate}
+
+
+
+
+\section{Related Work}
+\paragraph{Rule-, timing-, and statistical CAN IDS.}
+A first line of CAN IDS work exploits regularities in in-vehicle traffic. Song et al. monitor CAN inter-arrival times and show that message injection often disturbs periodicity~\cite{song2016intrusion}. Taylor et al. use ID-frequency anomalies, while Blevins et al. provide a time-based CAN IDS benchmark that confirms timing as an important baseline~\cite{taylor2016frequency,blevins2021time}. Cho and Shin use physical-layer clock skew to fingerprint ECUs, and Viden further uses in-vehicle signal behavior to identify attackers~\cite{cho2016fingerprinting,cho2017viden}. These methods are lightweight and interpretable, but often depend on a monitored statistic, fingerprint, or hand-set threshold. \method{} keeps timing, payload, and ID evidence, but converts them into same-ID residual features and lets a supervised detector combine them after aggregation.
+
+\paragraph{Learning-based and historical CAN IDS.}
+Learning-based detectors replace hand-coded rules with learned representations. CANet proposes an unsupervised neural IDS for high-dimensional CAN traffic and processes messages with different IDs as they arrive~\cite{canet2019}. CAN-BERT applies a BERT-style model to tokenized CAN traffic, and IDS-DEC combines a spatiotemporal self-coder with deep embedding clustering~\cite{alkhatib2022canbert,idsdec2024}. Recent designs explore attention, lightweight transformers, and state-space backbones~\cite{rai2025deepcan,saravanan2025oadl,fedlitecan2025,liu2026mids}. HistCAN is especially relevant because it learns historical traffic behavior from benign CAN traffic, giving it a stronger unknown-attack motivation than supervised classifiers~\cite{zhuo2024histcan}. \method{} is narrower: it is not a benign-only zero-day detector. It studies whether same-ID residuals before aggregation improve a supervised representation compared with raw fixed windows under vehicle and attack shifts.
+
+\paragraph{Signal-level and multimodal frameworks.}
+Several recent frameworks use semantic information beyond raw bytes. CANShield parses signal-level time series and applies multi-scale autoencoder analyzers with an ensemble decision module~\cite{shahriar2022canshield}. X-CANIDS uses a CAN database to translate payloads into human-understandable signals and support explanations~\cite{jeong2023xcanids}. CANival combines a time-interval analyzer with signal-based analysis, and newer signal-relationship work models dependencies among decoded signals~\cite{kang2024canival,gao2025signalrelation}. These systems are stronger when DBC-like information is available and can expose semantic attacks that leave message frequency nearly unchanged. \method{} makes a lower-information tradeoff: it uses only timestamps, IDs, DLCs, and payload bytes, which improves portability but provides less semantic visibility.
+
+\paragraph{Graph, federated, and deployment-oriented IDS.}
+Graph-based methods model relationships among messages. StatGraph learns multi-view statistical graphs over CAN messages, and DGIDS dynamically builds CAN message graphs, compares normal feature distributions, and reports attacked-ID localization~\cite{wang2023statgraph,song2024dgids}. Federated IDSs address non-IID data sharing across vehicles, while FPGA, deterministic monitoring, and hardware-counter designs study resource use, prevention, or low-level DoS signals~\cite{althunayyan2024federated,khandelwal2024fpga,cantxsec2025,candosa2025}. These works target stronger relational or deployment goals than \method{}. Our focus is a lighter software detector that exposes same-ID evidence before fixed-window classification.
+
+\paragraph{Datasets, benchmarks, and metric comparability.}
+Dataset design and metric reporting strongly affect CAN IDS conclusions. ROAD provides a real automotive benchmark, CT\&T separates known and unknown vehicle and attack settings, and can-sleuth analyzes limitations and performance impacts of automotive IDS datasets~\cite{verma2020road,lampe2024ctt,kidmose2024cansleuth}. ROAD comparative studies, dataset guides, and surveys further show that label unit, split design, feature availability, and metric definitions can change the interpretation of results~\cite{guerra2024road,verma2024dataguide,sharmin2024survey,althunayyan2026survey}. Following this lesson, we report attack-positive precision, attack recall, attack-F1, false-negative rate, false-positive rate, and confusion counts as primary thresholded metrics, and retain AUPR and Recall@FPR as supplementary score-based operating metrics~\cite{fawcett2006roc,davis2006pr,saito2015pr,ulvila2003ids,gu2006cid}.
+\section{Problem and Design Goals}
+\subsection{CAN Stream and Cross-Shift Setting}
+A CAN trace normally exposes a timestamp, an arbitration ID, a DLC field, and payload bytes. Without decoded signal names, IDS methods must infer attacks from observable regularities such as inter-arrival time, ID frequency, payload evolution, and local message context. Cross-shift evaluation is harder than closed-split evaluation because these observable regularities may change when either the vehicle or the attack family changes.
+
+The CT\&T benchmark is useful because it separates vehicle shift and attack shift~\cite{lampe2024ctt}. Test01 evaluates known vehicles and known attacks. Test02 changes the vehicle while keeping the attack family known. Test03 keeps the vehicle known but changes the attack family. Test04 changes both. This decomposition is important because the same detector can behave differently under vehicle shift and attack shift. ROAD, can-sleuth, and recent comparative work similarly emphasize that IDS claims depend on dataset construction, attack realism, metric definitions, and the availability of comparable predictions or scores~\cite{verma2020road,kidmose2024cansleuth,guerra2024road,sharmin2024survey}.
+
+\subsection{Window-Level Evidence Dilution}
+Many attacks are local in both time and ID space. A spoofing, injection, or replay artifact may affect only a small set of messages while the rest of the window remains benign. Directly feeding a raw sequence to a window-level classifier leaves the model to discover which local change is relevant and to keep that evidence visible after pooling, attention, or summary operations. This can work when the training and test distributions are close, but it becomes less reliable when the test vehicle changes and the model must distinguish attack-induced perturbations from benign shifts in ID frequencies or payload ranges.
+
+Figure~\ref{fig:mechanism} illustrates the design motivation. A long raw window can represent a sparse abnormal burst as a small fraction of otherwise normal traffic. A same-ID residual representation turns the same frames into explicit local changes before window aggregation. The point is not that a residual is vehicle-independent. Instead, residual features shift the detector from absolute values toward changes relative to recent same-ID behavior.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\textwidth]{figures/fig2_mechanism.pdf}
+\caption{Feature-before-window extraction exposes sparse local attack evidence before aggregation. A raw long window can dilute a short burst, while same-ID residual features create visible timing or payload-change spikes before the detector sees the window.}
+\label{fig:mechanism}
+\end{figure}
+
+\subsection{Design Goal: Residuals Before Aggregation}
+The central insight is to compute local residuals at the frame level before the window is formed. For a frame with arbitration ID \(id_i\), the detector compares the current timestamp and payload with the recent history of the same ID. Timing residuals capture changes in periodicity or burst rate. Payload residuals capture discontinuities in byte-level evolution. Local ID-behavior features capture short concentration changes. These features are then summarized over a window. The fixed window still provides context, but the local evidence is already explicit when aggregation occurs.
+
+This design is narrower than signal-level or self-supervised frameworks. It does not require a DBC file, decoded signals, or a deep backbone. It also does not claim arbitrary zero-day detection. It is a lightweight supervised representation pipeline for settings in which labeled training data are available and the goal is to improve robustness under vehicle and attack shifts.
+
+\section{\method{} Design}
+\subsection{Overview}
+\method{} has five stages: input stream parsing, per-ID history-state maintenance, same-ID local behavior feature extraction, fixed pre-test window aggregation, and supervised detection. Figure~\ref{fig:pipeline} summarizes the pipeline. The detector operates on the raw fields available in CAN traces and does not assume signal-level decoding. All history-dependent quantities use only current and previous frames.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.94\textwidth]{figures/fig1_pipeline.pdf}
+\caption{\method{} detector pipeline. The representation is built before the window is formed: raw frames update a per-ID history state, local residuals are extracted from same-ID history, and the resulting frame features are aggregated for supervised classification.}
+\label{fig:pipeline}
+\end{figure}
+
+\subsection{Input Stream and Per-ID State}
+The input stream is ordered by timestamp. A frame is denoted as
+\begin{equation}
+  x_i = (t_i, id_i, dlc_i, b_i),
+\end{equation}
+where \(t_i\) is the timestamp, \(id_i\) is the arbitration ID, \(dlc_i\) is the data length, and \(b_i\) is the payload byte vector. Labels are used for supervised training and evaluation, not for test-time feature extraction.
+
+For each ID, \method{} maintains a history state \(H(id)\). In the current implementation this state contains the last timestamp, the last payload, recent count statistics, and payload summary values. When a frame arrives, the extractor reads \(H(id_i)\), computes residual features, and then updates the state with the current frame. This read-then-update ordering prevents the current frame from being compared with itself.
+
+\subsection{Same-ID Residual Feature Construction}
+The timing residual for frame \(i\) is
+\begin{equation}
+  \Delta t^{same}_i = t_i - t_{prev(id_i)},
+\end{equation}
+where \(t_{prev(id_i)}\) is the timestamp of the previous frame with the same arbitration ID. If no previous same-ID frame exists, the feature is initialized by a fixed missing-history rule in the feature extractor. This feature captures changes in periodicity, bursts, and replay timing.
+
+The payload-change residual is computed from the current payload and previous same-ID payload. A typical implemented feature is the byte-wise L1 change,
+\begin{equation}
+  \Delta b_i = \sum_{k=1}^{8} |b_{i,k} - b_{prev(id_i),k}|,
+\end{equation}
+where \(b_{prev(id_i),k}\) is byte \(k\) of the previous same-ID payload. Payload summary features include the payload sum, mean, and standard deviation. These summaries do not recover signal semantics; they provide coarse byte-level evidence when DBC information is unavailable.
+
+Local ID-behavior features summarize recent ID concentration and frequency. These features are useful for detecting bursts or local changes in bus composition, but they can also encode vehicle-specific information. The experiments therefore distinguish the residual representation used in the main pipeline from feature sets that include raw or overly vehicle-specific terms.
+
+\subsection{Window-Level Detector}
+Frame-level features are aggregated into fixed windows such as \(W=10\), \(20\), or \(100\). The window size is fixed before test-time evaluation. A window is labeled attack if any frame in the window is labeled attack. This rule is common in window-level IDS experiments, but it creates normal-dominated attack windows when attacks are sparse. The role of \method{} is to make local evidence visible before this label is assigned to the aggregate sample.
+
+The repository experiments instantiate \method{} with Gradient Boosting-style classifiers. The classifier is not the methodological novelty. It learns a supervised decision boundary over features produced by the same-ID residual pipeline. When a classifier exposes a continuous score, the paper reports AUPR and Recall@FPR only as supplementary score-based operating evidence. Table~\ref{tab:components} summarizes the pipeline components and the leakage controls used in training and evaluation.
+
+\begin{table}[t]
+\centering
+\caption{GRAIN-CAN pipeline components. The representation modules are fixed before test-time evaluation.}
+\label{tab:components}
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\textwidth}{p{0.18\textwidth} X p{0.24\textwidth}}
+\toprule
+Component & Operation & Control \\
+\midrule
+History state & Stores the last timestamp, last payload, and recent counters for each CAN ID. & Uses past traffic only. \\
+Residual extractor & Computes timing gaps, payload deltas, payload summaries, and local ID behavior. & Reads state before update. \\
+Windowing & Summarizes frame-level residuals into a fixed-length vector. & Window fixed before test. \\
+Detector & Learns a supervised normal/attack boundary and outputs a score or label. & Model and threshold fixed before test. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Training and Inference Protocol}
+\textbf{Training.} Given a fixed window length \(W\), \method{} initializes an empty per-ID history table and processes the training stream in timestamp order. For each frame, it reads the current same-ID state, computes timing residuals, payload residuals, payload summaries, and local ID-behavior features, updates the state, and appends the feature vector to the current window. After every \(W\) frames, the frame features are aggregated into a window vector. The supervised detector is then trained on window vectors and normal/attack labels. If a score threshold is required, it is selected on validation data or by a pre-declared rule.
+
+\textbf{Inference.} At test time, feature definitions, encoders, window length, detector, and threshold are fixed. The test stream is processed once in timestamp order. Feature extraction uses only current and previous frames. Test labels are used only after inference to compute metrics. The reported W10, W20, and W100 rows are sensitivity configurations, not test-time hyperparameter selection.
+
+\section{Experimental Setup}
+\subsection{Dataset and Cross-Shift Splits}
+The main evaluation uses CT\&T set01. Table~\ref{tab:settings} summarizes the four settings. They form a categorical \(2 \times 2\) shift decomposition rather than a time series. Test02 isolates vehicle shift, Test03 isolates attack-family shift, and Test04 combines both.
+
+\begin{table}[t]
+\centering
+\caption{CT\&T cross-shift settings used in the main evaluation. Positive rate is computed at the evaluated window or sample unit used by the existing result package.}
+\label{tab:settings}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{p{0.12\textwidth} p{0.16\textwidth} p{0.16\textwidth} r r X}
+\toprule
+Setting & Vehicle shift & Attack shift & Frames & Pos. rate & Role \\
+\midrule
+Test01 & known & known & 16,355,810 & 0.007 & Closed-shift baseline \\
+Test02 & unknown & known & 17,101,057 & 0.012 & Vehicle-shift stress test \\
+Test03 & known & unknown & 19,288,415 & 0.004 & Attack-shift stress test \\
+Test04 & unknown & unknown & 23,873,695 & 0.003 & Joint vehicle/attack-shift stress test \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Compared Pipelines}
+The main comparison includes representative reproduced pipelines rather than every historical row in the repository. We use short detector names only after their representations and classifiers are defined. \emph{Sample-feature GB} denotes a Gradient Boosting classifier trained on the reproduced public-style sample features. \emph{Sample-feature MLP} uses the same sample-level representation with a multilayer perceptron. \emph{Raw-window Transformer} denotes the existing raw fixed-window neural baseline. \emph{Raw-window GB} summarizes raw W100 windows and trains a Gradient Boosting classifier. \emph{\method{} (GB)} uses the same Gradient Boosting classifier family as Raw-window GB, but replaces raw-window statistics with same-ID residual features. Thus, Raw-window GB versus \method{} (GB) is the main representation-controlled comparison. Simple timing or payload thresholds are retained only as diagnostic checks and are not treated as recent state-of-the-art competitors.
+
+\begin{table}[H]
+\centering
+\caption{IDS pipelines compared in the evaluation. GB denotes Gradient Boosting. The key controlled comparison is Raw-window GB versus GRAIN-CAN (GB), which uses the same classifier family and W100 window length but different input representations.}
+\label{tab:pipelines}
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.06}
+\begin{tabularx}{\textwidth}{p{0.22\textwidth} X p{0.15\textwidth} p{0.23\textwidth}}
+\toprule
+Detector & Input representation & Model & Role \\
+\midrule
+Sample-feature GB & Public-style sample features & Grad. Boosting & Reproduced classical baseline \\
+Sample-feature MLP & Public-style sample features & MLP & Neural classical baseline \\
+Raw-window Transformer & Raw W100 frame sequence & Transformer & Raw-window neural baseline \\
+Raw-window GB & Raw W100 window statistics & Grad. Boosting & Same-classifier control \\
+GRAIN-CAN (GB) & Same-ID residual W100 features & Grad. Boosting & Proposed detector pipeline \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+
+
+
+
+
+\subsection{Metrics and Operating Points}
+\label{sec:metrics}
+Attack windows are the positive class throughout the paper. To avoid notation drift between formulas and result tables, we use the following mapping. \emph{Precision} in the tables denotes attack-positive precision \(P\); \emph{Recall} denotes attack recall or detection rate \(R\); and \emph{Attack-F1} denotes \(F_1^{\mathrm{atk}}\), the standard F1 score computed with attack as the positive class. Thus Attack-F1 is not a new metric; it is the attack-positive F1 score, used to avoid ambiguity with macro-F1 or weighted-F1:
+\begin{equation}
+  P = \frac{TP}{TP+FP}, \quad
+  R = \frac{TP}{TP+FN}, \quad
+  F_1^{\mathrm{atk}} = \frac{2PR}{P+R}.
+\end{equation}
+where \(TP\) is the number of detected attack windows, \(FP\) is the number of false alarms, and \(FN\) is the number of missed attack windows. We also report false-negative rate (FNR) and false-positive rate (FPR):
+\begin{equation}
+  \mathrm{FNR} = \frac{FN}{TP+FN} = 1-R, \quad
+  \mathrm{FPR} = \frac{FP}{FP+TN}.
+\end{equation}
+where \(TN\) is the number of benign windows correctly classified as normal. FNR captures missed attacks, while FPR captures benign traffic falsely reported as attack; both are central to IDS operation~\cite{ulvila2003ids,gu2006cid,fawcett2006roc}. All result tables use these names and symbols consistently: \emph{Precision (\(P\))}, \emph{Recall (\(R\))}, \emph{Attack-F1 (\(F_1^{\mathrm{atk}}\))}, \emph{FNR}, and \emph{FPR}.
+
+For score-producing detectors, the area under the precision-recall curve (AUPR) and recall at a fixed false-positive-rate budget (Recall@FPR) are supplementary operating metrics. AUPR summarizes the precision-recall curve under class imbalance~\cite{davis2006pr,saito2015pr}. Recall@FPR fixes a false-alarm budget and reports the best attack recall achievable within that budget:
+\begin{equation}
+  \mathrm{Recall@FPR}(\alpha) = \max_{\tau:\,\mathrm{FPR}(\tau)\leq\alpha}
+  \frac{TP(\tau)}{TP(\tau)+FN(\tau)}.
+\end{equation}
+where \(\tau\) is the score threshold and \(\alpha\) is the allowed FPR budget. The corresponding missed-attack rate is \(\mathrm{FNR@FPR}(\alpha)=1-\mathrm{Recall@FPR}(\alpha)\). These score-based metrics can highlight advantages under strict false-alarm constraints, but only among locally reproduced detectors with comparable scores; they are not directly compared with prior papers that report only hard labels or aggregate F1.
+\FloatBarrier
+
+\subsection{Implementation and Runtime Environment}
+The repository result package reports W100 as the main fixed-window configuration for the representation-controlled comparison. The same-classifier experiment uses a Gradient Boosting classifier with validation attack-F1 threshold selection. Raw-window GB and \method{} (GB) share the same classifier family, train/test split, window length, and metric definitions, so their comparison isolates representation as much as the available artifacts allow. The added efficiency measurements are CPU-only and were repeated three times on the first two CT\&T Test04 files; feature extraction time includes CSV parsing and residual construction. We use CPU-only timing because \method{} is a streaming feature-extraction and scikit-learn tree-classification pipeline, so GPU acceleration is not part of its proposed deployment path. These measurements quantify current implementation cost, not optimized embedded performance. Classifier sensitivity and rule-threshold diagnostics are treated as supplementary checks rather than main comparisons.
+
+\begin{table}[H]
+\centering
+\caption{Experimental environment used for metric recomputation and CPU-only runtime measurements.}
+\label{tab:environment}
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\textwidth}{p{0.22\textwidth} X}
+\toprule
+Item & Configuration \\
+\midrule
+OS & Ubuntu 24.04.4 LTS, Linux 6.17.0-35-generic, x86\_64 \\
+CPU & 2$\times$ Intel Xeon Gold 5220R, 48 physical cores / 96 threads \\
+Memory & 251 GiB RAM, no swap \\
+Software & Python 3.12.3; scikit-learn 1.9.0; NumPy 2.4.4; pandas 3.0.3 \\
+Protocol & Runtime measurements are repeated three times; reported values are means. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Evaluation}
+\subsection{Cross-Shift Detection}
+Table~\ref{tab:main} summarizes representative CT\&T results using the metric notation defined in Sec.~\ref{sec:metrics}. The main pattern is not that one detector wins every setting. Raw-window Transformer performs strongly in the closed Test01 setting, but its attack-F1 collapses on Test02--Test04 because its high recall comes with excessive false alarms or severe misses. \method{} (GB) is less dominant in Test01 but remains substantially more stable under vehicle and attack shifts.
+
+\begin{table}[t]
+\centering
+\caption{Representative CT\&T results. Metrics follow the definitions and notation in Sec.~\ref{sec:metrics}; AUPR and Recall@FPR are reported only when comparable scores are available. Values are rounded to three decimals; ``--'' denotes unavailable or not recomputed for that row.}
+\label{tab:main}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llccccccc}
+\toprule
+Setting & Detector & \shortstack{Precision\\($P$)} & \shortstack{Recall\\($R$)} & \shortstack{Attack-F1\\($F_1^{\mathrm{atk}}$)} & FNR & FPR & AUPR & \shortstack{Recall@FPR\\($10^{-3}$)} \\
+\midrule
+Test01 & Sample-feature GB & 0.860 & 0.980 & 0.916 & 0.020 & 0.001 & -- & -- \\
+Test01 & Raw-window Transformer & 1.000 & 0.931 & 0.964 & 0.069 & 0.000 & -- & -- \\
+Test01 & \method{} (GB) & 0.999 & 0.892 & 0.942 & 0.108 & 0.000 & 0.941 & -- \\
+\midrule
+Test02 & Sample-feature GB & 0.931 & 0.998 & 0.964 & 0.002 & 0.001 & -- & -- \\
+Test02 & Raw-window Transformer & 0.087 & 1.000 & 0.160 & 0.000 & 0.133 & -- & -- \\
+Test02 & \method{} (GB) & 0.984 & 0.931 & 0.956 & 0.070 & 0.000 & 0.990 & -- \\
+\midrule
+Test03 & Sample-feature GB & 0.719 & 0.629 & 0.671 & 0.371 & 0.001 & -- & -- \\
+Test03 & Raw-window Transformer & 1.000 & 0.013 & 0.025 & 0.987 & 0.000 & -- & -- \\
+Test03 & \method{} (GB) & 1.000 & 0.662 & 0.797 & 0.338 & 0.000 & 0.925 & -- \\
+\midrule
+Test04 & Sample-feature GB & 0.707 & 0.447 & 0.548 & 0.553 & 0.000 & -- & -- \\
+Test04 & Raw-window Transformer & 0.011 & 0.980 & 0.022 & 0.020 & 0.229 & 0.173 & 0.146 \\
+Test04 & \method{} (GB) & 0.938 & 0.519 & 0.668 & 0.481 & 0.000 & 0.785 & 0.805 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\subsection{Representation-Controlled Comparison}
+The central control experiment compares raw-window statistics and same-ID residual features with the same Gradient Boosting classifier and W100 window length. This isolates representation from classifier choice. Table~\ref{tab:sameclf} reports both thresholded metrics and available score-based metrics. Raw-window features are slightly better in Test01, but \method{} features improve attack-F1 in all shifted settings. The gain is small in Test02, large in Test03, and large in Test04.
+
+\begin{table}[t]
+\centering
+\caption{Representation-controlled comparison using the same Gradient Boosting classifier and W100 windows. Metrics follow Sec.~\ref{sec:metrics}; values are rounded to three decimals, and ``--'' denotes unavailable or not recomputed for that row.}
+\label{tab:sameclf}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llccccccc}
+\toprule
+Setting & Representation & \shortstack{Precision\\($P$)} & \shortstack{Recall\\($R$)} & \shortstack{Attack-F1\\($F_1^{\mathrm{atk}}$)} & FNR & FPR & AUPR & \shortstack{Recall@FPR\\($10^{-3}$)} \\
+\midrule
+Test01 & Raw-window statistics & 0.999 & 0.938 & 0.968 & 0.062 & 0.000 & -- & -- \\
+Test01 & Same-ID residuals & 0.999 & 0.892 & 0.942 & 0.108 & 0.000 & -- & -- \\
+Test02 & Raw-window statistics & 1.000 & 0.895 & 0.944 & 0.105 & 0.000 & -- & -- \\
+Test02 & Same-ID residuals & 0.985 & 0.930 & 0.957 & 0.070 & 0.001 & -- & -- \\
+Test03 & Raw-window statistics & 1.000 & 0.072 & 0.134 & 0.928 & 0.000 & -- & -- \\
+Test03 & Same-ID residuals & 1.000 & 0.661 & 0.796 & 0.339 & 0.000 & -- & -- \\
+Test04 & Raw-window statistics & 0.694 & 0.140 & 0.233 & 0.860 & 0.001 & 0.107 & 0.140 \\
+Test04 & Same-ID residuals & 0.958 & 0.633 & 0.762 & 0.367 & 0.000 & 0.790 & 0.805 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/fig3_same_classifier.pdf}
+\caption{Representation-controlled comparison. With the same Gradient Boosting classifier, same-ID residual features are not better in the closed Test01 setting, but they improve attack-F1 under the three shifted settings. Numbers above each group denote the attack-F1 change of \method{} over raw-window statistics.}
+\label{fig:sameclf}
+\end{figure}
+
+Figure~\ref{fig:shiftmatrix} visualizes the same result as a shift matrix. This avoids treating Test01--Test04 as a time series. The largest gains occur when attack families are unknown, and the joint-shift Test04 also benefits substantially.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.56\textwidth]{figures/fig4_shift_matrix.pdf}
+\caption{Attack-F1 gain of same-ID residual features over raw-window statistics in the CT\&T vehicle-shift by attack-shift matrix. The categorical matrix is more appropriate than a line plot because Test01--Test04 are not temporal samples.}
+\label{fig:shiftmatrix}
+\end{figure}
+
+\FloatBarrier
+\subsection{Feature Group Analysis}
+The feature ablation indicates that the main signal in the current CT\&T setup is timing residual behavior. On Test04, timing-only features reach attack-F1 0.673, while the full feature set that includes vehicle-specific raw ID and payload terms is weaker under the ablation protocol. Removing CAN-ID behavior improves over the full feature set in the joint-shift setting. This result narrows the method claim: \method{} should be viewed primarily as a residual representation pipeline, and the most reliable component in the current evidence is same-ID timing. Payload and ID features may help in some settings, but they should not be overclaimed without additional signal-level evidence.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.78\textwidth]{figures/fig5_ablation.pdf}
+\caption{Feature ablation on Test04. Same-ID timing residuals are the dominant local-behavior signal under joint shift, while raw ID and payload-heavy variants can be less robust.}
+\label{fig:ablation}
+\end{figure}
+
+\FloatBarrier
+\subsection{Low-False-Alarm Operating Analysis}
+Recall@FPR is supplementary but important for IDS deployment because it compares detectors at the same false-alarm budget. On Test04, \method{} (GB) has AUPR 0.790 and AUROC 0.904, while Raw-window GB has AUPR 0.107 and AUROC 0.570. At an FPR budget of \(10^{-3}\), \method{} achieves Recall@FPR=\(10^{-3}\) of 80.5\% in the diagnostic operating curve, compared with 14.0\% for Raw-window GB. Figure~\ref{fig:lowfpr} reports several FPR budgets. These values should be read as score-based operating evidence, not as direct comparisons with prior papers that do not expose scores.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.70\textwidth]{figures/fig6_low_fpr.pdf}
+\caption{Supplementary low-FPR operating points on Test04. Recall@FPR highlights that same-ID residual features preserve substantially higher attack detection rates than raw-window statistics under matched false-alarm budgets.}
+\label{fig:lowfpr}
+\end{figure}
+
+\FloatBarrier
+\subsection{Deployment Cost}
+The CPU-only measurement shows that the current implementation processes about 97k frames per second end-to-end for \method{} (GB) on the measured Test04 files. Raw-window GB reaches about 98k frames per second. The difference is small because both pipelines are dominated by CSV parsing and feature construction rather than classifier inference. The model size is about 0.025 MB for both Gradient Boosting variants. This supports a lightweight interpretation of \method{}, but it does not substitute for optimized embedded measurements.
+
+\begin{table}[t]
+\centering
+\caption{CPU-only deployment-cost measurement on the first two CT\&T Test04 files. The measurement includes stream parsing and feature construction and is repeated three times.}
+\label{tab:efficiency}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrr}
+\toprule
+Pipeline & Frames/s & Windows/s & End-to-end ms & Model MB \\
+\midrule
+Raw-window GB & 98,269 & 983 & 24,497 & 0.025 \\
+\method{} (GB) & 97,000 & 970 & 24,818 & 0.025 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Classifier Sensitivity}
+A supplementary classifier check fixes the GRAIN-W100 representation and varies the classifier. The residual representation remains effective with logistic regression and random forest variants, indicating that the main evidence is not tied to one Gradient Boosting implementation. Detailed rows are kept in the experiment package rather than the main text.
+
+\section{Discussion}
+\subsection{Supported Claims}
+The strongest supported claim is representation-level. Same-ID residual features before aggregation improve attack-F1 over raw-window statistics under the same classifier in Test02--Test04. The data also show that raw-window neural detection is not uniformly weak: it is strong in Test01 but unstable when vehicle or attack shifts appear. This pattern supports the paper's design motivation without overstating universal superiority.
+
+The ablation results refine the mechanism. Timing residuals are the dominant signal in the current CT\&T setup. This suggests that the present performance comes mainly from exposing timing disruptions before window aggregation. Payload and ID features should be treated as modular evidence sources rather than guaranteed contributors under every shift.
+
+\subsection{Failure Modes and Boundaries}
+\method{} is supervised. It requires normal/attack labels for training and does not learn a benign-only model. It may miss attacks that preserve same-ID timing, payload continuity, and local ID behavior. It also reduces, but does not remove, dependence on vehicle-specific distributions. Raw ID and payload features can even hurt under joint shift if they encode vehicle-specific patterns. Future versions should consider train-only normalization, signal-level payload features, benign-only pretraining, and online adaptation.
+
+\subsection{Comparability to Prior Work}
+Prior reported aggregate F1 is not directly comparable with attack-F1 unless the positive class, averaging rule, threshold rule, and confusion matrix are known. Similarly, AUPR and Recall@FPR require score outputs and a common score-to-threshold protocol. This paper therefore compares locally reproduced rows under common definitions and treats AUPR and Recall@FPR as supplementary score-based evidence. The paper does not claim that earlier CT\&T or ROAD results are wrong; it only separates what can be recomputed from what is externally reported.
+
+\section{Conclusion}
+\method{} is a supervised feature pipeline for CAN IDS that makes same-ID local behavior explicit before window aggregation. The representation-controlled experiments show that this design improves over raw-window statistics under vehicle and attack shifts, especially in Test03 and Test04. The added deployment measurement indicates that the current implementation is lightweight on CPU, while ablations show that timing residuals carry the strongest signal. The method remains limited by supervised training assumptions and by attacks that preserve timing and payload continuity. Future work should combine same-ID residual features with self-supervised training, signal-level features, DBC-aware variants, and real-time in-vehicle deployment studies.
+
+
+\begin{thebibliography}{99}
+\bibitem{koscher2010experimental} Koscher, K., et al.: Experimental security analysis of a modern automobile. In: IEEE Symposium on Security and Privacy, pp. 447--462 (2010)
+\bibitem{checkoway2011comprehensive} Checkoway, S., et al.: Comprehensive experimental analyses of automotive attack surfaces. In: USENIX Security Symposium (2011)
+\bibitem{miller2015remote} Miller, C., Valasek, C.: Remote exploitation of an unaltered passenger vehicle. Black Hat USA (2015)
+\bibitem{song2016intrusion} Song, H.M., Kim, H.R., Kim, H.K.: Intrusion detection system based on the analysis of time intervals of CAN messages for in-vehicle network. In: ICOIN, pp. 63--68 (2016)
+\bibitem{taylor2016frequency} Taylor, A., Leblanc, S., Japkowicz, N.: Frequency-based anomaly detection for the automotive CAN bus. In: WCICSS, pp. 45--49 (2015)
+\bibitem{cho2016fingerprinting} Cho, K.T., Shin, K.G.: Fingerprinting electronic control units for vehicle intrusion detection. In: USENIX Security Symposium, pp. 911--927 (2016)
+\bibitem{cho2017viden} Cho, K.T., Shin, K.G.: Viden: Attacker identification on in-vehicle networks. In: ACM CCS, pp. 1109--1123 (2017)
+\bibitem{canet2019} Hanselmann, M., Strauss, T., Dormann, K., Ulmer, H.: CANet: An unsupervised intrusion detection system for high dimensional CAN bus data. arXiv:1906.02492 (2019)
+\bibitem{verma2020road} Verma, M.E., Bridges, R.A., Hollifield, S.C., Iannacone, M.D., Moriano, P.: ROAD: The real ORNL automotive dynamometer controller area network intrusion detection dataset. arXiv:2012.14600 (2020)
+\bibitem{blevins2021time} Blevins, D.H., Moriano, P., Bridges, R.A., Verma, M.E., Iannacone, M.D., Hollifield, S.C.: Time-based CAN intrusion detection benchmark. arXiv:2101.05781 (2021)
+\bibitem{shahriar2022canshield} Shahriar, M.H., Xiao, Y., Moriano, P., Lou, W., Hou, Y.T.: CANShield: Deep learning-based intrusion detection framework for controller area networks at the signal-level. arXiv:2205.01306 (2022)
+\bibitem{alkhatib2022canbert} Alkhatib, N., Mushtaq, M., Ghauch, H., Danger, J.L.: CAN-BERT do it? Controller area network intrusion detection system based on BERT language model. arXiv:2210.09439 (2022)
+\bibitem{jeong2023xcanids} Jeong, S., Lee, S., Lee, H., Kim, H.K.: X-CANIDS: Signal-aware explainable intrusion detection system for controller area network-based in-vehicle network. IEEE Transactions on Vehicular Technology (2024)
+\bibitem{wang2023statgraph} Wang, K., Jiang, Q., Wang, B., Zhang, Y., Wu, Y.: Effective in-vehicle intrusion detection via multi-view statistical graph learning on CAN messages. arXiv:2311.07056 (2023)
+\bibitem{khandelwal2024fpga} Khandelwal, S., Shanker, S.: A lightweight multi-attack CAN intrusion detection system on hybrid FPGAs. arXiv:2401.10689 (2024)
+\bibitem{sharmin2024survey} Sharmin, S., Mansor, H., Abdul Kadir, A.F., Aziz, N.A.: Benchmarking frameworks and comparative studies of controller area network intrusion detection systems: A review. arXiv:2402.06904 (2024)
+\bibitem{lampe2024ctt} Lampe, B., Meng, W.: can-train-and-test: A curated CAN dataset for automotive intrusion detection. Computers \& Security 140, 103777 (2024)
+\bibitem{kidmose2024cansleuth} Kidmose, E., et al.: can-sleuth: Sleuthing out capabilities, limitations, and performance impacts of automotive intrusion detection datasets. In: EICC (2024)
+\bibitem{guerra2024road} Guerra, L., et al.: AI-driven intrusion detection systems on the ROAD dataset. arXiv:2408.17235 (2024)
+\bibitem{kang2024canival} Kang, H., Vo, T., Kim, H.K., Hong, J.B.: CANival: A multimodal approach to intrusion detection on the vehicle CAN bus. Vehicular Communications 49, 100845 (2024)
+\bibitem{song2024dgids} Song, J., et al.: DGIDS: Dynamic graph-based intrusion detection system for CAN. Computers \& Security 145, 104076 (2024)
+\bibitem{zhuo2024histcan} Zhuo, S., et al.: HistCAN: A real-time CAN IDS with enhanced historical traffic learning capability. In: NDSS VehicleSec (2024)
+\bibitem{liu2026mids} Liu, Q., Song, R., Cui, L., Zhang, H., Sun, Y., Sun, L.: MIDS: Detecting stealthy masquerade and tampering attacks on CAN bus via bidirectional Mamba. arXiv:2606.18599 (2026)
+
+\bibitem{idsdec2024} Shi, J., et al.: IDS-DEC: A novel intrusion detection for CAN bus traffic based on spatiotemporal self-coder and deep embedding clustering. Vehicular Communications 48, 100825 (2024)
+\bibitem{rai2025deepcan} Rai, R., et al.: Securing the CAN bus using deep learning for intrusion detection in vehicles. Scientific Reports 15, 98433 (2025)
+\bibitem{saravanan2025oadl} Saravanan, R., et al.: Optimal attention deep learning based in-vehicle intrusion detection and classification. Scientific Reports 15, 10637 (2025)
+\bibitem{gao2025signalrelation} Gao, F., et al.: Signal-relationship-aware explainable intrusion detection for in-vehicle networks based on graph transformers. Knowledge-Based Systems (2025)
+\bibitem{althunayyan2024federated} Althunayyan, M., Javed, A., Rana, O.: A robust multi-stage intrusion detection system for in-vehicle network security using hierarchical federated learning. arXiv:2408.08433 (2024)
+\bibitem{fedlitecan2025} Narang, P., et al.: FedLiTeCAN: A federated lightweight transformer for fast intrusion detection on CAN bus. arXiv:2512.24088 (2025)
+\bibitem{cantxsec2025} Donadel, D., et al.: CANTXSec: Deterministic CAN bus monitoring and prevention. arXiv:2505.09384 (2025)
+\bibitem{candosa2025} Oberti, F., Di Carlo, S., Savino, A.: CANDoSA: Hardware-counter IDS for CAN DoS attacks. arXiv:2507.14739 (2025)
+\bibitem{verma2024dataguide} Verma, M.E., et al.: A comprehensive guide to CAN IDS data and the ROAD dataset. PLOS ONE (2024)
+\bibitem{althunayyan2026survey} Althunayyan, M., Javed, A., Rana, O.: Survey of learning-based IDS for in-vehicle CAN networks. Computer Networks (2026)
+
+\bibitem{fawcett2006roc} Fawcett, T.: An introduction to ROC analysis. Pattern Recognition Letters 27(8), 861--874 (2006)
+\bibitem{davis2006pr} Davis, J., Goadrich, M.: Relationship between PR and ROC curves. In: ICML, pp. 233--240 (2006)
+\bibitem{ulvila2003ids} Ulvila, J.W., Gaffney, J.E.: Evaluation of intrusion detection systems. J. Res. NIST 108(6), 453--473 (2003)
+\bibitem{gu2006cid} Gu, G., Fogla, P., Dagon, D., Lee, W., Skoric, B.: Measuring intrusion detection capability: An information-theoretic approach. In: ASIACCS, pp. 90--101 (2006)
+\bibitem{saito2015pr} Saito, T., Rehmsmeier, M.: Precision-recall plots for imbalanced binary classifiers. PLOS ONE 10(3), e0118432 (2015)
+\end{thebibliography}
+
+\end{document}
