@@ -1,0 +1,8 @@
+\begin{tabular}{llrllllrrrrrrrrrrrrrrrll}
+\toprule
+pipeline & setting & window\_size & classifier & device & cpu & gpu & num\_frames & num\_windows & feature\_extraction\_ms\_mean & feature\_extraction\_ms\_std & aggregation\_ms\_mean & aggregation\_ms\_std & classifier\_inference\_ms\_mean & classifier\_inference\_ms\_std & end\_to\_end\_ms\_mean & end\_to\_end\_ms\_std & frames\_per\_second & windows\_per\_second & model\_size\_mb & peak\_memory\_mb & repeated\_runs & source\_script & note \\
+\midrule
+Raw-window+GB & ctt\_test04 & 100 & GradientBoosting & cpu & x86\_64 & not\_used\_cpu\_only & 2407344 & 24073 & 23624.2285 & 147.7232 & 845.7780 & 2.6088 & 26.2186 & 0.1875 & 24497.4430 & 145.5007 & 98269.1948 & 982.6740 & 0.0247 & NA & 3 & scripts/extra\_experiments/run\_paper\_extra\_experiments.py & CPU-only inference measurement on first 2 CT\&T test04 files; feature extraction includes CSV parsing and causal residual construction. \\
+GRAIN+GB & ctt\_test04 & 100 & GradientBoosting & cpu & x86\_64 & not\_used\_cpu\_only & 2407344 & 24073 & 23814.1763 & 48.8279 & 974.6453 & 13.0697 & 27.5643 & 0.0774 & 24818.0918 & 61.9608 & 96999.5605 & 969.9779 & 0.0253 & NA & 3 & scripts/extra\_experiments/run\_paper\_extra\_experiments.py & CPU-only inference measurement on first 2 CT\&T test04 files; feature extraction includes CSV parsing and causal residual construction. \\
+\bottomrule
+\end{tabular}
